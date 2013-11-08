@@ -32,10 +32,10 @@ public class GameGrid {
 		// DUMMY GAME DATA GRID BUILDING
 		ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(Math.random()<0.2)
+			if(Math.random()>0.2)
 				tempList.add(new RaySquare());
 			else
-				tempList.add(new NumberSquare( new Double(Math.random() * ( 15 - 1 )).intValue() ));
+				tempList.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
 			
 		}
 		return tempList;
