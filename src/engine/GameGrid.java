@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * This is a helper class for beeing able to generate a gaming table 
+ * This is a helper class for being able to generate a gaming table 
  *
  */
 
@@ -12,6 +12,9 @@ public class GameGrid {
 
 	// Dimension vars for the grid
 	private int cols, rows;
+	
+	// Datastore var for the squares
+	private ArrayList<SquareBase> squares;
 	
 	public GameGrid() {
 		// Default grid dimensions
@@ -25,20 +28,28 @@ public class GameGrid {
 	}
 	
 	/**
+	 * Method to generate a square list once
+	 */
+	public void generateSquares() {
+		// DUMMY GAME DATA GRID BUILDING
+		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
+		this.squares = new ArrayList<SquareBase>();
+		for(int i = 0; i < this.cols * this.rows; i++) {
+			if(Math.random()>0.2)
+				//tempList.add(new RaySquare(Math.random()>0.5?Direction.HORIZONTAL:Direction.VERTICAL));
+				this.squares.add(new RaySquare());
+			else
+				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
+			
+		}
+	}
+	
+	/**
 	 * 
 	 * @return
 	 */
-	public ArrayList<SquareBase> getSquares() { // TODO may be a Array instead of an ArrayList.. change this
-		// DUMMY GAME DATA GRID BUILDING
-		ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(Math.random()>0.2)
-				tempList.add(new RaySquare());
-			else
-				tempList.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
-			
-		}
-		return tempList;
+	public ArrayList<SquareBase> getSquares() { // TODO may be a Array instead of an ArrayList.. change this later perhaps
+		return this.squares;
 	}
 
 }

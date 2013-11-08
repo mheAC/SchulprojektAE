@@ -1,10 +1,28 @@
 package engine;
 
-public interface SquareBase {
+/**
+ * Commons for all Square Typed. This Interface enables us to dynamically extend the amount of different Square Types if needed
+ *
+ */
 
-	public Direction getDirection(); 	// only for RaySquares
-	public int getNumber();				// only for NumberSquares
-	public boolean isNumberSquare();	// the inheriting class may tell wether it is or not
+public abstract class SquareBase {
+
+	private int posX, posY;
 	
+	//public abstract Object getSqueryType();
+	
+	public int getPositionX() {
+		return posX;
+	}
+	public int getPositionY(){
+		return posY;
+	}
+	
+	public void setPositionX(int x) {
+		posX = x;
+	}
+	public void setPositionY(int y) {
+		posY = y;
+	}
 	
 }

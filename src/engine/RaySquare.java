@@ -1,26 +1,19 @@
 package engine;
 
-public class RaySquare implements SquareBase {
+public class RaySquare extends SquareBase {
 
 	Direction direction;
 	
 	public RaySquare() {
-		this.direction = Direction.HORIZONTAL;
+		this.direction = Direction.HORIZONTAL; // default direction
+	}
+	
+	public RaySquare(Direction d) {
+		this.direction = d;
 	}
 
-	@Override
 	public Direction getDirection() {
 		return this.direction;
-	}
-
-	@Override
-	public int getNumber() {
-		return -1; // this method shall never be called on a RaySquare... 
-	}
-
-	@Override
-	public boolean isNumberSquare() {
-		return false;
 	}
 
 }

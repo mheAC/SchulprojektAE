@@ -1,27 +1,39 @@
 package engine;
 
-public class NumberSquare implements SquareBase {
+public class NumberSquare extends SquareBase {
 
 	private int number;
 	
+	/**
+	 * Init an instance with the given value
+	 * @param num
+	 */
 	public NumberSquare(int num) {
 		this.number = num;
 	}
-
-	@Override
-	public Direction getDirection() {
-		return null; // number Squares don't have any direction... this method should never be called on a NumberSquare. Determine this via isNumberSquare()
+	
+	/**
+	 * Use this constructor only in case you need to modify the number afterwards. 
+	 * Never use it when you already know the num when instancing an object of this class
+	 */
+	public NumberSquare() {
+		this.number = -1;
 	}
 
-	@Override
+	/**
+	 * 
+	 * @return int the Number of this instance
+	 */
 	public int getNumber() {
-		// TODO Auto-generated method stub
 		return this.number;
 	}
-
-	@Override
-	public boolean isNumberSquare() {
-		return true;
+	
+	/**
+	 * Afterwards modify the num. Relevant for beeing able to change settings in the GUI
+	 * @param number the number to set
+	 */
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }

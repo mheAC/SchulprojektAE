@@ -3,7 +3,10 @@ package start_gui;
 import java.io.IOException;
 import java.util.Scanner;
 
+import engine.Direction;
 import engine.GameGrid;
+import engine.NumberSquare;
+import engine.RaySquare;
 import engine.SquareBase;
 
 public class Main {
@@ -25,10 +28,19 @@ public class Main {
 		//int cols = 10, rows = 10;
 		
 		GameGrid grid = new GameGrid(cols, rows);
+		grid.generateSquares(); // Only call once if you dont want the generated squares to be overwritten
 		int i=0;
 		for(SquareBase s : grid.getSquares()) {
 			System.out.print(" | ");
-			System.out.print(s.isNumberSquare() ? s.getNumber() : " ");
+			if(s.getClass().equals(new NumberSquare().getClass())) // if we got a Number Square
+				System.out.print(((NumberSquare)s).getNumber());
+			else {
+				/*if(((RaySquare)s).getDirection().equals(Direction.HORIZONTAL)) // draw some ascii for both the directions
+					System.out.print('-');
+				else
+					System.out.print('/');*/
+				System.out.print(' ');
+			}
 			if(++i%rows == 0) {
 				System.out.println("\n==========================================");
 			}
