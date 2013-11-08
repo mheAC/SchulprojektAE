@@ -45,7 +45,7 @@ public class GameGrid {
 	}
 	
 	/**
-	 * 
+	 * Returns the generated Square Collection. This method may be called more than just one time. It does not change any data 
 	 * @return
 	 */
 	public ArrayList<SquareBase> getSquares() { // TODO may be a Array instead of an ArrayList.. change this later perhaps

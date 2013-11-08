@@ -9,8 +9,6 @@ public abstract class SquareBase {
 
 	private int posX, posY;
 	
-	//public abstract Object getSqueryType();
-	
 	public int getPositionX() {
 		return posX;
 	}
