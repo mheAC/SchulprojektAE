@@ -3,8 +3,11 @@ package start_gui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.*;
@@ -17,7 +20,7 @@ public class StartWindow implements ChangeListener {
 	private static final int minSize=  15;
 	private static final int maxSize=  20;
 	private static final int steps  =   1;
-	private static final int startpos= 15;
+	private static final int startpos= 5;
 	private static final String filename = "Errlog.txt";
 	private FileWriter fstream ;
 	private JLabel sizeLbl;
@@ -39,6 +42,9 @@ public class StartWindow implements ChangeListener {
 			
 			//Erstelle Button zum öffnen der MainWindow
 			mybtn = new JButton("Open");
+			
+			//Create event listener for mybtn
+			
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
@@ -110,16 +116,7 @@ public class StartWindow implements ChangeListener {
 			created = true;
 		}
 		catch(Exception e){
-			try {
-				Date time = new Date();
-				@SuppressWarnings("deprecation")
-				String strtime = time.toLocaleString();
-				fstream.append(e.getMessage()+"\t-->>\t"+strtime+"\n\r" );
-				fstream.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			System.out.println(e.getMessage());
 			created = false;
 		}
 		
@@ -138,4 +135,5 @@ public class StartWindow implements ChangeListener {
 	public void show(){
 		frame.setVisible(created);
 	}
+
 }

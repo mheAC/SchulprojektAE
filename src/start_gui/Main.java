@@ -49,7 +49,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		try {
-			new Main();
+			//new Main();
+			StartWindow neu = new StartWindow();
+			neu.show();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
