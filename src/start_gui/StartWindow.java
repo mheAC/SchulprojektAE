@@ -23,7 +23,6 @@ public class StartWindow {
 	private JButton mybtn;
 	private Font font;
 	private Dimension dim;
-	
 	private JFrame frame;
 	private JPanel panel;
 	private GridLayout myLayout;
@@ -49,6 +48,7 @@ public class StartWindow {
 					myMain.setCols(getGridwidth());
 					myMain.setRows(getGridheight());
 					myMain.execute();
+					myMain.buildWindow();
 					frame.setVisible(!created);
 				}
 			});
@@ -130,7 +130,7 @@ public class StartWindow {
 			panel.add(mybtn);
 			
 			//Panel wird dem frame übergeben.
-			frame.add(panel);
+			frame.getContentPane().add(panel);
 			
 			//GridLayout wird dem panel übergeben
 			panel.setLayout(myLayout);
