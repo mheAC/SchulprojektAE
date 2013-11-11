@@ -5,16 +5,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class StartWindow implements ChangeListener {
+public class StartWindow {
 	private static int gridwidth = 0;
 	private static int gridheight= 0;
 	private static final int breite = 300;
@@ -23,8 +18,6 @@ public class StartWindow implements ChangeListener {
 	private static final int maxSize=  20;
 	private static final int steps  =   1;
 	private static final int startpos= 15;
-	private static final String filename = "Errlog.txt";
-	private FileWriter fstream ;
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
 	private JButton mybtn;
@@ -43,9 +36,6 @@ public class StartWindow implements ChangeListener {
 			setGridheight(15);
 			setGridwidth(15);
 			
-			//FileWriter und BufferedWriter wird erstellt um bestimmte Fehlermeldungen zu protokollieren
-			fstream = new FileWriter(filename);
-			
 			//Erstelle Button zum öffnen der MainWindow
 			mybtn = new JButton("Open");
 			
@@ -59,6 +49,7 @@ public class StartWindow implements ChangeListener {
 					myMain.setCols(getGridwidth());
 					myMain.setRows(getGridheight());
 					myMain.execute();
+					frame.setVisible(!created);
 				}
 			});
 			
@@ -95,7 +86,20 @@ public class StartWindow implements ChangeListener {
 			slider.setFont(font);
 			
 			//Dem Slider wird ein Listener zugewiesen.
-			slider.addChangeListener(this);
+			slider.addChangeListener(new ChangeListener() {
+				
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					// TODO Auto-generated method stub
+				    if (!slider.getValueIsAdjusting()) {
+				    	int size = slider.getValue();
+				    	String forlbl = new String(size + "x" + size);
+				    	sliderLbl.setText(forlbl);
+				    	setGridheight(size);
+						setGridwidth(size);
+				    }
+				}
+			});
 			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
 			slider.setMajorTickSpacing(steps);
@@ -138,17 +142,6 @@ public class StartWindow implements ChangeListener {
 		}
 		
 		
-	}
-	
-	public void stateChanged(ChangeEvent e) {
-	    JSlider source = (JSlider)e.getSource();
-	    if (!source.getValueIsAdjusting()) {
-	    	int size = source.getValue();
-	    	String forlbl = new String(size + "x" + size);
-	    	sliderLbl.setText(forlbl);
-	    	setGridheight(size);
-			setGridwidth(size);
-	    }
 	}
 	
 	public void show(){

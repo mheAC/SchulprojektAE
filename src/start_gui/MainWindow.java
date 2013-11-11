@@ -1,5 +1,8 @@
 package start_gui;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -9,6 +12,7 @@ import engine.SquareBase;
 
 public class MainWindow {
 	int rows, cols;
+	Rectangle2D rect;
 
 	public int getRows() {
 		return rows;
@@ -30,10 +34,10 @@ public class MainWindow {
 	}
 	
 	public void execute(){
-		if(rows > 15)
+		/*if(rows > 15)
 			rows = 10;
 		if(cols > 15)
-			cols = 10;
+			cols = 10;*/
 		
 		//int cols = 10, rows = 10;
 		
