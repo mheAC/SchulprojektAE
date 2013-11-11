@@ -15,12 +15,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class StartWindow implements ChangeListener {
+	private static int gridwidth = 0;
+	private static int gridheight= 0;
 	private static final int breite = 300;
 	private static final int hoehe  = 300;
 	private static final int minSize=  15;
 	private static final int maxSize=  20;
 	private static final int steps  =   1;
-	private static final int startpos= 5;
+	private static final int startpos= 15;
 	private static final String filename = "Errlog.txt";
 	private FileWriter fstream ;
 	private JLabel sizeLbl;
@@ -37,6 +39,10 @@ public class StartWindow implements ChangeListener {
 	
 	public StartWindow(){
 		try{
+			//Set default values 15
+			setGridheight(15);
+			setGridwidth(15);
+			
 			//FileWriter und BufferedWriter wird erstellt um bestimmte Fehlermeldungen zu protokollieren
 			fstream = new FileWriter(filename);
 			
@@ -44,7 +50,21 @@ public class StartWindow implements ChangeListener {
 			mybtn = new JButton("Open");
 			
 			//Create event listener for mybtn
-			
+			mybtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					try {
+						Main nMain = new Main();
+						nMain.setCols(getGridwidth());
+						nMain.setRows(getGridheight());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
@@ -107,6 +127,7 @@ public class StartWindow implements ChangeListener {
 			panel.add(sizeLbl);
 			panel.add(slider);
 			panel.add(sliderLbl);
+			panel.add(mybtn);
 			
 			//Panel wird dem frame übergeben.
 			frame.add(panel);
@@ -129,6 +150,8 @@ public class StartWindow implements ChangeListener {
 	    	int size = source.getValue();
 	    	String forlbl = new String(size + "x" + size);
 	    	sliderLbl.setText(forlbl);
+	    	setGridheight(size);
+			setGridwidth(size);
 	    }
 	}
 	
@@ -136,4 +159,22 @@ public class StartWindow implements ChangeListener {
 		frame.setVisible(created);
 	}
 
+	public static int getGridwidth() {
+		return gridwidth;
+	}
+
+	public static void setGridwidth(int gridwidth) {
+		StartWindow.gridwidth = gridwidth;
+	}
+
+	public static int getGridheight() {
+		return gridheight;
+	}
+
+	public static void setGridheight(int gridheight) {
+		StartWindow.gridheight = gridheight;
+	}
+
+	
+	
 }
