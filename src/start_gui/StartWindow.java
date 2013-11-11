@@ -55,7 +55,10 @@ public class StartWindow implements ChangeListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					MainWindow myMain = new MainWindow();
+					myMain.setCols(getGridwidth());
+					myMain.setRows(getGridheight());
+					myMain.execute();
 				}
 			});
 			

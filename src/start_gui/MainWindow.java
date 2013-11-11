@@ -26,10 +26,10 @@ public class MainWindow {
 		this.cols = cols;
 	}
 
-	public MainWindow() throws IOException {
-		rows = getRows();
-		cols = getCols();
-		
+	public MainWindow() {
+	}
+	
+	public void execute(){
 		if(rows > 15)
 			rows = 10;
 		if(cols > 15)
