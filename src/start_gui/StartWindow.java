@@ -145,6 +145,7 @@ public class StartWindow {
 	}
 	
 	public void show(){
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(created);
 	}
 
