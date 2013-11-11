@@ -67,7 +67,7 @@ public class StartWindow implements ChangeListener {
 			sizeLbl = new JLabel("Wählen Sie eine Größe aus (Breite x Höhe) :");
 			
 			//frame => frame wird erstellt und bekommt eine Überschrift
-			frame = new JFrame("WALLS Startparameter");
+			frame = new JFrame("Lichtstrahlen Startparameter");
 			
 			//panel für das frame wird erstellt
 			panel = new JPanel();
