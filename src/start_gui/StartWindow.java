@@ -163,7 +163,4 @@ public class StartWindow {
 	public static void setGridheight(int gridheight) {
 		StartWindow.gridheight = gridheight;
 	}
-
-	
-	
 }

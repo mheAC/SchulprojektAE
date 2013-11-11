@@ -34,12 +34,7 @@ public class MainWindow {
 	}
 	
 	public void execute(){
-		/*if(rows > 15)
-			rows = 10;
-		if(cols > 15)
-			cols = 10;*/
 		
-		//int cols = 10, rows = 10;
 		
 		GameGrid grid = new GameGrid(cols, rows);
 		grid.generateSquares(); // Only call once if you dont want the generated squares to be overwritten
