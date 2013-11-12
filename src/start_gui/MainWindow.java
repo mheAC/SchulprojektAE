@@ -45,7 +45,9 @@ public class MainWindow {
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
-		GridBagLayout lo = new GridBagLayout();
+		GridLayout lo = new GridLayout();
+		lo.setColumns(cols);
+		lo.setRows(rows);
 		c = new GridBagConstraints();
 		mainPanel.setSize(dim);
 		mainPanel.setMinimumSize(dim);
@@ -55,8 +57,8 @@ public class MainWindow {
 		mainPanel.setLayout(lo);
 		for (int i = 0; i < rows; i++) {
 			  for (int j = 0; j < cols; j++) {
-			    c.gridx = i;
-			    c.gridy = j;
+			    c.gridx = j;
+			    c.gridy = i;
 			    JPanel pTmp = new JPanel();
 			    Border border = new BevelBorder( BevelBorder.RAISED );
 			    pTmp.setBorder(border);
