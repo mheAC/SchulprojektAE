@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import org.omg.CORBA.Object;
+
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.SquareBase;
@@ -45,9 +47,7 @@ public class MainWindow {
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
-		GridBagLayout lo = new GridBagLayout();
-		//lo.setRows(rows);
-		//lo.setColumns(cols);
+		GridLayout lo = new GridLayout(rows,cols);
 		
 		c = new GridBagConstraints();
 		mainPanel.setMinimumSize(dim);
@@ -61,7 +61,7 @@ public class MainWindow {
 				  Border border = new BevelBorder( BevelBorder.RAISED );
 				  pTmp.setBorder(border);
 				  panelList.add(pTmp);
-				  mainPanel.add(pTmp, c);
+				  mainPanel.add(pTmp,c);
 			  }
 		}
 		mainFrame.add(mainPanel);
