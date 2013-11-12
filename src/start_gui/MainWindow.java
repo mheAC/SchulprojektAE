@@ -45,30 +45,26 @@ public class MainWindow {
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
-		GridLayout lo = new GridLayout();
-		lo.setColumns(cols);
-		lo.setRows(rows);
+		GridBagLayout lo = new GridBagLayout();
+		//lo.setRows(rows);
+		//lo.setColumns(cols);
+		
 		c = new GridBagConstraints();
-		mainPanel.setSize(dim);
 		mainPanel.setMinimumSize(dim);
-		mainPanel.setPreferredSize(dim);
 		mainFrame.setMinimumSize(dim);
-		mainFrame.setPreferredSize(dim);
 		mainPanel.setLayout(lo);
 		for (int i = 0; i < rows; i++) {
 			  for (int j = 0; j < cols; j++) {
-			    c.gridx = j;
-			    c.gridy = i;
-			    JPanel pTmp = new JPanel();
-			    Border border = new BevelBorder( BevelBorder.RAISED );
-			    pTmp.setBorder(border);
-			    panelList.add(pTmp);
-			    mainPanel.add(pTmp, c);
-			    //LblField[i][j] = tmp;
+				  c.gridx = j;
+				  c.gridy = i;
+				  JPanel pTmp = new JPanel();
+				  Border border = new BevelBorder( BevelBorder.RAISED );
+				  pTmp.setBorder(border);
+				  panelList.add(pTmp);
+				  mainPanel.add(pTmp, c);
 			  }
-			}  
-		mainFrame.add(mainPanel, BorderLayout.CENTER);
-		mainFrame.pack();
+		}
+		mainFrame.add(mainPanel);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
 	public void execute(){
