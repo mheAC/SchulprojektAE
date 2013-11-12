@@ -1,20 +1,12 @@
 package start_gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
-import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
-import org.omg.CORBA.Object;
+import javax.swing.border.*;
 
 import engine.GameGrid;
 import engine.NumberSquare;
@@ -26,7 +18,8 @@ public class MainWindow implements MouseListener{
 	private JPanel mainPanel;
 	private GridBagConstraints c;
 	private Dimension dim;
-	private ArrayList<JPanel> panelList;
+	private HashMap<JPanel, String> panelIdList;
+	private HashMap<String, GridBagConstraints> cellList;
 
 	public int getRows() {
 		return rows;
@@ -48,27 +41,31 @@ public class MainWindow implements MouseListener{
 		mainFrame = new JFrame();
 		mainPanel = new JPanel();
 		dim = new Dimension();
-		panelList = new ArrayList<JPanel>();
+		panelIdList = new HashMap<JPanel, String>();
+		cellList  = new HashMap<String, GridBagConstraints>();
 	}
 	
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
 		GridLayout lo = new GridLayout(rows,cols);
-		
-		c = new GridBagConstraints();
+
 		mainPanel.setMinimumSize(dim);
 		mainFrame.setMinimumSize(dim);
 		mainPanel.setLayout(lo);
-		for (int i = 0; i < rows; i++) {
-			  for (int j = 0; j < cols; j++) {
+		int id = 0;
+		for (int i = 1; i <= rows; i++) {
+			  for (int j = 1; j <= cols; j++) {
+				  c = new GridBagConstraints();
 				  c.gridx = j;
 				  c.gridy = i;
 				  JPanel pTmp = new JPanel();
 				  Border border = new BevelBorder( BevelBorder.RAISED );
 				  pTmp.setBorder(border);
 				  pTmp.addMouseListener(this);
-				  //panelList.add(pTmp);
+				  panelIdList.put(pTmp,id+"");
+				  cellList.put(id+"", c);
+				  id++;
 				  mainPanel.add(pTmp,c);
 			  }
 		}
@@ -121,12 +118,13 @@ public class MainWindow implements MouseListener{
 		// TODO Auto-generated method stub
 		JPanel pp = (JPanel)arg0.getComponent();
 		Point point = pp.getLocation();
-		
-		GridLayout gl = new GridLayout();
+		String cellid = panelIdList.get(pp);
+		GridBagConstraints cell = cellList.get(cellid);
+		/*GridLayout gl = new GridLayout();
 		gl = (GridLayout) pp.getLayout();
-		
-		JOptionPane.showMessageDialog(null, "Location:\nX: " + point.x + "\nY: " + point.y +
-											"Cell:\nRow: ", "Location", JOptionPane.OK_OPTION);
+		*/
+		JOptionPane.showMessageDialog(null, "Location:\n\tX: " + point.x + "\n\tY: " + point.y +
+											"\nCell:\n\tRow: "+cell.gridy + "\n\tColumn: "+cell.gridx, "Location", JOptionPane.OK_OPTION);
 	}
 
 	@Override
