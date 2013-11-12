@@ -30,21 +30,21 @@ public class GameGrid {
 	/**
 	 * Method to generate a square list once
 	 */
-	/*public void generateSquares() {
+	public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
 		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
 		this.squares = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
 			if(Math.random()>0.2)
-				//tempList.add(new RaySquare(Math.random()>0.5?Direction.HORIZONTAL:Direction.VERTICAL));
-				this.squares.add(new RaySquare());
+				this.squares.add(new RaySquare(Math.random()>0.5?Direction.HORIZONTAL:Direction.VERTICAL));
+				//this.squares.add(new RaySquare());
 			else
 				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
 			
 		}
-	}*/
+	}
 	
-	public void generateSquares() {
+	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
 		this.squares = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
@@ -54,7 +54,7 @@ public class GameGrid {
 				this.squares.add(new NumberSquare( 3 ));
 			
 		}
-	}
+	}*/
 	
 	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING

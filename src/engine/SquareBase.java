@@ -23,4 +23,11 @@ public abstract class SquareBase {
 		posY = y;
 	}
 	
+	public abstract String getPrintableValue();
+	
+	@Override
+	public String toString() {
+		return this.getPrintableValue();
+	}
+	
 }

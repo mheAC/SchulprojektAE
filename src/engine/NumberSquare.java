@@ -78,4 +78,9 @@ public class NumberSquare extends SquareBase {
 		return false;
 	}
 
+	@Override
+	public String getPrintableValue() {
+		return Integer.toString(this.getNumber());
+	}
+
 }

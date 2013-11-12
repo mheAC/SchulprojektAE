@@ -20,4 +20,9 @@ public class RaySquare extends SquareBase {
 		this.direction = d;
 	}
 
+	@Override
+	public String getPrintableValue() {
+		return this.direction.equals(Direction.HORIZONTAL) ? "-" : "|";
+	}
+
 }

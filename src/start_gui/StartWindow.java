@@ -3,15 +3,11 @@ package start_gui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class StartWindow {
-	private static int gridwidth = 0;
-	private static int gridheight= 0;
+	private int gridwidth = 0;
+	private int gridheight= 0;
 	private static final int breite = 300;
 	private static final int hoehe  = 300;
 	private static final int minSize=  15;
@@ -20,7 +16,7 @@ public class StartWindow {
 	private static final int startpos= 15;
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
-	private JButton mybtn;
+	private JButton okActionBtn;
 	private Font font;
 	private Dimension dim;
 	private JFrame frame;
@@ -29,30 +25,14 @@ public class StartWindow {
 	private JSlider slider;
 	private boolean created;
 	
-	public StartWindow(){
+	public void show() {
 		try{
 			//Set default values 15
 			setGridheight(15);
 			setGridwidth(15);
 			
 			//Erstelle Button zum öffnen der MainWindow
-			mybtn = new JButton("Open");
-			
-			//Create event listener for mybtn
-			mybtn.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					MainWindow myMain = new MainWindow();
-					myMain.setCols(getGridwidth());
-					myMain.setRows(getGridheight());
-					myMain.execute();
-					//myMain.buildWindow();
-					//frame.setVisible(!created);
-					frame.dispose();
-				}
-			});
+			okActionBtn = new JButton("Generieren");
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
@@ -86,22 +66,6 @@ public class StartWindow {
 			sizeLbl.setFont(font);
 			slider.setFont(font);
 			
-			//Dem Slider wird ein Listener zugewiesen.
-			slider.addChangeListener(new ChangeListener() {
-				
-				@Override
-				public void stateChanged(ChangeEvent arg0) {
-					// TODO Auto-generated method stub
-				    if (!slider.getValueIsAdjusting()) {
-				    	int size = slider.getValue();
-				    	String forlbl = new String(size + "x" + size);
-				    	sliderLbl.setText(forlbl);
-				    	setGridheight(size);
-						setGridwidth(size);
-				    }
-				}
-			});
-			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
 			slider.setMajorTickSpacing(steps);
 			
@@ -128,7 +92,7 @@ public class StartWindow {
 			panel.add(sizeLbl);
 			panel.add(slider);
 			panel.add(sliderLbl);
-			panel.add(mybtn);
+			panel.add(okActionBtn);
 			
 			//Panel wird dem frame übergeben.
 			frame.getContentPane().add(panel);
@@ -136,33 +100,51 @@ public class StartWindow {
 			//GridLayout wird dem panel übergeben
 			panel.setLayout(myLayout);
 			created = true;
+			
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(created); // show the window
 		}
 		catch(Exception e){
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()); // ouch
 			created = false;
 		}
-		
-		
-	}
-	
-	public void show(){
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(created);
 	}
 
-	public static int getGridwidth() {
+	/*
+	 * Simple getter and setter for class attribs
+	 */
+	public JButton getokActionBtn() {
+		return okActionBtn;
+	}
+
+	public JSlider getSlider() {
+		return slider;
+	}
+	
+	public JLabel getSliderLbl() {
+		return sliderLbl;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	/*
+	 * Data vars -> getter & setter
+	 */
+	public int getGridwidth() {
 		return gridwidth;
 	}
 
-	public static void setGridwidth(int gridwidth) {
-		StartWindow.gridwidth = gridwidth;
+	public void setGridwidth(int gridwidth) {
+		this.gridwidth = gridwidth;
 	}
 
-	public static int getGridheight() {
+	public int getGridheight() {
 		return gridheight;
 	}
 
-	public static void setGridheight(int gridheight) {
-		StartWindow.gridheight = gridheight;
+	public void setGridheight(int gridheight) {
+		this.gridheight = gridheight;
 	}
 }
