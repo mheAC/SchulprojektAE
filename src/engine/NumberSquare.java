@@ -35,5 +35,40 @@ public class NumberSquare extends SquareBase {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	
+	/**
+	 * Check wether a given Square (any inheriting from SquareBase) could be enlighted by this NumberSquare according to their position
+	 * @param rs this should be a RaySquare! But if given a NumSquare this method will return false (as expected for number squares can not be enlighted)
+	 * @return true / false for if the given square could be enlighted
+	 */
+	public boolean canEnlight(SquareBase rs) {
+		if(rs.getClass().equals(new NumberSquare().getClass()))
+			return false; // number squares can never be enlighted
+		
+		if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())
+			return false; // of course the number square its self can not be enlighted
+		
+		if(
+				( // first part: check x
+					// check the left hand side of the light source
+					rs.getPositionX() <= this.getPositionX() && rs.getPositionX() >= this.getPositionX() - this.getNumber()
+					|| // or
+					// check the right hand side...
+					rs.getPositionX() >= this.getPositionX() && rs.getPositionX() <= this.getPositionX() + this.getNumber()
+				)
+				&& // and
+				( // second part: check y
+					// check the bottom side
+					rs.getPositionY() >= this.getPositionY() && rs.getPositionY() <= this.getPositionY() + this.getNumber()
+					|| // ...
+					// check the upper side
+					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - this.getNumber() // not exactly thought of this
+				)
+			) // end of the big if
+			return true;
+		
+		// Otherwise the given square can't be enlighted by this numSquare instance
+		return false;
+	}
 
 }
