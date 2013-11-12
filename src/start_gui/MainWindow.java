@@ -68,7 +68,7 @@ public class MainWindow implements MouseListener{
 				  Border border = new BevelBorder( BevelBorder.RAISED );
 				  pTmp.setBorder(border);
 				  pTmp.addMouseListener(this);
-				  panelList.add(pTmp);
+				  //panelList.add(pTmp);
 				  mainPanel.add(pTmp,c);
 			  }
 		}
@@ -121,7 +121,12 @@ public class MainWindow implements MouseListener{
 		// TODO Auto-generated method stub
 		JPanel pp = (JPanel)arg0.getComponent();
 		Point point = pp.getLocation();
-		JOptionPane.showMessageDialog(null, "X: " + point.x + "\nY: " + point.y, "Location", JOptionPane.OK_OPTION);
+		
+		GridLayout gl = new GridLayout();
+		gl = (GridLayout) pp.getLayout();
+		
+		JOptionPane.showMessageDialog(null, "Location:\nX: " + point.x + "\nY: " + point.y +
+											"Cell:\nRow: ", "Location", JOptionPane.OK_OPTION);
 	}
 
 	@Override
