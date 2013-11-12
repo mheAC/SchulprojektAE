@@ -5,7 +5,7 @@ public class RaySquare extends SquareBase {
 	Direction direction;
 	
 	public RaySquare() {
-		this.direction = Direction.HORIZONTAL; // default direction
+		this.direction = Direction.UNSET; // default direction
 	}
 	
 	public RaySquare(Direction d) {
@@ -14,6 +14,10 @@ public class RaySquare extends SquareBase {
 
 	public Direction getDirection() {
 		return this.direction;
+	}
+	
+	public void setDirection(Direction d) {
+		this.direction = d;
 	}
 
 }
