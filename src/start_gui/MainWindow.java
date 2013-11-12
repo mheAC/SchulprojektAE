@@ -120,7 +120,7 @@ public class MainWindow implements MouseListener{
 		String cellid = panelIdList.get(pp);
 		GridBagConstraints cell = cellList.get(cellid);
 		JOptionPane.showMessageDialog(null, "Location:\n\n\tX: " + point.x + "\n\tY: " + point.y +
-											"\nCell:\n\n\tRow: "+cell.gridy + "\n\tColumn: "+cell.gridx, "Location", JOptionPane.OK_OPTION);
+											"\n\n\tRow: "+cell.gridy + "\n\tColumn: "+cell.gridx, "Location", JOptionPane.OK_OPTION);
 	}
 
 	@Override
