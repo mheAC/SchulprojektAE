@@ -64,8 +64,13 @@ public class NumberSquare extends SquareBase {
 					// check the upper side
 					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - this.getNumber()
 				)
-				&&
-				(rs.getPositionX() == this.getPositionX() || rs.getPositionY() == this.getPositionY())
+				&& // ...
+				(
+					// make sure the coordinate lies somewhere on the x and y axis so we get a cross match insead of a square 
+					rs.getPositionX() == this.getPositionX()
+					||
+					rs.getPositionY() == this.getPositionY()
+				)
 			) // end of the big if
 			return true;
 		
