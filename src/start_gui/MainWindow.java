@@ -1,10 +1,15 @@
 package start_gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -15,7 +20,7 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.SquareBase;
 
-public class MainWindow {
+public class MainWindow implements MouseListener{
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
@@ -62,6 +67,7 @@ public class MainWindow {
 				  JPanel pTmp = new JPanel();
 				  Border border = new BevelBorder( BevelBorder.RAISED );
 				  pTmp.setBorder(border);
+				  pTmp.addMouseListener(this);
 				  panelList.add(pTmp);
 				  mainPanel.add(pTmp,c);
 			  }
@@ -76,7 +82,8 @@ public class MainWindow {
                 e.getWindow().dispose();
             }
 		});
-		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		mainFrame.setLocationRelativeTo(null);
 	}
 	public void execute(){
 		if(cols != 0 && rows != 0){
@@ -100,9 +107,44 @@ public class MainWindow {
 				}
 			}
 			buildWindow();
-			mainFrame.setLocationRelativeTo(null);
 			mainFrame.setVisible(true);
-		}else
-			System.out.println("Cols / Rows are not set!!");
+		}else{
+			JOptionPane.showMessageDialog(null, "Cols / Rows are not set!!", "Fehler",  JOptionPane.OK_OPTION);
+			mainFrame.dispose();
+			StartWindow neu = new StartWindow();
+			neu.show();
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		JPanel pp = (JPanel)arg0.getComponent();
+		Point point = pp.getLocation();
+		JOptionPane.showMessageDialog(null, "X: " + point.x + "\nY: " + point.y, "Location", JOptionPane.OK_OPTION);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

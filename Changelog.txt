@@ -5,3 +5,4 @@
 // frame.setLocationRelativeTo(null) was inserted to StartWindow.java - 11.11.2013 15:26
 
 // MainWindow contains small panels. Panels were added in MainWindow.java - 12.11.2013 11:04
+// MainWindow contains a MousListener per panel. in MainWindows.java - 12.11.2013 14:22
