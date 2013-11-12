@@ -119,9 +119,6 @@ public class MainWindow implements MouseListener{
 		Point point = pp.getLocation();
 		String cellid = panelIdList.get(pp);
 		GridBagConstraints cell = cellList.get(cellid);
-		/*GridLayout gl = new GridLayout();
-		gl = (GridLayout) pp.getLayout();
-		*/
 		JOptionPane.showMessageDialog(null, "Location:\n\tX: " + point.x + "\n\tY: " + point.y +
 											"\nCell:\n\tRow: "+cell.gridy + "\n\tColumn: "+cell.gridx, "Location", JOptionPane.OK_OPTION);
 	}
