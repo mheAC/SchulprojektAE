@@ -23,11 +23,12 @@ public class TestConsolePrint {
 		//System.out.println("Wie viele Spalten? (Max 15)");
 		//int cols = is.nextInt();
 		
-		int rows = 3;
-		int cols = 4;
+		int rows = 9;
+		int cols = 7;
 		
 		GameGrid grid = new GameGrid(cols, rows);
-		grid.generateSquares(); 
+		grid.generateSquares();
+		grid.asignSquareCoordinates();
 		int i=0;
 		for(SquareBase s : grid.getSquares()) {
 			System.out.print(" | ");
@@ -40,10 +41,29 @@ public class TestConsolePrint {
 					System.out.print('/');*/
 				System.out.print(' ');
 			}
-			if(++i%4 == 0) {
-				System.out.println("\n=================");
+			if(++i%cols == 0) {
+				System.out.print("\n");
+				for(i=0; i < cols; i++) System.out.print("====");
+				System.out.print("\n");
 			}
 		}
+		
+		// Test the canBeEnlighted Method
+		int g=1;
+		NumberSquare ns = (NumberSquare)grid.getSquares().get(31); // first number square of our dummy data
+		for(SquareBase s : grid.getSquares()) {
+			if(s.getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)s;
+				System.out.print(Boolean.toString(ns.canEnlight(rs)).charAt(0) + " | ");
+			}
+			else
+				System.out.print("# | ");
+			
+			if(g++ % cols == 0)
+				System.out.print("\n");
+		}
+		
+		//System.out.println(ns.canEnlight(grid.getSquares().get(16)));
 	}
 	
 	public static void main(String[] args) {

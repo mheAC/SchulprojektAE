@@ -43,7 +43,20 @@ public class GameGrid {
 			
 		}
 	}*/
+	
 	public void generateSquares() {
+		// DUMMY GAME DATA GRID BUILDING
+		this.squares = new ArrayList<SquareBase>();
+		for(int i = 0; i < this.cols * this.rows; i++) {
+			if(i!=31)
+				this.squares.add(new RaySquare());
+			else
+				this.squares.add(new NumberSquare( 2 ));
+			
+		}
+	}
+	
+	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
 		this.squares = new ArrayList<SquareBase>();
 		
@@ -51,27 +64,32 @@ public class GameGrid {
 		this.rows = 3;
 
 		this.squares.add(new RaySquare());
-		this.squares.add(new RaySquare());
-		this.squares.add(new RaySquare());
-		this.squares.add(new NumberSquare(2));
-		this.squares.add(new RaySquare());
-		this.squares.add(new RaySquare());
-		this.squares.add(new NumberSquare(2));
-		this.squares.add(new RaySquare());
-		this.squares.add(new NumberSquare(5));
-		this.squares.add(new RaySquare());
-		this.squares.add(new RaySquare());
-		this.squares.add(new RaySquare());
+        this.squares.add(new RaySquare());
+        this.squares.add(new RaySquare());
+        this.squares.add(new NumberSquare(2));
+        this.squares.add(new RaySquare());
+        this.squares.add(new RaySquare());
+        this.squares.add(new NumberSquare(2));
+        this.squares.add(new RaySquare());
+        this.squares.add(new NumberSquare(5));
+        this.squares.add(new RaySquare());
+        this.squares.add(new RaySquare());
+        this.squares.add(new RaySquare());
 		
-		// Assign the positon
+        asignSquareCoordinates();
+	}*/
+	
+	/**
+	 * This method will assign the x and y coordinates to any square in the list
+	 */
+	public void asignSquareCoordinates() {
 		int x=0;
 		int y=0;
 		for(SquareBase s: this.squares) {
 			s.setPositionX(x);
 			s.setPositionY(y);
-			//System.out.println(" X: " + x + " Y: "+y);
 			y++;
-			if(y%4 == 0 && y != 0) {
+			if(y % this.cols == 0 && y != 0) {
 				x++;
 				y=0;
 			}
