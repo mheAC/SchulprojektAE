@@ -1,6 +1,8 @@
 package start_gui;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -65,7 +67,16 @@ public class MainWindow {
 			  }
 		}
 		mainFrame.add(mainPanel);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
+            public void windowClosing(WindowEvent e)
+            {
+                StartWindow swin = new StartWindow();
+                swin.show();
+                e.getWindow().dispose();
+            }
+		});
+		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
 	public void execute(){
 		if(cols != 0 && rows != 0){

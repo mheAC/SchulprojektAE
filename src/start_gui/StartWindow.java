@@ -49,7 +49,8 @@ public class StartWindow {
 					myMain.setRows(getGridheight());
 					myMain.execute();
 					//myMain.buildWindow();
-					frame.setVisible(!created);
+					//frame.setVisible(!created);
+					frame.dispose();
 				}
 			});
 			
