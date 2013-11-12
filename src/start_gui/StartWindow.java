@@ -19,6 +19,8 @@ public class StartWindow {
 	private static final int steps  =   1;
 	private static final int startpos= 15;
 	private JLabel sizeLbl;
+	private JLabel widthLbl;
+	private JLabel heightLbl;
 	private JLabel sliderLbl;
 	private JButton mybtn;
 	private Font font;
@@ -26,7 +28,8 @@ public class StartWindow {
 	private JFrame frame;
 	private JPanel panel;
 	private GridLayout myLayout;
-	private JSlider slider;
+	private JSlider widthSlider;
+	private JSlider heightSlider;
 	private boolean created;
 	
 	public StartWindow(){
@@ -44,6 +47,10 @@ public class StartWindow {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					int sizew = widthSlider.getValue();
+			    	int sizeh = heightSlider.getValue();
+			    	setGridheight(sizeh);
+					setGridwidth(sizew);
 					MainWindow myMain = new MainWindow();
 					myMain.setCols(getGridwidth());
 					myMain.setRows(getGridheight());
@@ -60,6 +67,8 @@ public class StartWindow {
 			
 			//sizeLbl => erklärt sich von selbst :)
 			sizeLbl = new JLabel("Wählen Sie eine Größe aus (Breite x Höhe) :");
+			widthLbl  = new JLabel("Breite in Columns");
+			heightLbl = new JLabel("Höhe in Rows:");
 			
 			//frame => frame wird erstellt und bekommt eine Überschrift
 			frame = new JFrame("Lichtstrahlen Startparameter");
@@ -69,14 +78,15 @@ public class StartWindow {
 			
 			//Ein Layout für das panel wird erstellt. In diesem Fall ein GridLayout()
 			//4 - > Rows, 1 -> Columns
-			myLayout = new GridLayout(4, 1);
+			myLayout = new GridLayout(7, 1);
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
-			slider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
+			widthSlider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
+			heightSlider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
 			
 			//Eine Hilfsvariable dim (Dimension) wird erstellt.
-			dim = new Dimension(breite, hoehe);
+			dim = new Dimension(breite + 150, hoehe);
 			
 			//Schriftart wurde gewählt und erstellt.
 			font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
@@ -84,33 +94,51 @@ public class StartWindow {
 			//Schriftart wird gesetzt.
 			sliderLbl.setFont(font);
 			sizeLbl.setFont(font);
-			slider.setFont(font);
+			widthSlider.setFont(font);
+			heightSlider.setFont(font);
 			
 			//Dem Slider wird ein Listener zugewiesen.
-			slider.addChangeListener(new ChangeListener() {
+			widthSlider.addChangeListener(new ChangeListener() {
 				
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
 					// TODO Auto-generated method stub
-				    if (!slider.getValueIsAdjusting()) {
-				    	int size = slider.getValue();
-				    	String forlbl = new String(size + "x" + size);
+				    if (!widthSlider.getValueIsAdjusting()) {
+				    	int sizew = widthSlider.getValue();
+				    	int sizeh = heightSlider.getValue();
+				    	String forlbl = new String(sizew + "x" + sizeh);
 				    	sliderLbl.setText(forlbl);
-				    	setGridheight(size);
-						setGridwidth(size);
+				    }
+				}
+			});
+			
+			heightSlider.addChangeListener(new ChangeListener() {
+				
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					// TODO Auto-generated method stub
+					if (!widthSlider.getValueIsAdjusting()) {
+				    	int sizew = widthSlider.getValue();
+				    	int sizeh = heightSlider.getValue();
+				    	String forlbl = new String(sizew + "x" + sizeh);
+				    	sliderLbl.setText(forlbl);
 				    }
 				}
 			});
 			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
-			slider.setMajorTickSpacing(steps);
+			widthSlider.setMajorTickSpacing(steps);
+			heightSlider.setMajorTickSpacing(steps);
 			
 			//Zeigt in "steps"-Schritten die einzelnen Punkte => Slider
-			slider.setMinorTickSpacing(steps);
+			widthSlider.setMinorTickSpacing(steps);
+			heightSlider.setMinorTickSpacing(steps);
 			
 			//Anzeige wird auf true gesetzt um die Zahlen und Striche anzuzeigen.
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
+			widthSlider.setPaintTicks(true);
+			widthSlider.setPaintLabels(true);
+			heightSlider.setPaintTicks(true);
+			heightSlider.setPaintLabels(true);
 			
 			
 			//Erklärt sich eigentlich auch von selbst :P
@@ -126,7 +154,10 @@ public class StartWindow {
 			
 			//Komponenten werden dem Panel hinzugefügt.
 			panel.add(sizeLbl);
-			panel.add(slider);
+			panel.add(widthLbl);
+			panel.add(widthSlider);
+			panel.add(heightLbl);
+			panel.add(heightSlider);
 			panel.add(sliderLbl);
 			panel.add(mybtn);
 			
