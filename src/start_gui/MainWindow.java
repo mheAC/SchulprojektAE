@@ -13,12 +13,9 @@ import engine.SquareBase;
 
 public class MainWindow {
 	int rows, cols;
-	private JTable myTable;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-	private JLabel LblField[][];
 	private GridBagConstraints c;
-	private JLabel tmp;
 	private Dimension dim;
 	private ArrayList<JPanel> panelList;
 
@@ -39,7 +36,6 @@ public class MainWindow {
 	}
 
 	public MainWindow() {
-		myTable = new JTable();
 		mainFrame = new JFrame();
 		mainPanel = new JPanel();
 		dim = new Dimension();
@@ -49,7 +45,6 @@ public class MainWindow {
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
-		LblField = new JLabel[rows][cols];
 		GridBagLayout lo = new GridBagLayout();
 		c = new GridBagConstraints();
 		mainPanel.setSize(dim);
