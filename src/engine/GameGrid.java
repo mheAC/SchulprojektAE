@@ -150,9 +150,9 @@ public class GameGrid {
 	 * Find any Square that may contain a ray coliding with the given Square
 	 * @return
 	 */
-	public ArrayList<SquareBase> getColidingSquares(SquareBase square) {
-		ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
-		for(SquareBase s : this.squares) {
+	public ArrayList<RaySquare> getColidingSquares(RaySquare square) {
+		ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
+		for(RaySquare s : this.getRaySquares()) {
 			
 		}
 		return null;
@@ -163,11 +163,12 @@ public class GameGrid {
 	 * @param squares
 	 * @return
 	 */
-	public ArrayList<SquareBase> getEnlightableSquares(NumberSquare square) {
-		ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
-		for(SquareBase s : this.squares) {
-			
+	public ArrayList<RaySquare> getEnlightableSquares(NumberSquare square) {
+		ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
+		for(RaySquare s : this.getRaySquares()) {
+			if(square.canEnlight(s))
+				tempList.add(s);
 		}
-		return null;
+		return tempList;
 	}
 }
