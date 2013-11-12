@@ -79,7 +79,6 @@ public class MainWindow implements MouseListener{
                 e.getWindow().dispose();
             }
 		});
-		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		mainFrame.setLocationRelativeTo(null);
 	}
 	public void execute(){
