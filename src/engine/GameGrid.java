@@ -51,7 +51,7 @@ public class GameGrid {
 			if(i!=31)
 				this.squares.add(new RaySquare());
 			else
-				this.squares.add(new NumberSquare( 2 ));
+				this.squares.add(new NumberSquare( 3 ));
 			
 		}
 	}

@@ -45,13 +45,13 @@ public class NumberSquare extends SquareBase {
 		if(rs.getClass().equals(new NumberSquare().getClass()))
 			return false; // number squares can never be enlighted
 		
-		if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())
-			return false; // of course the number square its self can not be enlighted
+		//if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())
+			//return false; // of course the number square its self can not be enlighted
 		
 		if(
 				( // first part: check x
 					// check the left hand side of the light source
-					rs.getPositionX() <= this.getPositionX() && rs.getPositionX() >= this.getPositionX() - this.getNumber()
+					rs.getPositionX() <= this.getPositionX() && rs.getPositionX() >= this.getPositionX() - this.getNumber() // range
 					|| // or
 					// check the right hand side...
 					rs.getPositionX() >= this.getPositionX() && rs.getPositionX() <= this.getPositionX() + this.getNumber()
@@ -62,7 +62,14 @@ public class NumberSquare extends SquareBase {
 					rs.getPositionY() >= this.getPositionY() && rs.getPositionY() <= this.getPositionY() + this.getNumber()
 					|| // ...
 					// check the upper side
-					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - this.getNumber() // not exactly thought of this
+					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - this.getNumber()
+				)
+				&& // ...
+				(
+					// make sure the coordinate lies somewhere on the x and y axis so we get a cross match insead of a square 
+					rs.getPositionX() == this.getPositionX()
+					||
+					rs.getPositionY() == this.getPositionY()
 				)
 			) // end of the big if
 			return true;
