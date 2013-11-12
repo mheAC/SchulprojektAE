@@ -1,11 +1,11 @@
 package start_gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
+import java.util.ArrayList;
 
-import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import javax.swing.*;
-import javax.swing.table.TableModel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import engine.GameGrid;
 import engine.NumberSquare;
@@ -16,7 +16,11 @@ public class MainWindow {
 	private JTable myTable;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
+	private JLabel LblField[][];
+	private GridBagConstraints c;
+	private JLabel tmp;
 	private Dimension dim;
+	private ArrayList<JPanel> panelList;
 
 	public int getRows() {
 		return rows;
@@ -39,17 +43,35 @@ public class MainWindow {
 		mainFrame = new JFrame();
 		mainPanel = new JPanel();
 		dim = new Dimension();
+		panelList = new ArrayList<JPanel>();
 	}
 	
 	public void buildWindow(){
 		
 		dim.setSize(cols*20, rows*20);
-		BorderLayout lo = new BorderLayout();
+		LblField = new JLabel[rows][cols];
+		GridBagLayout lo = new GridBagLayout();
+		c = new GridBagConstraints();
 		mainPanel.setSize(dim);
-		mainPanel.add(myTable, BorderLayout.CENTER);
+		mainPanel.setMinimumSize(dim);
+		mainPanel.setPreferredSize(dim);
 		mainFrame.setMinimumSize(dim);
+		mainFrame.setPreferredSize(dim);
 		mainPanel.setLayout(lo);
+		for (int i = 0; i < rows; i++) {
+			  for (int j = 0; j < cols; j++) {
+			    c.gridx = i;
+			    c.gridy = j;
+			    JPanel pTmp = new JPanel();
+			    Border border = new BevelBorder( BevelBorder.RAISED );
+			    pTmp.setBorder(border);
+			    panelList.add(pTmp);
+			    mainPanel.add(pTmp, c);
+			    //LblField[i][j] = tmp;
+			  }
+			}  
 		mainFrame.add(mainPanel, BorderLayout.CENTER);
+		mainFrame.pack();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
 	public void execute(){
