@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import engine.RaySquare;
+
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
@@ -66,7 +68,17 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		/*JPanel pp = (JPanel)e.getComponent();
 		Point point = pp.getLocation();
 		JOptionPane.showMessageDialog(null, "X: " + point.x + "\nY: " + point.y, "Location", JOptionPane.OK_OPTION);*/
-		JOptionPane.showMessageDialog(null, "Dieses kästchen enthält momentan: "+ ((JLabel)((JPanel)e.getComponent()).getComponent(0)).getText());
+		
+		// ((JLabel)((JPanel)e.getComponent()).getComponent(0)).getText()
+		JGameSquare gs = (JGameSquare)e.getComponent();
+		
+		String print = new String("Dieses kästchen befindet sich an:\nx: "+ gs.getRepresentedSquare().getPositionX()+"\ny: "+gs.getRepresentedSquare().getPositionY());
+		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
+		if(gs.getClass().equals(new RaySquare().getClass()));
+		print += "\nEs handelt sich um ein: " + gs.getRepresentedSquare().getClass().getSimpleName();
+		
+		JOptionPane.showMessageDialog(null, print);
+			
 	}
 
 	@Override
