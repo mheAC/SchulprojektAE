@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 
@@ -15,6 +16,16 @@ public class GameGrid {
 	
 	// Datastore var for the squares
 	private ArrayList<SquareBase> squares;
+	
+	public Dimension getGridSize(){
+		Dimension dim = new Dimension(this.rows, this.cols);
+		return dim;
+	}
+	
+	public void setGridSize(Dimension dim){
+		this.rows = dim.height;
+		this.cols = dim.width;
+	}
 	
 	public GameGrid() {
 		// Default grid dimensions
