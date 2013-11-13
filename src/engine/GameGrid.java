@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * This is a helper class for being able to generate a gaming table 
- *
+ * Also this class stores the list of squares our grid got
  */
 
 public class GameGrid {
