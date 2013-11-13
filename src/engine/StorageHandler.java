@@ -20,11 +20,11 @@ public class StorageHandler {
 	}
 
 	
-	public void saveArrayListToFile(ArrayList<SquareBase> books ) throws FileNotFoundException, IOException
+	public void saveArrayListToFile(ArrayList<SquareBase> sbase ) throws FileNotFoundException, IOException
 	{
 		String filePath = getFilename();
 		o_out= new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filePath)));
-		o_out.writeObject(books);
+		o_out.writeObject(sbase);
 		o_out.close();
 	}
 	
