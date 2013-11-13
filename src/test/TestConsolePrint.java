@@ -4,6 +4,7 @@
 package test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import engine.Direction;
@@ -16,6 +17,9 @@ import engine.StorageHandler;
 public class TestConsolePrint {
 
 	public TestConsolePrint() throws IOException {
+	}
+	
+	public void test_grid_render() {
 		Scanner is = new Scanner(System.in);
 		
 		//System.out.println("RUDIMENTÄRE TEST AUSGABE / GENERIERUNG");
@@ -49,7 +53,9 @@ public class TestConsolePrint {
 			}
 		}
 		
-		// Test the canBeEnlighted Method
+		/*
+		 *  Test the canBeEnlighted Method
+		 */
 		int g=1;
 		NumberSquare ns = (NumberSquare)grid.getSquares().get(31); // first number square of our dummy data
 		for(SquareBase s : grid.getSquares()) {
@@ -65,18 +71,39 @@ public class TestConsolePrint {
 		}
 		
 		//System.out.println(ns.canEnlight(grid.getSquares().get(16)));
-		
+	}
+	
+	public void test_storeage() throws Exception {
 		// Test Storage save
 		GameGrid foo = new GameGrid(4,4);
 		foo.generateSquares();
 		foo.asignSquareCoordinates();
+		System.out.println("Original: " + foo.getSquares().size());
 		
+		String file = "C:\\Users\\serjoscha-87\\Desktop\\test.txt";
 		
+		StorageHandler s = new StorageHandler();
+		
+		s.saveArrayListToFile(foo.getSquares(), file);
+		
+		// load again
+		ArrayList<SquareBase> bar = s.loadArrayListFromFile(file);
+		System.out.println("Restored: " + bar.size());
+		
+		for(SquareBase sq : bar) {
+			
+		}
 	}
 	
 	public static void main(String[] args) {
 		try {
-			new TestConsolePrint();
+			TestConsolePrint o = new TestConsolePrint();
+			
+			/**
+			 * CALL DESIRED TEST METHOD
+			 */
+			o.test_storeage();
+			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
