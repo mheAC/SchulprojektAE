@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class StorageHandler {
-	private static String filename;
+	private String filename;
 	private ObjectInputStream o_in;
 	private ObjectOutputStream o_out;
 	
@@ -15,8 +15,8 @@ public class StorageHandler {
 		return filename;
 	}
 
-	public void setFilename(String filename) {
-		StorageHandler.filename = filename;
+	public void setFilename(String fname) {
+		this.filename = fname;
 	}
 
 	

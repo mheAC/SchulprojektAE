@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -18,6 +20,7 @@ import engine.*;
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
+	private ArrayList sq;
 	
 	public Main() {
 		this.configWin = new StartWindow();
@@ -28,13 +31,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.getHeightSlider().addChangeListener(this);
 		this.configWin.getokActionBtn().addActionListener(this);
 		
+		sq = new ArrayList<SquareBase>();
+		
 		this.mainWin = new MainWindow();
 	}
 	
 	public static void main(String[] args) {
 		try {
 			new Main();
-			ArrayList sq = new ArrayList<SquareBase>();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
@@ -48,7 +52,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// Add Panel listener
 		for(Component p : mainWin.getMainPanel().getComponents()) {
 			JPanel pan = (JPanel)p;
+			JGameSquare gs = (JGameSquare)pan;
+			sq.add(gs.getRepresentedSquare());
 			pan.addMouseListener(this);
+		}
+		StorageHandler sh = new StorageHandler();
+		sh.setFilename("Test.ysams");
+		try {
+			sh.saveArrayListToFile(sq);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("konnte nicht geladen werden!\nDatei nicht gefunden!\n");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("konnte nicht geladen werden!\nKann auf Datei nicht zugreifen!\n");
 		}
 
 		//this.configWin.getFrame().dispose();
