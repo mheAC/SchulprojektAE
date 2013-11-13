@@ -56,7 +56,8 @@ public class MainWindow {
 		
 		Border border = new BevelBorder( BevelBorder.RAISED );
 		for(SquareBase s : data.getSquares()) {
-			  JPanel pTmp = new JPanel();
+			  JGameSquare pTmp = new JGameSquare();
+			  pTmp.setRepresentingSquare(s);
 			  pTmp.setLayout(new FlowLayout());
 			  pTmp.setBorder(border);
 			  pTmp.add(new JLabel(s.getPrintableValue()));
