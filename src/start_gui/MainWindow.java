@@ -15,6 +15,9 @@ public class MainWindow {
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
+	private JToolBar toolBar;
+	private JButton saveBtn;
+	private JButton loadBtn;
 
 	public int getRows() {
 		return rows;
@@ -39,6 +42,9 @@ public class MainWindow {
 	public MainWindow() {
 		mainFrame = new JFrame("Lichststrahlen  Spiel");
 		mainPanel = new JPanel();
+		toolBar = new JToolBar();
+		saveBtn = new JButton("Save");
+		loadBtn = new JButton("Load");
 	}
 	
 	public void buildWindow(){
@@ -58,7 +64,8 @@ public class MainWindow {
 		data.generateSquares();
 		data.asignSquareCoordinates();
 		
-		Border border = new BevelBorder( BevelBorder.RAISED );
+		//3D - BorderView for our Panels
+		//Border border = new BevelBorder( BevelBorder.RAISED );
 		for(SquareBase s : data.getSquares()) {
 			  JGameSquare pTmp = new JGameSquare();
 			  pTmp.setRepresentingSquare(s);
@@ -69,6 +76,10 @@ public class MainWindow {
 		}
 		
 		mainFrame.add(mainPanel);
+		toolBar.add(saveBtn);
+		toolBar.add(loadBtn);
+		toolBar.setFloatable(false);
+		mainFrame.add(toolBar, BorderLayout.NORTH);
 		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
