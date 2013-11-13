@@ -1,5 +1,6 @@
 package start_gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -8,8 +9,8 @@ import javax.swing.*;
 public class StartWindow {
 	private int gridwidth = 0;
 	private int gridheight= 0;
-	private static final int breite = 300;
-	private static final int hoehe  = 300;
+	private static final int breite = 400;
+	private static final int hoehe  = 400;
 	private static final int minSize=  15;
 	private static final int maxSize=  20;
 	private static final int steps  =   1;
@@ -17,6 +18,8 @@ public class StartWindow {
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
 	private JButton okActionBtn;
+	private JButton loadBtn;
+	private JToolBar startToolBar;
 	private Font font;
 	private Dimension dim;
 	private JFrame frame;
@@ -36,6 +39,12 @@ public class StartWindow {
 			
 			//Erstelle Button zum öffnen der MainWindow
 			okActionBtn = new JButton("Generieren");
+			//Create a Load Button to Load the Savegames
+			//It opens a JFileChooser
+			loadBtn = new JButton("Load");
+			startToolBar = new JToolBar();
+			startToolBar.setFloatable(false);
+			startToolBar.add(loadBtn);
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
@@ -111,7 +120,8 @@ public class StartWindow {
 			panel.add(okActionBtn);
 			
 			//Panel wird dem frame übergeben.
-			frame.getContentPane().add(panel);
+			frame.getContentPane().add(startToolBar, BorderLayout.NORTH);
+			frame.getContentPane().add(panel, BorderLayout.CENTER);
 			
 			//GridLayout wird dem panel übergeben
 			panel.setLayout(myLayout);
@@ -166,5 +176,9 @@ public class StartWindow {
 
 	public void setGridheight(int gridheight) {
 		this.gridheight = gridheight;
+	}
+
+	public JButton getLoadBtn() {
+		return loadBtn;
 	}
 }

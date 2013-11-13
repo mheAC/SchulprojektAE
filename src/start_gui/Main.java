@@ -5,27 +5,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileFilter;
 
-import engine.RaySquare;
+import engine.*;
 
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
+	private StorageHandler stH;
 	
 	public Main() {
 		this.configWin = new StartWindow();
+		this.stH = new StorageHandler();
 		this.configWin.show();
 		
 		// Add some listener
 		this.configWin.getWidthSlider().addChangeListener(this);
 		this.configWin.getHeightSlider().addChangeListener(this);
 		this.configWin.getokActionBtn().addActionListener(this);
+		this.configWin.getLoadBtn().addActionListener(this);
 		
 		this.mainWin = new MainWindow();
 	}
@@ -38,18 +43,45 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Create the main game window
-		mainWin.setCols(this.configWin.getGridwidth());
-		mainWin.setRows(this.configWin.getGridheight());
-
-		mainWin.buildWindow();
-		// Add Panel listener
-		for(Component p : mainWin.getMainPanel().getComponents()) {
-			JPanel pan = (JPanel)p;
-			pan.addMouseListener(this);
+		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
+			// Create the main game window
+			mainWin.setCols(this.configWin.getGridwidth());
+			mainWin.setRows(this.configWin.getGridheight());
+	
+			mainWin.buildWindow();
+			// Add Panel listener
+			for(Component p : mainWin.getMainPanel().getComponents()) {
+				JPanel pan = (JPanel)p;
+				pan.addMouseListener(this);
+			}
+	
+			//this.configWin.getFrame().dispose();
 		}
-
-		//this.configWin.getFrame().dispose();
+		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
+			JFileChooser fch = new JFileChooser();
+			fch.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			fch.setDialogType(JFileChooser.OPEN_DIALOG);
+			fch.setCurrentDirectory(new File("./SaveGame"));
+			fch.showOpenDialog(configWin.getFrame());
+			File sf = fch.getSelectedFile();
+			try {
+				GameGrid gg = (GameGrid)stH.loadArrayListFromFile(sf);
+				MainWindow loadwin = new MainWindow();
+				loadwin.setCols(gg.getGridSize().width);
+				loadwin.setRows(gg.getGridSize().height);
+				loadwin.setGameGridData(gg);
+				loadwin.buildWindow();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	@Override
