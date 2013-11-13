@@ -1,6 +1,3 @@
-//This is a backup file from Main.java
-//created by YC - 11.11.2013 at 13:48
-
 package test;
 
 import java.io.IOException;
@@ -91,7 +88,14 @@ public class TestConsolePrint {
 		System.out.println("Restored: " + bar.size());
 		
 		for(SquareBase sq : bar) {
-			
+			if(sq.getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)sq;
+				System.out.println(rs.getDirection());
+			}
+			else {
+				NumberSquare ns = (NumberSquare)sq;
+				System.out.println(ns.getNumber());
+			}
 		}
 	}
 	
