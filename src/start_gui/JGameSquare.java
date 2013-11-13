@@ -18,6 +18,7 @@ public class JGameSquare extends JPanel {
 	private Border border;
 	
 	public JGameSquare(){
+		super();
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
 	}
