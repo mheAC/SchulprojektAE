@@ -94,7 +94,7 @@ public class GameGrid implements Serializable{
 	/**
 	 * This method will assign the x and y coordinates to any square in the list
 	 */
-	public void asignSquareCoordinates() {
+	public void asignSquareCoordinates() { // TODO this should happen automatically!! (make it also private)
 		int x=0;
 		int y=0;
 		for(SquareBase s: this.squares) {

@@ -52,7 +52,7 @@ public class MainWindow {
 	}
 
 	public MainWindow() {
-		mainFrame = new JFrame("Lichststrahlen  Spiel");
+		mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
 		mainToolBar = new JToolBar();
 		saveBtn = new JButton("Save");
@@ -62,18 +62,6 @@ public class MainWindow {
 		GridLayout lo = new GridLayout(rows,cols);
 		
 		mainPanel.setLayout(lo);
-		/*for (int i = 0; i < rows; i++) { // old version, which ignored the data model / which was the problem and reason for rewriting
-			  for (int j = 0; j < cols; j++) {
-				  JPanel pTmp = new JPanel();
-				  Border border = new BevelBorder( BevelBorder.RAISED );
-				  pTmp.setBorder(border);
-				  mainPanel.add(pTmp);
-			  }
-		}*/
-		if(getGameGridData()==null)
-			data = new GameGrid(cols, rows);
-		else
-			data = getGameGridData();
 		data.generateSquares();
 		data.asignSquareCoordinates();
 		

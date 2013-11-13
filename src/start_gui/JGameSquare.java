@@ -1,6 +1,7 @@
 package start_gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -21,6 +22,8 @@ public class JGameSquare extends JPanel {
 		super();
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
+		
+		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 	}
 	
 	public SquareBase getRepresentedSquare() {

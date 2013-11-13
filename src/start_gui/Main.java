@@ -21,8 +21,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	
 	public Main() {
 		this.configWin = new StartWindow();
-		this.stH = new StorageHandler();
 		this.configWin.show();
+		
+		// Store handler for beeing able to get drafts back
+		this.stH = new StorageHandler();
 		
 		// Add some listener
 		this.configWin.getWidthSlider().addChangeListener(this);
@@ -30,7 +32,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.getokActionBtn().addActionListener(this);
 		this.configWin.getLoadBtn().addActionListener(this);
 		
-		this.mainWin = new MainWindow();
 	}
 	
 	public static void main(String[] args) {
@@ -41,36 +42,45 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
+		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
+		
+		GameGrid gg = null;
+		
+		/*
+		 * Handling for generated MainWindow
+		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
 			// Create the main game window
-			mainWin.setCols(this.configWin.getGridwidth());
+			mainWin.setCols(this.configWin.getGridwidth()); // TODO make this dynamic!! The mainwin will render the date so it can easily find out how many cols and rows we got!
 			mainWin.setRows(this.configWin.getGridheight());
+			gg = new GameGrid(this.configWin.getGridwidth(), this.configWin.getGridheight());
+			gg.generateSquares();
+			gg.asignSquareCoordinates();
 			//this.configWin.getFrame().dispose();
 		}
+		/*
+		 * Handling for drafted MainWindow
+		 */
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
-			JFileChooser fch = new JFileChooser();
-			fch.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fch.setDialogType(JFileChooser.OPEN_DIALOG);
-			fch.setCurrentDirectory(new File("./SaveGame"));
-			fch.showOpenDialog(configWin.getFrame());
-			File sf = fch.getSelectedFile();
-			try {
-				GameGrid gg = stH.loadArrayListFromFile(sf);
-				mainWin.setCols(gg.getGridSize().width);
-				mainWin.setRows(gg.getGridSize().height);
-				mainWin.setGameGridData(gg);
-				//mainWin.buildWindow();
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			//JFileChooser fch = new JFileChooser();
+			JOpenFileDialog fch = new JOpenFileDialog();
+			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+				try {
+					gg = stH.loadArrayListFromFile(fch.getSelectedFile());
+				} catch (FileNotFoundException e1) { e1.printStackTrace();
+				} catch (ClassNotFoundException e1) { e1.printStackTrace();
+				} catch (IOException e1) { e1.printStackTrace(); }
 			}
 		}
+		
+		// set data to the frame
+		mainWin.setCols(gg.getGridSize().width);
+		mainWin.setRows(gg.getGridSize().height);
+		mainWin.setGameGridData(gg);
+		
+		// show the window
 		mainWin.buildWindow();
 		// Add Panel listener
 		for(Component p : mainWin.getMainPanel().getComponents()) {

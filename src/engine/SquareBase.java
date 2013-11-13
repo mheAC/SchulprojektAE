@@ -2,7 +2,6 @@ package engine;
 
 /**
  * Commons for all Square Typed. This Interface enables us to dynamically extend the amount of different Square Types if needed
- *
  */
 
 public abstract class SquareBase {
