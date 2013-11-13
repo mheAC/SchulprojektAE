@@ -69,8 +69,6 @@ public class MainWindow {
 		GridLayout lo = new GridLayout(rows,cols);
 		
 		mainPanel.setLayout(lo);
-		data.generateSquares();
-		data.asignSquareCoordinates();
 		
 		//3D - BorderView for our Panels
 		//Border border = new BevelBorder( BevelBorder.RAISED );

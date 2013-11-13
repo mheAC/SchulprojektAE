@@ -5,7 +5,7 @@ package engine;
  */
 
 public abstract class SquareBase {
-
+	
 	private int posX, posY;
 	
 	public int getPositionX() {

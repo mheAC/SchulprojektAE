@@ -26,6 +26,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	
 	private Properties properties;
 	
+	// Storage for current gameData
+	GameGrid gg;
+	
 	public Main() throws Exception {
 		// props
 		this.properties = new Properties();
@@ -60,8 +63,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
 		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
 		
-		GameGrid gg = null;
-		
 		/*
 		 * Handling for generated MainWindow
 		 */
@@ -72,23 +73,33 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			gg = new GameGrid(this.configWin.getGridwidth(), this.configWin.getGridheight());
 			gg.generateSquares();
 			gg.asignSquareCoordinates();
-			//this.configWin.getFrame().dispose();
 		}
 		/*
 		 * Handling for LOADING drafted MainWindow
 		 */
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
-			//JFileChooser fch = new JFileChooser();
 			JOpenFileDialog fch = new JOpenFileDialog();
-			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
-					gg = stH.loadArrayListFromFile(fch.getSelectedFile());
+					gg = stH.load(fch.getSelectedFile());
 				} catch (FileNotFoundException e1) { e1.printStackTrace();
 				} catch (ClassNotFoundException e1) { e1.printStackTrace();
 				} catch (IOException e1) { e1.printStackTrace(); }
 			}
 			else // filechooser cancled
 				return;
+			
+			// !!!!!
+			for(SquareBase sq : gg.getSquares()){
+				if(sq.getClass().equals(new RaySquare().getClass())) {
+					RaySquare rs = (RaySquare)sq;
+					System.out.println(rs.getDirection());
+				}
+				else {
+					NumberSquare ns = (NumberSquare)sq;
+					System.out.println(ns.getNumber());
+				}
+			}
 		}
 		/*
 		 * Handling for SAVING drafts
@@ -97,7 +108,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			String fileName = JOptionPane.showInputDialog("Unter welchem Namen soll die Datei gespeichert werden?");
 			if(!fileName.equals("")){
 				try {
-					this.stH.saveArrayListToFile(gg, properties.getProperty("saveGamePath")+fileName);
+					this.stH.persist(gg, properties.getProperty("saveGamePath")+fileName);
 				} catch (Exception e3) { e3.printStackTrace(); }
 			}
 			return; // break here 

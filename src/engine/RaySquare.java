@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class RaySquare extends SquareBase implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	Direction direction;

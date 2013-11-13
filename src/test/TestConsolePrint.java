@@ -94,7 +94,7 @@ public class TestConsolePrint {
 		StorageHandler s = new StorageHandler();
 		
 		// persist
-		s.saveArrayListToFile(foo, file);
+		s.persist(foo, file);
 		
 		System.out.println("--------------------------");
 		
@@ -106,7 +106,7 @@ public class TestConsolePrint {
 		 * 
 		 */
 		
-		GameGrid bar = s.loadArrayListFromFile(file);
+		GameGrid bar = s.load(file);
 		//System.out.println("Restored: " + bar.getGridSize().toString());
 		
 		// PRINT

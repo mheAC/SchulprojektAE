@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class GameGrid implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	// Dimension vars for the grid
 	private int cols, rows;
 	

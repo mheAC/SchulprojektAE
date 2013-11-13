@@ -11,7 +11,7 @@ public class StartWindow {
 	private int gridheight= 0;
 	private static final int breite = 400;
 	private static final int hoehe  = 400;
-	private static final int minSize=  15;
+	private static final int minSize=  3;
 	private static final int maxSize=  20;
 	private static final int steps  =   1;
 	private static final int startpos= 15;
