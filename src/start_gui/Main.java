@@ -13,10 +13,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import engine.RaySquare;
+import engine.StorageHandler;
 
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
+	private StorageHandler sh;
 	
 	public Main() {
 		this.configWin = new StartWindow();

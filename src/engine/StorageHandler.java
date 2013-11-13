@@ -11,11 +11,11 @@ public class StorageHandler {
 	public StorageHandler() {
 	}
 
-	public static String getFilename() {
+	public String getFilename() {
 		return filename;
 	}
 
-	public static void setFilename(String filename) {
+	public void setFilename(String filename) {
 		StorageHandler.filename = filename;
 	}
 
