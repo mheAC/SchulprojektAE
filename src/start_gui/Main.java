@@ -55,7 +55,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			fch.showOpenDialog(configWin.getFrame());
 			File sf = fch.getSelectedFile();
 			try {
-				GameGrid gg = (GameGrid)stH.loadArrayListFromFile(sf);
+				GameGrid gg = stH.loadArrayListFromFile(sf);
 				mainWin.setCols(gg.getGridSize().width);
 				mainWin.setRows(gg.getGridSize().height);
 				mainWin.setGameGridData(gg);
