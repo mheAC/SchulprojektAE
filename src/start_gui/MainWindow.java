@@ -16,7 +16,9 @@ public class MainWindow {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JToolBar mainToolBar;
-	private JButton saveBtn;
+	private JButton saveBtn,
+					solveGridBtn,
+					checkSolveableBtn;
 	private GameGrid data;
 
 	public GameGrid getGameGridData() {
@@ -51,11 +53,16 @@ public class MainWindow {
 		this.cols = cols;
 	}
 
+	/**
+	 * Default constructor
+	 */
 	public MainWindow() {
 		mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
 		mainToolBar = new JToolBar();
-		saveBtn = new JButton("Save");
+		saveBtn = new JButton("Entwurf speichern");
+		solveGridBtn = new JButton("Rätsel lösen");
+		checkSolveableBtn = new JButton("Rätsel lösbar?");
 	}
 	
 	public void buildWindow(){
@@ -78,6 +85,8 @@ public class MainWindow {
 		
 		mainFrame.add(mainPanel);
 		mainToolBar.add(saveBtn);
+		mainToolBar.add(solveGridBtn);
+		mainToolBar.add(checkSolveableBtn);
 		mainToolBar.setFloatable(false);
 		mainFrame.add(mainToolBar, BorderLayout.NORTH);
 		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	

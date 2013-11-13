@@ -75,7 +75,7 @@ public class TestConsolePrint {
 		GameGrid foo = new GameGrid(4,4);
 		foo.generateSquares();
 		foo.asignSquareCoordinates();
-		System.out.println("Original: " + foo.getSquares().size());
+		//System.out.println("Original: " + foo.getSquares().size());
 		// PRINT
 		for(SquareBase sq : foo.getSquares()) {
 			if(sq.getClass().equals(new RaySquare().getClass())) {
@@ -93,11 +93,21 @@ public class TestConsolePrint {
 		
 		StorageHandler s = new StorageHandler();
 		
+		// persist
 		s.saveArrayListToFile(foo, file);
 		
-		// load again
+		System.out.println("--------------------------");
+		
+		/*
+		 * 
+		 * 
+		 * LOAD DATA FROM FILE AGAIN
+		 * 
+		 * 
+		 */
+		
 		GameGrid bar = s.loadArrayListFromFile(file);
-		System.out.println("Restored: " + bar.getGridSize().toString());
+		//System.out.println("Restored: " + bar.getGridSize().toString());
 		
 		// PRINT
 		for(SquareBase sq : bar.getSquares()) {

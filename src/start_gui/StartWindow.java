@@ -41,7 +41,7 @@ public class StartWindow {
 			okActionBtn = new JButton("Generieren");
 			//Create a Load Button to Load the Savegames
 			//It opens a JFileChooser
-			loadBtn = new JButton("Load");
+			loadBtn = new JButton("Entwurf laden");
 			startToolBar = new JToolBar();
 			startToolBar.setFloatable(false);
 			startToolBar.add(loadBtn);

@@ -53,7 +53,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
 			// Create the main game window
-			mainWin.setCols(this.configWin.getGridwidth()); // TODO make this dynamic!! The mainwin will render the date so it can easily find out how many cols and rows we got!
+			mainWin.setCols(this.configWin.getGridwidth());
 			mainWin.setRows(this.configWin.getGridheight());
 			gg = new GameGrid(this.configWin.getGridwidth(), this.configWin.getGridheight());
 			gg.generateSquares();
@@ -61,7 +61,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			//this.configWin.getFrame().dispose();
 		}
 		/*
-		 * Handling for drafted MainWindow
+		 * Handling for LOADING drafted MainWindow
 		 */
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
 			//JFileChooser fch = new JFileChooser();
@@ -73,8 +73,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				} catch (ClassNotFoundException e1) { e1.printStackTrace();
 				} catch (IOException e1) { e1.printStackTrace(); }
 			}
+			else // filechooser cancled
+				return;
+		}
+		/*
+		 * Handling for SAVING drafts
+		 */
+		else if(e.getActionCommand().equals(this.mainWin.getSaveBtn().getActionCommand())) {
+			//this.stH.saveArrayListToFile(gGrid, filePath);
+			return; // break here 
 		}
 		
+		/*
+		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
+		 */
 		// set data to the frame
 		mainWin.setCols(gg.getGridSize().width);
 		mainWin.setRows(gg.getGridSize().height);
@@ -87,6 +99,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			JPanel pan = (JPanel)p;
 			pan.addMouseListener(this);
 		}
+		// Add some other listener
+		mainWin.getSaveBtn().addActionListener(this);
 	}
 
 	@Override
