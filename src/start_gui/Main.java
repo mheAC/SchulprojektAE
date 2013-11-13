@@ -48,6 +48,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.getHeightSlider().addChangeListener(this);
 		this.configWin.getokActionBtn().addActionListener(this);
 		this.configWin.getLoadBtn().addActionListener(this);
+		this.configWin.getInfoBtn().addActionListener(this);
 		
 	}
 	
@@ -67,7 +68,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 * Handling for generated MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
-			// Create the main game window
+			// Create the main game window			
 			mainWin.setCols(this.configWin.getGridwidth());
 			mainWin.setRows(this.configWin.getGridheight());
 			gg = new GameGrid(this.configWin.getGridwidth(), this.configWin.getGridheight());
@@ -100,6 +101,17 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				} catch (Exception e3) { e3.printStackTrace(); }
 			}
 			return; // break here 
+		}
+		/*
+		 * Handling of INFO button
+		 */
+		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
+			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
+												+ "Gruppe:\n"
+												+ "  Bassauer\n"
+												+ "  Congar\n"
+			);
+			return;
 		}
 		
 		/*
@@ -136,14 +148,26 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent();
+		RaySquare s = (RaySquare)gs.getRepresentedSquare();
 		
-		String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
+		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
 		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
 		if(gs.getClass().equals(new RaySquare().getClass()));
 		print += "\nEs handelt sich um ein: " + gs.getRepresentedSquare().getClass().getSimpleName();
 		
-		JOptionPane.showMessageDialog(null, print);
+		JOptionPane.showMessageDialog(null, print);*/
+		
+		switch(e.getButton()) {
+			case MouseEvent.BUTTON1: // left mouse
+				((JLabel)gs.getComponent(0)).setText("-");
+				s.setDirection(Direction.HORIZONTAL);
+			break;
 			
+			case MouseEvent.BUTTON3: // right mouse
+				((JLabel)gs.getComponent(0)).setText("|");
+				s.setDirection(Direction.VERTICAL);
+			break;
+		}
 	}
 
 	@Override

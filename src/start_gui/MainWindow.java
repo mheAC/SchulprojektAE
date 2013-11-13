@@ -12,6 +12,7 @@ import engine.SquareBase;
 
 
 public class MainWindow {
+	
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
@@ -21,6 +22,52 @@ public class MainWindow {
 					checkSolveableBtn;
 	private GameGrid data;
 
+	/**
+	 * Default constructor
+	 */
+	public MainWindow() {
+		mainFrame = new JFrame("Lichststrahlen Spiel");
+		mainPanel = new JPanel();
+		mainToolBar = new JToolBar();
+		saveBtn = new JButton("Entwurf speichern");
+		solveGridBtn = new JButton("Rätsel lösen");
+		checkSolveableBtn = new JButton("Rätsel lösbar?");
+	}
+	
+	public void buildWindow(){
+		GridLayout lo = new GridLayout(rows,cols);
+		
+		mainPanel.setLayout(lo);
+		
+		//3D - BorderView for our Panels
+		//Border border = new BevelBorder( BevelBorder.RAISED );
+		for(SquareBase s : data.getSquares()) {
+			  JGameSquare pTmp = new JGameSquare();
+			  pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
+			  pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
+			  mainPanel.add(pTmp); // add the panel
+		}
+		
+		// Add the panel to the main frame
+		mainFrame.add(mainPanel);
+		
+		// add the beans
+		mainToolBar.add(saveBtn);
+		mainToolBar.add(solveGridBtn);
+		mainToolBar.add(checkSolveableBtn);
+		mainToolBar.setFloatable(false);
+		mainFrame.add(mainToolBar, BorderLayout.NORTH);
+		
+		// Rest stuff for displaying
+		mainFrame.pack();
+		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setVisible(true);
+	}
+	
+	public JPanel getMainPanel() {
+		return mainPanel;
+	}
+	
 	public GameGrid getGameGridData() {
 		return data;
 	}
@@ -51,50 +98,6 @@ public class MainWindow {
 
 	public void setCols(int cols) {
 		this.cols = cols;
-	}
-
-	/**
-	 * Default constructor
-	 */
-	public MainWindow() {
-		mainFrame = new JFrame("Lichststrahlen Spiel");
-		mainPanel = new JPanel();
-		mainToolBar = new JToolBar();
-		saveBtn = new JButton("Entwurf speichern");
-		solveGridBtn = new JButton("Rätsel lösen");
-		checkSolveableBtn = new JButton("Rätsel lösbar?");
-	}
-	
-	public void buildWindow(){
-		GridLayout lo = new GridLayout(rows,cols);
-		
-		mainPanel.setLayout(lo);
-		
-		//3D - BorderView for our Panels
-		//Border border = new BevelBorder( BevelBorder.RAISED );
-		for(SquareBase s : data.getSquares()) {
-			  JGameSquare pTmp = new JGameSquare();
-			  pTmp.setRepresentingSquare(s);
-			  pTmp.setLayout(new FlowLayout());
-			  //pTmp.setBorder(border);
-			  pTmp.add(new JLabel(s.getPrintableValue()));
-			  mainPanel.add(pTmp);
-		}
-		
-		mainFrame.add(mainPanel);
-		mainToolBar.add(saveBtn);
-		mainToolBar.add(solveGridBtn);
-		mainToolBar.add(checkSolveableBtn);
-		mainToolBar.setFloatable(false);
-		mainFrame.add(mainToolBar, BorderLayout.NORTH);
-		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		mainFrame.pack();
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setVisible(true);
-	}
-	
-	public JPanel getMainPanel() {
-		return mainPanel;
 	}
 
 }

@@ -1,8 +1,10 @@
 package start_gui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+
 import javax.swing.*;
 
 public class StartWindow {
@@ -25,6 +27,7 @@ public class StartWindow {
 	private JLabel sliderLbl;
 	private JButton okActionBtn;
 	private JButton loadBtn;
+	private JButton infoBtn;
 	private JToolBar startToolBar;
 	private JFrame frame;
 	private JPanel panel;
@@ -32,10 +35,6 @@ public class StartWindow {
 	private JLabel heightLbl;
 	private JSlider widthSlider;
 	private JSlider heightSlider;
-	
-	// Layout stuff
-	private GridLayout myLayout;
-	private Font font;
 	
 	public void show() {
 		try{
@@ -48,9 +47,11 @@ public class StartWindow {
 			//Create a Load Button to Load the Savegames
 			//It opens a JFileChooser
 			loadBtn = new JButton("Entwurf laden");
+			infoBtn = new JButton("Über...");
 			startToolBar = new JToolBar();
 			startToolBar.setFloatable(false);
 			startToolBar.add(loadBtn);
+			startToolBar.add(infoBtn);
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
@@ -69,18 +70,15 @@ public class StartWindow {
 			
 			//Ein Layout für das panel wird erstellt. In diesem Fall ein GridLayout()
 			//4 - > Rows, 1 -> Columns
-			myLayout = new GridLayout(7, 1);
+			GridLayout myLayout = new GridLayout(7, 1);
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
 			widthSlider = new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
 			heightSlider= new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
 			
-			//Eine Hilfsvariable dim (Dimension) wird erstellt.
-			//dim = new Dimension(breite, hoehe);
-			
 			//Schriftart wurde gewählt und erstellt.
-			font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
+			Font font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
 			
 			//Schriftart wird gesetzt.
 			sliderLbl.setFont(font);
@@ -179,4 +177,9 @@ public class StartWindow {
 	public JButton getLoadBtn() {
 		return loadBtn;
 	}
+	
+	public JButton getInfoBtn() {
+		return infoBtn;
+	}
+	
 }
