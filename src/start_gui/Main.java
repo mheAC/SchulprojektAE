@@ -88,18 +88,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			}
 			else // filechooser cancled
 				return;
-			
-			// !!!!!
-			for(SquareBase sq : gg.getSquares()){
-				if(sq.getClass().equals(new RaySquare().getClass())) {
-					RaySquare rs = (RaySquare)sq;
-					System.out.println(rs.getDirection());
-				}
-				else {
-					NumberSquare ns = (NumberSquare)sq;
-					System.out.println(ns.getNumber());
-				}
-			}
 		}
 		/*
 		 * Handling for SAVING drafts
@@ -147,11 +135,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		/*JPanel pp = (JPanel)e.getComponent();
-		Point point = pp.getLocation();
-		JOptionPane.showMessageDialog(null, "X: " + point.x + "\nY: " + point.y, "Location", JOptionPane.OK_OPTION);*/
-		
-		// ((JLabel)((JPanel)e.getComponent()).getComponent(0)).getText()
 		JGameSquare gs = (JGameSquare)e.getComponent();
 		
 		String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));

@@ -1,35 +1,41 @@
 package start_gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.*;
 
 public class StartWindow {
+	
+	// Helper vars for the configuration
 	private int gridwidth = 0;
 	private int gridheight= 0;
-	private static final int breite = 400;
-	private static final int hoehe  = 400;
-	private static final int minSize=  3;
-	private static final int maxSize=  20;
-	private static final int steps  =   1;
-	private static final int startpos= 15;
+	
+	// Local helper vars
+	private boolean created;
+	
+	// Slider GUI config
+	private static final int minSliderVal 			=  15;
+	private static final int maxSliderVal 			=  20;
+	private static final int sliderStepsPerSlide  	=   1;
+	private static final int sliderStartPos			= 15;
+	
+	// Beans
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
 	private JButton okActionBtn;
 	private JButton loadBtn;
 	private JToolBar startToolBar;
-	private Font font;
-	private Dimension dim;
 	private JFrame frame;
 	private JPanel panel;
-	private GridLayout myLayout;
 	private JLabel widthLbl;
 	private JLabel heightLbl;
 	private JSlider widthSlider;
 	private JSlider heightSlider;
-	private boolean created;
+	
+	// Layout stuff
+	private GridLayout myLayout;
+	private Font font;
 	
 	public void show() {
 		try{
@@ -67,11 +73,11 @@ public class StartWindow {
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
-			widthSlider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
-			heightSlider= new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
+			widthSlider = new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
+			heightSlider= new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
 			
 			//Eine Hilfsvariable dim (Dimension) wird erstellt.
-			dim = new Dimension(breite, hoehe);
+			//dim = new Dimension(breite, hoehe);
 			
 			//Schriftart wurde gewählt und erstellt.
 			font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
@@ -85,12 +91,12 @@ public class StartWindow {
 			heightSlider.setFont(font);
 			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
-			widthSlider.setMajorTickSpacing(steps);
-			heightSlider.setMajorTickSpacing(steps);
+			widthSlider.setMajorTickSpacing(sliderStepsPerSlide);
+			heightSlider.setMajorTickSpacing(sliderStepsPerSlide);
 			
 			//Zeigt in "steps"-Schritten die einzelnen Punkte => Slider
-			widthSlider.setMinorTickSpacing(steps);
-			heightSlider.setMinorTickSpacing(steps);
+			widthSlider.setMinorTickSpacing(sliderStepsPerSlide);
+			heightSlider.setMinorTickSpacing(sliderStepsPerSlide);
 			
 			//Anzeige wird auf true gesetzt um die Zahlen und Striche anzuzeigen.
 			widthSlider.setPaintTicks(true);
@@ -101,14 +107,6 @@ public class StartWindow {
 			
 			//Erklärt sich eigentlich auch von selbst :P
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-			//Minimum Größe für panel und frame wird gesetzt
-			frame.setMinimumSize(dim);
-			panel.setMinimumSize(dim);
-			
-			//Bevorzugte Größe für panel und frame wird gesetzt
-			frame.setPreferredSize(dim);
-			panel.setPreferredSize(dim);
 			
 			//Komponenten werden dem Panel hinzugefügt.
 			panel.add(sizeLbl);
