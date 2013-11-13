@@ -78,7 +78,7 @@ public class TestConsolePrint {
 		System.out.println("Original: " + foo.getSquares().size());
 		
 		//String file = "C:\\Users\\serjoscha-87\\Desktop\\test.txt";
-		String file = "test.ysams";
+		String file = "test1.ysams";
 		
 		StorageHandler s = new StorageHandler();
 		
@@ -88,7 +88,7 @@ public class TestConsolePrint {
 		GameGrid bar = s.loadArrayListFromFile(file);
 		System.out.println("Restored: " + bar.getGridSize().toString());
 		
-		/*for(SquareBase sq : bar) {
+		for(SquareBase sq : bar.getSquares()) {
 			if(sq.getClass().equals(new RaySquare().getClass())) {
 				RaySquare rs = (RaySquare)sq;
 				System.out.println(rs.getDirection());
@@ -97,7 +97,7 @@ public class TestConsolePrint {
 				NumberSquare ns = (NumberSquare)sq;
 				System.out.println(ns.getNumber());
 			}
-		}*/
+		}
 	}
 	
 	public static void main(String[] args) {
