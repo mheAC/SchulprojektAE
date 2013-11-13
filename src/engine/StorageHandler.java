@@ -19,22 +19,6 @@ public class StorageHandler {
 		StorageHandler.filename = filename;
 	}
 
-	public ObjectInputStream getO_in() {
-		return o_in;
-	}
-
-	public void setO_in(ObjectInputStream o_in) {
-		this.o_in = o_in;
-	}
-
-	public ObjectOutputStream getO_out() {
-		return o_out;
-	}
-
-	public void setO_out(ObjectOutputStream o_out) {
-		this.o_out = o_out;
-	}
-
 	
 	public void saveArrayListToFile(ArrayList<SquareBase> books ) throws FileNotFoundException, IOException
 	{
