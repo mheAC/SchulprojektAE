@@ -76,6 +76,17 @@ public class TestConsolePrint {
 		foo.generateSquares();
 		foo.asignSquareCoordinates();
 		System.out.println("Original: " + foo.getSquares().size());
+		// PRINT
+		for(SquareBase sq : foo.getSquares()) {
+			if(sq.getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)sq;
+				System.out.println(rs.getDirection());
+			}
+			else {
+				NumberSquare ns = (NumberSquare)sq;
+				System.out.println(ns.getNumber());
+			}
+		}
 		
 		//String file = "C:\\Users\\serjoscha-87\\Desktop\\test.txt";
 		String file = "test1.ysams";
@@ -88,6 +99,7 @@ public class TestConsolePrint {
 		GameGrid bar = s.loadArrayListFromFile(file);
 		System.out.println("Restored: " + bar.getGridSize().toString());
 		
+		// PRINT
 		for(SquareBase sq : bar.getSquares()) {
 			if(sq.getClass().equals(new RaySquare().getClass())) {
 				RaySquare rs = (RaySquare)sq;
