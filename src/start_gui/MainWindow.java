@@ -64,7 +64,8 @@ public class MainWindow {
 		data.generateSquares();
 		data.asignSquareCoordinates();
 		
-		Border border = new BevelBorder( BevelBorder.RAISED );
+		//3D - BorderView for our Panels
+		//Border border = new BevelBorder( BevelBorder.RAISED );
 		for(SquareBase s : data.getSquares()) {
 			  JGameSquare pTmp = new JGameSquare();
 			  pTmp.setRepresentingSquare(s);
