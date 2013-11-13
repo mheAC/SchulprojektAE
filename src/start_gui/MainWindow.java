@@ -59,7 +59,7 @@ public class MainWindow {
 			  JGameSquare pTmp = new JGameSquare();
 			  pTmp.setRepresentingSquare(s);
 			  pTmp.setLayout(new FlowLayout());
-			  pTmp.setBorder(border);
+			  //pTmp.setBorder(border);
 			  pTmp.add(new JLabel(s.getPrintableValue()));
 			  mainPanel.add(pTmp);
 		}
