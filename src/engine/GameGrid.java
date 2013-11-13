@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * Also this class stores the list of squares our grid got
  */
 
-public class GameGrid {
+public class GameGrid implements Serializable{
 
 	// Dimension vars for the grid
 	private int cols, rows;
