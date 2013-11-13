@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,13 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import engine.RaySquare;
-import engine.StorageHandler;
+import engine.*;
 
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
-	private StorageHandler sh;
 	
 	public Main() {
 		this.configWin = new StartWindow();
@@ -35,6 +34,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	public static void main(String[] args) {
 		try {
 			new Main();
+			ArrayList sq = new ArrayList<SquareBase>();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
