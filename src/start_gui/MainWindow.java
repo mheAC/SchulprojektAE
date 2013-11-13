@@ -19,7 +19,11 @@ public class MainWindow {
 	public int getRows() {
 		return rows;
 	}
-
+	
+	public JFrame getJFrame(){
+		return mainFrame;
+	}
+	
 	public void setRows(int rows) {
 		this.rows = rows;
 	}

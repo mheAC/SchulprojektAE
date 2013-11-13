@@ -116,7 +116,7 @@ public class StartWindow {
 			//GridLayout wird dem panel übergeben
 			panel.setLayout(myLayout);
 			created = true;
-			
+			frame.pack();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(created); // show the window
 		}
