@@ -88,10 +88,10 @@ public class GameGrid {
 		for(SquareBase s: this.squares) {
 			s.setPositionX(x);
 			s.setPositionY(y);
-			y++;
-			if(y % this.cols == 0 && y != 0) {
-				x++;
-				y=0;
+			x++;
+			if(x % this.cols == 0 && x != 0) {
+				y++;
+				x=0;
 			}
 		}
 	}
