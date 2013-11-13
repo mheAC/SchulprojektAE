@@ -22,7 +22,10 @@ public class StartWindow {
 	private JFrame frame;
 	private JPanel panel;
 	private GridLayout myLayout;
-	private JSlider slider;
+	private JLabel widthLbl;
+	private JLabel heightLbl;
+	private JSlider widthSlider;
+	private JSlider heightSlider;
 	private boolean created;
 	
 	public void show() {
@@ -37,6 +40,8 @@ public class StartWindow {
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
 			sliderLbl = new JLabel("15x15");
+			heightLbl = new JLabel("Höhe in rows:");
+			widthLbl  = new JLabel("Breite in cols:");
 			
 			//sizeLbl => erklärt sich von selbst :)
 			sizeLbl = new JLabel("Wählen Sie eine Größe aus (Breite x Höhe) :");
@@ -49,11 +54,12 @@ public class StartWindow {
 			
 			//Ein Layout für das panel wird erstellt. In diesem Fall ein GridLayout()
 			//4 - > Rows, 1 -> Columns
-			myLayout = new GridLayout(4, 1);
+			myLayout = new GridLayout(7, 1);
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
-			slider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
+			widthSlider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
+			heightSlider= new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
 			
 			//Eine Hilfsvariable dim (Dimension) wird erstellt.
 			dim = new Dimension(breite, hoehe);
@@ -64,17 +70,24 @@ public class StartWindow {
 			//Schriftart wird gesetzt.
 			sliderLbl.setFont(font);
 			sizeLbl.setFont(font);
-			slider.setFont(font);
+			widthLbl.setFont(font);
+			heightLbl.setFont(font);
+			widthSlider.setFont(font);
+			heightSlider.setFont(font);
 			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
-			slider.setMajorTickSpacing(steps);
+			widthSlider.setMajorTickSpacing(steps);
+			heightSlider.setMajorTickSpacing(steps);
 			
 			//Zeigt in "steps"-Schritten die einzelnen Punkte => Slider
-			slider.setMinorTickSpacing(steps);
+			widthSlider.setMinorTickSpacing(steps);
+			heightSlider.setMinorTickSpacing(steps);
 			
 			//Anzeige wird auf true gesetzt um die Zahlen und Striche anzuzeigen.
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
+			widthSlider.setPaintTicks(true);
+			widthSlider.setPaintLabels(true);
+			heightSlider.setPaintTicks(true);
+			heightSlider.setPaintLabels(true);			
 			
 			
 			//Erklärt sich eigentlich auch von selbst :P
@@ -90,7 +103,10 @@ public class StartWindow {
 			
 			//Komponenten werden dem Panel hinzugefügt.
 			panel.add(sizeLbl);
-			panel.add(slider);
+			panel.add(widthLbl);
+			panel.add(widthSlider);
+			panel.add(heightLbl);
+			panel.add(heightSlider);
 			panel.add(sliderLbl);
 			panel.add(okActionBtn);
 			
@@ -117,8 +133,12 @@ public class StartWindow {
 		return okActionBtn;
 	}
 
-	public JSlider getSlider() {
-		return slider;
+	public JSlider getWidthSlider() {
+		return widthSlider;
+	}
+	
+	public JSlider getHeightSlider() {
+		return heightSlider;
 	}
 	
 	public JLabel getSliderLbl() {

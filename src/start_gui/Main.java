@@ -24,7 +24,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.show();
 		
 		// Add some listener
-		this.configWin.getSlider().addChangeListener(this);
+		this.configWin.getWidthSlider().addChangeListener(this);
+		this.configWin.getHeightSlider().addChangeListener(this);
 		this.configWin.getokActionBtn().addActionListener(this);
 		
 		this.mainWin = new MainWindow();
@@ -54,12 +55,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-	    if (!this.configWin.getSlider().getValueIsAdjusting()) {
-	    	int size = this.configWin.getSlider().getValue();
-	    	String forlbl = new String(size + "x" + size);
+	    if (!this.configWin.getWidthSlider().getValueIsAdjusting()) {
+	    	int width = this.configWin.getWidthSlider().getValue();
+	    	int height= this.configWin.getHeightSlider().getValue();
+	    	String forlbl = new String(width + "x" + height);
 	    	this.configWin.getSliderLbl().setText(forlbl);
-	    	this.configWin.setGridheight(size);
-	    	this.configWin.setGridwidth(size);
+	    	this.configWin.setGridheight(height);
+	    	this.configWin.setGridwidth(width);
 	    }
 	}
 
@@ -72,7 +74,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// ((JLabel)((JPanel)e.getComponent()).getComponent(0)).getText()
 		JGameSquare gs = (JGameSquare)e.getComponent();
 		
-		String print = new String("Dieses kästchen befindet sich an:\nx: "+ gs.getRepresentedSquare().getPositionX()+"\ny: "+gs.getRepresentedSquare().getPositionY());
+		String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
 		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
 		if(gs.getClass().equals(new RaySquare().getClass()));
 		print += "\nEs handelt sich um ein: " + gs.getRepresentedSquare().getClass().getSimpleName();
