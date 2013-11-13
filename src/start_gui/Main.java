@@ -12,8 +12,6 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileFilter;
-
 import engine.*;
 
 public class Main implements ChangeListener, ActionListener, MouseListener {
@@ -47,14 +45,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			// Create the main game window
 			mainWin.setCols(this.configWin.getGridwidth());
 			mainWin.setRows(this.configWin.getGridheight());
-	
-			mainWin.buildWindow();
-			// Add Panel listener
-			for(Component p : mainWin.getMainPanel().getComponents()) {
-				JPanel pan = (JPanel)p;
-				pan.addMouseListener(this);
-			}
-	
 			//this.configWin.getFrame().dispose();
 		}
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
@@ -65,12 +55,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			fch.showOpenDialog(configWin.getFrame());
 			File sf = fch.getSelectedFile();
 			try {
-				GameGrid gg = (GameGrid)stH.loadArrayListFromFile(sf);
-				MainWindow loadwin = new MainWindow();
-				loadwin.setCols(gg.getGridSize().width);
-				loadwin.setRows(gg.getGridSize().height);
-				loadwin.setGameGridData(gg);
-				loadwin.buildWindow();
+				GameGrid gg = stH.loadArrayListFromFile(sf);
+				mainWin.setCols(gg.getGridSize().width);
+				mainWin.setRows(gg.getGridSize().height);
+				mainWin.setGameGridData(gg);
+				//mainWin.buildWindow();
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -81,6 +70,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}
+		mainWin.buildWindow();
+		// Add Panel listener
+		for(Component p : mainWin.getMainPanel().getComponents()) {
+			JPanel pan = (JPanel)p;
+			pan.addMouseListener(this);
 		}
 	}
 
