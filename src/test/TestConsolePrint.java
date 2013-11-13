@@ -11,6 +11,7 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.StorageHandler;
 
 public class TestConsolePrint {
 
@@ -64,6 +65,13 @@ public class TestConsolePrint {
 		}
 		
 		//System.out.println(ns.canEnlight(grid.getSquares().get(16)));
+		
+		// Test Storage save
+		GameGrid foo = new GameGrid(4,4);
+		foo.generateSquares();
+		foo.asignSquareCoordinates();
+		
+		
 	}
 	
 	public static void main(String[] args) {
