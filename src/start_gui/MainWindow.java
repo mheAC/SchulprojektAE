@@ -15,9 +15,17 @@ public class MainWindow {
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-	private JToolBar toolBar;
+	private JToolBar mainToolBar;
 	private JButton saveBtn;
-	private JButton loadBtn;
+	private GameGrid data;
+
+	public GameGrid getGameGridData() {
+		return data;
+	}
+
+	public void setGameGridData(GameGrid dt) {
+		this.data = dt;
+	}
 
 	public int getRows() {
 		return rows;
@@ -31,6 +39,10 @@ public class MainWindow {
 		this.rows = rows;
 	}
 
+	public JButton getSaveBtn() {
+		return saveBtn;
+	}
+
 	public int getCols() {
 		return cols;
 	}
@@ -42,9 +54,8 @@ public class MainWindow {
 	public MainWindow() {
 		mainFrame = new JFrame("Lichststrahlen  Spiel");
 		mainPanel = new JPanel();
-		toolBar = new JToolBar();
+		mainToolBar = new JToolBar();
 		saveBtn = new JButton("Save");
-		loadBtn = new JButton("Load");
 	}
 	
 	public void buildWindow(){
@@ -59,8 +70,10 @@ public class MainWindow {
 				  mainPanel.add(pTmp);
 			  }
 		}*/
-		
-		GameGrid data = new GameGrid(cols, rows);
+		if(getGameGridData()==null)
+			data = new GameGrid(cols, rows);
+		else
+			data = getGameGridData();
 		data.generateSquares();
 		data.asignSquareCoordinates();
 		
@@ -76,10 +89,9 @@ public class MainWindow {
 		}
 		
 		mainFrame.add(mainPanel);
-		toolBar.add(saveBtn);
-		toolBar.add(loadBtn);
-		toolBar.setFloatable(false);
-		mainFrame.add(toolBar, BorderLayout.NORTH);
+		mainToolBar.add(saveBtn);
+		mainToolBar.setFloatable(false);
+		mainFrame.add(mainToolBar, BorderLayout.NORTH);
 		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
