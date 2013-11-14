@@ -45,6 +45,14 @@ public class GameGrid implements Serializable{
 	 * Method to generate a square list once
 	 */
 	public void generateSquares() {
+		this.squares = new ArrayList<SquareBase>();
+		for(int i = 0; i < this.cols * this.rows; i++) {
+			this.squares.add(new UntypedSquare());
+		}
+	}
+	
+	
+	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
 		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
 		this.squares = new ArrayList<SquareBase>();
@@ -56,7 +64,7 @@ public class GameGrid implements Serializable{
 				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
 			
 		}
-	}
+	}*/
 	
 	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING

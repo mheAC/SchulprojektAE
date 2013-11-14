@@ -1,4 +1,4 @@
-package start_gui;
+package gui;
 
 import java.io.File;
 

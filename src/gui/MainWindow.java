@@ -1,4 +1,4 @@
-package start_gui;
+package gui;
 
 import java.awt.*;
 import java.util.ArrayList;
