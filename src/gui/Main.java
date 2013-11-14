@@ -158,9 +158,15 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
 			// Number val
-			String zahlText = JOptionPane.showInputDialog("Zahl?"); // TODO abbrechen abfangen
-			int num = Integer.parseInt(zahlText);
-			((NumberSquare)s).setNumber(num);
+			 // catch abort
+            String zahlText = JOptionPane.showInputDialog("Zahl?");
+            if( zahlText == null) {
+                   
+            } else {
+                    int num = Integer.parseInt(zahlText);
+                    ((NumberSquare)s).setNumber(num);
+                    ((JLabel)gs.getComponent(0)).setText(zahlText);
+            }
 			gs.clearPaint(); // remove previous lines
 			gs.getTextLabel().setText(zahlText);
 		} 
