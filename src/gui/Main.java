@@ -148,7 +148,35 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent();
-		RaySquare s = (RaySquare)gs.getRepresentedSquare();
+		SquareBase s = gs.getRepresentedSquare();
+		
+		// Cast to the desired type
+		if(s.getClass().equals(new UntypedSquare().getClass())) {
+			// Single click: right / left -> Ray Square
+			if(e.getClickCount()==1)
+				s = new RaySquare();
+			else
+				// Double click: Number Square
+				s = new NumberSquare();
+			
+			// Save to model
+			gs.setRepresentingSquare(s);
+		}
+		
+		// Change a val
+		if(s.getClass().equals(new NumberSquare().getClass())) {
+			((NumberSquare)s).setNumber(2);
+		} 
+		else if(s.getClass().equals(new RaySquare().getClass())) {
+			if(e.getButton() == MouseEvent.BUTTON1) {
+				((RaySquare)s).setDirection(Direction.HORIZONTAL);
+				((JLabel)gs.getComponent(0)).setText("-");
+			}
+			else {
+				((RaySquare)s).setDirection(Direction.VERTICAL);
+				((JLabel)gs.getComponent(0)).setText("|");
+			}
+		}
 		
 		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
 		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
@@ -157,7 +185,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		
 		JOptionPane.showMessageDialog(null, print);*/
 		
-		switch(e.getButton()) {
+		/*switch(e.getButton()) {
 			case MouseEvent.BUTTON1: // left mouse
 				((JLabel)gs.getComponent(0)).setText("-");
 				s.setDirection(Direction.HORIZONTAL);
@@ -167,7 +195,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				((JLabel)gs.getComponent(0)).setText("|");
 				s.setDirection(Direction.VERTICAL);
 			break;
-		}
+		}*/
 	}
 
 	@Override
