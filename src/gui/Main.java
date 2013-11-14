@@ -171,11 +171,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			// Direction
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				((RaySquare)s).setDirection(Direction.HORIZONTAL);
-				((JLabel)gs.getComponent(0)).setText("-");
+				//((JLabel)gs.getComponent(0)).setText("-");
+				gs.drawLine(Direction.HORIZONTAL);
 			}
 			else {
 				((RaySquare)s).setDirection(Direction.VERTICAL);
-				((JLabel)gs.getComponent(0)).setText("|");
+				//((JLabel)gs.getComponent(0)).setText("|");
+				gs.drawLine(Direction.VERTICAL);
 			}
 		}
 		// Save to model
