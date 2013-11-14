@@ -152,20 +152,25 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		
 		// Cast to the desired type
 		if(s.getClass().equals(new UntypedSquare().getClass())) {
-			// Single click: right / left -> Ray Square
-			if(e.getClickCount()==1)
-				s = new RaySquare();
-			else
-				// Double click: Number Square
-				s = new NumberSquare();
-			
-			// Save to model
-			gs.setRepresentingSquare(s);
+			if(e.getClickCount()==1) { // Single click: right / left -> Ray Square
+				RaySquare tempRs = new RaySquare();
+				tempRs.setPositionX(s.getPositionX());
+				tempRs.setPositionY(s.getPositionY());
+				s = tempRs;
+			}
+			else { // Double click: Number Square
+				NumberSquare tempNs = new NumberSquare();
+				tempNs.setPositionX(s.getPositionX());
+				tempNs.setPositionY(s.getPositionY());
+				s = tempNs;
+			}
+	
 		}
 		
 		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
 			((NumberSquare)s).setNumber(2);
+			((JLabel)gs.getComponent(0)).setText("2");
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
 			if(e.getButton() == MouseEvent.BUTTON1) {
@@ -177,6 +182,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				((JLabel)gs.getComponent(0)).setText("|");
 			}
 		}
+		// Save to model
+		gs.setRepresentingSquare(s);
 		
 		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
 		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
