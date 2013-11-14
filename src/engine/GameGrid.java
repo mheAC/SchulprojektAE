@@ -118,10 +118,6 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-	/*public void replaceSquare(int index, SquareBase newSquare) {
-		this.squares.s
-	}*/
-	
 	/**
 	 * Returns the generated Square Collection. This method may be called more than just one time. It does not change any data 
 	 * @return

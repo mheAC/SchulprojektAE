@@ -29,4 +29,28 @@ public abstract class SquareBase {
 		return this.getPrintableValue();
 	}
 	
+	/*
+	 * "Casting" methods
+	 */
+	public RaySquare getAsRaySquare() {
+		RaySquare rs = new RaySquare();
+		rs.setPositionX(posX);
+		rs.setPositionY(posY);
+		return rs;
+	}
+	
+	public NumberSquare getAsNumberSquare() {
+		NumberSquare ns = new NumberSquare();
+		ns.setPositionX(posX);
+		ns.setPositionY(posY);
+		return ns;
+	}
+	
+	public UntypedSquare getAsUntypedSquare() {
+		UntypedSquare us = new UntypedSquare();
+		us.setPositionX(posX);
+		us.setPositionY(posY);
+		return us;
+	}
+	
 }
