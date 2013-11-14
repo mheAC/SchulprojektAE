@@ -39,13 +39,15 @@ public class MainWindow {
 		
 		mainPanel.setLayout(lo);
 		
-		//3D - BorderView for our Panels
-		//Border border = new BevelBorder( BevelBorder.RAISED );
-		for(SquareBase s : data.getSquares()) {
-			  JGameSquare pTmp = new JGameSquare();
-			  pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
-			  pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
-			  mainPanel.add(pTmp); // add the panel
+		//for(SquareBase s : data.getSquares()) {
+		for(int i = 0 ; i < data.getSquares().size() ; i++) {
+			SquareBase s = data.getSquares().get(i);
+			
+			JGameSquare pTmp = new JGameSquare();
+			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
+			pTmp.setPosition(i);
+			pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
+			mainPanel.add(pTmp); // add the panel
 		}
 		
 		// Add the panel to the main frame

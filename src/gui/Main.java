@@ -63,7 +63,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
 		
 		/*
-		 * Handling for generated MainWindow
+		 * Handling for GENERATED MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
 			// Create the main game window			
@@ -132,18 +132,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	}
 
 	@Override
-	public void stateChanged(ChangeEvent e) {
-	    if (!this.configWin.getWidthSlider().getValueIsAdjusting()) {
-	    	int width = this.configWin.getWidthSlider().getValue();
-	    	int height= this.configWin.getHeightSlider().getValue();
-	    	String forlbl = new String(width + "x" + height);
-	    	this.configWin.getSliderLbl().setText(forlbl);
-	    	this.configWin.setGridheight(height);
-	    	this.configWin.setGridwidth(width);
-	    }
-	}
-
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent();
 		SquareBase s = gs.getRepresentedSquare();
@@ -181,7 +169,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			}
 		}
 		// Save to model
-		gs.setRepresentingSquare(s);
+		//gs.setRepresentingSquare(s);
+		this.gg.getSquares().set(gs.getPosition(), s);
 		
 		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
 		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
@@ -201,6 +190,18 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				s.setDirection(Direction.VERTICAL);
 			break;
 		}*/
+	}
+	
+	@Override
+	public void stateChanged(ChangeEvent e) {
+	    if (!this.configWin.getWidthSlider().getValueIsAdjusting()) {
+	    	int width = this.configWin.getWidthSlider().getValue();
+	    	int height= this.configWin.getHeightSlider().getValue();
+	    	String forlbl = new String(width + "x" + height);
+	    	this.configWin.getSliderLbl().setText(forlbl);
+	    	this.configWin.setGridheight(height);
+	    	this.configWin.setGridwidth(width);
+	    }
 	}
 
 	@Override
