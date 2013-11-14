@@ -11,11 +11,11 @@ import engine.SquareBase;
 
 public class JGameSquare extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private SquareBase representingSquare;
+	private int position;
+	
 	private Border border;
 	
 	public JGameSquare(){
@@ -32,6 +32,14 @@ public class JGameSquare extends JPanel {
 	
 	public void setRepresentingSquare(SquareBase representingSquare) {
 		this.representingSquare = representingSquare;
+	}
+	
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
+	public int getPosition() {
+		return position;
 	}
 	
 }
