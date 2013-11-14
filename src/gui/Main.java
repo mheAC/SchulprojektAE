@@ -142,7 +142,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		
 		// "Cast" to the desired type
 		if(s.getClass().equals(new UntypedSquare().getClass())) {
-			if(e.getClickCount() ==1 ) { // Single click: right / left -> Ray Square				
+			if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square				
 				RaySquare tempRs = s.getAsRaySquare();
 				s = tempRs; // overwrite the old Square Object with the new one
 			}
@@ -150,6 +150,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				NumberSquare tempNs = s.getAsNumberSquare();
 				s = tempNs;
 			}
+		}
+		else if(s.getClass().equals(new NumberSquare().getClass())) {
+			// Convert Number Square to other classes
 		}
 
 		// Change a val
