@@ -37,7 +37,7 @@ public class MainWindow {
 	}
 	
 	public void buildWindow(){
-		GridLayout lo = new GridLayout(rows,cols);
+		GridLayout lo = new GridLayout(cols,rows);
 		
 		mainPanel.setLayout(lo);
 		

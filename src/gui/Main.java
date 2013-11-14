@@ -158,7 +158,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			String zahlText = JOptionPane.showInputDialog("Zahl?"); // TODO abbrechen abfangen
 			int num = Integer.parseInt(zahlText);
 			((NumberSquare)s).setNumber(num);
-			((JLabel)gs.getComponent(0)).setText(zahlText);
+			gs.clearPaint();
+			gs.getTextLabel().setText(zahlText);
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
 			// Direction

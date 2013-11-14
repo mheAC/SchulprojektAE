@@ -1,10 +1,11 @@
 package gui;
-//gamequare.java
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -18,11 +19,14 @@ public class JGameSquare extends JPanel {
 	private int position;
 	
 	private Border border;
+	private JLabel textLabel; 
 	
 	public JGameSquare(){
 		super();
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
+		
+		this.textLabel = new JLabel();
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 	}
@@ -38,26 +42,24 @@ public class JGameSquare extends JPanel {
 	public void drawLine(Direction e){
 		switch(e){
 			case VERTICAL:
-				clear(this);
-				drawVertikal(this);
+				clearPaint();
+				drawVertikal();
 			break;
 			
 			case HORIZONTAL:
-				clear(this);
-				drawHorizontal(this);
+				clearPaint();
+				drawHorizontal();
 			break;
 			
-			case UNSET:
-				clear(this);
+			default:
 			break;
 		}
 	}
 	
 	/**
 	 * draw - to the panel
-	 * @param gs
 	 */
-	private void drawHorizontal(JGameSquare gs) {
+	private void drawHorizontal() {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
@@ -67,17 +69,16 @@ public class JGameSquare extends JPanel {
 	
 	/**
 	 * draw | to the panel
-	 * @param gs
 	 */
-	private void drawVertikal(JGameSquare gs) {
+	private void drawVertikal() {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
-		g.drawLine(dim.width/2 ,0 , dim.width/2, dim.height);
+		g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
 	}
 	
-	private void clear(JGameSquare gs) {
-		gs.getGraphics().clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
+	public void clearPaint() {
+		this.getGraphics().clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
 	}
 	
 	public void setPosition(int position) {
@@ -86,6 +87,10 @@ public class JGameSquare extends JPanel {
 	
 	public int getPosition() {
 		return position;
+	}
+	
+	public JLabel getTextLabel() {
+		return textLabel;
 	}
 	
 }
