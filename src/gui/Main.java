@@ -23,6 +23,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
+	private File stHfile;
 	
 	private Properties properties;
 	
@@ -39,6 +40,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// the start / config window
 		this.configWin = new StartWindow();
 		this.configWin.show();
+		
+		stHfile = new File("./SaveGame");
 		
 		// Store handler for beeing able to get drafts back
 		this.stH = new StorageHandler();
@@ -80,6 +83,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 */
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
 			JOpenFileDialog fch = new JOpenFileDialog();
+			fch.setCurrentDirectory(stHfile);
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
 					gg = stH.load(fch.getSelectedFile());
