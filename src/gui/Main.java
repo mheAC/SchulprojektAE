@@ -106,8 +106,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
 			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
 												+ "Gruppe:\n"
-												+ "  Bassauer\n"
-												+ "  Congar\n"
+												+ "\tBassauer\n"
+												+ "\tCongar\n"
 			);
 			return;
 		}
