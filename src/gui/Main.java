@@ -137,25 +137,17 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		JGameSquare gs = (JGameSquare)e.getComponent();
+		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
-		
-		System.out.println(e.getClickCount());
 		
 		// "Cast" to the desired type
 		if(s.getClass().equals(new UntypedSquare().getClass())) {
-			if(e.getClickCount()==1) { // Single click: right / left -> Ray Square
-				RaySquare tempRs = new RaySquare();
-				// Copy Some stuff from the old object to the new
-				tempRs.setPositionX(s.getPositionX());
-				tempRs.setPositionY(s.getPositionY());
-				// overwrite the old Square Object with the new one
-				s = tempRs;
+			if(e.getClickCount() ==1 ) { // Single click: right / left -> Ray Square				
+				RaySquare tempRs = s.getAsRaySquare();
+				s = tempRs; // overwrite the old Square Object with the new one
 			}
 			else { // Double click: Number Square
-				NumberSquare tempNs = new NumberSquare();
-				tempNs.setPositionX(s.getPositionX());
-				tempNs.setPositionY(s.getPositionY());
+				NumberSquare tempNs = s.getAsNumberSquare();
 				s = tempNs;
 			}
 		}
@@ -163,7 +155,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
 			// Number val
-			String zahlText = JOptionPane.showInputDialog("Zahl?");
+			String zahlText = JOptionPane.showInputDialog("Zahl?"); // TODO abbrechen abfangen
 			int num = Integer.parseInt(zahlText);
 			((NumberSquare)s).setNumber(num);
 			((JLabel)gs.getComponent(0)).setText(zahlText);

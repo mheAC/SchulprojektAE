@@ -7,7 +7,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import engine.Direction;
 import engine.GameGrid;
+import engine.RaySquare;
 import engine.SquareBase;
 
 
@@ -46,7 +48,11 @@ public class MainWindow {
 			JGameSquare pTmp = new JGameSquare();
 			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
 			pTmp.setPosition(i);
-			pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
+			// draw if needed
+			//if(s.getClass().equals(new RaySquare().getClass()))
+				//pTmp.drawLine( ((RaySquare)s).getDirection() ); // crash! grapics for the jpanel seems to be uninited
+			//else
+				pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
 			mainPanel.add(pTmp); // add the panel
 		}
 		
