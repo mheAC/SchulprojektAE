@@ -131,17 +131,24 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		mainWin.getSaveBtn().addActionListener(this);
 	}
 
+	/*
+	 * Handle the Click onto a JGameSquare (JPanel)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent();
 		SquareBase s = gs.getRepresentedSquare();
 		
-		// Cast to the desired type
+		System.out.println(e.getClickCount());
+		
+		// "Cast" to the desired type
 		if(s.getClass().equals(new UntypedSquare().getClass())) {
 			if(e.getClickCount()==1) { // Single click: right / left -> Ray Square
 				RaySquare tempRs = new RaySquare();
+				// Copy Some stuff from the old object to the new
 				tempRs.setPositionX(s.getPositionX());
 				tempRs.setPositionY(s.getPositionY());
+				// overwrite the old Square Object with the new one
 				s = tempRs;
 			}
 			else { // Double click: Number Square
@@ -150,15 +157,18 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				tempNs.setPositionY(s.getPositionY());
 				s = tempNs;
 			}
-	
 		}
 		
 		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
-			((NumberSquare)s).setNumber(2);
-			((JLabel)gs.getComponent(0)).setText("2");
+			// Number val
+			String zahlText = JOptionPane.showInputDialog("Zahl?");
+			int num = Integer.parseInt(zahlText);
+			((NumberSquare)s).setNumber(num);
+			((JLabel)gs.getComponent(0)).setText(zahlText);
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
+			// Direction
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				((RaySquare)s).setDirection(Direction.HORIZONTAL);
 				((JLabel)gs.getComponent(0)).setText("-");
@@ -169,7 +179,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			}
 		}
 		// Save to model
-		//gs.setRepresentingSquare(s);
 		this.gg.getSquares().set(gs.getPosition(), s);
 		
 		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
