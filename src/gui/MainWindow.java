@@ -52,7 +52,8 @@ public class MainWindow {
 			//if(s.getClass().equals(new RaySquare().getClass()))
 				//pTmp.drawLine( ((RaySquare)s).getDirection() ); // crash! grapics for the jpanel seems to be uninited
 			//else
-				pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
+				//pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
+				pTmp.getTextLabel().setText(s.getPrintableValue());
 			mainPanel.add(pTmp); // add the panel
 		}
 		

@@ -28,6 +28,8 @@ public class JGameSquare extends JPanel {
 		
 		this.textLabel = new JLabel();
 		
+		this.add(this.textLabel);
+		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 	}
 	

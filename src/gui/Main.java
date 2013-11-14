@@ -158,7 +158,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			String zahlText = JOptionPane.showInputDialog("Zahl?"); // TODO abbrechen abfangen
 			int num = Integer.parseInt(zahlText);
 			((NumberSquare)s).setNumber(num);
-			gs.clearPaint();
+			gs.clearPaint(); // remove previous lines
 			gs.getTextLabel().setText(zahlText);
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
@@ -174,7 +174,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				gs.drawLine(Direction.VERTICAL);
 			}
 		}
-		// Save to model
+		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
 		
 		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
