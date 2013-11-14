@@ -46,19 +46,20 @@ public class JGameSquare extends JPanel {
 		}
 	}
 	
-	private void drawVertikal(JGameSquare gs){
+	private void drawHorizontal(JGameSquare gs){
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
 		g.drawLine(0, dim.height/2, dim.width,  dim.height/2);
 	}
 	
-	private void drawHorizontal(JGameSquare gs){
+	private void drawVertikal(JGameSquare gs){
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
 		g.drawLine(dim.width/2,0,dim.width/2,dim.height);
 	}
+	
 	public void setPosition(int position) {
 		this.position = position;
 	}

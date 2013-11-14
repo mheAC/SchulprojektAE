@@ -151,7 +151,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				s = tempNs;
 			}
 		}
-		
+
 		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
 			// Number val
@@ -162,16 +162,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
 			// Direction
-			if(e.getButton() == MouseEvent.BUTTON1) {
+			if(e.getButton() == MouseEvent.BUTTON1) { // BUTTON1 = left mouse
 				((RaySquare)s).setDirection(Direction.HORIZONTAL);
-				//((JLabel)gs.getComponent(0)).setText("-");
 				//paint a h line
-			
 				gs.drawLine(Direction.HORIZONTAL);
 			}
-			else {
+			else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON2 = right mouse
 				((RaySquare)s).setDirection(Direction.VERTICAL);
-				//((JLabel)gs.getComponent(0)).setText("|");
 				//paint a v line
 				gs.drawLine(Direction.VERTICAL);
 			}
