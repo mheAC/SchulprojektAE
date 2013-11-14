@@ -53,14 +53,23 @@ public class JGameSquare extends JPanel {
 		}
 	}
 	
-	private void drawHorizontal(JGameSquare gs){
+	/**
+	 * draw - to the panel
+	 * @param gs
+	 */
+	private void drawHorizontal(JGameSquare gs) {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
 		g.drawLine(0, dim.height/2, dim.width, dim.height/2);
+		//g.drawLine(6, dim.height/2, dim.width-6, dim.height/2); // draw a stroke that ends before the border
 	}
 	
-	private void drawVertikal(JGameSquare gs){
+	/**
+	 * draw | to the panel
+	 * @param gs
+	 */
+	private void drawVertikal(JGameSquare gs) {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
