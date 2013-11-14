@@ -37,11 +37,18 @@ public class JGameSquare extends JPanel {
 
 	public void drawLine(Direction e){
 		switch(e){
-		case VERTICAL:
-			drawVertikal(this);
+			case VERTICAL:
+				clear(this);
+				drawVertikal(this);
 			break;
-		case HORIZONTAL:
-			drawHorizontal(this);
+			
+			case HORIZONTAL:
+				clear(this);
+				drawHorizontal(this);
+			break;
+			
+			case UNSET:
+				clear(this);
 			break;
 		}
 	}
@@ -50,14 +57,18 @@ public class JGameSquare extends JPanel {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
-		g.drawLine(0, dim.height/2, dim.width,  dim.height/2);
+		g.drawLine(0, dim.height/2, dim.width, dim.height/2);
 	}
 	
 	private void drawVertikal(JGameSquare gs){
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
-		g.drawLine(dim.width/2,0,dim.width/2,dim.height);
+		g.drawLine(dim.width/2 ,0 , dim.width/2, dim.height);
+	}
+	
+	private void clear(JGameSquare gs) {
+		gs.getGraphics().clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
 	}
 	
 	public void setPosition(int position) {
