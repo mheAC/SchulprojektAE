@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -173,6 +174,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				((RaySquare)s).setDirection(Direction.HORIZONTAL);
 				//((JLabel)gs.getComponent(0)).setText("-");
 				//paint a h line
+			
 				gs.drawLine(Direction.HORIZONTAL);
 			}
 			else {
