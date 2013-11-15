@@ -1,20 +1,34 @@
 package engine;
 
+import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /**
  * This is a helper class for being able to generate a gaming table 
- *
+ * Also this class stores the list of squares our grid got
  */
 
-public class GameGrid {
+public class GameGrid implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	// Dimension vars for the grid
 	private int cols, rows;
 	
 	// Datastore var for the squares
 	private ArrayList<SquareBase> squares;
+	
+	public Dimension getGridSize(){
+		Dimension dim = new Dimension(this.rows, this.cols);
+		return dim;
+	}
+	
+	public void setGridSize(Dimension dim){
+		this.rows = dim.height;
+		this.cols = dim.width;
+	}
 	
 	public GameGrid() {
 		// Default grid dimensions
@@ -31,6 +45,14 @@ public class GameGrid {
 	 * Method to generate a square list once
 	 */
 	public void generateSquares() {
+		this.squares = new ArrayList<SquareBase>();
+		for(int i = 0; i < this.cols * this.rows; i++) {
+			this.squares.add(new UntypedSquare());
+		}
+	}
+	
+	
+	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
 		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
 		this.squares = new ArrayList<SquareBase>();
@@ -42,7 +64,7 @@ public class GameGrid {
 				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
 			
 		}
-	}
+	}*/
 	
 	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
@@ -82,16 +104,16 @@ public class GameGrid {
 	/**
 	 * This method will assign the x and y coordinates to any square in the list
 	 */
-	public void asignSquareCoordinates() {
+	public void asignSquareCoordinates() { // TODO this should happen automatically!! (make it also private)
 		int x=0;
 		int y=0;
 		for(SquareBase s: this.squares) {
 			s.setPositionX(x);
 			s.setPositionY(y);
-			y++;
-			if(y % this.cols == 0 && y != 0) {
-				x++;
-				y=0;
+			x++;
+			if(x % this.cols == 0 && x != 0) {
+				y++;
+				x=0;
 			}
 		}
 	}

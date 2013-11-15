@@ -1,29 +1,40 @@
-package start_gui;
+package gui;
 
-import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+
 import javax.swing.*;
 
 public class StartWindow {
+	
+	// Helper vars for the configuration
 	private int gridwidth = 0;
 	private int gridheight= 0;
-	private static final int breite = 300;
-	private static final int hoehe  = 300;
-	private static final int minSize=  15;
-	private static final int maxSize=  20;
-	private static final int steps  =   1;
-	private static final int startpos= 15;
+	
+	// Local helper vars
+	private boolean created;
+	
+	// Slider GUI config
+	private static final int minSliderVal 			=  15;
+	private static final int maxSliderVal 			=  20;
+	private static final int sliderStepsPerSlide  	=   1;
+	private static final int sliderStartPos			= 15;
+	
+	// Beans
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
 	private JButton okActionBtn;
-	private Font font;
-	private Dimension dim;
+	private JButton loadBtn;
+	private JButton infoBtn;
+	private JToolBar startToolBar;
 	private JFrame frame;
 	private JPanel panel;
-	private GridLayout myLayout;
-	private JSlider slider;
-	private boolean created;
+	private JLabel widthLbl;
+	private JLabel heightLbl;
+	private JSlider widthSlider;
+	private JSlider heightSlider;
 	
 	public void show() {
 		try{
@@ -33,10 +44,20 @@ public class StartWindow {
 			
 			//Erstelle Button zum öffnen der MainWindow
 			okActionBtn = new JButton("Generieren");
+			//Create a Load Button to Load the Savegames
+			//It opens a JFileChooser
+			loadBtn = new JButton("Entwurf laden");
+			infoBtn = new JButton("Über...");
+			startToolBar = new JToolBar();
+			startToolBar.setFloatable(false);
+			startToolBar.add(loadBtn);
+			startToolBar.add(infoBtn);
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
 			sliderLbl = new JLabel("15x15");
+			heightLbl = new JLabel("Höhe in rows:");
+			widthLbl  = new JLabel("Breite in cols:");
 			
 			//sizeLbl => erklärt sich von selbst :)
 			sizeLbl = new JLabel("Wählen Sie eine Größe aus (Breite x Höhe) :");
@@ -49,58 +70,59 @@ public class StartWindow {
 			
 			//Ein Layout für das panel wird erstellt. In diesem Fall ein GridLayout()
 			//4 - > Rows, 1 -> Columns
-			myLayout = new GridLayout(4, 1);
+			GridLayout myLayout = new GridLayout(7, 1);
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
-			slider = new JSlider(JSlider.HORIZONTAL, minSize, maxSize, startpos);
-			
-			//Eine Hilfsvariable dim (Dimension) wird erstellt.
-			dim = new Dimension(breite, hoehe);
+			widthSlider = new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
+			heightSlider= new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
 			
 			//Schriftart wurde gewählt und erstellt.
-			font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
+			Font font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
 			
 			//Schriftart wird gesetzt.
 			sliderLbl.setFont(font);
 			sizeLbl.setFont(font);
-			slider.setFont(font);
+			widthLbl.setFont(font);
+			heightLbl.setFont(font);
+			widthSlider.setFont(font);
+			heightSlider.setFont(font);
 			
 			//Zahl wird in "steps"-Schitten angezeigt => Slider
-			slider.setMajorTickSpacing(steps);
+			widthSlider.setMajorTickSpacing(sliderStepsPerSlide);
+			heightSlider.setMajorTickSpacing(sliderStepsPerSlide);
 			
 			//Zeigt in "steps"-Schritten die einzelnen Punkte => Slider
-			slider.setMinorTickSpacing(steps);
+			widthSlider.setMinorTickSpacing(sliderStepsPerSlide);
+			heightSlider.setMinorTickSpacing(sliderStepsPerSlide);
 			
 			//Anzeige wird auf true gesetzt um die Zahlen und Striche anzuzeigen.
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
+			widthSlider.setPaintTicks(true);
+			widthSlider.setPaintLabels(true);
+			heightSlider.setPaintTicks(true);
+			heightSlider.setPaintLabels(true);			
 			
 			
 			//Erklärt sich eigentlich auch von selbst :P
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
-			//Minimum Größe für panel und frame wird gesetzt
-			frame.setMinimumSize(dim);
-			panel.setMinimumSize(dim);
-			
-			//Bevorzugte Größe für panel und frame wird gesetzt
-			frame.setPreferredSize(dim);
-			panel.setPreferredSize(dim);
-			
 			//Komponenten werden dem Panel hinzugefügt.
 			panel.add(sizeLbl);
-			panel.add(slider);
+			panel.add(widthLbl);
+			panel.add(widthSlider);
+			panel.add(heightLbl);
+			panel.add(heightSlider);
 			panel.add(sliderLbl);
 			panel.add(okActionBtn);
 			
 			//Panel wird dem frame übergeben.
-			frame.getContentPane().add(panel);
+			frame.getContentPane().add(startToolBar, BorderLayout.NORTH);
+			frame.getContentPane().add(panel, BorderLayout.CENTER);
 			
 			//GridLayout wird dem panel übergeben
 			panel.setLayout(myLayout);
 			created = true;
-			
+			frame.pack();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(created); // show the window
 		}
@@ -117,8 +139,12 @@ public class StartWindow {
 		return okActionBtn;
 	}
 
-	public JSlider getSlider() {
-		return slider;
+	public JSlider getWidthSlider() {
+		return widthSlider;
+	}
+	
+	public JSlider getHeightSlider() {
+		return heightSlider;
 	}
 	
 	public JLabel getSliderLbl() {
@@ -147,4 +173,13 @@ public class StartWindow {
 	public void setGridheight(int gridheight) {
 		this.gridheight = gridheight;
 	}
+
+	public JButton getLoadBtn() {
+		return loadBtn;
+	}
+	
+	public JButton getInfoBtn() {
+		return infoBtn;
+	}
+	
 }

@@ -1,9 +1,7 @@
-//This is a backup file from Main.java
-//created by YC - 11.11.2013 at 13:48
-
 package test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import engine.Direction;
@@ -11,10 +9,14 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.StorageHandler;
 
 public class TestConsolePrint {
 
 	public TestConsolePrint() throws IOException {
+	}
+	
+	public void test_grid_render() {
 		Scanner is = new Scanner(System.in);
 		
 		//System.out.println("RUDIMENTÄRE TEST AUSGABE / GENERIERUNG");
@@ -48,7 +50,9 @@ public class TestConsolePrint {
 			}
 		}
 		
-		// Test the canBeEnlighted Method
+		/*
+		 *  Test the canBeEnlighted Method
+		 */
 		int g=1;
 		NumberSquare ns = (NumberSquare)grid.getSquares().get(31); // first number square of our dummy data
 		for(SquareBase s : grid.getSquares()) {
@@ -66,9 +70,67 @@ public class TestConsolePrint {
 		//System.out.println(ns.canEnlight(grid.getSquares().get(16)));
 	}
 	
+	public void test_storeage() throws Exception {
+		// Test Storage save
+		GameGrid foo = new GameGrid(4,4);
+		foo.generateSquares();
+		foo.asignSquareCoordinates();
+		//System.out.println("Original: " + foo.getSquares().size());
+		// PRINT
+		for(SquareBase sq : foo.getSquares()) {
+			if(sq.getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)sq;
+				System.out.println(rs.getDirection());
+			}
+			else {
+				NumberSquare ns = (NumberSquare)sq;
+				System.out.println(ns.getNumber());
+			}
+		}
+		
+		//String file = "C:\\Users\\serjoscha-87\\Desktop\\test.txt";
+		String file = "test1.ysams";
+		
+		StorageHandler s = new StorageHandler();
+		
+		// persist
+		s.persist(foo, file);
+		
+		System.out.println("--------------------------");
+		
+		/*
+		 * 
+		 * 
+		 * LOAD DATA FROM FILE AGAIN
+		 * 
+		 * 
+		 */
+		
+		GameGrid bar = s.load(file);
+		//System.out.println("Restored: " + bar.getGridSize().toString());
+		
+		// PRINT
+		for(SquareBase sq : bar.getSquares()) {
+			if(sq.getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)sq;
+				System.out.println(rs.getDirection());
+			}
+			else {
+				NumberSquare ns = (NumberSquare)sq;
+				System.out.println(ns.getNumber());
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		try {
-			new TestConsolePrint();
+			TestConsolePrint o = new TestConsolePrint();
+			
+			/**
+			 * CALL DESIRED TEST METHOD
+			 */
+			o.test_storeage();
+			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
