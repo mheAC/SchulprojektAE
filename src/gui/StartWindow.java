@@ -181,5 +181,26 @@ public class StartWindow {
 	public JButton getInfoBtn() {
 		return infoBtn;
 	}
-	
+	public String getDifficult() {
+		int cols;
+		int rows;
+		int res;
+		String difficult = null;
+		cols = this.getGridwidth();
+		rows = this.getGridheight();
+		res = cols*rows;
+		if (res <= 25){
+			difficult = "Leicht";
+		}
+		if (res >= 25){
+			difficult = "Mittel";
+		}
+		if (res >= 50) {
+			difficult = "Schwierig";
+		}
+		if (res >= 100) {
+			difficult = "Sehr Schwierig";
+		}
+		return difficult;
+	}
 }
