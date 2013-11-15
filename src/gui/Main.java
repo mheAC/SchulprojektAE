@@ -96,7 +96,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			String fileName = JOptionPane.showInputDialog("Unter welchem Namen soll die Datei gespeichert werden?");
 			if(!fileName.equals("")){
 				try {
-					this.stH.persist(gg, properties.getProperty("saveGamePath")+fileName);
+					this.stH.persist(gg, properties.getProperty("saveGamePath")+(fileName+".ysams"));
 				} catch (Exception e3) { e3.printStackTrace(); }
 			}
 			return; // break here 
