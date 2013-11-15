@@ -9,5 +9,5 @@ package engine;
  *
  */
 public class LogHandler {
-	public 
+	
 }
