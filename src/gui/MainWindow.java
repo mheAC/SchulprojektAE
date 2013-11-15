@@ -66,6 +66,7 @@ public class MainWindow {
 		mainToolBar.add(checkSolveableBtn);
 		mainToolBar.setFloatable(false);
 		mainFrame.add(mainToolBar, BorderLayout.NORTH);
+		mainFrame.setResizable(false);
 		
 		// Rest stuff for displaying
 		mainFrame.pack();
