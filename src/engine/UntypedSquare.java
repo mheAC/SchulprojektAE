@@ -1,6 +1,6 @@
 package engine;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * This is a generic Square for fields which dont have a Type yet
