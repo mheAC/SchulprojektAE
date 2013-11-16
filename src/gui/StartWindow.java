@@ -1,9 +1,12 @@
 package gui;
 
+import gui.elements.DimensionInput;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 
 import javax.swing.*;
 
@@ -35,6 +38,7 @@ public class StartWindow {
 	private JLabel heightLbl;
 	private JSlider widthSlider;
 	private JSlider heightSlider;
+	private DimensionInput widthInput;
 	
 	public void show() {
 		try{
@@ -56,11 +60,11 @@ public class StartWindow {
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
 			sliderLbl = new JLabel("15x15");
-			heightLbl = new JLabel("Höhe in rows:");
+			heightLbl = new JLabel("Hšhe in rows:");
 			widthLbl  = new JLabel("Breite in cols:");
 			
 			//sizeLbl => erklärt sich von selbst :)
-			sizeLbl = new JLabel("Wählen Sie eine Größe aus (Breite x Höhe) :");
+			sizeLbl = new JLabel("WŠhlen Sie eine Grš§e aus (Breite x Hšhe) :");
 			
 			//frame => frame wird erstellt und bekommt eine Überschrift
 			frame = new JFrame("Lichtstrahlen Startparameter");
@@ -76,6 +80,7 @@ public class StartWindow {
 			//Minimum - Wert : 15, Maximum - Wert : 20;
 			widthSlider = new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
 			heightSlider= new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
+			widthInput = new DimensionInput(NumberFormat.getInstance());
 			
 			//Schriftart wurde gewählt und erstellt.
 			Font font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
@@ -110,6 +115,7 @@ public class StartWindow {
 			panel.add(sizeLbl);
 			panel.add(widthLbl);
 			panel.add(widthSlider);
+			panel.add(widthInput);
 			panel.add(heightLbl);
 			panel.add(heightSlider);
 			panel.add(sliderLbl);
