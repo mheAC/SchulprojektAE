@@ -46,8 +46,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.stH = new StorageHandler();
 		
 		// Add some listener
-		this.configWin.getWidthSlider().addChangeListener(this);
-		this.configWin.getHeightSlider().addChangeListener(this);
 		this.configWin.getokActionBtn().addActionListener(this);
 		this.configWin.getLoadBtn().addActionListener(this);
 		this.configWin.getInfoBtn().addActionListener(this);
@@ -85,12 +83,24 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 * Handling for GENERATED MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
-			// Create the main game window			
-			mainWin.setCols(this.configWin.getGridwidth());
-			mainWin.setRows(this.configWin.getGridheight());
-			gg = new GameGrid(this.configWin.getGridwidth(), this.configWin.getGridheight());
-			gg.generateSquares();
-			gg.asignSquareCoordinates();
+			if(this.configWin.widthInput.isValid()){
+				if(this.configWin.heightInput.isValid()){
+					// Create the main game window			
+					int width = Integer.parseInt(this.configWin.widthInput.getText());
+					int height = Integer.parseInt(this.configWin.heightInput.getText());
+					mainWin.setCols(width);
+					mainWin.setRows(height);
+					gg = new GameGrid(width,height);
+					gg.generateSquares();
+					gg.asignSquareCoordinates();
+					mainWin.setGameGridData(gg);
+					mainWin.buildWindow();
+				}else{
+					this.configWin.heightInput.setRed();
+				}	
+			}else{
+				this.configWin.widthInput.setRed();
+			}
 		}
 		/*
 		 * Handling for LOADING drafted MainWindow
@@ -136,13 +146,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		/*
 		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
 		 */
-		// set data to the frame
-		mainWin.setCols(gg.getGridSize().width);
-		mainWin.setRows(gg.getGridSize().height);
-		mainWin.setGameGridData(gg);
 		
 		// show the window
-		mainWin.buildWindow();
 		// Add Panel listener
 		for(Component p : mainWin.getMainPanel().getComponents()) {
 			JPanel pan = (JPanel)p;
@@ -205,37 +210,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		}
 		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
-		
-		/*String print = new String("Dieses kästchen befindet sich an:\nx: "+ (gs.getRepresentedSquare().getPositionX()+1)+"\ny: "+(gs.getRepresentedSquare().getPositionY()+1));
-		print += "\nEs enthält momentan: " + ((JLabel)gs.getComponent(0)).getText();
-		if(gs.getClass().equals(new RaySquare().getClass()));
-		print += "\nEs handelt sich um ein: " + gs.getRepresentedSquare().getClass().getSimpleName();
-		
-		JOptionPane.showMessageDialog(null, print);*/
-		
-		/*switch(e.getButton()) {
-			case MouseEvent.BUTTON1: // left mouse
-				((JLabel)gs.getComponent(0)).setText("-");
-				s.setDirection(Direction.HORIZONTAL);
-			break;
-			
-			case MouseEvent.BUTTON3: // right mouse
-				((JLabel)gs.getComponent(0)).setText("|");
-				s.setDirection(Direction.VERTICAL);
-			break;
-		}*/
-	}
-	
-	@Override
-	public void stateChanged(ChangeEvent e) {
-	    if (!this.configWin.getWidthSlider().getValueIsAdjusting()) {
-	    	int width = this.configWin.getWidthSlider().getValue();
-	    	int height= this.configWin.getHeightSlider().getValue();
-	    	String forlbl = new String(width + "x" + height);
-	    	this.configWin.getSliderLbl().setText(forlbl);
-	    	this.configWin.setGridheight(height);
-	    	this.configWin.setGridwidth(width);
-	    }
 	}
 
 	@Override
@@ -246,5 +220,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	public void mousePressed(MouseEvent e) {}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

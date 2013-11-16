@@ -1,6 +1,8 @@
 package gui;
 
-import gui.elements.DimensionInput;
+import gui.elements.GameDimensionInput;
+import gui.validators.*;
+
 import java.text.NumberFormat;
 import java.awt.*;
 
@@ -34,13 +36,11 @@ public class StartWindow {
 	private JLabel heightLbl;
 	private JSlider widthSlider;
 	private JSlider heightSlider;
-	private DimensionInput widthInput;
+	public GameDimensionInput widthInput;
+	public GameDimensionInput heightInput;
 	
 	public void show() {
 		try{
-			//Set default values 15
-			setGridheight(15);
-			setGridwidth(15);
 			
 			//Erstelle Button zum öffnen der MainWindow
 			okActionBtn = new JButton("Generieren");
@@ -74,9 +74,11 @@ public class StartWindow {
 			
 			//Slider für die Auswahl der Größe wird erstellt.
 			//Minimum - Wert : 15, Maximum - Wert : 20;
-			widthSlider = new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
-			heightSlider= new JSlider(JSlider.HORIZONTAL, minSliderVal, maxSliderVal, sliderStartPos);
-			widthInput = new DimensionInput(NumberFormat.getInstance());
+			widthInput = new GameDimensionInput();
+			widthInput.addValidator(new DimensionValidator());
+			heightInput = new GameDimensionInput();
+			heightInput.addValidator(new DimensionValidator());
+			
 			
 			//Schriftart wurde gewählt und erstellt.
 			Font font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
@@ -85,35 +87,17 @@ public class StartWindow {
 			sliderLbl.setFont(font);
 			sizeLbl.setFont(font);
 			widthLbl.setFont(font);
-			heightLbl.setFont(font);
-			widthSlider.setFont(font);
-			heightSlider.setFont(font);
-			
-			//Zahl wird in "steps"-Schitten angezeigt => Slider
-			widthSlider.setMajorTickSpacing(sliderStepsPerSlide);
-			heightSlider.setMajorTickSpacing(sliderStepsPerSlide);
-			
-			//Zeigt in "steps"-Schritten die einzelnen Punkte => Slider
-			widthSlider.setMinorTickSpacing(sliderStepsPerSlide);
-			heightSlider.setMinorTickSpacing(sliderStepsPerSlide);
-			
-			//Anzeige wird auf true gesetzt um die Zahlen und Striche anzuzeigen.
-			widthSlider.setPaintTicks(true);
-			widthSlider.setPaintLabels(true);
-			heightSlider.setPaintTicks(true);
-			heightSlider.setPaintLabels(true);			
-			
-			
+			heightLbl.setFont(font);	
+				
 			//Erklärt sich eigentlich auch von selbst :P
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			//Komponenten werden dem Panel hinzugefügt.
 			panel.add(sizeLbl);
 			panel.add(widthLbl);
-			panel.add(widthSlider);
 			panel.add(widthInput);
+			panel.add(heightInput);
 			panel.add(heightLbl);
-			panel.add(heightSlider);
 			panel.add(sliderLbl);
 			panel.add(okActionBtn);
 			
@@ -140,14 +124,6 @@ public class StartWindow {
 	public JButton getokActionBtn() {
 		return okActionBtn;
 	}
-
-	public JSlider getWidthSlider() {
-		return widthSlider;
-	}
-	
-	public JSlider getHeightSlider() {
-		return heightSlider;
-	}
 	
 	public JLabel getSliderLbl() {
 		return sliderLbl;
@@ -160,21 +136,6 @@ public class StartWindow {
 	/*
 	 * Data vars -> getter & setter
 	 */
-	public int getGridwidth() {
-		return gridwidth;
-	}
-
-	public void setGridwidth(int gridwidth) {
-		this.gridwidth = gridwidth;
-	}
-
-	public int getGridheight() {
-		return gridheight;
-	}
-
-	public void setGridheight(int gridheight) {
-		this.gridheight = gridheight;
-	}
 
 	public JButton getLoadBtn() {
 		return loadBtn;
@@ -183,6 +144,7 @@ public class StartWindow {
 	public JButton getInfoBtn() {
 		return infoBtn;
 	}
+	/*
 	public String getDifficult() {
 		int cols;
 		int rows;
@@ -204,5 +166,5 @@ public class StartWindow {
 			difficult = "Sehr Schwierig";
 		}
 		return difficult;
-	}
+	}*/
 }
