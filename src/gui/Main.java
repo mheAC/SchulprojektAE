@@ -83,23 +83,23 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 * Handling for GENERATED MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
-			if(this.configWin.widthInput.isValid()){
-				if(this.configWin.heightInput.isValid()){
-					// Create the main game window			
-					int width = Integer.parseInt(this.configWin.widthInput.getText());
-					int height = Integer.parseInt(this.configWin.heightInput.getText());
-					mainWin.setCols(width);
-					mainWin.setRows(height);
-					gg = new GameGrid(width,height);
-					gg.generateSquares();
-					gg.asignSquareCoordinates();
-					mainWin.setGameGridData(gg);
-					mainWin.buildWindow();
-				}else{
-					this.configWin.heightInput.setRed();
-				}	
-			}else{
+			if(!this.configWin.widthInput.isValid())
 				this.configWin.widthInput.setRed();
+			
+			if(!this.configWin.heightInput.isValid())
+				this.configWin.heightInput.setRed();
+			
+			if(this.configWin.widthInput.isValid() && this.configWin.heightInput.isValid()){
+				// Create the main game window			
+				int width = Integer.parseInt(this.configWin.widthInput.getText());
+				int height = Integer.parseInt(this.configWin.heightInput.getText());
+				mainWin.setCols(width);
+				mainWin.setRows(height);
+				gg = new GameGrid(width,height);
+				gg.generateSquares();
+				gg.asignSquareCoordinates();
+				mainWin.setGameGridData(gg);
+				mainWin.buildWindow();
 			}
 		}
 		/*
