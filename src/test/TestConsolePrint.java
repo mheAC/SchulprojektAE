@@ -122,6 +122,17 @@ public class TestConsolePrint {
 		}
 	}
 	
+	public void test_colision () {
+		GameGrid g = new GameGrid();
+		g.generateSquaresTEST();
+		g.asignSquareCoordinates();
+		
+		for(RaySquare rs :  g.getColidingSquares()) {
+			//System.out.println("x: " + rs.getPositionX() + " - y: " + rs.getPositionY());
+			System.out.println(rs.hashCode());
+		}
+	}
+	
 	public static void main(String[] args) {
 		try {
 			TestConsolePrint o = new TestConsolePrint();
@@ -129,7 +140,8 @@ public class TestConsolePrint {
 			/**
 			 * CALL DESIRED TEST METHOD
 			 */
-			o.test_storeage();
+			//o.test_storeage();
+			o.test_colision();
 			
 		} catch (Exception e) { e.printStackTrace(); }
 	}

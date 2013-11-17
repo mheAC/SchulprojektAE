@@ -78,7 +78,7 @@ public class GameGrid implements Serializable{
 		}
 	}*/
 	
-	/*public void generateSquares() {
+	public void generateSquaresTEST() { // Only a testing method
 		// DUMMY GAME DATA GRID BUILDING
 		this.squares = new ArrayList<SquareBase>();
 		
@@ -99,7 +99,7 @@ public class GameGrid implements Serializable{
         this.squares.add(new RaySquare());
 		
         asignSquareCoordinates();
-	}*/
+	}
 	
 	/**
 	 * This method will assign the x and y coordinates to any square in the list
@@ -165,7 +165,7 @@ public class GameGrid implements Serializable{
 		while(!everythingSolved) {
 			for(RaySquare s : this.getRaySquares()) { // iterate over the list of RaySquares
 				if(s.getDirection().equals(Direction.UNSET)) { // only take a look at RaySquares which do not have a direction yet
-					getColidingSquares(s);
+					getColidingSquares();
 				}
 			}
 		}
@@ -176,12 +176,16 @@ public class GameGrid implements Serializable{
 	 * Find any Square that may contain a ray coliding with the given Square
 	 * @return
 	 */
-	public ArrayList<RaySquare> getColidingSquares(RaySquare square) {
+	public ArrayList<RaySquare> getColidingSquares() {
 		ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
-		for(RaySquare s : this.getRaySquares()) {
-			
+		for(NumberSquare ns : this.getNumberSquares()) {
+			for(RaySquare rs : this.getRaySquares()) {
+				if(ns.canEnlight(rs)) {
+					tempList.add(rs);
+				}
+			}
 		}
-		return null;
+		return tempList;
 	}
 	
 	/**
