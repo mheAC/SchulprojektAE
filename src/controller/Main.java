@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import java.awt.Component;
 import java.awt.Graphics2D;
@@ -19,6 +19,10 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import engine.*;
+import gui.JGameSquare;
+import gui.JOpenFileDialog;
+import gui.MainWindow;
+import gui.StartWindow;
 
 public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
