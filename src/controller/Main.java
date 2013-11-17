@@ -28,7 +28,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
-	private FileFilter ff;
 	
 	private Properties properties;
 	
@@ -54,21 +53,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.getLoadBtn().addActionListener(this);
 		this.configWin.getInfoBtn().addActionListener(this);
 		
-		//set filefilter for loadBtn
-		ff = new FileFilter() {
-			
-			@Override
-			public String getDescription() {
-				// TODO Auto-generated method stub
-				return ".ysams";
-			}
-			
-			@Override
-			public boolean accept(File arg0) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		};
 	}
 	
 	public static void main(String[] args) {
@@ -112,7 +96,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		else if(e.getActionCommand() == this.configWin.getLoadBtn().getActionCommand()){
 			JOpenFileDialog fch = new JOpenFileDialog();
 			
-			fch.setFileFilter(ff);
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
 					gg = stH.load(fch.getSelectedFile());
@@ -143,6 +126,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 												+ "Gruppe:\n"
 												+ "\tBassauer\n"
 												+ "\tCongar\n"
+												+ "\tHerpers\n"
+												+ "\tGriesbach\n"
+												+ "\tBolz\n"
 			);
 			return;
 		}
