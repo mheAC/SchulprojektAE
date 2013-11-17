@@ -156,6 +156,10 @@ public class GameGrid implements Serializable{
 		return nsl;
 	}
 	
+	/**
+	 * Engine methods
+	 * @return
+	 */
 	public boolean solveCurrentRays() {
 		boolean everythingSolved = false;
 		while(!everythingSolved) {
