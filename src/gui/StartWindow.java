@@ -17,12 +17,6 @@ public class StartWindow {
 	// Local helper vars
 	private boolean created;
 	
-	// Slider GUI config
-	private static final int minSliderVal 			=  15;
-	private static final int maxSliderVal 			=  20;
-	private static final int sliderStepsPerSlide  	=   1;
-	private static final int sliderStartPos			= 15;
-	
 	// Beans
 	private JLabel sizeLbl;
 	private JLabel sliderLbl;
@@ -34,8 +28,6 @@ public class StartWindow {
 	private JPanel panel;
 	private JLabel widthLbl;
 	private JLabel heightLbl;
-	private JSlider widthSlider;
-	private JSlider heightSlider;
 	public GameDimensionInput widthInput;
 	public GameDimensionInput heightInput;
 	

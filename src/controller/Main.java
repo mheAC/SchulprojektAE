@@ -94,7 +94,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
-					// gg of type GameGrid
+					// gg -> of type GameGrid
 					gg = stH.load(fch.getSelectedFile());
 				} catch (Exception e1) { e1.printStackTrace(); }
 			}
@@ -106,7 +106,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getSaveBtn().getActionCommand())) {
 			String fileName = JOptionPane.showInputDialog("Unter welchem Namen soll die Datei gespeichert werden?");
-			if(!fileName.equals("")){
+			if(fileName != null){
 				try {
 					this.stH.persist(gg, properties.getProperty("saveGamePath")+(fileName+".ysams"));
 				} catch (Exception e3) { e3.printStackTrace(); }
@@ -170,6 +170,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		}
 		else if(s.getClass().equals(new NumberSquare().getClass())) {
 			// Convert Number Square to other classes
+			//.. 
 		}
 
 		if(s.getClass().equals(new NumberSquare().getClass())) {

@@ -18,10 +18,14 @@ public class MainWindow {
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-	private JToolBar mainToolBar;
-	private JButton saveBtn,
-					solveGridBtn,
-					checkSolveableBtn;
+	
+	private JMenuItem saveBtn,
+						solveGridBtn,
+						checkSolveableBtn;
+	
+	JMenuBar mainMenu;
+	JMenu submenuMenuContainer, submenuFile, submenuRiddle;
+	
 	private GameGrid data;
 
 	/**
@@ -30,10 +34,19 @@ public class MainWindow {
 	public MainWindow() {
 		mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
-		mainToolBar = new JToolBar();
-		saveBtn = new JButton("Entwurf speichern");
-		solveGridBtn = new JButton("Rätsel lösen");
-		checkSolveableBtn = new JButton("Rätsel lösbar?");
+		
+		// Menu stuff
+		mainMenu = new JMenuBar(); // container for categorizing sub menus
+		
+		submenuMenuContainer = new JMenu("Menü"); // main menu categorizer which is directly shown on the menu bar
+		
+		submenuFile = new JMenu("Datei"); // sub menus within the main categorizer
+		submenuRiddle = new JMenu("Rätsel");
+		
+		// Buttons for the menus
+		saveBtn = new JMenuItem("Entwurf in Datei speichern"); 
+		solveGridBtn = new JMenuItem("Das Rätsel automatisch lösen!");
+		checkSolveableBtn = new JMenuItem("ist das Räsel lösbar?");
 	}
 	
 	public void buildWindow(){
@@ -41,7 +54,6 @@ public class MainWindow {
 		
 		mainPanel.setLayout(lo);
 		
-		//for(SquareBase s : data.getSquares()) {
 		for(int i = 0 ; i < data.getSquares().size() ; i++) {
 			SquareBase s = data.getSquares().get(i);
 			
@@ -50,8 +62,8 @@ public class MainWindow {
 			pTmp.setPosition(i);
 			
 			// ALGO TEST
-			if(data.getColidingSquares().containsKey(s))
-				pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
+			//if(data.getColidingSquares().get(s) == 1)
+				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
 			// END ALGO TEST
 			
 			// draw if needed
@@ -65,16 +77,29 @@ public class MainWindow {
 		
 		// Add the panel to the main frame
 		mainFrame.add(mainPanel);
+
 		
-		// add the beans
-		mainToolBar.add(saveBtn);
-		mainToolBar.add(solveGridBtn);
-		mainToolBar.add(checkSolveableBtn);
-		mainToolBar.setFloatable(false);
-		mainFrame.add(mainToolBar, BorderLayout.NORTH);
-		mainFrame.setResizable(false);
+		/*
+		 *  Assign every layer of the menu to its position
+		 */
+		// add buttons
+		submenuFile.add(saveBtn);
+		
+		submenuRiddle.add(checkSolveableBtn);
+		submenuRiddle.add(solveGridBtn);
+		
+		// add submenus to their categorizer / parent menu
+		submenuMenuContainer.add(submenuFile);
+		submenuMenuContainer.add(submenuRiddle);
+		
+		// add the absolute parent menu / categorizer to to the JMenuBar
+		mainMenu.add(submenuMenuContainer);
+		
+		// Add the menuBar to the frame
+		mainFrame.add(mainMenu, BorderLayout.NORTH);
 		
 		// Rest stuff for displaying
+		mainFrame.setResizable(false);
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
@@ -104,7 +129,7 @@ public class MainWindow {
 		this.rows = rows;
 	}
 
-	public JButton getSaveBtn() {
+	public JMenuItem getSaveBtn() {
 		return saveBtn;
 	}
 

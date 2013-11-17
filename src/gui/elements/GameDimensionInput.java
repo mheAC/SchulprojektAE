@@ -14,6 +14,7 @@ public class GameDimensionInput extends JFormattedTextField{
 	
 	public GameDimensionInput(){
 		super(NumberFormat.getInstance());
+		//this.setText("10");
 	}
 	
 	public void addValidator(ValidatorBase validator){

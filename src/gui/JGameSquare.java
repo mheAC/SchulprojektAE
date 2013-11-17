@@ -15,7 +15,7 @@ public class JGameSquare extends JPanel {
 	private int position;
 	
 	private Border border;
-	private JLabel textLabel; 
+	private JLabel textLabel;
 	
 	public JGameSquare(){
 		super();
