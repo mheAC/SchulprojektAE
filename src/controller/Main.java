@@ -81,13 +81,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				// Create the main game window			
 				int width = Integer.parseInt(this.configWin.widthInput.getText());
 				int height = Integer.parseInt(this.configWin.heightInput.getText());
-				mainWin.setCols(width);
-				mainWin.setRows(height);
 				gg = new GameGrid(width,height);
 				gg.generateSquares();
 				gg.asignSquareCoordinates();
-				mainWin.setGameGridData(gg);
-				mainWin.buildWindow();
 			}
 		}
 		/*
@@ -98,10 +94,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
+					// gg of type GameGrid
 					gg = stH.load(fch.getSelectedFile());
-				} catch (FileNotFoundException e1) { e1.printStackTrace();
-				} catch (ClassNotFoundException e1) { e1.printStackTrace();
-				} catch (IOException e1) { e1.printStackTrace(); }
+				} catch (Exception e1) { e1.printStackTrace(); }
 			}
 			else // filechooser cancled
 				return;
@@ -136,9 +131,16 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		/*
 		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
 		 */
+        // set data to the frame
+        mainWin.setCols(gg.getGridSize().width);
+        mainWin.setRows(gg.getGridSize().height);
+        mainWin.setGameGridData(gg);
 		
 		// show the window
-		// Add Panel listener
+		mainWin.setGameGridData(gg); // DARE YOU MOVING THIS LINES AGAIN!!
+		mainWin.buildWindow();
+		
+		// Add Listeners
 		for(Component p : mainWin.getMainPanel().getComponents()) {
 			JPanel pan = (JPanel)p;
 			pan.addMouseListener(this);
@@ -170,18 +172,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 			// Convert Number Square to other classes
 		}
 
-		// Change a val
 		if(s.getClass().equals(new NumberSquare().getClass())) {
-			// Number val
-			 // catch abort
             String zahlText = JOptionPane.showInputDialog("Zahl?");
-            if( zahlText == null) {
-                   
-            } else {
-                    int num = Integer.parseInt(zahlText);
-                    ((NumberSquare)s).setNumber(num);
-                    ((JLabel)gs.getComponent(0)).setText(zahlText);
-            }
+            if( zahlText != null) { // catch abort
+            	int num = Integer.parseInt(zahlText); // Number val
+                ((NumberSquare)s).setNumber(num);
+                ((JLabel)gs.getComponent(0)).setText(zahlText);
+            } 
 			gs.clearPaint(); // remove previous lines
 			gs.getTextLabel().setText(zahlText);
 		} 
@@ -192,7 +189,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 				//paint a h line
 				gs.drawLine(Direction.HORIZONTAL);
 			}
-			else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON2 = right mouse
+			else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON3 = right mouse
 				((RaySquare)s).setDirection(Direction.VERTICAL);
 				//paint a v line
 				gs.drawLine(Direction.VERTICAL);

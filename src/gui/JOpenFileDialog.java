@@ -28,7 +28,10 @@ public class JOpenFileDialog extends JFileChooser {
 			
 			@Override
 			public boolean accept(File arg0) {
-				return false;
+				if(arg0.getAbsolutePath().endsWith(".ysams"))
+					return true;
+				else
+					return false;
 			}
 		});
 	}

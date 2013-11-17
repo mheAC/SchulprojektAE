@@ -3,6 +3,7 @@ package engine;
 import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -176,16 +177,21 @@ public class GameGrid implements Serializable{
 	 * Find any Square that may contain a ray coliding with the given Square
 	 * @return
 	 */
-	public ArrayList<RaySquare> getColidingSquares() {
-		ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
+	public HashMap<RaySquare, Integer> getColidingSquares() {
+		//ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
+		HashMap<RaySquare, Integer> matches = new HashMap<RaySquare, Integer>();
 		for(NumberSquare ns : this.getNumberSquares()) {
 			for(RaySquare rs : this.getRaySquares()) {
 				if(ns.canEnlight(rs)) {
-					tempList.add(rs);
+					//tempList.add(rs);
+					int count = 1;
+					if(matches.containsKey(rs))
+						count += 1;
+					matches.put(rs, count); 
 				}
 			}
 		}
-		return tempList;
+		return matches;
 	}
 	
 	/**

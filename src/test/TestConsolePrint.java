@@ -2,6 +2,8 @@ package test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 import engine.Direction;
@@ -72,8 +74,8 @@ public class TestConsolePrint {
 	
 	public void test_storeage() throws Exception {
 		// Test Storage save
-		GameGrid foo = new GameGrid(4,4);
-		foo.generateSquares();
+		GameGrid foo = new GameGrid(4,3);
+		foo.generateSquaresTEST();
 		foo.asignSquareCoordinates();
 		//System.out.println("Original: " + foo.getSquares().size());
 		// PRINT
@@ -89,7 +91,7 @@ public class TestConsolePrint {
 		}
 		
 		//String file = "C:\\Users\\serjoscha-87\\Desktop\\test.txt";
-		String file = "test1.ysams";
+		String file = "SaveGame/test_4x4.ysams";
 		
 		StorageHandler s = new StorageHandler();
 		
@@ -127,10 +129,18 @@ public class TestConsolePrint {
 		g.generateSquaresTEST();
 		g.asignSquareCoordinates();
 		
-		for(RaySquare rs :  g.getColidingSquares()) {
+		/*for(RaySquare rs :  g.getColidingSquares()) {
 			//System.out.println("x: " + rs.getPositionX() + " - y: " + rs.getPositionY());
 			System.out.println(rs.hashCode());
-		}
+		}*/
+		
+	    Iterator it = g.getColidingSquares().entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        System.out.println(pairs.getKey().hashCode() + " => " + pairs.getValue());
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
+		
 	}
 	
 	public static void main(String[] args) {
@@ -140,7 +150,7 @@ public class TestConsolePrint {
 			/**
 			 * CALL DESIRED TEST METHOD
 			 */
-			//o.test_storeage();
+			o.test_storeage();
 			o.test_colision();
 			
 		} catch (Exception e) { e.printStackTrace(); }

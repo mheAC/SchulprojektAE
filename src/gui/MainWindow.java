@@ -48,6 +48,12 @@ public class MainWindow {
 			JGameSquare pTmp = new JGameSquare();
 			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
 			pTmp.setPosition(i);
+			
+			// ALGO TEST
+			if(data.getColidingSquares().containsKey(s))
+				pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
+			// END ALGO TEST
+			
 			// draw if needed
 			//if(s.getClass().equals(new RaySquare().getClass()))
 				//pTmp.drawLine( ((RaySquare)s).getDirection() ); // crash! grapics for the jpanel seems to be uninited
