@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -23,12 +24,13 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
-public class Main implements ChangeListener, ActionListener, MouseListener, MouseMotionListener, CaretListener {
+public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
 	private Point beginDraw;
 	private Point endDraw;
+	private boolean drawing;
 	private Properties properties;
 	
 	// Storage for current gameData
@@ -38,6 +40,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 		//for Mouse Motion Listener
 		beginDraw = null;
 		endDraw = null;
+		drawing = false;
 		
 		// props
 		this.properties = new Properties();
@@ -58,7 +61,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 		this.configWin.getInfoBtn().addActionListener(this);
 		this.configWin.getHeightInput().addCaretListener(this);
 		this.configWin.getWidthInput().addCaretListener(this);
-		
 	}
 	
 	public static void main(String[] args) {
@@ -206,10 +208,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 	public void mouseExited(MouseEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		beginDraw = e.getPoint();
 	}
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
@@ -235,21 +237,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 			height= this.configWin.getHeightInput().getText();
 		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		endDraw = arg0.getPoint();
-		Graphics2D gr = (Graphics2D)this.mainWin.getMainPanel().getGraphics();
-		gr.drawLine(beginDraw.x, beginDraw.y, endDraw.x, endDraw.y);
-		System.out.println("end draw");
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

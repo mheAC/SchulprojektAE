@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -150,5 +152,4 @@ public class MainWindow {
 	public void setCols(int cols) {
 		this.cols = cols;
 	}
-
 }
