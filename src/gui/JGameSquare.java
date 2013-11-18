@@ -1,7 +1,7 @@
 package gui;
 
 import java.awt.*;
-import javax.swing.BorderFactory;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
