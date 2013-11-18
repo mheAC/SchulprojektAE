@@ -165,20 +165,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
 		
-		// "Cast" to the desired type
-		if(s.getClass().equals(new UntypedSquare().getClass())) {
-			if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square				
-				RaySquare tempRs = s.getAsRaySquare();
-				s = tempRs; // overwrite the old Square Object with the new one
-			}
-			else { // Double click: Number Square
-				NumberSquare tempNs = s.getAsNumberSquare();
-				s = tempNs;
-			}
+		// "Cast" to the desired type of class
+		if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square				
+			RaySquare tempRs = s.getAsRaySquare();
+			s = tempRs; // overwrite the old Square Object with the new one
 		}
-		else if(s.getClass().equals(new NumberSquare().getClass())) {
-			// Convert Number Square to other classes
-			//.. 
+		else { // Double click: Number Square
+			NumberSquare tempNs = s.getAsNumberSquare();
+			s = tempNs;
 		}
 
 		if(s.getClass().equals(new NumberSquare().getClass())) {
