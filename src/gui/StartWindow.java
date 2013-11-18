@@ -30,7 +30,7 @@ public class StartWindow {
 	private JLabel heightLbl;
 	public GameDimensionInput widthInput;
 	public GameDimensionInput heightInput;
-	
+
 	public void show() {
 		try{
 			
@@ -128,7 +128,15 @@ public class StartWindow {
 	/*
 	 * Data vars -> getter & setter
 	 */
+	
+	public GameDimensionInput getWidthInput() {
+		return widthInput;
+	}
 
+	public GameDimensionInput getHeightInput() {
+		return heightInput;
+	}
+	
 	public JButton getLoadBtn() {
 		return loadBtn;
 	}
