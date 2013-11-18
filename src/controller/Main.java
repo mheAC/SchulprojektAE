@@ -209,14 +209,26 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		String dimLbl = this.configWin.getWidthInput().getText() + "x" + this.configWin.getHeightInput().getText();
+		String width = "0";
+		String height= "0";
+		if(this.configWin.getWidthInput().getText()!=null)
+			width = this.configWin.getWidthInput().getText();
+		if(this.configWin.getHeightInput().getText()!=null)
+			height= this.configWin.getHeightInput().getText();
+		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
 	}
 
 	@Override
 	public void caretUpdate(CaretEvent arg0) {
 		// TODO Auto-generated method stub
-		String dimLbl = this.configWin.getWidthInput().getText() + "x" + this.configWin.getHeightInput().getText();
+		String width = "0";
+		String height= "0";
+		if(this.configWin.getWidthInput().getText()!=null)
+			width = this.configWin.getWidthInput().getText();
+		if(this.configWin.getHeightInput().getText()!=null)
+			height= this.configWin.getHeightInput().getText();
+		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
 	}
 
