@@ -144,7 +144,18 @@ public class MainWindow {
 	public JMenuItem getSaveBtn() {
 		return saveBtn;
 	}
-
+	
+	public int getColsInRow(int row){
+		int tmp = 0;
+		for(int i=0;i<this.getRows();i++){
+			for(int j=0;j<this.getCols();j++){
+				if(i==row)
+					tmp++;
+			}
+		}
+		return tmp;
+	}
+	
 	public int getCols() {
 		return cols;
 	}
