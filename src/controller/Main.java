@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -28,8 +29,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
-	private Point beginDraw;
-	private Point endDraw;
+	private int beginDraw;
+	private int endDraw;
 	private boolean drawing;
 	private Properties properties;
 	
@@ -38,8 +39,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	
 	public Main() throws Exception {
 		//for Mouse Motion Listener
-		beginDraw = null;
-		endDraw = null;
+		beginDraw = 0;
+		endDraw = 0;
 		drawing = false;
 		
 		// props
@@ -166,24 +167,44 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		SquareBase s = gs.getRepresentedSquare();
 		
 		// "Cast" to the desired type of class
-		if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square				
-			RaySquare tempRs = s.getAsRaySquare();
-			s = tempRs; // overwrite the old Square Object with the new one
+		if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square	
+			if(drawing){
+				endDraw = ((JGameSquare)e.getSource()).getPosition();
+				int num = messmodus(beginDraw, endDraw); // Number val
+	            gs = (JGameSquare)this.mainWin.getMainPanel().getComponent(beginDraw);
+	            s = gs.getRepresentedSquare();
+	            ((NumberSquare)s).setNumber(num);
+                ((JLabel)gs.getComponent(0)).setText(num+"");
+				gs.clearPaint(); // remove previous lines
+				gs.getTextLabel().setText(num+"");
+				drawing = false;
+			}
+			else{
+				RaySquare tempRs = s.getAsRaySquare();
+				s = tempRs; // overwrite the old Square Object with the new one
+			}
 		}
 		else { // Double click: Number Square
 			NumberSquare tempNs = s.getAsNumberSquare();
 			s = tempNs;
+			gs.setRepresentingSquare(s);
+			beginDraw = ((JGameSquare)e.getSource()).getPosition();
+			((JGameSquare)e.getSource()).clearPaint();
+			((JGameSquare)e.getSource()).setText("?");
+			JOptionPane.showMessageDialog(null, "Select Number!");
+			System.out.println(beginDraw);
+			drawing = true;
 		}
 
 		if(s.getClass().equals(new NumberSquare().getClass())) {
-            String zahlText = JOptionPane.showInputDialog("Zahl?");
+            /*String zahlText = JOptionPane.showInputDialog("Zahl?");
             if( zahlText != null) { // catch abort
             	int num = Integer.parseInt(zahlText); // Number val
                 ((NumberSquare)s).setNumber(num);
                 ((JLabel)gs.getComponent(0)).setText(zahlText);
             } 
 			gs.clearPaint(); // remove previous lines
-			gs.getTextLabel().setText(zahlText);
+			gs.getTextLabel().setText(zahlText);*/
 		} 
 		else if(s.getClass().equals(new RaySquare().getClass())) {
 			// Direction
@@ -211,6 +232,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
 	}
 
 	@Override
@@ -237,6 +259,23 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			height= this.configWin.getHeightInput().getText();
 		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
+	}
+	
+	private int messmodus(int b,int e){
+		if(b<e){
+			for(int i=b+1;i<=e;i++){
+				((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+			}
+			return (e-b);
+		}
+		else if(b>e){
+			for(int i=b-1;i>=e;i--){
+				((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+			}
+			return (b-e);
+		}
+		else
+			return 0;
 	}
 
 }
