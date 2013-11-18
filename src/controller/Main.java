@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import engine.*;
@@ -18,7 +20,7 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
-public class Main implements ChangeListener, ActionListener, MouseListener {
+public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
@@ -46,7 +48,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		this.configWin.getokActionBtn().addActionListener(this);
 		this.configWin.getLoadBtn().addActionListener(this);
 		this.configWin.getInfoBtn().addActionListener(this);
-		
+		this.configWin.getHeightInput().addCaretListener(this);
+		this.configWin.getWidthInput().addCaretListener(this);
 	}
 	
 	public static void main(String[] args) {
@@ -205,6 +208,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getSource().equals(this.configWin.getHeightInput())){
+			
+		}
+	}
+
+	@Override
+	public void caretUpdate(CaretEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}

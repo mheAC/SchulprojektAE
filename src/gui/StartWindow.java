@@ -19,7 +19,7 @@ public class StartWindow {
 	
 	// Beans
 	private JLabel sizeLbl;
-	private JLabel sliderLbl;
+	private JLabel dimensionLbl;
 	private JButton okActionBtn;
 	private JButton loadBtn;
 	private JButton infoBtn;
@@ -47,7 +47,7 @@ public class StartWindow {
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
-			sliderLbl = new JLabel("");
+			dimensionLbl = new JLabel("");
 			heightLbl = new JLabel("H\u00F6he in rows:");
 			widthLbl  = new JLabel("Breite in cols:");
 			
@@ -76,7 +76,7 @@ public class StartWindow {
 			Font font = new Font("Tahoma", Font.ITALIC | Font.BOLD, 15);
 			
 			//Schriftart wird gesetzt.
-			sliderLbl.setFont(font);
+			dimensionLbl.setFont(font);
 			sizeLbl.setFont(font);
 			widthLbl.setFont(font);
 			heightLbl.setFont(font);	
@@ -90,7 +90,7 @@ public class StartWindow {
 			panel.add(widthInput);
 			panel.add(heightLbl);
 			panel.add(heightInput);
-			panel.add(sliderLbl);
+			panel.add(dimensionLbl);
 			panel.add(okActionBtn);
 			
 			//Panel wird dem frame übergeben.
@@ -118,7 +118,7 @@ public class StartWindow {
 	}
 	
 	public JLabel getSliderLbl() {
-		return sliderLbl;
+		return dimensionLbl;
 	}
 	
 	public JFrame getFrame() {

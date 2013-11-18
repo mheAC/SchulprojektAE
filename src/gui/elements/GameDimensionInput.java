@@ -7,6 +7,7 @@ import java.text.NumberFormat;
 import gui.validators.ValidatorBase;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.event.ChangeListener;
 
 public class GameDimensionInput extends JFormattedTextField{
 	
