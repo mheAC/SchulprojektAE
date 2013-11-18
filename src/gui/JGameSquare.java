@@ -78,10 +78,6 @@ public class JGameSquare extends JPanel {
 		g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
 	}
 	
-	public void drawLine(Point begin, Point end){
-		
-	}
-	
 	public void clearPaint() {
 		Graphics foo = this.getGraphics();
 		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
