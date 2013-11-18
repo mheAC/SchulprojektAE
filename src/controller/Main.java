@@ -65,11 +65,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener {
 		 * Handling for GENERATED MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
-			if(!this.configWin.widthInput.isValid())
+			if(!this.configWin.widthInput.isValid() || !this.configWin.heightInput.isValid()) {
 				this.configWin.widthInput.setRed();
-			
-			if(!this.configWin.heightInput.isValid())
 				this.configWin.heightInput.setRed();
+				return; // prevent nullpointer exception due going on with the code
+			}	
 			
 			if(this.configWin.widthInput.isValid() && this.configWin.heightInput.isValid()){
 				// Create the main game window			
