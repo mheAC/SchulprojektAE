@@ -76,7 +76,8 @@ public class JGameSquare extends JPanel {
 	}
 	
 	public void clearPaint() {
-		this.getGraphics().clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
+		Graphics foo = this.getGraphics();
+		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
 	}
 	
 	public void setPosition(int position) {
@@ -89,6 +90,10 @@ public class JGameSquare extends JPanel {
 	
 	public JLabel getTextLabel() {
 		return textLabel;
+	}
+	
+	public void setText (String text) {
+		this.getTextLabel().setText(text);
 	}
 	
 }

@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 
 import engine.Direction;
 import engine.GameGrid;
+import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
 
@@ -66,12 +67,10 @@ public class MainWindow {
 				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
 			// END ALGO TEST
 			
-			// draw if needed
-			//if(s.getClass().equals(new RaySquare().getClass()))
-				//pTmp.drawLine( ((RaySquare)s).getDirection() ); // crash! grapics for the jpanel seems to be uninited
-			//else
-				//pTmp.add(new JLabel(s.getPrintableValue())); // add a temporary JLabel to the panel
-				pTmp.getTextLabel().setText(s.getPrintableValue());
+			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
+			if(s.getClass().equals(new NumberSquare().getClass()))
+				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
+			
 			mainPanel.add(pTmp); // add the panel
 		}
 		
@@ -103,6 +102,17 @@ public class MainWindow {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+		
+		// Afterwards draw the lines to RaySquares
+		for(Component c : mainPanel.getComponents()) {
+			JGameSquare gs = (JGameSquare)c; // every element contained is a JGameSquare
+			if(gs.getRepresentedSquare().getClass().equals(new RaySquare().getClass())) {
+				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
+				gs.setText(rs.getPrintableValue());
+				gs.drawLine(rs.getDirection());
+				//gs.drawLine(Direction.HORIZONTAL);
+			}
+		}
 	}
 	
 	public JPanel getMainPanel() {
