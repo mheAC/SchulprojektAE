@@ -1,10 +1,13 @@
 package controller;
 
 import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -20,17 +23,22 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
-public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
+public class Main implements ChangeListener, ActionListener, MouseListener, MouseMotionListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
-	
+	private Point beginDraw;
+	private Point endDraw;
 	private Properties properties;
 	
 	// Storage for current gameData
 	GameGrid gg;
 	
 	public Main() throws Exception {
+		//for Mouse Motion Listener
+		beginDraw = null;
+		endDraw = null;
+		
 		// props
 		this.properties = new Properties();
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.cfg"));
@@ -50,6 +58,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		this.configWin.getInfoBtn().addActionListener(this);
 		this.configWin.getHeightInput().addCaretListener(this);
 		this.configWin.getWidthInput().addCaretListener(this);
+		
 	}
 	
 	public static void main(String[] args) {
@@ -202,7 +211,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	@Override
 	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		beginDraw = e.getPoint();
+	}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 
@@ -230,6 +241,21 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			height= this.configWin.getHeightInput().getText();
 		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		endDraw = arg0.getPoint();
+		Graphics2D gr = (Graphics2D)this.mainWin.getMainPanel().getGraphics();
+		gr.drawLine(beginDraw.x, beginDraw.y, endDraw.x, endDraw.y);
+		System.out.println("end draw");
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
