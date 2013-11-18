@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.*;
-import javax.swing.BorderFactory;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -27,6 +29,7 @@ public class JGameSquare extends JPanel {
 		this.add(this.textLabel);
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
+		
 	}
 	
 	public SquareBase getRepresentedSquare() {
