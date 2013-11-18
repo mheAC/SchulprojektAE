@@ -63,7 +63,7 @@ public class MainWindow {
 			pTmp.setPosition(i);
 			
 			// ALGO TEST
-			//if(data.getColidingSquares().get(s) == 1)
+			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
 				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
 			// END ALGO TEST
 			
