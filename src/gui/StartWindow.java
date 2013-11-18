@@ -47,12 +47,12 @@ public class StartWindow {
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
-			sliderLbl = new JLabel("15x15");
-			heightLbl = new JLabel("Hšhe in rows:");
+			sliderLbl = new JLabel("");
+			heightLbl = new JLabel("H\u00F6he in rows:");
 			widthLbl  = new JLabel("Breite in cols:");
 			
 			//sizeLbl => erklärt sich von selbst :)
-			sizeLbl = new JLabel("WŠhlen Sie eine Grš§e aus (Breite x Hšhe) :");
+			sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) :");
 			
 			//frame => frame wird erstellt und bekommt eine Überschrift
 			frame = new JFrame("Lichtstrahlen Startparameter");
@@ -88,8 +88,8 @@ public class StartWindow {
 			panel.add(sizeLbl);
 			panel.add(widthLbl);
 			panel.add(widthInput);
-			panel.add(heightInput);
 			panel.add(heightLbl);
+			panel.add(heightInput);
 			panel.add(sliderLbl);
 			panel.add(okActionBtn);
 			
