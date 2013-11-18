@@ -47,7 +47,7 @@ public class StartWindow {
 			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
-			dimensionLbl = new JLabel("");
+			dimensionLbl = new JLabel("0x0");
 			heightLbl = new JLabel("H\u00F6he in rows:");
 			widthLbl  = new JLabel("Breite in cols:");
 			
