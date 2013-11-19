@@ -121,7 +121,7 @@ public class TestConsolePrint {
 		}
 	}
 	
-	private void test_print_grid (GameGrid grid, int cols) {
+	private void print_grid (GameGrid grid, int cols) {
 		int i=0;
 		for(SquareBase s : grid.getSquares()) {
 			System.out.print(" | ");
@@ -166,7 +166,7 @@ public class TestConsolePrint {
 	    }*/
 	    
 		// print the data
-		this.test_print_grid(g, cols);
+		this.print_grid(g, cols); // to see how the grid looks (ascii console print)
 		System.out.println("");
 		
 		// Test colision
@@ -191,9 +191,10 @@ public class TestConsolePrint {
 			/**
 			 * CALL DESIRED TEST METHOD
 			 */
+			//o.test_grid_render();
 			//o.test_storeage();
-			//o.test_colision();
-			o.test_grid_render();
+			o.test_colision();
+			
 			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
