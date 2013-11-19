@@ -265,7 +265,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		int diffp = this.mainWin.getPositivDiffFromColToEnd(b);
 		int diffn = this.mainWin.getCols() - diffp;
 		int count = 0;
-		System.out.println("Rows: " + this.mainWin.getRows() + "\nCols: " + this.mainWin.getCols() + "\n");
 		if(b<e){
 			for(int i=b+1;i<=e;i++){
 				if(i<(b+diffp)){
