@@ -4,17 +4,25 @@
  */
 package engine;
 
-import java.awt.event.MouseEvent;
-
 import gui.JGameSquare;
+
+import java.util.Stack;
 
 /**
  *
  *
  */
 public class LogHandler {
-	public void setHistory(){
-		
+	Stack<JGameSquare> stack = new Stack<JGameSquare>();
+	
+	
+	public void setHistory(JGameSquare gs){
+		stack.push(gs);		
+	}
+	public JGameSquare getHistory(){
+		JGameSquare gs;
+		gs = stack.pop();
+		return gs;
 	}
 	
 }
