@@ -210,6 +210,31 @@ public class TestConsolePrint {
 	    
 	}
 	
+	public void test_direction_coordination() {
+		GameGrid g = new GameGrid();
+		g.generateSquaresTEST();
+		g.asignSquareCoordinates();
+		
+		int cols = 4;
+		
+		print_grid(g, 4);
+		
+	    // assign number squares to shorten vars
+	    NumberSquare n1 = g.getNumberSquares().get(0); // 2
+	    NumberSquare n2 = g.getNumberSquares().get(1); // 2
+	    NumberSquare n3 = g.getNumberSquares().get(2); // 5
+	    
+	    RaySquare firstRs = g.getRaySquares().get(0);
+	    RaySquare fRs = g.getRaySquares().get(5);
+	    RaySquare tRs = g.getRaySquares().get(3);
+	    
+	    System.out.println(firstRs.getRayDirectionForLightSource(n1));
+	    
+	    System.out.println(fRs.getRayDirectionForLightSource(n1));
+	    
+	    System.out.println(tRs.getRayDirectionForLightSource(n1)); // should get null
+	}
+	
 	public static void main(String[] args) {
 		try {
 			TestConsolePrint o = new TestConsolePrint();
@@ -219,8 +244,8 @@ public class TestConsolePrint {
 			 */
 			//o.test_grid_render();
 			//o.test_storeage();
-			o.test_colision();
-			
+			//o.test_colision();
+			o.test_direction_coordination();
 			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
