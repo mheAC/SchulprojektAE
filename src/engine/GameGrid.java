@@ -67,7 +67,7 @@ public class GameGrid implements Serializable{
 		}
 	}*/
 	
-	/*public void generateSquares() {
+	public void generateSquaresBigMiddleTest() {
 		// DUMMY GAME DATA GRID BUILDING
 		this.squares = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
@@ -77,7 +77,7 @@ public class GameGrid implements Serializable{
 				this.squares.add(new NumberSquare( 3 ));
 			
 		}
-	}*/
+	}
 	
 	public void generateSquaresTEST() { // Only a testing method
 		// DUMMY GAME DATA GRID BUILDING

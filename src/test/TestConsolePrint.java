@@ -14,9 +14,6 @@ import engine.SquareBase;
 import engine.StorageHandler;
 
 public class TestConsolePrint {
-
-	public TestConsolePrint() throws IOException {
-	}
 	
 	public void test_grid_render() {
 		Scanner is = new Scanner(System.in);
@@ -31,7 +28,7 @@ public class TestConsolePrint {
 		int cols = 7;
 		
 		GameGrid grid = new GameGrid(cols, rows);
-		grid.generateSquares();
+		grid.generateSquaresBigMiddleTest();
 		grid.asignSquareCoordinates();
 		int i=0;
 		for(SquareBase s : grid.getSquares()) {
@@ -63,7 +60,7 @@ public class TestConsolePrint {
 				System.out.print(Boolean.toString(ns.canEnlight(rs)).charAt(0) + " | ");
 			}
 			else
-				System.out.print("# | ");
+				System.out.print(s.getPrintableValue() + " | ");
 			
 			if(g++ % cols == 0)
 				System.out.print("\n");
@@ -195,7 +192,8 @@ public class TestConsolePrint {
 			 * CALL DESIRED TEST METHOD
 			 */
 			//o.test_storeage();
-			o.test_colision();
+			//o.test_colision();
+			o.test_grid_render();
 			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
