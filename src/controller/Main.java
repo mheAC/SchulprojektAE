@@ -177,13 +177,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
 		// "Cast" to the desired type of class
-		if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square	
-			NumberSquare tempNs = s.getAsNumberSquare();
-			s = tempNs;
-			gs.setRepresentingSquare(s);
-			((JGameSquare)e.getSource()).clearPaint();
-			((JGameSquare)e.getSource()).setText("?");
+		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
 			if(drawing){
+				
 				if(drawCount == 0){
 					((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
 					int beginpos = ((JGameSquare)e.getComponent()).getPosition();
@@ -230,7 +226,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				s = tempRs; // overwrite the old Square Object with the new one
 			}*/
 		}
-		/*else if(!drawing){ // Double click: Number Square
+		else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
 			NumberSquare tempNs = s.getAsNumberSquare();
 			s = tempNs;
 			gs.setRepresentingSquare(s);
@@ -240,7 +236,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			//JOptionPane.showMessageDialog(null, "Select Number!");
 			//System.out.println(beginDraw);
 			//drawing = true;
-		}*/
+		}
 		if(!drawing){
 			if(s.getClass().equals(new NumberSquare().getClass())) {
 				int num = 0;
@@ -306,6 +302,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(e.getComponent().getBackground().equals(Color.BLUE)){
 					wasBlue = true;
 				}
+				if(e.getComponent().getBackground().equals(Color.GREEN))
 				e.getComponent().setBackground(Color.RED);
 			}
 		}
