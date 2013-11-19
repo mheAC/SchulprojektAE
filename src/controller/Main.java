@@ -28,10 +28,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private SquareBase beginDraw;
 	private SquareBase endDraw;
 	private SquareBase NumberPos;
+	private int iNumberPos;
 	private Color defaultColor;
 	private Color clrBegin;
 	private Color clrEnd;
 	private boolean drawing;
+	private boolean wasBlue;
 	private int drawCount;
 	private Properties properties;
 	private int maxAvailableCols;
@@ -48,6 +50,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		drawing = false;
 		clrBegin = null;
 		clrEnd = null;
+		iNumberPos = 0;
 		
 		// props
 		this.properties = new Properties();
@@ -178,7 +181,34 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			if(drawing){
 				if(drawCount == 0){
 					((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
+					int beginpos = ((JGameSquare)e.getComponent()).getPosition();
 					beginDraw = s;
+					if(beginDraw.getPositionX() == NumberPos.getPositionX()){
+						int diffy = 0;
+						if(beginDraw.getPositionY()>NumberPos.getPositionY()){
+							diffy = beginDraw.getPositionY()-NumberPos.getPositionY();
+							for(int i=0;i<gg.getGridSize().height*gg.getGridSize().width;i++){
+								if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE))
+									this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
+							}
+							for(int i=beginpos, j=0;j<diffy;i=i-this.mainWin.getCols(),j++){
+								this.mainWin.getMainPanel().getComponent(i).setBackground(Color.GREEN);
+							}
+							
+						}
+						else {
+							diffy = NumberPos.getPositionY()-beginDraw.getPositionY();
+							for(int i=0;i<gg.getGridSize().height*gg.getGridSize().width;i++){
+								if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE))
+									this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
+							}
+							for(int i=beginpos, j=0;j<diffy;i=i+this.mainWin.getCols(),j++){
+								this.mainWin.getMainPanel().getComponent(i).setBackground(Color.GREEN);
+							}
+						}
+					}
+					else if(beginDraw.getPositionY() == NumberPos.getPositionY()){}
+					wasBlue = false;
 					drawCount++;
 				}
 				else if(drawCount == 1){
@@ -216,8 +246,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		            	maxAvailableCols -= (num+1);
 		                ((NumberSquare)s).setNumber(num);
 		                ((JLabel)gs.getComponent(0)).setText(zahlText);
-		                NumberPos = s;
+		                NumberPos = s;		  
 		                int currpos = gs.getPosition();
+		                iNumberPos = currpos;
 		                for(int i=currpos-num;i<=currpos+num;i++){
 		                	if(i!=currpos)
 		                		this.mainWin.getMainPanel().getComponent(i).setBackground(Color.BLUE);
@@ -260,17 +291,36 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if(drawing){
-			if(drawCount==0)
+			if(drawCount==0){
+				if(e.getComponent().getBackground().equals(Color.BLUE)){
+					wasBlue = true;
+				}
 				e.getComponent().setBackground(Color.GREEN);
-			else
+			}
+			else{
+				if(e.getComponent().getBackground().equals(Color.BLUE)){
+					wasBlue = true;
+				}
 				e.getComponent().setBackground(Color.RED);
+			}
 		}
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
 		if(drawing){
-			if(drawCount==0 || (drawCount == 1 && (!e.getComponent().getBackground().equals(Color.GREEN) && !e.getComponent().getBackground().equals(Color.BLUE))))
+			if(e.getComponent().getBackground().equals(Color.GREEN) || e.getComponent().getBackground().equals(Color.RED))
 				e.getComponent().setBackground(defaultColor);
+				if(drawCount == 1 && e.getComponent().getBackground().equals(Color.GREEN)){
+					e.getComponent().setBackground(Color.GREEN);
+				}
+				else if(drawCount == 1 && e.getComponent().getBackground().equals(Color.RED)){
+					e.getComponent().setBackground(Color.RED);
+				}
+					
+			if(wasBlue){
+				e.getComponent().setBackground(Color.BLUE);
+				wasBlue = false;
+			}
 		}
 	}
 	@Override
@@ -305,32 +355,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			height= this.configWin.getHeightInput().getText();
 		String dimLbl = width + "x" + height;
 		this.configWin.getSliderLbl().setText(dimLbl);
-	}
-	
-	private int messmodus(int b,int e){
-		int diffp = this.mainWin.getPositivDiffFromColToEnd(b);
-		int diffn = this.mainWin.getCols() - diffp;
-		int count = 0;
-		if(b<e){
-			for(int i=b+1;i<=e;i++){
-				if(i<(b+diffp)){
-					((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
-					count++;
-				}
-			}
-			return count;
-		}
-		else if(b>e){
-			for(int i=b-1;i>=e;i--){
-				if(i>=(b-diffn)){
-					((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
-					count++;
-				}
-			}
-			return count;
-		}
-		else
-			return 0;
 	}
 	
 	private void setRaysForNumber(SquareBase begin, SquareBase end){

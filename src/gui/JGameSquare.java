@@ -15,8 +15,8 @@ public class JGameSquare extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private SquareBase representingSquare;
-	private int position;
-	
+	private int position, posx, posy;	
+
 	private Border border;
 	private JLabel textLabel;
 	
@@ -100,4 +100,19 @@ public class JGameSquare extends JPanel {
 		this.getTextLabel().setText(text);
 	}
 	
+	public int getPosx() {
+		return posx;
+	}
+
+	public void setPosx(int posx) {
+		this.posx = posx;
+	}
+
+	public int getPosy() {
+		return posy;
+	}
+
+	public void setPosy(int posy) {
+		this.posy = posy;
+	}
 }
