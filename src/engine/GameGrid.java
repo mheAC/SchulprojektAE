@@ -22,7 +22,7 @@ public class GameGrid implements Serializable{
 	private ArrayList<SquareBase> squares;
 	
 	public Dimension getGridSize(){
-		Dimension dim = new Dimension(this.rows, this.cols);
+		Dimension dim = new Dimension(this.cols,this.rows);
 		return dim;
 	}
 	

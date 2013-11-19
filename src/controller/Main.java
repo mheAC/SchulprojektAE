@@ -143,7 +143,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
         // set data to the frame
         mainWin.setCols(gg.getGridSize().width);
         mainWin.setRows(gg.getGridSize().height);
-        mainWin.setGameGridData(gg);
+       // mainWin.setGameGridData(gg);
 		
 		// show the window
 		mainWin.setGameGridData(gg); // DARE YOU MOVING THIS LINES AGAIN!!
@@ -192,7 +192,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			((JGameSquare)e.getSource()).clearPaint();
 			((JGameSquare)e.getSource()).setText("?");
 			JOptionPane.showMessageDialog(null, "Select Number!");
-			System.out.println(beginDraw);
+			//System.out.println(beginDraw);
 			drawing = true;
 		}
 
@@ -262,17 +262,26 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	private int messmodus(int b,int e){
+		int diffp = this.mainWin.getPositivDiffFromColToEnd(b);
+		int diffn = this.mainWin.getCols() - diffp;
+		int count = 0;
 		if(b<e){
 			for(int i=b+1;i<=e;i++){
-				((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+				if(i<(b+diffp)){
+					((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+					count++;
+				}
 			}
-			return (e-b);
+			return count;
 		}
 		else if(b>e){
 			for(int i=b-1;i>=e;i--){
-				((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+				if(i>=(b-diffn)){
+					((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
+					count++;
+				}
 			}
-			return (b-e);
+			return count;
 		}
 		else
 			return 0;

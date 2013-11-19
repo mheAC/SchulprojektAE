@@ -53,7 +53,7 @@ public class MainWindow {
 	}
 	
 	public void buildWindow(){
-		GridLayout lo = new GridLayout(cols,rows);
+		GridLayout lo = new GridLayout(rows,cols);
 		
 		mainPanel.setLayout(lo);
 		
@@ -145,15 +145,23 @@ public class MainWindow {
 		return saveBtn;
 	}
 	
-	public int getColsInRow(int row){
+	public int getPositivDiffFromColToEnd(int position){
 		int tmp = 0;
+		int diff = 0;
+		boolean ermittelt = false;
 		for(int i=0;i<this.getRows();i++){
 			for(int j=0;j<this.getCols();j++){
-				if(i==row)
-					tmp++;
+				tmp++;
+				if(tmp > position){
+					diff++;
+					ermittelt = true;
+				}
+			}
+			if(ermittelt){
+				break;
 			}
 		}
-		return tmp;
+		return diff;
 	}
 	
 	public int getCols() {
