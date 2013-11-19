@@ -268,6 +268,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		if(b<e){
 			for(int i=b+1;i<=e;i++){
 				if(i<(b+diffp)){
+					JGameSquare gs = (JGameSquare)this.mainWin.getMainPanel().getComponent(i); // the panel that has been clicked
+					SquareBase s = gs.getRepresentedSquare();
 					((JGameSquare)this.mainWin.getMainPanel().getComponent(i)).drawLine(Direction.HORIZONTAL);
 					count++;
 				}
