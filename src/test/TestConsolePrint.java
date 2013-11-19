@@ -181,6 +181,14 @@ public class TestConsolePrint {
 	        	System.out.println("");
 	        i++;
 	    }
+	    /* Expected:
+			|[1]|[1]|[2]| 2
+			================
+			|[2]|[1]| 2 |[2]
+			================
+			| 5 |[1]|[2]|[2]
+			================
+	     */
 	    
 	    // manual test
 	    System.out.println("---");

@@ -180,12 +180,15 @@ public class GameGrid implements Serializable{
 	public HashMap<RaySquare, Integer> getColidingSquares() {
 		HashMap<RaySquare, Integer> matches = new HashMap<RaySquare, Integer>();
 		int count = 1;
+		
 		for(NumberSquare ns : this.getNumberSquares()) {
 			count = 1;
 			for(RaySquare rs : this.getRaySquares()) {
 				if(ns.canEnlight(rs)) {
 					if(matches.containsKey(rs))
-						count += 1;
+						count = matches.get(rs) + 1;
+					else
+						count = 1;
 					matches.put(rs, count); 
 				}
 			}
