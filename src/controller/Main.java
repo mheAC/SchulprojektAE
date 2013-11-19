@@ -1,15 +1,11 @@
 package controller;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -29,19 +25,29 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
-	private int beginDraw;
-	private int endDraw;
+	private SquareBase beginDraw;
+	private SquareBase endDraw;
+	private SquareBase NumberPos;
+	private Color defaultColor;
+	private Color clrBegin;
+	private Color clrEnd;
 	private boolean drawing;
+	private int drawCount;
 	private Properties properties;
+	private int maxAvailableCols;
 	
 	// Storage for current gameData
 	GameGrid gg;
 	
 	public Main() throws Exception {
 		//for Mouse Motion Listener
-		beginDraw = 0;
-		endDraw = 0;
+		beginDraw = null;
+		endDraw = null;
+		drawCount = 0;
+		NumberPos = null;
 		drawing = false;
+		clrBegin = null;
+		clrEnd = null;
 		
 		// props
 		this.properties = new Properties();
@@ -75,7 +81,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
 		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
-		
+		defaultColor = this.mainWin.getMainPanel().getBackground();
 		/*
 		 * Handling for GENERATED MainWindow
 		 */
@@ -143,6 +149,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
         // set data to the frame
         mainWin.setCols(gg.getGridSize().width);
         mainWin.setRows(gg.getGridSize().height);
+        //set max count of Cols
+        maxAvailableCols = gg.getGridSize().width * gg.getGridSize().height;
        // mainWin.setGameGridData(gg);
 		
 		// show the window
@@ -165,58 +173,84 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
-		
 		// "Cast" to the desired type of class
 		if(e.getClickCount() == 1 ) { // Single click: right / left -> Ray Square	
 			if(drawing){
-				endDraw = ((JGameSquare)e.getSource()).getPosition();
-				int num = messmodus(beginDraw, endDraw); // Number val
-	            gs = (JGameSquare)this.mainWin.getMainPanel().getComponent(beginDraw);
-	            s = gs.getRepresentedSquare();
-	            ((NumberSquare)s).setNumber(num);
-                ((JLabel)gs.getComponent(0)).setText(num+"");
-				gs.clearPaint(); // remove previous lines
-				gs.getTextLabel().setText(num+"");
-				drawing = false;
+				if(drawCount == 0){
+					((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
+					beginDraw = s;
+					drawCount++;
+				}
+				else if(drawCount == 1){
+					endDraw = s;
+					((JGameSquare)e.getComponent()).setBackground(Color.RED);
+					setRaysForNumber(beginDraw, endDraw);
+					e.getComponent().setBackground(defaultColor);
+					drawCount = 0;
+					drawing = false;
+				}
 			}
 			else{
 				RaySquare tempRs = s.getAsRaySquare();
 				s = tempRs; // overwrite the old Square Object with the new one
 			}
 		}
-		else { // Double click: Number Square
+		else if(!drawing){ // Double click: Number Square
 			NumberSquare tempNs = s.getAsNumberSquare();
 			s = tempNs;
 			gs.setRepresentingSquare(s);
-			beginDraw = ((JGameSquare)e.getSource()).getPosition();
 			((JGameSquare)e.getSource()).clearPaint();
 			((JGameSquare)e.getSource()).setText("?");
-			JOptionPane.showMessageDialog(null, "Select Number!");
+			System.out.println("Max Cols: "+maxAvailableCols);
+			//JOptionPane.showMessageDialog(null, "Select Number!");
 			//System.out.println(beginDraw);
-			drawing = true;
+			//drawing = true;
 		}
-
-		if(s.getClass().equals(new NumberSquare().getClass())) {
-            /*String zahlText = JOptionPane.showInputDialog("Zahl?");
-            if( zahlText != null) { // catch abort
-            	int num = Integer.parseInt(zahlText); // Number val
-                ((NumberSquare)s).setNumber(num);
-                ((JLabel)gs.getComponent(0)).setText(zahlText);
-            } 
-			gs.clearPaint(); // remove previous lines
-			gs.getTextLabel().setText(zahlText);*/
-		} 
-		else if(s.getClass().equals(new RaySquare().getClass())) {
-			// Direction
-			if(e.getButton() == MouseEvent.BUTTON1) { // BUTTON1 = left mouse
-				((RaySquare)s).setDirection(Direction.HORIZONTAL);
-				//paint a h line
-				gs.drawLine(Direction.HORIZONTAL);
-			}
-			else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON3 = right mouse
-				((RaySquare)s).setDirection(Direction.VERTICAL);
-				//paint a v line
-				gs.drawLine(Direction.VERTICAL);
+		if(!drawing){
+			if(s.getClass().equals(new NumberSquare().getClass())) {
+				int num = 0;
+				do{
+		            String zahlText = JOptionPane.showInputDialog("Zahl?");
+		            if( zahlText != null) { // catch abort
+		            	num = Integer.parseInt(zahlText); // Number val
+		            	maxAvailableCols -= (num+1);
+		                ((NumberSquare)s).setNumber(num);
+		                ((JLabel)gs.getComponent(0)).setText(zahlText);
+		                NumberPos = s;
+		                int currpos = gs.getPosition();
+		                for(int i=currpos-num;i<=currpos+num;i++){
+		                	if(i!=currpos)
+		                		this.mainWin.getMainPanel().getComponent(i).setBackground(Color.BLUE);
+		                }
+		                for(int i=currpos-(this.mainWin.getCols()*num);i<=currpos+(this.mainWin.getCols()*num);i=i+this.mainWin.getCols()){
+		                	if(i!=currpos)
+		                		this.mainWin.getMainPanel().getComponent(i).setBackground(Color.BLUE);
+		                }
+		                clrBegin = Color.GREEN;
+		                clrEnd   = Color.RED;
+		                drawing = true;
+		            }
+		            else{
+		            	num = 0;
+		                ((JLabel)gs.getComponent(0)).setText("");
+		            }
+		            	
+					gs.clearPaint(); // remove previous lines
+					gs.getTextLabel().setText(zahlText);
+				}while(num>(this.mainWin.getCols()+this.mainWin.getRows()-2));
+			} 
+			else if(s.getClass().equals(new RaySquare().getClass())) {
+				// Direction
+				if(e.getButton() == MouseEvent.BUTTON1) { // BUTTON1 = left mouse
+					((RaySquare)s).setDirection(Direction.HORIZONTAL);
+					//paint a h line
+					gs.drawLine(Direction.HORIZONTAL);
+				}
+				else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON3 = right mouse
+					((RaySquare)s).setDirection(Direction.VERTICAL);
+					//paint a v line
+					gs.drawLine(Direction.VERTICAL);
+				}
 			}
 		}
 		// Save changes on the square to the model
@@ -224,9 +258,21 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+		if(drawing){
+			if(drawCount==0)
+				e.getComponent().setBackground(Color.GREEN);
+			else
+				e.getComponent().setBackground(Color.RED);
+		}
+	}
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+		if(drawing){
+			if(drawCount==0 || (drawCount == 1 && (!e.getComponent().getBackground().equals(Color.GREEN) && !e.getComponent().getBackground().equals(Color.BLUE))))
+				e.getComponent().setBackground(defaultColor);
+		}
+	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
@@ -286,5 +332,16 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		else
 			return 0;
 	}
-
+	
+	private void setRaysForNumber(SquareBase begin, SquareBase end){
+		int beginy = begin.getPositionY();
+		int beginx = begin.getPositionX();
+		int endy = end.getPositionY();
+		int endx = end.getPositionX();
+		int numy = NumberPos.getPositionY();
+		int numx = NumberPos.getPositionX();
+		//if(){}
+		System.out.println("Begin:\nX:\t"+begin.getPositionX()+"\nY:\t"+begin.getPositionY());
+		System.out.println("End:\nX:\t"+end.getPositionX()+"\nY:\t"+end.getPositionY());
+	}
 }
