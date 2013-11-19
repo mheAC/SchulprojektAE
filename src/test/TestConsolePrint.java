@@ -124,21 +124,65 @@ public class TestConsolePrint {
 		}
 	}
 	
+	private void test_print_grid (GameGrid grid, int cols) {
+		int i=0;
+		for(SquareBase s : grid.getSquares()) {
+			System.out.print(" | ");
+			if(s.getClass().equals(new NumberSquare().getClass()))
+				System.out.print(((NumberSquare)s).getNumber());
+			else {
+				/*if(((RaySquare)s).getDirection().equals(Direction.HORIZONTAL)) // draw some ascii for both the directions
+					System.out.print('-');
+				else
+					System.out.print('/');*/
+				System.out.print(' ');
+			}
+			if(++i%cols == 0) {
+				System.out.print("\n");
+				for(i=0; i < cols; i++) System.out.print("====");
+				System.out.print("\n");
+			}
+		}
+	}
+	
 	public void test_colision () {
 		GameGrid g = new GameGrid();
 		g.generateSquaresTEST();
 		g.asignSquareCoordinates();
+		
+		int cols = 4;
 		
 		/*for(RaySquare rs :  g.getColidingSquares()) {
 			//System.out.println("x: " + rs.getPositionX() + " - y: " + rs.getPositionY());
 			System.out.println(rs.hashCode());
 		}*/
 		
-	    Iterator it = g.getColidingSquares().entrySet().iterator();
+	    /*Iterator it = g.getColidingSquares().entrySet().iterator();
+	    int i = 1;
 	    while (it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();
-	        System.out.println(pairs.getKey().hashCode() + " => " + pairs.getValue());
+	        System.out.print(pairs.getKey().hashCode() + " => " + pairs.getValue() + " | ");
+	        if(i % 4 == 0)
+	        	System.out.println("");
+	        i++;
 	        it.remove(); // avoids a ConcurrentModificationException
+	    }*/
+	    
+		// print the data
+		this.test_print_grid(g, cols);
+		System.out.println("");
+		
+		// Test colision
+		int i = 1;
+	    for(SquareBase s : g.getSquares()) {
+	    	if(g.getColidingSquares().containsKey(s))
+	    		System.out.print("Kolisionen: " + g.getColidingSquares().get(s) + " | ");
+	    	else
+	    		System.out.print("Strahler:   " + s + " | ");
+	    	
+	        if(i % cols == 0)
+	        	System.out.println("");
+	        i++;
 	    }
 		
 	}
@@ -150,7 +194,7 @@ public class TestConsolePrint {
 			/**
 			 * CALL DESIRED TEST METHOD
 			 */
-			o.test_storeage();
+			//o.test_storeage();
 			o.test_colision();
 			
 		} catch (Exception e) { e.printStackTrace(); }
