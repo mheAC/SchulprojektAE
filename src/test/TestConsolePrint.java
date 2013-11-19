@@ -181,7 +181,25 @@ public class TestConsolePrint {
 	        	System.out.println("");
 	        i++;
 	    }
+	    
+	    // manual test
+	    System.out.println("---");
+	    System.out.println("Ray Squares: " + g.getRaySquares().size());
+	    
+	    // last elem
+	    RaySquare lastRs = g.getRaySquares().get(8); // get the last ray square (absolutely right, bottom)
+	    System.out.println("Last Square (RaySquare) Data ==> x:" + (lastRs.getPositionX()+1) + " - y: " + (lastRs.getPositionY()+1) );
+	    
+	    // assign number squares to shorten vars
+	    NumberSquare n1 = g.getNumberSquares().get(0); // 2
+	    NumberSquare n2 = g.getNumberSquares().get(1); // 2
+	    NumberSquare n3 = g.getNumberSquares().get(2); // 5
 		
+	    // print result
+	    System.out.println("Numbersquare 1 can enlight the last RaySquare: " + n1.canEnlight(lastRs));
+	    System.out.println("Numbersquare 2 can enlight the last RaySquare: " + n2.canEnlight(lastRs));
+	    System.out.println("Numbersquare 3 can enlight the last RaySquare: " + n3.canEnlight(lastRs));
+	    
 	}
 	
 	public static void main(String[] args) {
