@@ -23,6 +23,20 @@ public class RaySquare extends SquareBase implements Serializable {
 	public void setDirection(Direction d) {
 		this.direction = d;
 	}
+	
+	/**
+	 * Not yet tested!
+	 * @param ns
+	 * @return Direction
+	 */
+	public Direction getRayDirectionForLightSource(NumberSquare ns) {
+		if(this.getPositionX() == ns.getPositionX() )
+			return Direction.HORIZONTAL;
+		else if(this.getPositionY() == ns.getPositionY() )
+			return Direction.VERTICAL;
+		else
+			return null;
+	}
 
 	@Override
 	public String getPrintableValue() {
