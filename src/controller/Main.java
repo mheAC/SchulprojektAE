@@ -283,11 +283,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				}
 				else if(drawCount == 1){
 					endDraw = s;
-					if(e.getComponent().getBackground().equals(Color.BLUE)){
-						if(resetBGColor())
-							setRaysForNumber(beginDraw, endDraw);
+					if(e.getComponent().getBackground().equals(Color.BLUE) 
+					|| e.getComponent().getBackground().equals(Color.GREEN) ){
+						//if(resetBGColor())
 						drawCount = 0;
 						drawing = false;
+						setRaysForNumber(beginDraw, endDraw);
+						
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Bitte bewegen Sie sich im Blauen bereich!!!");
@@ -368,58 +370,98 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	private void setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
-		//Draw line from startpoint to numbersquare if it's in horizontal sight
-		if(start.height == over.height){
-			if(start.width>over.width){
-				for(int i=start.width;i > over.width;i--){
-					this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+		if((start.height < over.height && end.height > over.height)
+		|| (start.height > over.height && end.height < over.height)
+		|| (start.width < over.width && end.width > over.width)
+		|| (start.width > over.width && end.width < over.width)) {
+			if(resetBGColor()){
+				//Draw line from startpoint to numbersquare if it's in horizontal sight
+				if(start.height == over.height){
+					if(start.width>over.width){
+						for(int i=start.width;i > over.width;i--){
+							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
+					else if(start.width<over.width){
+						for(int i=start.width;i < over.width;i++){
+							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
 				}
-			}
-			else {
-				for(int i=start.width;i < over.width;i++){
-					this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+				//Draw line from startpoint to numbersquare if it's in vertical sight
+				else if(start.width == over.width){
+					if(start.height>over.height){
+						for(int i=start.height;i > over.height;i--){
+							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
+					else {
+						for(int i=start.height;i < over.height;i++){
+							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
+				}
+				
+				//Draw line from numbersquare to end if it's in horizontal sight
+				if(over.height == end.height){
+					if(over.width>end.width){
+						for(int i=over.width-1;i > end.width;i--){
+							this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
+					else {
+						for(int i=over.width+1;i < end.width;i++){
+							this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
+				}
+				//Draw line from numbersquare to end if it's in horizontal sight
+				else if(over.width == end.width){
+					if(over.height>end.height){
+						for(int i=over.height;i > end.height;i--){
+							this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
+					else {
+						for(int i=over.height;i < end.height;i++){
+							this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
 				}
 			}
 		}
-		//Draw line from startpoint to numbersquare if it's in vertical sight
-		else if(start.width == over.width){
-			if(start.height>over.height){
-				for(int i=start.height;i > over.height;i--){
-					this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+		else if(end.equals(start)){
+			if(resetBGColor()){
+				if(start.height == over.height){
+					if(start.width>over.width){
+						for(int i=start.width;i > over.width;i--){
+							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
+					else if(start.width<over.width){
+						for(int i=start.width;i < over.width;i++){
+							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+						}
+					}
 				}
-			}
-			else {
-				for(int i=start.height;i < over.height;i++){
-					this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+				//Draw line from startpoint to numbersquare if it's in vertical sight
+				else if(start.width == over.width){
+					if(start.height>over.height){
+						for(int i=start.height;i > over.height;i--){
+							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
+					else {
+						for(int i=start.height;i < over.height;i++){
+							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+						}
+					}
 				}
 			}
 		}
-		
-		//Draw line from numbersquare to end if it's in horizontal sight
-		if(over.height == end.height){
-			if(over.width>end.width){
-				for(int i=over.width-1;i > end.width;i--){
-					this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
-				}
-			}
-			else {
-				for(int i=over.width+1;i < end.width;i++){
-					this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
-				}
-			}
-		}
-		//Draw line from numbersquare to end if it's in horizontal sight
-		else if(over.width == end.width){
-			if(over.height>end.height){
-				for(int i=over.height;i > end.height;i--){
-					this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
-				}
-			}
-			else {
-				for(int i=over.height;i < end.height;i++){
-					this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
-				}
-			}
+		else{
+			drawCount = 1;
+			drawing = true;
 		}
 	}
 	
