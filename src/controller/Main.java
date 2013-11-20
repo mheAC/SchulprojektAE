@@ -31,7 +31,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private SquareBase beginDraw;
 	private SquareBase endDraw;
 	private SquareBase NumberPos;
-	private int iNumberPos;
 	private Color defaultColor;
 	private Color clrBegin;
 	private Color clrEnd;
@@ -53,7 +52,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		drawing = false;
 		clrBegin = null;
 		clrEnd = null;
-		iNumberPos = 0;
 		
 		// props
 		this.properties = new Properties();
@@ -162,7 +160,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveHeightBtn().getActionCommand())) {
 			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Zeile\n"
-	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"gehen eventuell getï¿½tigte Eingaben\n"
 	                   +"verloren. Fortfahren?", "Warnung",
 	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	        if (response == JOptionPane.YES_OPTION) {
@@ -207,7 +205,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveWidthBtn().getActionCommand())) {
 			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Spalte\n"
-	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"gehen eventuell getï¿½tigte Eingaben\n"
 	                   +"verloren. Fortfahren?", "Warnung",
 	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	        if (response == JOptionPane.YES_OPTION) {
@@ -472,7 +470,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	private void markTheWayToNumberSquare(int col, int row){
-		//Zeilenweise abwärts
+		//Zeilenweise abwï¿½rts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -482,7 +480,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 				
 			}
-		//Zeilenweise aufwärts
+		//Zeilenweise aufwï¿½rts
 		for(int i = row-1; i > -1; i--)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -492,7 +490,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 			}
 		
-		//Spaltenweise vorwärts
+		//Spaltenweise vorwï¿½rts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -501,7 +499,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else
 					break;
 			}
-		//Spaltenweise vorwärts
+		//Spaltenweise vorwï¿½rts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
