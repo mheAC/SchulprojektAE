@@ -2,12 +2,14 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.*;
@@ -15,6 +17,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import engine.*;
 import gui.JGameSquare;
 import gui.JOpenFileDialog;
@@ -132,6 +135,90 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			return; // break here 
 		}
 		/*
+		 * Handling of add row btn
+		 */
+		else if(e.getActionCommand().equals(this.mainWin.getAddHeightBtn().getActionCommand())) {
+			// TODO: add height btn action
+			List<SquareBase> squares = gg.getSquares();
+			Dimension dim = gg.getGridSize();
+			for (int ii = 0; ii < (int)dim.getWidth();ii++) {
+				squares.add(new UntypedSquare());
+			}
+			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()+1));
+			gg.asignSquareCoordinates();
+			//mainWin.setGameGridData(gg);
+			//mainWin.setRows((int)gg.getGridSize().getHeight());
+			//mainWin.setCols((int)gg.getGridSize().getWidth());
+			//mainWin.buildWindow();
+			
+			// TODO: update main window to new size in gg
+			
+			return; // break here 
+		}
+		/*
+		 * Handling of remove row btn
+		 */
+		else if(e.getActionCommand().equals(this.mainWin.getRemoveHeightBtn().getActionCommand())) {
+			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Zeile\n"
+	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"verloren. Fortfahren?", "Warnung",
+	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	        if (response == JOptionPane.YES_OPTION) {
+	        	List<SquareBase> squares = gg.getSquares();
+	 			Dimension dim = gg.getGridSize();
+	 			for (int ii = (squares.size()-1); ii >= (squares.size() - (int)dim.getWidth()); ii--) {
+	 				squares.remove(ii);
+	 			}
+	 			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()-1));
+	 			
+	 			// TODO: update main window to new size in gg
+	 			
+	        }
+			return; // break here 
+		}
+		/*
+		 * Handling of add col btn
+		 */
+		else if(e.getActionCommand().equals(this.mainWin.getAddWidthBtn().getActionCommand())) {
+			// TODO: add height btn action
+			List<SquareBase> squares = gg.getSquares();
+			Dimension dim = gg.getGridSize();
+			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
+				squares.add(ii,new UntypedSquare());
+			}
+			gg.setGridSize(new Dimension((int)dim.getWidth()+1, (int)dim.getHeight()));
+			gg.asignSquareCoordinates();
+			//mainWin.setGameGridData(gg);
+			//mainWin.setRows((int)gg.getGridSize().getHeight());
+			//mainWin.setCols((int)gg.getGridSize().getWidth());
+			//mainWin.buildWindow();
+			
+			// TODO: update main window to new size in gg
+			
+			return; // break here 
+		}
+		/*
+		 * Handling of remove col btn
+		 */
+		else if(e.getActionCommand().equals(this.mainWin.getRemoveWidthBtn().getActionCommand())) {
+			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Spalte\n"
+	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"verloren. Fortfahren?", "Warnung",
+	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	        if (response == JOptionPane.YES_OPTION) {
+	        	List<SquareBase> squares = gg.getSquares();
+	 			Dimension dim = gg.getGridSize();
+	 			for (int ii = (squares.size()-1); ii > 0; ii=(ii-(int)dim.getHeight())) {
+	 				squares.remove(ii);
+	 			}
+	 			gg.setGridSize(new Dimension((int)dim.getWidth()-1, (int)dim.getHeight()));
+	 			gg.asignSquareCoordinates();
+	 			
+	 			// TODO: update main window to new size in gg
+	        }
+			return; // break here 
+		}
+		/*
 		 * Handling of INFO button
 		 */
 		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
@@ -167,6 +254,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		}
 		// Add some other listener
 		mainWin.getSaveBtn().addActionListener(this);
+		mainWin.getAddHeightBtn().addActionListener(this);
+		mainWin.getAddWidthBtn().addActionListener(this);
+		mainWin.getRemoveHeightBtn().addActionListener(this);
+		mainWin.getRemoveWidthBtn().addActionListener(this);
 	}
 
 	/*

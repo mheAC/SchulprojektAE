@@ -64,9 +64,30 @@ public class MainWindow {
 	}
 	
 	public void buildWindow(){
+		GridLayout lo = new GridLayout(rows,cols);
 		
+		mainPanel.setLayout(lo);
 		
-		buildPanel();
+		for(int i = 0 ; i < data.getSquares().size(); i++) {
+			SquareBase s = data.getSquares().get(i);
+			
+			JGameSquare pTmp = new JGameSquare();
+			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
+			pTmp.setPosition(i);
+			pTmp.setPosx(s.getPositionX());
+			pTmp.setPosy(s.getPositionY());
+			
+			// ALGO TEST
+			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
+				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
+			// END ALGO TEST
+			
+			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
+			if(s.getClass().equals(new NumberSquare().getClass()))
+				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
+			
+			mainPanel.add(pTmp); // add the panel
+		}
 		
 		// Add the panel to the main frame
 		mainFrame.add(mainPanel);
@@ -77,12 +98,6 @@ public class MainWindow {
 		 */
 		// add buttons
 		submenuFile.add(saveBtn);
-		
-		// add actions
-		addHeightBtn.addActionListener(new AddHeightBtnActionListener());
-		removeHeightBtn.addActionListener(new RemoveHeightBtnActionListener());
-		addWidthBtn.addActionListener(new AddWidthBtnActionListener());
-		removeWidthBtn.addActionListener(new RemoveWidthBtnActionListener());
 		
 		submenuRiddleSize.add(addHeightBtn);
 		submenuRiddleSize.add(removeHeightBtn);
@@ -108,34 +123,6 @@ public class MainWindow {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
-	}
-	
-	private void buildPanel() {
-		mainPanel = new JPanel();
-		GridLayout lo = new GridLayout(rows,cols);
-		
-		mainPanel.setLayout(lo);
-		
-		for(int i = 0 ; i < data.getSquares().size() ; i++) {
-			SquareBase s = data.getSquares().get(i);
-			
-			JGameSquare pTmp = new JGameSquare();
-			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
-			pTmp.setPosition(i);
-			pTmp.setPosx(s.getPositionX());
-			pTmp.setPosy(s.getPositionY());
-			
-			// ALGO TEST
-			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
-				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
-			// END ALGO TEST
-			
-			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
-			if(s.getClass().equals(new NumberSquare().getClass()))
-				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
-			
-			mainPanel.add(pTmp); // add the panel
-		}
 		
 		// Afterwards draw the lines to RaySquares
 		for(Component c : mainPanel.getComponents()) {
@@ -147,75 +134,6 @@ public class MainWindow {
 			}
 		}
 		mainPanel.repaint();
-	}
-	
-	private class AddHeightBtnActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO: add height btn action
-			List<SquareBase> squares = data.getSquares();
-			Dimension dim = data.getGridSize();
-			for (int ii = 0; ii < (int)dim.getWidth();ii++) {
-				squares.add(new UntypedSquare());
-			}
-			data.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()+1));
-			data.asignSquareCoordinates();
-			rows = (int)data.getGridSize().getHeight();
-			cols = (int)data.getGridSize().getWidth();
-			mainFrame.remove(mainPanel);
-			buildPanel();
-			mainFrame.add(mainPanel);
-			mainFrame.repaint();
-			mainFrame.pack();
-			mainFrame.setVisible(true);
-		}
-	}
-	
-	private class RemoveHeightBtnActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-            int response = JOptionPane.showConfirmDialog(mainFrame, "Beim Entfernen einer Zeile\n"
-	                   +"gehen eventuell getätigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (response == JOptionPane.YES_OPTION) {
-            	// TODO: actually remove something
-            }
-		}
-	}
-	
-	private class AddWidthBtnActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			List<SquareBase> squares = data.getSquares();
-			Dimension dim = data.getGridSize();
-			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
-				squares.add(ii,new UntypedSquare());
-			}
-			data.setGridSize(new Dimension((int)dim.getWidth()+1, (int)dim.getHeight()));
-			data.asignSquareCoordinates();
-			rows = (int)data.getGridSize().getHeight();
-			cols = (int)data.getGridSize().getWidth();
-			mainFrame.remove(mainPanel);
-			buildPanel();
-			mainFrame.add(mainPanel);
-			mainFrame.repaint();
-			mainFrame.pack();
-			mainFrame.setVisible(true);
-		}
-	}
-	
-	private class RemoveWidthBtnActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			int response = JOptionPane.showConfirmDialog(mainFrame, "Beim Entfernen einer Spalte\n"
-	                   +"gehen eventuell getätigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (response == JOptionPane.YES_OPTION) {
-	        	// TODO: actually remove something
-	        }
-		}
 	}
 	
 	public JPanel getMainPanel() {
@@ -287,5 +205,37 @@ public class MainWindow {
 
 	public void setCols(int cols) {
 		this.cols = cols;
+	}
+
+	public JMenuItem getAddWidthBtn() {
+		return addWidthBtn;
+	}
+
+	public void setAddWidthBtn(JMenuItem addWidthBtn) {
+		this.addWidthBtn = addWidthBtn;
+	}
+
+	public JMenuItem getAddHeightBtn() {
+		return addHeightBtn;
+	}
+
+	public void setAddHeightBtn(JMenuItem addHeightBtn) {
+		this.addHeightBtn = addHeightBtn;
+	}
+
+	public JMenuItem getRemoveHeightBtn() {
+		return removeHeightBtn;
+	}
+
+	public void setRemoveHeightBtn(JMenuItem removeHeightBtn) {
+		this.removeHeightBtn = removeHeightBtn;
+	}
+
+	public JMenuItem getRemoveWidthBtn() {
+		return removeWidthBtn;
+	}
+
+	public void setRemoveWidthBtn(JMenuItem removeWidthBtn) {
+		this.removeWidthBtn = removeWidthBtn;
 	}
 }
