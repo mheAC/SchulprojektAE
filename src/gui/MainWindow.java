@@ -1,9 +1,12 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -14,20 +17,21 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.UntypedSquare;
 
 
 public class MainWindow {
-	
+
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	
 	private JMenuItem saveBtn,
 						solveGridBtn,
-						checkSolveableBtn;
+						checkSolveableBtn,addWidthBtn,addHeightBtn,removeHeightBtn,removeWidthBtn;
 	
 	JMenuBar mainMenu;
-	JMenu submenuMenuContainer, submenuFile, submenuRiddle;
+	JMenu submenuMenuContainer, submenuFile, submenuRiddle, submenuRiddleSize;
 	
 	private GameGrid data;
 
@@ -45,11 +49,18 @@ public class MainWindow {
 		
 		submenuFile = new JMenu("Datei"); // sub menus within the main categorizer
 		submenuRiddle = new JMenu("Rätsel");
+		submenuRiddleSize = new JMenu("Größe");
 		
 		// Buttons for the menus
 		saveBtn = new JMenuItem("Entwurf in Datei speichern"); 
 		solveGridBtn = new JMenuItem("Das Rätsel automatisch lösen!");
 		checkSolveableBtn = new JMenuItem("ist das Räsel lösbar?");
+		
+		addHeightBtn = new JMenuItem("Zeile hinzufügen");
+		removeHeightBtn = new JMenuItem("Zeile entfernen");
+		
+		addWidthBtn = new JMenuItem("Spalte hinzufügen");
+		removeWidthBtn = new JMenuItem("Spalte entfernen");
 	}
 	
 	public void buildWindow(){
@@ -57,7 +68,7 @@ public class MainWindow {
 		
 		mainPanel.setLayout(lo);
 		
-		for(int i = 0 ; i < data.getSquares().size() ; i++) {
+		for(int i = 0 ; i < data.getSquares().size(); i++) {
 			SquareBase s = data.getSquares().get(i);
 			
 			JGameSquare pTmp = new JGameSquare();
@@ -88,12 +99,18 @@ public class MainWindow {
 		// add buttons
 		submenuFile.add(saveBtn);
 		
+		submenuRiddleSize.add(addHeightBtn);
+		submenuRiddleSize.add(removeHeightBtn);
+		submenuRiddleSize.add(addWidthBtn);
+		submenuRiddleSize.add(removeWidthBtn);
+		
 		submenuRiddle.add(checkSolveableBtn);
 		submenuRiddle.add(solveGridBtn);
 		
 		// add submenus to their categorizer / parent menu
 		submenuMenuContainer.add(submenuFile);
 		submenuMenuContainer.add(submenuRiddle);
+		submenuRiddle.add(submenuRiddleSize);
 		
 		// add the absolute parent menu / categorizer to to the JMenuBar
 		mainMenu.add(submenuMenuContainer);
@@ -147,6 +164,22 @@ public class MainWindow {
 		return saveBtn;
 	}
 	
+	public int getPosX(){
+		return 0;
+	}
+	
+	public JGameSquare getJGameSquareAt(int col,int row){
+		int count = 0;
+		for(int i=0;i<this.getRows();i++)
+			for(int j=0;j<this.getCols();j++){
+				if(j==col && i==row){
+					return (JGameSquare)this.getMainPanel().getComponent(count);
+				}
+				count++;
+			}
+		return null;
+	}
+	
 	public int getPositivDiffFromColToEnd(int position){
 		int tmp = 0;
 		int diff = 0;
@@ -172,5 +205,37 @@ public class MainWindow {
 
 	public void setCols(int cols) {
 		this.cols = cols;
+	}
+
+	public JMenuItem getAddWidthBtn() {
+		return addWidthBtn;
+	}
+
+	public void setAddWidthBtn(JMenuItem addWidthBtn) {
+		this.addWidthBtn = addWidthBtn;
+	}
+
+	public JMenuItem getAddHeightBtn() {
+		return addHeightBtn;
+	}
+
+	public void setAddHeightBtn(JMenuItem addHeightBtn) {
+		this.addHeightBtn = addHeightBtn;
+	}
+
+	public JMenuItem getRemoveHeightBtn() {
+		return removeHeightBtn;
+	}
+
+	public void setRemoveHeightBtn(JMenuItem removeHeightBtn) {
+		this.removeHeightBtn = removeHeightBtn;
+	}
+
+	public JMenuItem getRemoveWidthBtn() {
+		return removeWidthBtn;
+	}
+
+	public void setRemoveWidthBtn(JMenuItem removeWidthBtn) {
+		this.removeWidthBtn = removeWidthBtn;
 	}
 }
