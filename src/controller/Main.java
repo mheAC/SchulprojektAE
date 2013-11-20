@@ -375,12 +375,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(start.height == over.height){
 					if(start.width>over.width){
 						for(int i=start.width;i > over.width;i--){
-							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 					else if(start.width<over.width){
 						for(int i=start.width;i < over.width;i++){
-							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 				}
@@ -388,12 +390,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else if(start.width == over.width){
 					if(start.height>over.height){
 						for(int i=start.height;i > over.height;i--){
-							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 					else if(start.height<over.height){
 						for(int i=start.height;i < over.height;i++){
-							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 				}
@@ -402,12 +406,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(over.height == end.height){
 					if(over.width>end.width){
 						for(int i=over.width-1;i > end.width;i--){
-							this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 					else if(over.width<end.width){
 						for(int i=over.width+1;i < end.width;i++){
-							this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 				}
@@ -415,12 +421,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else if(over.width == end.width){
 					if(over.height>end.height){
 						for(int i=over.height;i > end.height;i--){
-							this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 					else if(over.height<end.height){
 						for(int i=over.height;i < end.height;i++){
-							this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 				}
@@ -431,12 +439,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(start.height == over.height){
 					if(start.width>over.width){
 						for(int i=start.width;i > over.width;i--){
-							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 					else if(start.width<over.width){
 						for(int i=start.width;i < over.width;i++){
-							this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 						}
 					}
 				}
@@ -444,12 +454,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else if(start.width == over.width){
 					if(start.height>over.height){
 						for(int i=start.height;i > over.height;i--){
-							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 					else {
 						for(int i=start.height;i < over.height;i++){
-							this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 						}
 					}
 				}
