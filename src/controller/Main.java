@@ -295,6 +295,17 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					}
 				}
 			}
+			/*if(!drawing){
+				if(s.getClass().equals(new NumberSquare().getClass())) {
+					int row = s.getPositionY();
+					int col = s.getPositionX();
+					NumberPos = s;
+					gs.clearPaint(); // remove previous lines
+					gs.getTextLabel().setText("?");
+					drawing = true;
+	                markTheWayToNumberSquare(col,row);
+				} 
+			}*/
 		}
 		else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
 			NumberSquare tempNs = s.getAsNumberSquare();
@@ -302,17 +313,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			gs.setRepresentingSquare(s);
 			((JGameSquare)e.getSource()).clearPaint();
 			((JGameSquare)e.getSource()).setText("?");
-		}
-		if(!drawing){
-			if(s.getClass().equals(new NumberSquare().getClass())) {
-				int row = s.getPositionY();
-				int col = s.getPositionX();
-				NumberPos = s;
-				gs.clearPaint(); // remove previous lines
-				gs.getTextLabel().setText("?");
-				drawing = true;
-                markTheWayToNumberSquare(col,row);
-			} 
+			int row = s.getPositionY();
+			int col = s.getPositionX();
+			NumberPos = s;
+			gs.clearPaint(); // remove previous lines
+			gs.getTextLabel().setText("?");
+			drawing = true;
+            markTheWayToNumberSquare(col,row);
 		}
 		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
@@ -360,7 +367,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			for(int j=0;j<this.mainWin.getCols();j++){
 				if(this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.BLUE) ||
 				   this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.GREEN))
-					this.mainWin.getJGameSquareAt(j, i).setBackground(defaultColor);
+					this.mainWin.getJGameSquareAt(j, i).clearPaint();
 				trough = true;
 			}
 		return trough;
