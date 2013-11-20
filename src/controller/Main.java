@@ -152,6 +152,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			//mainWin.buildWindow();
 			
 			// TODO: update main window to new size in gg
+			this.mainWin.getMainPanel().updateUI();
+ 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
 			
 			return; // break here 
 		}
@@ -172,6 +174,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	 			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()-1));
 	 			
 	 			// TODO: update main window to new size in gg
+	 			this.mainWin.getMainPanel().updateUI();
+	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
 	 			
 	        }
 			return; // break here 
@@ -194,7 +198,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			//mainWin.buildWindow();
 			
 			// TODO: update main window to new size in gg
-			
+			this.mainWin.getMainPanel().updateUI();
+ 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
 			return; // break here 
 		}
 		/*
@@ -215,6 +220,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	 			gg.asignSquareCoordinates();
 	 			
 	 			// TODO: update main window to new size in gg
+	 			this.mainWin.getMainPanel().updateUI();
+	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
 	        }
 			return; // break here 
 		}
@@ -303,7 +310,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			gs.setRepresentingSquare(s);
 			((JGameSquare)e.getSource()).clearPaint();
 			((JGameSquare)e.getSource()).setText("?");
-			System.out.println("Max Cols: "+maxAvailableCols);
 		}
 		if(!drawing){
 			if(s.getClass().equals(new NumberSquare().getClass())) {
