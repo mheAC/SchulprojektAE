@@ -356,12 +356,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	
 	private boolean resetBGColor(){
 		boolean trough = false;
-		for(int i=0; i<(this.mainWin.getCols()*this.mainWin.getRows());i++){
-			if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE) ||
-			   this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.GREEN))
-				this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
-			trough = true;
-		}
+		for(int i=0;i<this.mainWin.getRows();i++)
+			for(int j=0;j<this.mainWin.getCols();j++){
+				if(this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.BLUE) ||
+				   this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.GREEN))
+					this.mainWin.getJGameSquareAt(j, i).setBackground(defaultColor);
+				trough = true;
+			}
 		return trough;
 	}
 	
