@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -16,6 +17,7 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.UntypedSquare;
 
 
 public class MainWindow {
@@ -62,30 +64,9 @@ public class MainWindow {
 	}
 	
 	public void buildWindow(){
-		GridLayout lo = new GridLayout(rows,cols);
 		
-		mainPanel.setLayout(lo);
 		
-		for(int i = 0 ; i < data.getSquares().size() ; i++) {
-			SquareBase s = data.getSquares().get(i);
-			
-			JGameSquare pTmp = new JGameSquare();
-			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
-			pTmp.setPosition(i);
-			pTmp.setPosx(s.getPositionX());
-			pTmp.setPosy(s.getPositionY());
-			
-			// ALGO TEST
-			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
-				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
-			// END ALGO TEST
-			
-			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
-			if(s.getClass().equals(new NumberSquare().getClass()))
-				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
-			
-			mainPanel.add(pTmp); // add the panel
-		}
+		buildPanel();
 		
 		// Add the panel to the main frame
 		mainFrame.add(mainPanel);
@@ -127,6 +108,34 @@ public class MainWindow {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+	}
+	
+	private void buildPanel() {
+		mainPanel = new JPanel();
+		GridLayout lo = new GridLayout(rows,cols);
+		
+		mainPanel.setLayout(lo);
+		
+		for(int i = 0 ; i < data.getSquares().size() ; i++) {
+			SquareBase s = data.getSquares().get(i);
+			
+			JGameSquare pTmp = new JGameSquare();
+			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
+			pTmp.setPosition(i);
+			pTmp.setPosx(s.getPositionX());
+			pTmp.setPosy(s.getPositionY());
+			
+			// ALGO TEST
+			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
+				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
+			// END ALGO TEST
+			
+			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
+			if(s.getClass().equals(new NumberSquare().getClass()))
+				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
+			
+			mainPanel.add(pTmp); // add the panel
+		}
 		
 		// Afterwards draw the lines to RaySquares
 		for(Component c : mainPanel.getComponents()) {
@@ -144,6 +153,21 @@ public class MainWindow {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO: add height btn action
+			List<SquareBase> squares = data.getSquares();
+			Dimension dim = data.getGridSize();
+			for (int ii = 0; ii < (int)dim.getWidth();ii++) {
+				squares.add(new UntypedSquare());
+			}
+			data.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()+1));
+			data.asignSquareCoordinates();
+			rows = (int)data.getGridSize().getHeight();
+			cols = (int)data.getGridSize().getWidth();
+			mainFrame.remove(mainPanel);
+			buildPanel();
+			mainFrame.add(mainPanel);
+			mainFrame.repaint();
+			mainFrame.pack();
+			mainFrame.setVisible(true);
 		}
 	}
 	
@@ -163,7 +187,21 @@ public class MainWindow {
 	private class AddWidthBtnActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO: add width btn action
+			List<SquareBase> squares = data.getSquares();
+			Dimension dim = data.getGridSize();
+			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
+				squares.add(ii,new UntypedSquare());
+			}
+			data.setGridSize(new Dimension((int)dim.getWidth()+1, (int)dim.getHeight()));
+			data.asignSquareCoordinates();
+			rows = (int)data.getGridSize().getHeight();
+			cols = (int)data.getGridSize().getWidth();
+			mainFrame.remove(mainPanel);
+			buildPanel();
+			mainFrame.add(mainPanel);
+			mainFrame.repaint();
+			mainFrame.pack();
+			mainFrame.setVisible(true);
 		}
 	}
 	
