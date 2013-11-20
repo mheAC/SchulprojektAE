@@ -320,8 +320,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				gs.getTextLabel().setText("?");
 				clrBegin = Color.GREEN;
                 clrEnd   = Color.RED;
-                markTheWayToNumberSquare(col,row);
                 drawing = true;
+                markTheWayToNumberSquare(col,row);
 			} 
 		}
 		// Save changes on the square to the model
