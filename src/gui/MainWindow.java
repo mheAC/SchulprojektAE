@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -17,17 +19,17 @@ import engine.SquareBase;
 
 
 public class MainWindow {
-	
+
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	
 	private JMenuItem saveBtn,
 						solveGridBtn,
-						checkSolveableBtn;
+						checkSolveableBtn,addWidthBtn,addHeightBtn,removeHeightBtn,removeWidthBtn;
 	
 	JMenuBar mainMenu;
-	JMenu submenuMenuContainer, submenuFile, submenuRiddle;
+	JMenu submenuMenuContainer, submenuFile, submenuRiddle, submenuRiddleSize;
 	
 	private GameGrid data;
 
@@ -45,11 +47,18 @@ public class MainWindow {
 		
 		submenuFile = new JMenu("Datei"); // sub menus within the main categorizer
 		submenuRiddle = new JMenu("Rätsel");
+		submenuRiddleSize = new JMenu("Größe");
 		
 		// Buttons for the menus
 		saveBtn = new JMenuItem("Entwurf in Datei speichern"); 
 		solveGridBtn = new JMenuItem("Das Rätsel automatisch lösen!");
 		checkSolveableBtn = new JMenuItem("ist das Räsel lösbar?");
+		
+		addHeightBtn = new JMenuItem("Zeile hinzufügen");
+		removeHeightBtn = new JMenuItem("Zeile entfernen");
+		
+		addWidthBtn = new JMenuItem("Spalte hinzufügen");
+		removeWidthBtn = new JMenuItem("Spalte entfernen");
 	}
 	
 	public void buildWindow(){
@@ -88,12 +97,24 @@ public class MainWindow {
 		// add buttons
 		submenuFile.add(saveBtn);
 		
+		// add actions
+		addHeightBtn.addActionListener(new AddHeightBtnActionListener());
+		removeHeightBtn.addActionListener(new RemoveHeightBtnActionListener());
+		addWidthBtn.addActionListener(new AddWidthBtnActionListener());
+		removeWidthBtn.addActionListener(new RemoveWidthBtnActionListener());
+		
+		submenuRiddleSize.add(addHeightBtn);
+		submenuRiddleSize.add(removeHeightBtn);
+		submenuRiddleSize.add(addWidthBtn);
+		submenuRiddleSize.add(removeWidthBtn);
+		
 		submenuRiddle.add(checkSolveableBtn);
 		submenuRiddle.add(solveGridBtn);
 		
 		// add submenus to their categorizer / parent menu
 		submenuMenuContainer.add(submenuFile);
 		submenuMenuContainer.add(submenuRiddle);
+		submenuRiddle.add(submenuRiddleSize);
 		
 		// add the absolute parent menu / categorizer to to the JMenuBar
 		mainMenu.add(submenuMenuContainer);
@@ -117,6 +138,46 @@ public class MainWindow {
 			}
 		}
 		mainPanel.repaint();
+	}
+	
+	private class AddHeightBtnActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO: add height btn action
+		}
+	}
+	
+	private class RemoveHeightBtnActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+            int response = JOptionPane.showConfirmDialog(mainFrame, "Beim Entfernen einer Zeile\n"
+	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"verloren. Fortfahren?", "Warnung",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+            	// TODO: actually remove something
+            }
+		}
+	}
+	
+	private class AddWidthBtnActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO: add width btn action
+		}
+	}
+	
+	private class RemoveWidthBtnActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			int response = JOptionPane.showConfirmDialog(mainFrame, "Beim Entfernen einer Spalte\n"
+	                   +"gehen eventuell getätigte Eingaben\n"
+	                   +"verloren. Fortfahren?", "Warnung",
+                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	        if (response == JOptionPane.YES_OPTION) {
+	        	// TODO: actually remove something
+	        }
+		}
 	}
 	
 	public JPanel getMainPanel() {
