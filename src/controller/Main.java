@@ -285,7 +285,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						drawCount++;
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Bitte bewegen Sie sich im Blauen bereich!!!");
+						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
 					}
 				}
 				else if(drawCount == 1){
@@ -299,7 +299,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Bitte bewegen Sie sich im Blauen bereich!!!");
+						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
 					}
 				}
 			}
