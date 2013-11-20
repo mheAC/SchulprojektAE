@@ -366,10 +366,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	private void setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
-		if((start.height < over.height && end.height > over.height)
-		|| (start.height > over.height && end.height < over.height)
-		|| (start.width < over.width && end.width > over.width)
-		|| (start.width > over.width && end.width < over.width)) {
+		if((start.height < over.height && (end.height > over.height || end.width != over.width))
+		|| (start.width < over.width && (end.width > over.width || end.height != over.height))
+		|| (start.height > over.height && (end.height < over.height || end.width != over.width))
+		|| (start.width > over.width && (end.width < over.width || end.height != over.height))) {
 			if(resetBGColor()){
 				//Draw line from startpoint to numbersquare if it's in horizontal sight
 				if(start.height == over.height){
