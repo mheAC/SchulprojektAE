@@ -411,7 +411,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						}
 					}
 				}
-				//Draw line from numbersquare to end if it's in horizontal sight
+				//Draw line from numbersquare to end if it's in vertical sight
 				else if(over.width == end.width){
 					if(over.height>end.height){
 						for(int i=over.height;i > end.height;i--){
