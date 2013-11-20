@@ -270,20 +270,28 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		// "Cast" to the desired type of class
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
 			if(drawing){
-				
 				if(drawCount == 0){
-					((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
 					int beginpos = ((JGameSquare)e.getComponent()).getPosition();
 					beginDraw = s;
-					drawCount++;
+					if(e.getComponent().getBackground().equals(Color.BLUE)){
+						((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
+						drawCount++;
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Bitte bewegen Sie sich im Blauen bereich!!!");
+					}
 				}
 				else if(drawCount == 1){
 					endDraw = s;
-					((JGameSquare)e.getComponent()).setBackground(Color.RED);
-					setRaysForNumber(beginDraw, endDraw);
-					e.getComponent().setBackground(defaultColor);
-					drawCount = 0;
-					drawing = false;
+					if(e.getComponent().getBackground().equals(Color.BLUE)){
+						if(resetBGColor())
+							setRaysForNumber(beginDraw, endDraw);
+						drawCount = 0;
+						drawing = false;
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Bitte bewegen Sie sich im Blauen bereich!!!");
+					}
 				}
 			}
 		}
@@ -297,18 +305,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		}
 		if(!drawing){
 			if(s.getClass().equals(new NumberSquare().getClass())) {
-				int num = 0;
-				int currpos = gs.getPosition();
 				int row = s.getPositionY();
 				int col = s.getPositionX();
-				
-				markForNumberSquare(col,row);
-				
 				NumberPos = s;
 				gs.clearPaint(); // remove previous lines
 				gs.getTextLabel().setText("?");
 				clrBegin = Color.GREEN;
                 clrEnd   = Color.RED;
+                markTheWayToNumberSquare(col,row);
                 drawing = true;
 			} 
 		}
@@ -317,48 +321,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		if(drawing){
-			if(drawCount==0){
-				if(e.getComponent().getBackground().equals(Color.BLUE)){
-					wasBlue = true;
-				}
-				e.getComponent().setBackground(Color.GREEN);
-			}
-			else{
-				if(e.getComponent().getBackground().equals(Color.BLUE)){
-					wasBlue = true;
-				}
-				if(e.getComponent().getBackground().equals(Color.GREEN))
-				e.getComponent().setBackground(Color.RED);
-			}
-		}
-	}
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mouseExited(MouseEvent e) {
-		if(drawing){
-			if(e.getComponent().getBackground().equals(Color.GREEN) || e.getComponent().getBackground().equals(Color.RED))
-				e.getComponent().setBackground(defaultColor);
-				if(drawCount == 1 && e.getComponent().getBackground().equals(Color.GREEN)){
-					e.getComponent().setBackground(Color.GREEN);
-				}
-				else if(drawCount == 1 && e.getComponent().getBackground().equals(Color.RED)){
-					e.getComponent().setBackground(Color.RED);
-				}
-					
-			if(wasBlue){
-				e.getComponent().setBackground(Color.BLUE);
-				wasBlue = false;
-			}
-		}
-	}
+	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
@@ -387,7 +356,74 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
-	private void markForNumberSquare(int col, int row){
+	private boolean resetBGColor(){
+		boolean trough = false;
+		for(int i=0; i<(this.mainWin.getCols()*this.mainWin.getRows());i++){
+			if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE) ||
+			   this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.GREEN))
+				this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
+			trough = true;
+		}
+		return trough;
+	}
+	
+	private void setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
+		//Draw line from startpoint to numbersquare if it's in horizontal sight
+		if(start.height == over.height){
+			if(start.width>over.width){
+				for(int i=start.width;i > over.width;i--){
+					this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+				}
+			}
+			else {
+				for(int i=start.width;i < over.width;i++){
+					this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+				}
+			}
+		}
+		//Draw line from startpoint to numbersquare if it's in vertical sight
+		else if(start.width == over.width){
+			if(start.height>over.height){
+				for(int i=start.height;i > over.height;i--){
+					this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+				}
+			}
+			else {
+				for(int i=start.height;i < over.height;i++){
+					this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+				}
+			}
+		}
+		
+		//Draw line from numbersquare to end if it's in horizontal sight
+		if(over.height == end.height){
+			if(over.width>end.width){
+				for(int i=over.width-1;i > end.width;i--){
+					this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+				}
+			}
+			else {
+				for(int i=over.width+1;i < end.width;i++){
+					this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+				}
+			}
+		}
+		//Draw line from numbersquare to end if it's in horizontal sight
+		else if(over.width == end.width){
+			if(over.height>end.height){
+				for(int i=over.height;i > end.height;i--){
+					this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+				}
+			}
+			else {
+				for(int i=over.height;i < end.height;i++){
+					this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+				}
+			}
+		}
+	}
+	
+	private void markTheWayToNumberSquare(int col, int row){
 		//Zeilenweise abwärts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
@@ -436,24 +472,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		int endx = end.getPositionX();
 		int numy = NumberPos.getPositionY();
 		int numx = NumberPos.getPositionX();
-		//if(){}
-		if((beginy == numy) && (beginx != numx)){
-			if(beginx > numx){
-				
-			}
-			else if(beginx < numx){
-				
-			}
-		}
-		else if((beginx == numx) && (beginy != numy)){
-			if(beginy > numy){
-				
-			}
-			else if(beginy < numy){
-				
-			}
-		}
-		System.out.println("Begin:\nX:\t"+begin.getPositionX()+"\nY:\t"+begin.getPositionY());
-		System.out.println("End:\nX:\t"+end.getPositionX()+"\nY:\t"+end.getPositionY());
+		
+		Dimension RayStart = new Dimension(beginx, beginy);
+		Dimension RayOverNumber = new Dimension(numx, numy);
+		Dimension RayEnd = new Dimension(endx, endy);
+		setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
 	}
 }
