@@ -137,8 +137,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
 			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
 												+ "Gruppe:\n"
-												+ "\tBassauer\n"
 												+ "\tCongar\n"
+												+ "\tBassauer\n"
 												+ "\tHerpers\n"
 												+ "\tGriesbach\n"
 												+ "\tBolz\n"
@@ -184,32 +184,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
 					int beginpos = ((JGameSquare)e.getComponent()).getPosition();
 					beginDraw = s;
-					if(beginDraw.getPositionX() == NumberPos.getPositionX()){
-						int diffy = 0;
-						if(beginDraw.getPositionY()>NumberPos.getPositionY()){
-							diffy = beginDraw.getPositionY()-NumberPos.getPositionY();
-							for(int i=0;i<gg.getGridSize().height*gg.getGridSize().width;i++){
-								if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE))
-									this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
-							}
-							for(int i=beginpos, j=0;j<diffy;i=i-this.mainWin.getCols(),j++){
-								this.mainWin.getMainPanel().getComponent(i).setBackground(Color.GREEN);
-							}
-							
-						}
-						else {
-							diffy = NumberPos.getPositionY()-beginDraw.getPositionY();
-							for(int i=0;i<gg.getGridSize().height*gg.getGridSize().width;i++){
-								if(this.mainWin.getMainPanel().getComponent(i).getBackground().equals(Color.BLUE))
-									this.mainWin.getMainPanel().getComponent(i).setBackground(defaultColor);
-							}
-							for(int i=beginpos, j=0;j<diffy;i=i+this.mainWin.getCols(),j++){
-								this.mainWin.getMainPanel().getComponent(i).setBackground(Color.GREEN);
-							}
-						}
-					}
-					else if(beginDraw.getPositionY() == NumberPos.getPositionY()){}
-					wasBlue = false;
 					drawCount++;
 				}
 				else if(drawCount == 1){
@@ -221,10 +195,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					drawing = false;
 				}
 			}
-			/*else{
-				RaySquare tempRs = s.getAsRaySquare();
-				s = tempRs; // overwrite the old Square Object with the new one
-			}*/
 		}
 		else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
 			NumberSquare tempNs = s.getAsNumberSquare();
@@ -233,57 +203,23 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			((JGameSquare)e.getSource()).clearPaint();
 			((JGameSquare)e.getSource()).setText("?");
 			System.out.println("Max Cols: "+maxAvailableCols);
-			//JOptionPane.showMessageDialog(null, "Select Number!");
-			//System.out.println(beginDraw);
-			//drawing = true;
 		}
 		if(!drawing){
 			if(s.getClass().equals(new NumberSquare().getClass())) {
 				int num = 0;
-				do{
-		            String zahlText = JOptionPane.showInputDialog("Zahl?");
-		            if( zahlText != null) { // catch abort
-		            	num = Integer.parseInt(zahlText); // Number val
-		            	maxAvailableCols -= (num+1);
-		                ((NumberSquare)s).setNumber(num);
-		                ((JLabel)gs.getComponent(0)).setText(zahlText);
-		                NumberPos = s;		  
-		                int currpos = gs.getPosition();
-		                iNumberPos = currpos;
-		                for(int i=currpos-num;i<=currpos+num;i++){
-		                	if(i!=currpos)
-		                		this.mainWin.getMainPanel().getComponent(i).setBackground(Color.BLUE);
-		                }
-		                for(int i=currpos-(this.mainWin.getCols()*num);i<=currpos+(this.mainWin.getCols()*num);i=i+this.mainWin.getCols()){
-		                	if(i!=currpos)
-		                		this.mainWin.getMainPanel().getComponent(i).setBackground(Color.BLUE);
-		                }
-		                clrBegin = Color.GREEN;
-		                clrEnd   = Color.RED;
-		                drawing = true;
-		            }
-		            else{
-		            	num = 0;
-		                ((JLabel)gs.getComponent(0)).setText("");
-		            }
-		            	
-					gs.clearPaint(); // remove previous lines
-					gs.getTextLabel().setText(zahlText);
-				}while(num>(this.mainWin.getCols()+this.mainWin.getRows()-2));
+				int currpos = gs.getPosition();
+				int row = s.getPositionY();
+				int col = s.getPositionX();
+				
+				markForNumberSquare(col,row);
+				
+				NumberPos = s;
+				gs.clearPaint(); // remove previous lines
+				gs.getTextLabel().setText("?");
+				clrBegin = Color.GREEN;
+                clrEnd   = Color.RED;
+                drawing = true;
 			} 
-			/*else if(s.getClass().equals(new RaySquare().getClass())) {
-				// Direction
-				if(e.getButton() == MouseEvent.BUTTON1) { // BUTTON1 = left mouse
-					((RaySquare)s).setDirection(Direction.HORIZONTAL);
-					//paint a h line
-					gs.drawLine(Direction.HORIZONTAL);
-				}
-				else if(e.getButton() == MouseEvent.BUTTON3) { // BUTTON3 = right mouse
-					((RaySquare)s).setDirection(Direction.VERTICAL);
-					//paint a v line
-					gs.drawLine(Direction.VERTICAL);
-				}
-			}*/
 		}
 		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
@@ -359,6 +295,49 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		this.configWin.getSliderLbl().setText(dimLbl);
 	}
 	
+	
+	private void markForNumberSquare(int col, int row){
+		//Zeilenweise abwärts
+		for(int i = row+1; i < this.mainWin.getRows(); i++)
+			if(i != row){
+				if(this.mainWin.getJGameSquareAt(col, i) != null && 
+				   this.mainWin.getJGameSquareAt(col, i).getRepresentedSquare().toString() == "")
+					this.mainWin.getJGameSquareAt(col, i).setBackground(Color.BLUE);
+				else
+					break;
+				
+			}
+		//Zeilenweise aufwärts
+		for(int i = row-1; i > -1; i--)
+			if(i != row){
+				if(this.mainWin.getJGameSquareAt(col, i) != null && 
+				   this.mainWin.getJGameSquareAt(col, i).getRepresentedSquare().toString() == "")
+					this.mainWin.getJGameSquareAt(col, i).setBackground(Color.BLUE);
+				else
+					break;
+			}
+		
+		//Spaltenweise vorwärts
+		for(int i = col+1; i < this.mainWin.getCols(); i++)
+			if(i != col){
+				if(this.mainWin.getJGameSquareAt(i, row) != null &&
+				   this.mainWin.getJGameSquareAt(i, row).getRepresentedSquare().toString() == "")
+					this.mainWin.getJGameSquareAt(i, row).setBackground(Color.BLUE);
+				else
+					break;
+			}
+		//Spaltenweise vorwärts
+		for(int i = col-1; i > -1; i--)
+			if(i != col){
+				if(this.mainWin.getJGameSquareAt(i, row) != null &&
+				   this.mainWin.getJGameSquareAt(i, row).getRepresentedSquare().toString() == "")
+					this.mainWin.getJGameSquareAt(i, row).setBackground(Color.BLUE);
+				else
+					break;
+			}
+	}
+	
+	
 	private void setRaysForNumber(SquareBase begin, SquareBase end){
 		int beginy = begin.getPositionY();
 		int beginx = begin.getPositionX();
@@ -367,6 +346,22 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		int numy = NumberPos.getPositionY();
 		int numx = NumberPos.getPositionX();
 		//if(){}
+		if((beginy == numy) && (beginx != numx)){
+			if(beginx > numx){
+				
+			}
+			else if(beginx < numx){
+				
+			}
+		}
+		else if((beginx == numx) && (beginy != numy)){
+			if(beginy > numy){
+				
+			}
+			else if(beginy < numy){
+				
+			}
+		}
 		System.out.println("Begin:\nX:\t"+begin.getPositionX()+"\nY:\t"+begin.getPositionY());
 		System.out.println("End:\nX:\t"+end.getPositionX()+"\nY:\t"+end.getPositionY());
 	}

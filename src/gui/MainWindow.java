@@ -246,6 +246,22 @@ public class MainWindow {
 		return saveBtn;
 	}
 	
+	public int getPosX(){
+		return 0;
+	}
+	
+	public JGameSquare getJGameSquareAt(int col,int row){
+		int count = 0;
+		for(int i=0;i<this.getRows();i++)
+			for(int j=0;j<this.getCols();j++){
+				if(j==col && i==row){
+					return (JGameSquare)this.getMainPanel().getComponent(count);
+				}
+				count++;
+			}
+		return null;
+	}
+	
 	public int getPositivDiffFromColToEnd(int position){
 		int tmp = 0;
 		int diff = 0;
