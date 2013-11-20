@@ -32,10 +32,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private SquareBase endDraw;
 	private SquareBase NumberPos;
 	private Color defaultColor;
-	private Color clrBegin;
-	private Color clrEnd;
 	private boolean drawing;
-	private boolean wasBlue;
 	private int drawCount;
 	private Properties properties;
 	private int maxAvailableCols;
@@ -50,9 +47,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		drawCount = 0;
 		NumberPos = null;
 		drawing = false;
-		clrBegin = null;
-		clrEnd = null;
-		
 		// props
 		this.properties = new Properties();
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.cfg"));
@@ -276,7 +270,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
 			if(drawing){
 				if(drawCount == 0){
-					int beginpos = ((JGameSquare)e.getComponent()).getPosition();
+					((JGameSquare)e.getComponent()).getPosition();
 					beginDraw = s;
 					if(e.getComponent().getBackground().equals(Color.BLUE)){
 						((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
@@ -316,9 +310,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				NumberPos = s;
 				gs.clearPaint(); // remove previous lines
 				gs.getTextLabel().setText("?");
-				clrBegin = Color.GREEN;
-                clrEnd   = Color.RED;
-                drawing = true;
+				drawing = true;
                 markTheWayToNumberSquare(col,row);
 			} 
 		}
