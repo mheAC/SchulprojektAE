@@ -31,11 +31,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private SquareBase beginDraw;
 	private SquareBase endDraw;
 	private SquareBase NumberPos;
-	private Color defaultColor;
 	private boolean drawing;
 	private int drawCount;
+	private int gsPos;
+	private int FieldLength;
 	private Properties properties;
-	private int maxAvailableCols;
+	//private int maxAvailableCols;
 	
 	// Storage for current gameData
 	GameGrid gg;
@@ -43,6 +44,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	public Main() throws Exception {
 		//for Mouse Motion Listener
 		beginDraw = null;
+		gsPos = 0;
+		FieldLength = 0;
 		endDraw = null;
 		drawCount = 0;
 		NumberPos = null;
@@ -79,7 +82,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
 		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
-		defaultColor = this.mainWin.getMainPanel().getBackground();
 		/*
 		 * Handling for GENERATED MainWindow
 		 */
@@ -239,7 +241,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
         mainWin.setCols(gg.getGridSize().width);
         mainWin.setRows(gg.getGridSize().height);
         //set max count of Cols
-        maxAvailableCols = gg.getGridSize().width * gg.getGridSize().height;
+        //maxAvailableCols = gg.getGridSize().width * gg.getGridSize().height;
        // mainWin.setGameGridData(gg);
 		
 		// show the window
@@ -287,8 +289,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						//if(resetBGColor())
 						drawCount = 0;
 						drawing = false;
-						setRaysForNumber(beginDraw, endDraw);
-						
+						((NumberSquare)NumberPos).setNumber(setRaysForNumber(beginDraw, endDraw));
+						((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
+						FieldLength = 0;
+						this.gg.getSquares().set(gsPos, NumberPos);
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
@@ -312,12 +316,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			s = tempNs;
 			gs.setRepresentingSquare(s);
 			((JGameSquare)e.getSource()).clearPaint();
-			((JGameSquare)e.getSource()).setText("?");
+			//((JGameSquare)e.getSource()).setText("?");
 			int row = s.getPositionY();
 			int col = s.getPositionX();
 			NumberPos = s;
 			gs.clearPaint(); // remove previous lines
 			gs.getTextLabel().setText("?");
+			gsPos = gs.getPosition();
 			drawing = true;
             markTheWayToNumberSquare(col,row);
 		}
@@ -373,7 +378,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return trough;
 	}
 	
-	private void setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
+	private int setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
 		if((start.height < over.height && (end.height > over.height || end.width != over.width))
 		|| (start.width < over.width && (end.width > over.width || end.height != over.height))
 		|| (start.height > over.height && (end.height < over.height || end.width != over.width))
@@ -383,14 +388,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(start.height == over.height){
 					if(start.width>over.width){
 						for(int i=start.width;i > over.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 					else if(start.width<over.width){
 						for(int i=start.width;i < over.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
@@ -398,14 +409,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else if(start.width == over.width){
 					if(start.height>over.height){
 						for(int i=start.height;i > over.height;i--){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 					else if(start.height<over.height){
 						for(int i=start.height;i < over.height;i++){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
@@ -413,30 +430,42 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				//Draw line from numbersquare to end if it's in horizontal sight
 				if(over.height == end.height){
 					if(over.width>end.width){
-						for(int i=over.width-1;i > end.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+						for(int i=over.width-1;i >= end.width;i--){
+							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 					else if(over.width<end.width){
-						for(int i=over.width+1;i < end.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+						for(int i=over.width+1;i <= end.width;i++){
+							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
 				//Draw line from numbersquare to end if it's in vertical sight
 				else if(over.width == end.width){
 					if(over.height>end.height){
-						for(int i=over.height;i > end.height;i--){
-							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+						for(int i=over.height;i >= end.height;i--){
+							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 					else if(over.height<end.height){
-						for(int i=over.height;i < end.height;i++){
-							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+						for(int i=over.height;i <= end.height;i++){
+							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
@@ -447,14 +476,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				if(start.height == over.height){
 					if(start.width>over.width){
 						for(int i=start.width;i > over.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 					else if(start.width<over.width){
 						for(int i=start.width;i < over.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
@@ -462,14 +497,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else if(start.width == over.width){
 					if(start.height>over.height){
 						for(int i=start.height;i > over.height;i--){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 					else {
 						for(int i=start.height;i < over.height;i++){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height))
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
 						}
 					}
 				}
@@ -479,6 +520,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			drawCount = 1;
 			drawing = true;
 		}
+		return FieldLength;
 	}
 	
 	private void markTheWayToNumberSquare(int col, int row){
@@ -523,7 +565,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
-	private void setRaysForNumber(SquareBase begin, SquareBase end){
+	private int setRaysForNumber(SquareBase begin, SquareBase end){
 		int beginy = begin.getPositionY();
 		int beginx = begin.getPositionX();
 		int endy = end.getPositionY();
@@ -534,6 +576,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		Dimension RayStart = new Dimension(beginx, beginy);
 		Dimension RayOverNumber = new Dimension(numx, numy);
 		Dimension RayEnd = new Dimension(endx, endy);
-		setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
+		return setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
 	}
 }
