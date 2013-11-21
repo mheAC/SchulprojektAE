@@ -378,7 +378,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			for(int j=0;j<this.mainWin.getCols();j++){
 				if(this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.BLUE) ||
 				   this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.GREEN))
-					this.mainWin.getJGameSquareAt(j, i).setBg(defaultColor);
+					//this.mainWin.getJGameSquareAt(j, i).setBg(defaultColor);
+					this.mainWin.getJGameSquareAt(j, i).clearPaint();
 				trough = true;
 			}
 		return trough;
