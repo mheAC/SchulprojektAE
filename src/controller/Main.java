@@ -35,6 +35,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private int drawCount;
 	private int gsPos;
 	private int FieldLength;
+	private Color defaultColor;
 	private Properties properties;
 	//private int maxAvailableCols;
 	
@@ -43,6 +44,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	
 	public Main() throws Exception {
 		//for Mouse Motion Listener
+		defaultColor = new JGameSquare().getBackground();
 		beginDraw = null;
 		gsPos = 0;
 		FieldLength = 0;
@@ -312,19 +314,23 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			}*/
 		}
 		else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
-			NumberSquare tempNs = s.getAsNumberSquare();
-			s = tempNs;
-			gs.setRepresentingSquare(s);
-			((JGameSquare)e.getSource()).clearPaint();
-			//((JGameSquare)e.getSource()).setText("?");
-			int row = s.getPositionY();
-			int col = s.getPositionX();
-			NumberPos = s;
-			gs.clearPaint(); // remove previous lines
-			gs.getTextLabel().setText("?");
-			gsPos = gs.getPosition();
-			drawing = true;
-            markTheWayToNumberSquare(col,row);
+			if(!gs.isset()){
+				NumberSquare tempNs = s.getAsNumberSquare();
+				s = tempNs;
+				gs.setRepresentingSquare(s);
+				((JGameSquare)e.getSource()).clearPaint();
+				//((JGameSquare)e.getSource()).setText("?");
+				int row = s.getPositionY();
+				int col = s.getPositionX();
+				NumberPos = s;
+				gs.clearPaint(); // remove previous lines
+				gs.getTextLabel().setText("?");
+				gsPos = gs.getPosition();
+				drawing = true;
+	            markTheWayToNumberSquare(col,row);
+			}
+			else
+				System.out.println(gs.getRepresentedSquare().toString());
 		}
 		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
@@ -372,7 +378,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			for(int j=0;j<this.mainWin.getCols();j++){
 				if(this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.BLUE) ||
 				   this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.GREEN))
-					this.mainWin.getJGameSquareAt(j, i).clearPaint();
+					this.mainWin.getJGameSquareAt(j, i).setBg(defaultColor);
 				trough = true;
 			}
 		return trough;
