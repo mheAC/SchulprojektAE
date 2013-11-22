@@ -6,6 +6,7 @@ package engine;
 
 import gui.JGameSquare;
 
+import java.awt.Event;
 import java.util.Stack;
 
 /**
@@ -17,7 +18,7 @@ public class LogHandler {
 	
 	
 	public void setHistory(JGameSquare gs){
-		stack.push(gs);		
+		stack.push(gs);
 	}
 	public JGameSquare getHistory(){
 		JGameSquare gs;
