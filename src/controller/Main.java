@@ -232,6 +232,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 												+ "\tHerpers\n"
 												+ "\tGriesbach\n"
 												+ "\tBolz\n"
+												+ "\tSoiron\n"
 			);
 			return;
 		}
