@@ -386,26 +386,26 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return trough;
 	}
 	
-	private int setRayFromStartToEnd(Dimension start, Dimension over, Dimension end){
-		if((start.height < over.height && (end.height > over.height || end.width != over.width))
-		|| (start.width < over.width && (end.width > over.width || end.height != over.height))
-		|| (start.height > over.height && (end.height < over.height || end.width != over.width))
-		|| (start.width > over.width && (end.width < over.width || end.height != over.height))) {
+	private int setRayFromStartToEnd(Dimension start, Dimension num, Dimension end){
+		if((start.height < num.height && (end.height > num.height || end.width != num.width))
+		|| (start.width < num.width && (end.width > num.width || end.height != num.height))
+		|| (start.height > num.height && (end.height < num.height || end.width != num.width))
+		|| (start.width > num.width && (end.width < num.width || end.height != num.height))) {
 			if(resetBGColor()){
 				//Draw line from startpoint to numbersquare if it's in horizontal sight
-				if(start.height == over.height){
-					if(start.width>over.width){
-						for(int i=start.width;i > over.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+				if(start.height == num.height){
+					if(start.width>num.width){
+						for(int i=start.width;i > num.width;i--){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
 							}
 						}
 					}
-					else if(start.width<over.width){
-						for(int i=start.width;i < over.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+					else if(start.width<num.width){
+						for(int i=start.width;i < num.width;i++){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
@@ -414,19 +414,19 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					}
 				}
 				//Draw line from startpoint to numbersquare if it's in vertical sight
-				else if(start.width == over.width){
-					if(start.height>over.height){
-						for(int i=start.height;i > over.height;i--){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+				else if(start.width == num.width){
+					if(start.height>num.height){
+						for(int i=start.height;i > num.height;i--){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
 							}
 						}
 					}
-					else if(start.height<over.height){
-						for(int i=start.height;i < over.height;i++){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+					else if(start.height<num.height){
+						for(int i=start.height;i < num.height;i++){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
@@ -436,42 +436,42 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				}
 				
 				//Draw line from numbersquare to end if it's in horizontal sight
-				if(over.height == end.height){
-					if(over.width>end.width){
-						for(int i=over.width-1;i >= end.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
-								this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+				if(num.height == end.height){
+					if(num.width>end.width){
+						for(int i=num.width-1;i >= end.width;i--){
+							if(this.mainWin.getJGameSquareAt(i, num.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
+								this.mainWin.getJGameSquareAt(i, num.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, num.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
 							}
 						}
 					}
-					else if(over.width<end.width){
-						for(int i=over.width+1;i <= end.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-								this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
-								this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+					else if(num.width<end.width){
+						for(int i=num.width+1;i <= end.width;i++){
+							if(this.mainWin.getJGameSquareAt(i, num.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
+								this.mainWin.getJGameSquareAt(i, num.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, num.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
 							}
 						}
 					}
 				}
 				//Draw line from numbersquare to end if it's in vertical sight
-				else if(over.width == end.width){
-					if(over.height>end.height){
-						for(int i=over.height;i >= end.height;i--){
-							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
-								this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+				else if(num.width == end.width){
+					if(num.height>end.height){
+						for(int i=num.height;i >= end.height;i--){
+							if(this.mainWin.getJGameSquareAt(num.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
+								this.mainWin.getJGameSquareAt(num.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(num.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
 							}
 						}
 					}
-					else if(over.height<end.height){
-						for(int i=over.height;i <= end.height;i++){
-							if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-								this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
-								this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+					else if(num.height<end.height){
+						for(int i=num.height;i <= end.height;i++){
+							if(this.mainWin.getJGameSquareAt(num.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
+								this.mainWin.getJGameSquareAt(num.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(num.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
 							}
 						}
@@ -481,19 +481,19 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		}
 		else if(end.equals(start)){
 			if(resetBGColor()){
-				if(start.height == over.height){
-					if(start.width>over.width){
-						for(int i=start.width;i > over.width;i--){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+				if(start.height == num.height){
+					if(start.width>num.width){
+						for(int i=start.width;i > num.width;i--){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
 							}
 						}
 					}
-					else if(start.width<over.width){
-						for(int i=start.width;i < over.width;i++){
-							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+					else if(start.width<num.width){
+						for(int i=start.width;i < num.width;i++){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
 								FieldLength++;
@@ -502,10 +502,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					}
 				}
 				//Draw line from startpoint to numbersquare if it's in vertical sight
-				else if(start.width == over.width){
-					if(start.height>over.height){
-						for(int i=start.height;i > over.height;i--){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+				else if(start.width == num.width){
+					if(start.height>num.height){
+						for(int i=start.height;i > num.height;i--){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
@@ -513,8 +513,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						}
 					}
 					else {
-						for(int i=start.height;i < over.height;i++){
-							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
+						for(int i=start.height;i < num.height;i++){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(num.width, num.height)){
 								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 								FieldLength++;
