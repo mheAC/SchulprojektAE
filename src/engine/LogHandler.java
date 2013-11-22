@@ -4,9 +4,6 @@
  */
 package engine;
 
-import gui.JGameSquare;
-
-import java.awt.Event;
 import java.util.Stack;
 
 /**
@@ -14,16 +11,25 @@ import java.util.Stack;
  *
  */
 public class LogHandler {
-	Stack<JGameSquare> stack = new Stack<JGameSquare>();
+	Stack<Move> stack1 = new Stack<Move>();
+	Stack<Move> stack2 = new Stack<Move>();
 	
 	
-	public void setHistory(JGameSquare gs){
-		stack.push(gs);
+	public void setStack(Move move){
+		
+		stack1.push(move);
 	}
-	public JGameSquare getHistory(){
-		JGameSquare gs;
-		gs = stack.pop();
-		return gs;
+	public Move getBack(){
+		Move move;
+		move = stack1.pop();
+		stack2.push(move);
+		return move;
+	}
+	public Move getForward(){
+		Move move;
+		move = stack2.pop();
+		stack1.push(move);
+		return move;
 	}
 	
 }

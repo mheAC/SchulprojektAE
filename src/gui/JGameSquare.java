@@ -18,7 +18,7 @@ public class JGameSquare extends JPanel {
 	private int position, posx, posy;	
 	private Color bg;
 	private boolean set;
-	private String content;
+	private String content = null;
 	private Border border;
 	private JLabel textLabel;
 	
@@ -137,5 +137,8 @@ public class JGameSquare extends JPanel {
 
 	public void setPosy(int posy) {
 		this.posy = posy;
+	}
+	public String getContent(){
+		return content;
 	}
 }
