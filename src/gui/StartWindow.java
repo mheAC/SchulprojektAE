@@ -45,9 +45,18 @@ public class StartWindow {
 			startToolBar.add(loadBtn);
 			startToolBar.add(infoBtn);
 			
+			//Slider für die Auswahl der Größe wird erstellt.
+			//Minimum - Wert : 15, Maximum - Wert : 20;
+			widthInput = new GameDimensionInput();
+			widthInput.addValidator(new DimensionValidator());
+			widthInput.setText("15");
+			heightInput = new GameDimensionInput();
+			heightInput.addValidator(new DimensionValidator());
+			heightInput.setText("15");
+			
 			//Initialisiere alle Variablen für das Fenster
 			//sliderLbl => Zeigt an welche Größe man gewählt hat
-			dimensionLbl = new JLabel("0x0");
+			dimensionLbl = new JLabel(widthInput.getText()+"x"+heightInput.getText());
 			heightLbl = new JLabel("H\u00F6he in rows:");
 			widthLbl  = new JLabel("Breite in cols:");
 			
@@ -63,13 +72,6 @@ public class StartWindow {
 			//Ein Layout für das panel wird erstellt. In diesem Fall ein GridLayout()
 			//4 - > Rows, 1 -> Columns
 			GridLayout myLayout = new GridLayout(7, 1);
-			
-			//Slider für die Auswahl der Größe wird erstellt.
-			//Minimum - Wert : 15, Maximum - Wert : 20;
-			widthInput = new GameDimensionInput();
-			widthInput.addValidator(new DimensionValidator());
-			heightInput = new GameDimensionInput();
-			heightInput.addValidator(new DimensionValidator());
 			
 			
 			//Schriftart wurde gewählt und erstellt.

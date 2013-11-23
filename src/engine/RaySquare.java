@@ -42,5 +42,9 @@ public class RaySquare extends SquareBase implements Serializable {
 	public String getPrintableValue() {
 		return this.direction.equals(Direction.HORIZONTAL) ? "-" : (this.direction.equals(Direction.VERTICAL) ? "|" : " ");
 	}
+	
+	public boolean isRaySquare(){
+		return true;
+	}
 
 }

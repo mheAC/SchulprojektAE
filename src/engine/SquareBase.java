@@ -53,4 +53,16 @@ public abstract class SquareBase {
 		return us;
 	}
 	
+	public boolean isNumberSquare(){
+		return false;
+	}
+	
+	public boolean isRaySquare(){
+		return false;
+	}
+	
+	public boolean isUntypedSquare(){
+		return false;
+	}
+	
 }

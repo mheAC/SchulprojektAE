@@ -86,5 +86,9 @@ public class NumberSquare extends SquareBase implements Serializable {
 	public String getPrintableValue() {
 		return Integer.toString(this.getNumber());
 	}
+	
+	public boolean isNumberSquare(){
+		return true;
+	}
 
 }

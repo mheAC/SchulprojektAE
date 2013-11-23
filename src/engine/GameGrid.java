@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 
 /**
  * This is a helper class for being able to generate a gaming table 
@@ -125,6 +127,18 @@ public class GameGrid implements Serializable{
 	 */
 	public ArrayList<SquareBase> getSquares() {
 		return this.squares;
+	}
+	
+	public SquareBase getSquare(int posX,int posY){
+		SquareBase square = null;
+		java.util.Iterator<SquareBase> squaresIterator = this.squares.iterator();
+		while(squaresIterator.hasNext()){
+			SquareBase s = squaresIterator.next();
+			if(s.getPositionX() == posX && s.getPositionY() == posY){
+				square = s;
+			}
+		}
+		return square;
 	}
 	
 	/**

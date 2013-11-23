@@ -14,5 +14,9 @@ public class UntypedSquare extends SquareBase implements Serializable {
 	public String getPrintableValue() {
 		return "";
 	}
+	
+	public boolean isUntypedSquare(){
+		return true;
+	}
 
 }

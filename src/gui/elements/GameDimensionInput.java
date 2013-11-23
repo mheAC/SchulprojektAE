@@ -40,5 +40,9 @@ public class GameDimensionInput extends JFormattedTextField{
 			this.setWhite();
 		this.valid = valid;
 	}
+	
+	public String getText(){
+		return super.getText().replace(".", "");
+	}
 
 }
