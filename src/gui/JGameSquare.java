@@ -18,7 +18,7 @@ public class JGameSquare extends JPanel {
 	private int position, posx, posy;	
 	private Color bg;
 	private boolean set;
-
+	private String content = null;
 	private Border border;
 	private JLabel textLabel;
 	
@@ -76,6 +76,7 @@ public class JGameSquare extends JPanel {
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
 		g.drawLine(0, dim.height/2, dim.width, dim.height/2);
+		content = "Horizontal";
 		//g.drawLine(6, dim.height/2, dim.width-6, dim.height/2); // draw a stroke that ends before the border
 	}
 	
@@ -97,6 +98,7 @@ public class JGameSquare extends JPanel {
 		Dimension dim = this.getSize();
 		g.setStroke(new BasicStroke(5));
 		g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
+		content = "Vertikal";		
 	}
 	
 	public void clearPaint() {
@@ -118,6 +120,7 @@ public class JGameSquare extends JPanel {
 	
 	public void setText (String text) {
 		this.getTextLabel().setText(text);
+		content = text;
 	}
 	
 	public int getPosx() {
@@ -134,5 +137,8 @@ public class JGameSquare extends JPanel {
 
 	public void setPosy(int posy) {
 		this.posy = posy;
+	}
+	public String getContent(){
+		return content;
 	}
 }
