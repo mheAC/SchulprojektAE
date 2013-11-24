@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -128,6 +129,30 @@ public class MainWindow extends JFrame{
 			return true;
 		} catch (IOException e) {
 			return false;
+		}
+	}
+	
+	public JGameSquare getCellByPosition(int x, int y){
+		Component[] cells = this.gameGridPanel.getComponents();
+		JGameSquare cell = null;
+		for(int i=0;i < cells.length; i++){
+			try{
+				JGameSquare tempCell = (JGameSquare) cells[i];
+				if(tempCell.getPosx() == x && tempCell.getPosy() == y)
+					cell = tempCell;
+			}catch(ClassCastException e){
+				System.out.println(e);
+			}
+
+		}
+		return cell;
+	}
+	
+	public void clearHover(){
+		Component[] components = this.gameGridPanel.getComponents();
+		for(int i=0;i < components.length; i++){
+			if(this.hasActiveCell() && this.activeCell.getPosition() != i)
+				components[i].setBackground(Color.WHITE);
 		}
 	}
 	

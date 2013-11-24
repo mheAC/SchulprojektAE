@@ -23,6 +23,8 @@ public class PlayGuiController {
 					mainWindow.setGameGrid(gameGrid);
 				}
 			}
+		} catch (NullPointerException e){
+			
 		} catch (Exception e) {
 			mainWindow.showAlert("Spiel konnte nicht geladen werden.");
 		}
@@ -38,14 +40,52 @@ public class PlayGuiController {
 
 	//fired when mouse enters a grid cell
 	public static void gridCellEntered(JGameSquare cell, MainWindow mainWindow) {
-		SquareBase sqaure = cell.getRepresentedSquare();
-		if(mainWindow.hasActiveCell() && ((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()).canEnlight(sqaure)){
-			cell.setBackground(Color.LIGHT_GRAY);
+		
+		if(mainWindow.hasActiveCell()){
+			JGameSquare activeCell = mainWindow.getActiveCell();
+			NumberSquare activeSquare = (NumberSquare) activeCell.getRepresentedSquare();
+			mainWindow.clearHover();
+			if(cell.isInRowWith(activeCell)){
+				JGameSquare tempCell = cell;
+				
+				//hover all cells on the right side
+				while(tempCell.getPosx()>activeCell.getPosx()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						tempCell.setBackground(Color.LIGHT_GRAY);
+					}
+					tempCell = mainWindow.getCellByPosition(tempCell.getPosx()-1,tempCell.getPosy());
+				}
+				
+				//hover all cells on the left side
+				while(tempCell.getPosx()<activeCell.getPosx()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						tempCell.setBackground(Color.LIGHT_GRAY);
+					}
+					tempCell = mainWindow.getCellByPosition(tempCell.getPosx()+1,tempCell.getPosy());
+				}
+			}else if(cell.isInColoumnWith(activeCell)){
+				JGameSquare tempCell = cell;
+				
+				//hover all cells on the right side
+				while(tempCell.getPosy()>activeCell.getPosy()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						tempCell.setBackground(Color.LIGHT_GRAY);
+					}
+					tempCell = mainWindow.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()-1);
+				}
+				
+				//hover all cells on the left side
+				while(tempCell.getPosy()<activeCell.getPosy()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						tempCell.setBackground(Color.LIGHT_GRAY);
+					}
+					tempCell = mainWindow.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()+1);
+				}
+			}
 		}
 	}
 	
 	//fired when mouse exited a grid cell
 	public static void gridCellExited(JGameSquare cell, MainWindow mainWindow) {
-		cell.setBackground(Color.WHITE);
 	}
 }
