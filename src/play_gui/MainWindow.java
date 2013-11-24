@@ -4,13 +4,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import engine.GameGrid;
-import engine.NumberSquare;
-import engine.SquareBase;
+import engine.*;
 import gui.JGameSquare;
 import play_gui.listener.GameGridCellListener;
 import play_gui.listener.NewGameBtnListener;
@@ -117,8 +116,14 @@ public class MainWindow extends JFrame{
 		this.activeCell.setBackground(Color.GRAY);
 	}
 	
-
+	public void releaseActiveCell(){
+		if(this.activeCell != null){
+			this.activeCell.setBackground(Color.WHITE);
+			this.activeCell = null;
+		}
+	}
 	
+
 	//loades the background image and returns true if it could be loaded, otherwise it returns false
 	private boolean loadBackgroundImage(String path){
         File file = new File(path);
@@ -148,11 +153,57 @@ public class MainWindow extends JFrame{
 		return cell;
 	}
 	
+	public ArrayList<JGameSquare> getUntypedCellsToActive(JGameSquare cell){
+		ArrayList<JGameSquare> cells = new ArrayList<JGameSquare>();
+		if(this.hasActiveCell()){
+			NumberSquare activeSquare = (NumberSquare) activeCell.getRepresentedSquare();
+			if(cell.isInRowWith(this.activeCell)){
+				JGameSquare tempCell = cell;
+				
+				//hover all cells on the right side
+				while(tempCell.getPosx()>activeCell.getPosx()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						cells.add(tempCell);
+					}
+					tempCell = this.getCellByPosition(tempCell.getPosx()-1,tempCell.getPosy());
+				}
+				
+				//hover all cells on the left side
+				while(tempCell.getPosx()<activeCell.getPosx()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						cells.add(tempCell);
+					}
+					tempCell = this.getCellByPosition(tempCell.getPosx()+1,tempCell.getPosy());
+				}
+			}else if(cell.isInColoumnWith(activeCell)){
+				JGameSquare tempCell = cell;
+				
+				//hover all cells on the right side
+				while(tempCell.getPosy()>activeCell.getPosy()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						cells.add(tempCell);
+					}
+					tempCell = this.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()-1);
+				}
+				
+				//hover all cells on the left side
+				while(tempCell.getPosy()<activeCell.getPosy()){
+					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
+						cells.add(tempCell);
+					}
+					tempCell = this.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()+1);
+				}
+			}
+		}
+		return cells;
+	}
+	
 	public void clearHover(){
 		Component[] components = this.gameGridPanel.getComponents();
 		for(int i=0;i < components.length; i++){
-			if(this.hasActiveCell() && this.activeCell.getPosition() != i)
+			if(this.hasActiveCell() && this.activeCell.getPosition() != i && !(components[i].getClass().equals("class gui.JGameSquare") && ((JGameSquare) components[i]).getRepresentedSquare().isRaySquare())){
 				components[i].setBackground(Color.WHITE);
+			}
 		}
 	}
 	

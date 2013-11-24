@@ -3,9 +3,11 @@ package play_gui;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import engine.Direction;
 import engine.GameGrid;
-import engine.NumberSquare;
 import engine.SquareBase;
 import engine.StorageHandler;
 import gui.JGameSquare;
@@ -35,6 +37,20 @@ public class PlayGuiController {
 		SquareBase square = cell.getRepresentedSquare();
 		if(square.isNumberSquare()){
 			mainWindow.setActiveCell(cell);
+		}else if(mainWindow.hasActiveCell()){
+			ArrayList<JGameSquare> cells = mainWindow.getUntypedCellsToActive(cell);
+			if(cells.isEmpty()){
+				mainWindow.releaseActiveCell();
+			}else{
+				Iterator<JGameSquare> cellsIterator = cells.iterator();
+				while(cellsIterator.hasNext()){
+					JGameSquare tmpCell = cellsIterator.next();
+					if(cell.isInColoumnWith(mainWindow.getActiveCell()))
+						tmpCell.drawLine(Direction.VERTICAL);
+					else if(cell.isInRowWith(mainWindow.getActiveCell()))
+						tmpCell.drawLine(Direction.HORIZONTAL);
+				}	
+			}
 		}
 	}
 
@@ -42,45 +58,10 @@ public class PlayGuiController {
 	public static void gridCellEntered(JGameSquare cell, MainWindow mainWindow) {
 		
 		if(mainWindow.hasActiveCell()){
-			JGameSquare activeCell = mainWindow.getActiveCell();
-			NumberSquare activeSquare = (NumberSquare) activeCell.getRepresentedSquare();
 			mainWindow.clearHover();
-			if(cell.isInRowWith(activeCell)){
-				JGameSquare tempCell = cell;
-				
-				//hover all cells on the right side
-				while(tempCell.getPosx()>activeCell.getPosx()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						tempCell.setBackground(Color.LIGHT_GRAY);
-					}
-					tempCell = mainWindow.getCellByPosition(tempCell.getPosx()-1,tempCell.getPosy());
-				}
-				
-				//hover all cells on the left side
-				while(tempCell.getPosx()<activeCell.getPosx()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						tempCell.setBackground(Color.LIGHT_GRAY);
-					}
-					tempCell = mainWindow.getCellByPosition(tempCell.getPosx()+1,tempCell.getPosy());
-				}
-			}else if(cell.isInColoumnWith(activeCell)){
-				JGameSquare tempCell = cell;
-				
-				//hover all cells on the right side
-				while(tempCell.getPosy()>activeCell.getPosy()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						tempCell.setBackground(Color.LIGHT_GRAY);
-					}
-					tempCell = mainWindow.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()-1);
-				}
-				
-				//hover all cells on the left side
-				while(tempCell.getPosy()<activeCell.getPosy()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						tempCell.setBackground(Color.LIGHT_GRAY);
-					}
-					tempCell = mainWindow.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()+1);
-				}
+			Iterator<JGameSquare> squaresIterator = mainWindow.getUntypedCellsToActive(cell).iterator();
+			while(squaresIterator.hasNext()){
+				squaresIterator.next().setBackground(Color.LIGHT_GRAY);
 			}
 		}
 	}
