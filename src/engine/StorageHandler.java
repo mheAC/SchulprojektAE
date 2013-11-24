@@ -37,7 +37,9 @@ public class StorageHandler {
 	public GameGrid load(String filePath) throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream o_in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filePath)));
 	    try {
-	        return (GameGrid) o_in.readObject();
+	    	GameGrid gameGrid = (GameGrid) o_in.readObject();
+	    	gameGrid.asignSquareCoordinates();
+	        return gameGrid;
 	    }
 	    finally {
 	    	o_in.close();

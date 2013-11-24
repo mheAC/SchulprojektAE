@@ -134,6 +134,7 @@ public class GameGrid implements Serializable{
 		java.util.Iterator<SquareBase> squaresIterator = this.squares.iterator();
 		while(squaresIterator.hasNext()){
 			SquareBase s = squaresIterator.next();
+			System.out.println(s.getPositionX()+ " " +s.getPositionY());
 			if(s.getPositionX() == posX && s.getPositionY() == posY){
 				square = s;
 			}

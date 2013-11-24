@@ -11,23 +11,29 @@ import play_gui.MainWindow;
 import play_gui.PlayGuiController;
 
 public class GameGridCellListener implements MouseListener{
+	
+	private JGameSquare cell;
+	
+	public GameGridCellListener(JGameSquare cell){
+		this.cell = cell;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
-		PlayGuiController.gridCellClicked( (JGameSquare) event.getSource(), mainwindow);
+		PlayGuiController.gridCellClicked( cell, mainwindow);
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
-		PlayGuiController.gridCellEntered( (JGameSquare) event.getSource(), mainwindow);
+		PlayGuiController.gridCellEntered( cell, mainwindow);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent event) {
-		// TODO Auto-generated method stub
-		
+		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
+		PlayGuiController.gridCellExited( cell, mainwindow);		
 	}
 
 	@Override

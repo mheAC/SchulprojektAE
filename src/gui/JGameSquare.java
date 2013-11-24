@@ -106,6 +106,14 @@ public class JGameSquare extends JPanel {
 		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
 	}
 	
+	public boolean isInRowWith(JGameSquare square){
+		return this.posy == square.getPosy(); 
+	}
+	
+	public boolean isInColoumnWith(JGameSquare square){
+		return this.posx == square.getPosx(); 
+	}
+	
 	public void setPosition(int position) {
 		this.position = position;
 	}
