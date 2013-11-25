@@ -16,7 +16,6 @@ public class NewGameBtnListener implements ActionListener{
 		fileDialog.showOpenDialog(fileDialog);
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
 		PlayGuiController.newGame(mainwindow, fileDialog.getSelectedFile());
-
 	}
 
 }

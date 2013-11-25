@@ -1,16 +1,20 @@
 package play_gui;
 
 import java.awt.*;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TooManyListenersException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import engine.*;
 import gui.JGameSquare;
+import play_gui.listener.FileDropListener;
 import play_gui.listener.GameGridCellListener;
 import play_gui.listener.NewGameBtnListener;
 
@@ -40,11 +44,20 @@ public class MainWindow extends JFrame{
 		if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
 			this.getContentPane().add(this.backgroundImage);
 		}
+		
+		//Enable file drop
+		DropTarget dropTarget = new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, null);
+		try {
+			dropTarget.addDropTargetListener(new FileDropListener(this));
+		} catch (TooManyListenersException e) {
+			e.printStackTrace();
+		}
+		
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-	
+
 	//cleares the game grid TODO: remove grid panel
 	public void clearGameGrid(){
 		this.gameGrid = null;
@@ -136,6 +149,23 @@ public class MainWindow extends JFrame{
 			return false;
 		}
 	}
+	
+	//doesent work :( TODO fix it :)
+	public void setBackgroundHover(boolean hover){
+		if(hover){
+			this.getContentPane().remove(this.backgroundImage);
+			if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp-hover.png")){
+				this.getContentPane().add(this.backgroundImage);
+			}
+		}else{
+			this.getContentPane().remove(this.backgroundImage);
+			if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
+				this.getContentPane().add(this.backgroundImage);
+			}
+		}
+		this.repaint();
+	}
+	
 	
 	public JGameSquare getCellByPosition(int x, int y){
 		Component[] cells = this.gameGridPanel.getComponents();
