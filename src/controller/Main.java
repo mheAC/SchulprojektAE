@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,6 +29,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
+	private ArrayList<SquareBase> toDrawList;
 	private SquareBase beginDraw;
 	private SquareBase endDraw;
 	private SquareBase NumberPos;
@@ -44,6 +46,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	
 	public Main() throws Exception {
 		//for Mouse Motion Listener
+		toDrawList = new ArrayList<SquareBase>();
 		defaultColor = new JGameSquare().getBackground();
 		beginDraw = null;
 		gsPos = 0;
@@ -274,33 +277,34 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		// "Cast" to the desired type of class
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
 			if(drawing){
-				if(drawCount == 0){
+				if((e.getComponent().getBackground().equals(Color.GREEN) || drawCount>=4 || e.getComponent().getBackground().equals(Color.RED))
+						&& (!e.getComponent().getBackground().equals(Color.BLUE) && !e.getComponent().getBackground().equals(defaultColor) )){
+					drawing = false;
+					drawCount = 0;
+					if(resetBGColor())
+						for(int i=0;i<toDrawList.size();i++){
+							setRaysForNumber(toDrawList.get(i), NumberPos);						
+						}
+					((NumberSquare)NumberPos).setNumber(FieldLength);
+					((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
+					FieldLength = 0;
+					this.gg.getSquares().set(gsPos, NumberPos);
+				}
+				else if(drawCount < 4){
 					((JGameSquare)e.getComponent()).getPosition();
-					beginDraw = s;
+					toDrawList.add(s);
 					if(e.getComponent().getBackground().equals(Color.BLUE)){
-						((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
+						if(drawCount==0)
+							((JGameSquare)e.getComponent()).setBackground(Color.GREEN);
+						else
+							((JGameSquare)e.getComponent()).setBackground(Color.RED);
 						drawCount++;
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
 					}
 				}
-				else if(drawCount == 1){
-					endDraw = s;
-					if(e.getComponent().getBackground().equals(Color.BLUE) 
-					|| e.getComponent().getBackground().equals(Color.GREEN) ){
-						//if(resetBGColor())
-						drawCount = 0;
-						drawing = false;
-						((NumberSquare)NumberPos).setNumber(setRaysForNumber(beginDraw, endDraw));
-						((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
-						FieldLength = 0;
-						this.gg.getSquares().set(gsPos, NumberPos);
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
-					}
-				}
+				
 			}
 			/*if(!drawing){
 				if(s.getClass().equals(new NumberSquare().getClass())) {
@@ -385,6 +389,53 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			}
 		return trough;
 	}
+	
+	private int setRayFromStartToEnd(Dimension start, Dimension lightSource){
+				//Draw line from startpoint to numbersquare if it's in horizontal sight
+				if(start.height == lightSource.height){
+					if(start.width>lightSource.width){
+						for(int i=start.width;i > lightSource.width;i--){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
+						}
+					}
+					else if(start.width<lightSource.width){
+						for(int i=start.width;i < lightSource.width;i++){
+							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+								FieldLength++;
+							}
+						}
+					}
+				}
+				//Draw line from startpoint to numbersquare if it's in vertical sight
+				else if(start.width == lightSource.width){
+					if(start.height>lightSource.height){
+						for(int i=start.height;i > lightSource.height;i--){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
+						}
+					}
+					else if(start.height<lightSource.height){
+						for(int i=start.height;i < lightSource.height;i++){
+							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+								FieldLength++;
+							}
+						}
+					}
+				}
+		return FieldLength;
+	}
+	
 	
 	private int setRayFromStartToEnd(Dimension start, Dimension lightSource, Dimension end){
 		if((start.height < lightSource.height && (end.height > lightSource.height || end.width != lightSource.width))
@@ -578,12 +629,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		int beginx = begin.getPositionX();
 		int endy = end.getPositionY();
 		int endx = end.getPositionX();
-		int numy = NumberPos.getPositionY();
-		int numx = NumberPos.getPositionX();
+		//int numy = NumberPos.getPositionY();
+		//int numx = NumberPos.getPositionX();
 		
 		Dimension RayStart = new Dimension(beginx, beginy);
-		Dimension RayOverNumber = new Dimension(numx, numy);
+		//Dimension RayOverNumber = new Dimension(numx, numy);
 		Dimension RayEnd = new Dimension(endx, endy);
-		return setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
+		return setRayFromStartToEnd(RayStart, RayEnd);
+		//return setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
 	}
 }
