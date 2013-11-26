@@ -629,13 +629,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		int beginx = begin.getPositionX();
 		int endy = end.getPositionY();
 		int endx = end.getPositionX();
-		//int numy = NumberPos.getPositionY();
-		//int numx = NumberPos.getPositionX();
 		
 		Dimension RayStart = new Dimension(beginx, beginy);
-		//Dimension RayOverNumber = new Dimension(numx, numy);
 		Dimension RayEnd = new Dimension(endx, endy);
 		return setRayFromStartToEnd(RayStart, RayEnd);
-		//return setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
 	}
 }
