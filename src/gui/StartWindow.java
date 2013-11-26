@@ -61,7 +61,7 @@ public class StartWindow {
 			widthLbl  = new JLabel("Breite in cols:");
 			
 			//sizeLbl => erklärt sich von selbst :)
-			sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) :");
+			sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) : min.4 max.25");
 			
 			//frame => frame wird erstellt und bekommt eine Überschrift
 			frame = new JFrame("Lichtstrahlen Startparameter");

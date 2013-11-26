@@ -83,6 +83,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 
 	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
@@ -91,11 +92,18 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 * Handling for GENERATED MainWindow
 		 */
 		if(e.getActionCommand() == this.configWin.getokActionBtn().getActionCommand()){
-			if(!this.configWin.widthInput.isValid() || !this.configWin.heightInput.isValid()) {
+			if(!this.configWin.widthInput.isValid()) {
 				this.configWin.widthInput.setRed();
+				return; // prevent nullpointer exception due going on with the code
+			}	
+			if(!this.configWin.heightInput.isValid()) {
 				this.configWin.heightInput.setRed();
 				return; // prevent nullpointer exception due going on with the code
 			}	
+			
+			
+			
+			
 			
 			if(this.configWin.widthInput.isValid() && this.configWin.heightInput.isValid()){
 				// Create the main game window			
@@ -106,6 +114,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				gg.asignSquareCoordinates();
 			}
 		}
+		
+		
+		
+		
 		/*
 		 * Handling for LOADING drafted MainWindow
 		 */
