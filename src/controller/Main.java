@@ -408,18 +408,15 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.width>lightSource.width){
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
-								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
-								FieldLength++;
+								setRayLineForNumber("Horizontal",i,start);
 							}
 						}
 					}
 					else if(start.width<lightSource.width){
 						for(int i=start.width;i < lightSource.width;i++){
+							
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
-								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
-								FieldLength++;
+								setRayLineForNumber("Horizontal",i,start);
 							}
 						}
 					}
@@ -429,18 +426,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.height>lightSource.height){
 						for(int i=start.height;i > lightSource.height;i--){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
-								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
-								FieldLength++;
+								setRayLineForNumber("Vertical",i,start);
 							}
 						}
 					}
 					else if(start.height<lightSource.height){
 						for(int i=start.height;i < lightSource.height;i++){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
-								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
-								FieldLength++;
+								setRayLineForNumber("Vertical",i,start);
 							}
 						}
 					}
@@ -500,4 +493,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		Dimension RayEnd = new Dimension(endx, endy);
 		return setRayFromStartToEnd(RayStart, RayEnd);
 	}
+	
+	private void setRayLineForNumber(String s, int i, Dimension start ){
+		
+		if(s.equals("Horizontal")){
+			this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+			this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
+			FieldLength++;
+		}
+		else{
+			this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+			this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
+			FieldLength++;
+		}
+	}
+	
+	
 }
