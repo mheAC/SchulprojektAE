@@ -25,36 +25,20 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
+/*
+ * TEST
+ */
+
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
-	private ArrayList<SquareBase> toDrawList;
-	private SquareBase beginDraw;
-	private SquareBase endDraw;
-	private SquareBase NumberPos;
-	private boolean drawing;
-	private int drawCount;
-	private int gsPos;
-	private int FieldLength;
-	private Color defaultColor;
 	private Properties properties;
-	//private int maxAvailableCols;
 	
 	// Storage for current gameData
 	GameGrid gg;
 	
 	public Main() throws Exception {
-		//for Mouse Motion Listener
-		toDrawList = new ArrayList<SquareBase>();
-		defaultColor = new JGameSquare().getBackground();
-		beginDraw = null;
-		gsPos = 0;
-		FieldLength = 0;
-		endDraw = null;
-		drawCount = 0;
-		NumberPos = null;
-		drawing = false;
 		// props
 		this.properties = new Properties();
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.cfg"));
