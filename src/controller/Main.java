@@ -25,6 +25,7 @@ import gui.StartWindow;
 
 public class Main implements ChangeListener, ActionListener, MouseListener, GridChangeListener {
 	
+	
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
