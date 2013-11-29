@@ -24,7 +24,7 @@ public class Move {
 		Move move = new Move();
 		posx = gs.getPosx();
 		posy = gs.getPosy();
-		bg = gs.getBg();
+		//bg = gs.getBg();
 		content = gs.getContent();
 		lh.setStack(move);
 	}

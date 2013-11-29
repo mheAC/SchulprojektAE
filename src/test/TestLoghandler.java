@@ -325,23 +325,7 @@ package test;
 				}*/
 			}
 			else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
-				if(!gs.isset()){
-					NumberSquare tempNs = s.getAsNumberSquare();
-					s = tempNs;
-					gs.setRepresentingSquare(s);
-					((JGameSquare)e.getSource()).clearPaint();
-					//((JGameSquare)e.getSource()).setText("?");
-					int row = s.getPositionY();
-					int col = s.getPositionX();
-					NumberPos = s;
-					gs.clearPaint(); // remove previous lines
-					gs.getTextLabel().setText("?");
-					gsPos = gs.getPosition();
-					drawing = true;
-		            markTheWayToNumberSquare(col,row);
-				}
-				else
-					System.out.println(gs.getRepresentedSquare().toString());
+
 			}
 			// Save changes on the square to the model
 			this.gg.getSquares().set(gs.getPosition(), s);

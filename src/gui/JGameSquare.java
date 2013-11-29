@@ -16,17 +16,13 @@ public class JGameSquare extends JPanel {
 	
 	private SquareBase representingSquare;
 	private int position, posx, posy;	
-	private Color bg;
-	private boolean set;
 	private String content = null;
 	private Border border;
 	private JLabel textLabel;
 	
 	public JGameSquare(){
 		super();
-		set = false;
-		bg = this.getBackground();
-		setBg(bg);
+
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
 		
@@ -36,10 +32,6 @@ public class JGameSquare extends JPanel {
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 		
-	}
-	
-	public boolean isset(){
-		return set;
 	}
 	
 	public SquareBase getRepresentedSquare() {
@@ -83,16 +75,6 @@ public class JGameSquare extends JPanel {
 	/**
 	 * draw | to the panel
 	 */
-
-	public Color getBg() {
-		return bg;
-	}
-
-	public void setBg(Color bg) {
-		this.bg = bg;
-		this.setBackground(bg);
-	}
-	
 	private void drawVertikal() {
 		Graphics2D g = (Graphics2D)this.getGraphics();
 		Dimension dim = this.getSize();
