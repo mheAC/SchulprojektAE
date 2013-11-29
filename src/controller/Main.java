@@ -25,6 +25,10 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
+/*
+ * TEST
+ */
+
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
