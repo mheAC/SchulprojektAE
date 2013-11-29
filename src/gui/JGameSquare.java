@@ -88,9 +88,22 @@ public class JGameSquare extends JPanel {
 	 */
 	@Override
 	public void paint(Graphics g) {
+		System.out.println("JGameSquare was repainted!");
 		super.paint(g);
 		
+		SquareBase s = getRepresentedSquare();
 		
+		if(s.isNumberSquare()) {
+			g.drawString( getRepresentedSquare().toString(), 0, 0);
+		}
+		else if(s.isRaySquare()) {
+			RaySquare rs = (RaySquare)s;
+			Dimension dim = this.getSize();
+			if(rs.getDirection() == Direction.HORIZONTAL)
+				g.drawLine(0, dim.height/2, dim.width, dim.height/2);
+			else
+				g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
+		}
 	}
 	
 	public void clearPaint() {
