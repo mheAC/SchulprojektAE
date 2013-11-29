@@ -25,10 +25,6 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
-/*
- * TEST !!! 
- */
-
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
 	private StartWindow configWin;
 	private MainWindow mainWin;
@@ -59,15 +55,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		this.configWin.getHeightInput().addCaretListener(this);
 		this.configWin.getWidthInput().addCaretListener(this);
 	}
-	
-	public static void main(String[] args) {
-		try {
-			new Main();
-		} catch (Exception e) { e.printStackTrace(); }
-	}
 
 	@Override
-	
 	public void actionPerformed(ActionEvent e) {
 		
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
@@ -84,10 +73,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				this.configWin.heightInput.setRed();
 				return; // prevent nullpointer exception due going on with the code
 			}	
-			
-			
-			
-			
 			
 			if(this.configWin.widthInput.isValid() && this.configWin.heightInput.isValid()){
 				// Create the main game window			
@@ -488,6 +473,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
 			FieldLength++;
 		}
+	}
+	
+	public static void main(String[] args) {
+		try {
+			new Main();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	
