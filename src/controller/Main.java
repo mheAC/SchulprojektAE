@@ -74,10 +74,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				return; // prevent nullpointer exception due going on with the code
 			}	
 			
-			
-			
-			
-			
 			if(this.configWin.widthInput.isValid() && this.configWin.heightInput.isValid()){
 				// Create the main game window			
 				int width = Integer.parseInt(this.configWin.widthInput.getText());
