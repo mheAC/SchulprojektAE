@@ -123,7 +123,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
        // mainWin.setGameGridData(gg);
 		
 		// show the window
-		mainWin.setGameGridData(gg); // DARE YOU MOVING THIS LINES AGAIN!!
+		mainWin.setGameGridData(gg);
 		mainWin.buildWindow();
 		
 		// Add Listeners
@@ -148,7 +148,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		SquareBase s = gs.getRepresentedSquare();
 		// "Cast" to the desired type of class
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
-
+			
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		

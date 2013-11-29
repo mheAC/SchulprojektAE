@@ -172,11 +172,7 @@ public class MainWindow extends JFrame {
 		return saveBtn;
 	}
 	
-	public int getPosX(){
-		return 0;
-	}
-	
-	public JGameSquare getJGameSquareAt(int col,int row){
+	/*public JGameSquare getJGameSquareAt(int col,int row){
 		int count = 0;
 		for(int i=0;i<this.getRows();i++)
 			for(int j=0;j<this.getCols();j++){
@@ -186,26 +182,7 @@ public class MainWindow extends JFrame {
 				count++;
 			}
 		return null;
-	}
-	
-	public int getPositivDiffFromColToEnd(int position){
-		int tmp = 0;
-		int diff = 0;
-		boolean ermittelt = false;
-		for(int i=0;i<this.getRows();i++){
-			for(int j=0;j<this.getCols();j++){
-				tmp++;
-				if(tmp > position){
-					diff++;
-					ermittelt = true;
-				}
-			}
-			if(ermittelt){
-				break;
-			}
-		}
-		return diff;
-	}
+	}*/
 	
 	public int getCols() {
 		return cols;
