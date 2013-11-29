@@ -51,14 +51,16 @@ public class JGameSquare extends JPanel {
 		this.representingSquare = representingSquare;
 	}
 
-	public void drawLine(Direction e){
+	public void drawLine(Direction e, JGameSquare gs, LogHandler lh){
 		switch(e){
 			case VERTICAL:
+				lh.setStack(gs);
 				clearPaint();
 				drawVertikal();
 			break;
 			
 			case HORIZONTAL:
+				lh.setStack(gs);
 				clearPaint();
 				drawHorizontal();
 			break;

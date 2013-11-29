@@ -4,6 +4,8 @@
  */
 package engine;
 
+import gui.JGameSquare;
+
 import java.util.Stack;
 
 /**
@@ -11,25 +13,29 @@ import java.util.Stack;
  *
  */
 public class LogHandler {
-	Stack<Move> stack1 = new Stack<Move>();
-	Stack<Move> stack2 = new Stack<Move>();
+	private Stack<JGameSquare> stack1;
+	private Stack<JGameSquare> stack2;
 	
+	public LogHandler() {
+		stack1 = new Stack<JGameSquare>();
+		stack2 = new Stack<JGameSquare>();
+	}
 	
-	public void setStack(Move move){
-		
-		stack1.push(move);
+	public void setStack(JGameSquare gs){
+		System.out.println(gs.toString());
+		stack1.push(gs);
 	}
-	public Move getBack(){
-		Move move;
-		move = stack1.pop();
-		stack2.push(move);
-		return move;
+	public JGameSquare getBack(){
+		JGameSquare gs;
+		gs = stack1.pop();
+		stack2.push(gs);
+		return gs;
 	}
-	public Move getForward(){
-		Move move;
-		move = stack2.pop();
-		stack1.push(move);
-		return move;
+	public JGameSquare getForward(){
+		JGameSquare gs;
+		gs = stack2.pop();
+		stack1.push(gs);
+		return gs;
 	}
 	
 }

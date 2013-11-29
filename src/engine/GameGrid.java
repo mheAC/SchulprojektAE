@@ -23,6 +23,9 @@ public class GameGrid implements Serializable{
 	// Datastore var for the squares
 	private ArrayList<SquareBase> squares;
 	
+	//Loghandler
+	private LogHandler lh;
+
 	public Dimension getGridSize(){
 		Dimension dim = new Dimension(this.cols,this.rows);
 		return dim;
@@ -35,11 +38,13 @@ public class GameGrid implements Serializable{
 	
 	public GameGrid() {
 		// Default grid dimensions
+		lh = new LogHandler();
 		this.cols = 10;
 		this.rows = 10;
 	}
 	
 	public GameGrid(int cols, int rows) {
+		lh = new LogHandler();
 		this.cols = cols;
 		this.rows = rows;
 	}
@@ -223,5 +228,9 @@ public class GameGrid implements Serializable{
 				tempList.add(s);
 		}
 		return tempList;
+	}
+
+	public LogHandler getLoghandler() {
+		return lh;
 	}
 }

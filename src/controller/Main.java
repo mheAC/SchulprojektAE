@@ -503,12 +503,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
         private void setRayLineForNumber(String s, int i, Dimension start ){
                 
                 if(s.equals("Horizontal")){
-                        this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+                        this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getJGameSquareAt(i, start.height), gg.getLoghandler());
                         this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
                         FieldLength++;
                 }
                 else{
-                        this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+                        this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getJGameSquareAt(start.width, i), gg.getLoghandler());
                         this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL));
                         FieldLength++;
                 }

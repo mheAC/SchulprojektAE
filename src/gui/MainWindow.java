@@ -132,7 +132,7 @@ public class MainWindow {
 			if(gs.getRepresentedSquare().getClass().equals(new RaySquare().getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
 				gs.setText(rs.getPrintableValue()); // TODO as soon as drawing works here, this line can be removed
-				gs.drawLine(rs.getDirection()); // for rays of ray squares
+				gs.drawLine(rs.getDirection(), gs, data.getLoghandler()); // for rays of ray squares
 			}
 		}
 		mainPanel.repaint();
