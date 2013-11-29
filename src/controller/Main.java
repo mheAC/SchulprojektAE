@@ -26,7 +26,8 @@ import gui.MainWindow;
 import gui.StartWindow;
 
 /*
- * TEST !!!
+ * TEST !!! 
+ * ajdnasjk
  */
 
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
