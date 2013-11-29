@@ -77,6 +77,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 				int width = Integer.parseInt(this.configWin.widthInput.getText());
 				int height = Integer.parseInt(this.configWin.heightInput.getText());
 				gg = new GameGrid(width,height);
+				gg.setGridChangeListener(this);
 				gg.generateSquares();
 				gg.asignSquareCoordinates();
 			}
@@ -113,7 +114,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		/*
 		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
 		 */
-		gg.setGridChangeListener(this);
+		//gg.setGridChangeListener(this);
 		
         // set data to the frame
         mainWin.setCols(gg.getGridSize().width);
@@ -148,7 +149,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		SquareBase s = gs.getRepresentedSquare();
 		// "Cast" to the desired type of class
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
-			
+			String val = JOptionPane.showInputDialog(null, "Zahl?");
+			int value = Integer.parseInt(val);
+			s.getAsNumberSquare().setNumber(value);
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		

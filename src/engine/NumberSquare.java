@@ -38,6 +38,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 */
 	public void setNumber(int number) {
 		this.number = number;
+		this.gcl.gridChanges();
 	}
 	
 	/**

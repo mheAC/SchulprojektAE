@@ -52,7 +52,9 @@ public class GameGrid implements Serializable{
 	public void generateSquares() {
 		this.squares = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
-			this.squares.add(new UntypedSquare());
+			UntypedSquare s = new UntypedSquare();
+			s.setGridChangeListener(gcl);
+			this.squares.add(s);
 		}
 	}
 	

@@ -8,6 +8,8 @@ public abstract class SquareBase {
 	
 	private int posX, posY;
 	
+	protected GridChangeListener gcl;
+	
 	public int getPositionX() {
 		return posX;
 	}
@@ -63,6 +65,10 @@ public abstract class SquareBase {
 	
 	public boolean isUntypedSquare(){
 		return false;
+	}
+	
+	public void setGridChangeListener(GridChangeListener gcl) {
+		this.gcl = gcl;
 	}
 	
 }
