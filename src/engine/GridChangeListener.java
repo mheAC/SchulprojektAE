@@ -2,6 +2,6 @@ package engine;
 
 public interface GridChangeListener {
 
-	public void gridChanges();
+	public void gridChanged();
 	
 }

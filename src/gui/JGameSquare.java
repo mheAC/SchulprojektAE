@@ -83,6 +83,16 @@ public class JGameSquare extends JPanel {
 		content = "Vertikal";		
 	}
 	
+	/**
+	 * !!
+	 */
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		
+	}
+	
 	public void clearPaint() {
 		Graphics foo = this.getGraphics();
 		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);

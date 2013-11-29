@@ -25,7 +25,6 @@ import gui.StartWindow;
 
 public class Main implements ChangeListener, ActionListener, MouseListener, GridChangeListener {
 	
-	
 	private StartWindow configWin;
 	private MainWindow mainWin;
 	private StorageHandler stH;
@@ -148,10 +147,12 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
 		// "Cast" to the desired type of class
-		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
+		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number	
 			String val = JOptionPane.showInputDialog(null, "Zahl?");
 			int value = Integer.parseInt(val);
-			s.getAsNumberSquare().setNumber(value);
+			//s.getAsNumberSquare().setNumber(value);
+			NumberSquare ns = s.getAsNumberSquare();
+			ns.setNumber(value);
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		
@@ -191,7 +192,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
-	public void gridChanges() {
+	public void gridChanged() {
 		System.out.println("Grid Changed!");
 	}
 	

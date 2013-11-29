@@ -73,7 +73,7 @@ public class GameGrid implements Serializable{
 		}
 	}*/
 	
-	public void generateSquaresBigMiddleTest() {
+	/*public void generateSquaresBigMiddleTest() {
 		// DUMMY GAME DATA GRID BUILDING
 		this.squares = new ArrayList<SquareBase>();
 		for(int i = 0; i < this.cols * this.rows; i++) {
@@ -106,7 +106,7 @@ public class GameGrid implements Serializable{
         this.squares.add(new RaySquare());
 		
         asignSquareCoordinates();
-	}
+	}*/
 	
 	/**
 	 * This method will assign the x and y coordinates to any square in the list
