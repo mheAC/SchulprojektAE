@@ -19,6 +19,8 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import actionListener.InfoButton;
+
 import engine.*;
 import gui.JGameSquare;
 import gui.JOpenFileDialog;
@@ -51,7 +53,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		// Add some listener
 		this.configWin.getokActionBtn().addActionListener(this);
 		this.configWin.getLoadBtn().addActionListener(this);
-		this.configWin.getInfoBtn().addActionListener(this);
+		this.configWin.getInfoBtn().addActionListener(new InfoButton());
 		this.configWin.getHeightInput().addCaretListener(this);
 		this.configWin.getWidthInput().addCaretListener(this);
 	}
@@ -84,9 +86,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			}
 		}
 		
-		
-		
-		
 		/*
 		 * Handling for LOADING drafted MainWindow
 		 */
@@ -114,6 +113,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			}
 			return; // break here 
 		}
+		
+		
 		/*
 		 * Handling of add row btn
 		 */
@@ -204,21 +205,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
 	        }
 			return; // break here 
-		}
-		/*
-		 * Handling of INFO button
-		 */
-		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
-			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
-												+ "Gruppe:\n"
-												+ "\tCongar\n"
-												+ "\tBassauer\n"
-												+ "\tHerpers\n"
-												+ "\tGriesbach\n"
-												+ "\tBolz\n"
-												+ "\tSoiron\n"
-			);
-			return;
 		}
 		
 		/*
