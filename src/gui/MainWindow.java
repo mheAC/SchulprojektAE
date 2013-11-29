@@ -123,6 +123,8 @@ public class MainWindow {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+		mainFrame.setLocationRelativeTo(null);
+		//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
 		// Afterwards draw the lines to RaySquares
 		for(Component c : mainPanel.getComponents()) {

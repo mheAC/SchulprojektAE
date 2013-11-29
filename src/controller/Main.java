@@ -293,14 +293,18 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						&& (!e.getComponent().getBackground().equals(Color.BLUE) && !e.getComponent().getBackground().equals(defaultColor) )){
 					drawing = false;
 					drawCount = 0;
-					if(resetBGColor())
+					if(resetBGColor()){
 						for(int i=0;i<toDrawList.size();i++){
 							setRaysForNumber(toDrawList.get(i), NumberPos);						
 						}
+						
+					}
+					
 					((NumberSquare)NumberPos).setNumber(FieldLength);
+					
 					((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
-					FieldLength = 0;
 					this.gg.getSquares().set(gsPos, NumberPos);
+					
 				}
 				else if(drawCount < 4){
 					((JGameSquare)e.getComponent()).getPosition();
@@ -331,7 +335,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			}*/
 		}
 		else if(!drawing && e.getButton() == MouseEvent.BUTTON3){ // Double click: Number Square
-			if(!gs.isset()){
+			FieldLength=0;
+			//if(!gs.isset()){
 				NumberSquare tempNs = s.getAsNumberSquare();
 				s = tempNs;
 				gs.setRepresentingSquare(s);
@@ -340,14 +345,15 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				int row = s.getPositionY();
 				int col = s.getPositionX();
 				NumberPos = s;
-				gs.clearPaint(); // remove previous lines
+				//gs.clearPaint(); // remove previous lines
 				gs.getTextLabel().setText("?");
 				gsPos = gs.getPosition();
 				drawing = true;
 	            markTheWayToNumberSquare(col,row);
-			}
-			else
-				System.out.println(gs.getRepresentedSquare().toString());
+	            
+//			}
+//			else
+//				System.out.println(gs.getRepresentedSquare().toString());
 		}
 		// Save changes on the square to the model
 		this.gg.getSquares().set(gs.getPosition(), s);
@@ -409,6 +415,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
 								setRayLineForNumber("Horizontal",i,start);
+								
 							}
 						}
 					}
@@ -461,7 +468,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 			}
 		
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorwaerts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -470,7 +477,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else
 					break;
 			}
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorwaerts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -494,6 +501,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	private void setRayLineForNumber(String s, int i, Dimension start ){
+		
 		if(s.equals("Horizontal")){
 			this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 			this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL));
