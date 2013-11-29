@@ -88,7 +88,6 @@ public class JGameSquare extends JPanel {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("JGameSquare was repainted!");
 		super.paint(g);
 		
 		SquareBase s = getRepresentedSquare();
@@ -105,7 +104,7 @@ public class JGameSquare extends JPanel {
 				g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
 		}
 		else //  test
-			g.drawString( "/", 10, 10);
+			g.drawString( "/", 20, 20);
 	}
 	
 	/*public void clearPaint() {
