@@ -20,10 +20,12 @@ import engine.SquareBase;
 import engine.UntypedSquare;
 
 
-public class MainWindow {
+public class MainWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	int rows, cols;
-	private JFrame mainFrame;
+	//private JFrame mainFrame;
 	private JPanel mainPanel;
 	
 	private JMenuItem saveBtn,
@@ -39,7 +41,7 @@ public class MainWindow {
 	 * Default constructor
 	 */
 	public MainWindow() {
-		mainFrame = new JFrame("Lichststrahlen Spiel");
+		//mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
 		
 		// Menu stuff
@@ -90,7 +92,7 @@ public class MainWindow {
 		}
 		
 		// Add the panel to the main frame
-		mainFrame.add(mainPanel);
+		this.add(mainPanel);
 
 		
 		/*
@@ -116,16 +118,16 @@ public class MainWindow {
 		mainMenu.add(submenuMenuContainer);
 		
 		// Add the menuBar to the frame
-		mainFrame.add(mainMenu, BorderLayout.NORTH);
+		this.add(mainMenu, BorderLayout.NORTH);
 		
 		// Rest stuff for displaying
-		mainFrame.setResizable(false);
-		mainFrame.pack();
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setVisible(true);
+		//this.setResizable(false);
+		this.pack();
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 		
 		// Afterwards draw the lines to RaySquares
-		for(Component c : mainPanel.getComponents()) {
+		/*for(Component c : mainPanel.getComponents()) {
 			JGameSquare gs = (JGameSquare)c; // every element contained is a JGameSquare
 			if(gs.getRepresentedSquare().getClass().equals(new RaySquare().getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
@@ -133,7 +135,13 @@ public class MainWindow {
 				gs.drawLine(rs.getDirection()); // for rays of ray squares
 			}
 		}
-		mainPanel.repaint();
+		mainPanel.repaint();*/
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
 	}
 	
 	public JPanel getMainPanel() {
@@ -153,7 +161,7 @@ public class MainWindow {
 	}
 	
 	public JFrame getJFrame(){
-		return mainFrame;
+		return this;
 	}
 	
 	public void setRows(int rows) {

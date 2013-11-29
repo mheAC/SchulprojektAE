@@ -16,6 +16,8 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 public class GameGrid implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	private GridChangeListener gcl;
 
 	// Dimension vars for the grid
 	private int cols, rows;
@@ -176,7 +178,7 @@ public class GameGrid implements Serializable{
 	 * Engine methods
 	 * @return
 	 */
-	public boolean solveCurrentRays() {
+	/*public boolean solveCurrentRays() {
 		boolean everythingSolved = false;
 		while(!everythingSolved) {
 			for(RaySquare s : this.getRaySquares()) { // iterate over the list of RaySquares
@@ -186,7 +188,7 @@ public class GameGrid implements Serializable{
 			}
 		}
 		return true;
-	}
+	}*/
 	
 	/**
 	 * Find any Square that may contain a ray coliding with the given Square
@@ -224,4 +226,9 @@ public class GameGrid implements Serializable{
 		}
 		return tempList;
 	}
+	
+	public void setGridChangeListener(GridChangeListener gcl) {
+		this.gcl = gcl;
+	}
+	
 }
