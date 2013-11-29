@@ -146,7 +146,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
-		// "Cast" to the desired type of class
+
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number	
 			String val = JOptionPane.showInputDialog(null, "Zahl?");
 			int value = Integer.parseInt(val);
@@ -194,6 +194,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 
 	public void gridChanged() {
 		System.out.println("Grid Changed!");
+		this.mainWin.repaint();
 	}
 	
 	

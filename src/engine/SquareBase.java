@@ -35,24 +35,25 @@ public abstract class SquareBase {
 	 * "Casting" methods
 	 */
 	public RaySquare getAsRaySquare() {
-		RaySquare rs = new RaySquare();
-		rs.setPositionX(posX);
-		rs.setPositionY(posY);
-		return rs;
+		return (RaySquare) getGenericSquareWithCopiedAttributes(new RaySquare());
 	}
 	
 	public NumberSquare getAsNumberSquare() {
-		NumberSquare ns = new NumberSquare();
-		ns.setPositionX(posX);
-		ns.setPositionY(posY);
-		return ns;
+		return (NumberSquare) getGenericSquareWithCopiedAttributes(new NumberSquare());
 	}
 	
 	public UntypedSquare getAsUntypedSquare() {
-		UntypedSquare us = new UntypedSquare();
-		us.setPositionX(posX);
-		us.setPositionY(posY);
-		return us;
+		return (UntypedSquare) getGenericSquareWithCopiedAttributes(new UntypedSquare());
+	}
+	
+	/*
+	 * Here's the "copy magic"
+	 */
+	private SquareBase getGenericSquareWithCopiedAttributes(SquareBase s) {
+		s.setPositionX(posX);
+		s.setPositionY(posY);
+		s.setGridChangeListener(gcl);
+		return s;
 	}
 	
 	public boolean isNumberSquare(){
