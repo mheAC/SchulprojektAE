@@ -277,7 +277,7 @@ import gui.StartWindow;
 		public void mouseClicked(MouseEvent e) {
 			JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 			SquareBase s = gs.getRepresentedSquare();
-			Move m = new Move();
+			//Move m = new Move();
 			// "Cast" to the desired type of class
 			if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: right / left -> Ray Square	
 				if(drawing){
@@ -404,7 +404,7 @@ import gui.StartWindow;
 						if(start.width>over.width){
 							for(int i=start.width;i > over.width;i--){
 								if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 									FieldLength++;
 								}
@@ -413,7 +413,7 @@ import gui.StartWindow;
 						else if(start.width<over.width){
 							for(int i=start.width;i < over.width;i++){
 								if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 									FieldLength++;
 								}
@@ -425,7 +425,7 @@ import gui.StartWindow;
 						if(start.height>over.height){
 							for(int i=start.height;i > over.height;i--){
 								if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 									FieldLength++;
 								}
@@ -434,7 +434,7 @@ import gui.StartWindow;
 						else if(start.height<over.height){
 							for(int i=start.height;i < over.height;i++){
 								if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 									FieldLength++;
 								}
@@ -447,7 +447,7 @@ import gui.StartWindow;
 						if(over.width>end.width){
 							for(int i=over.width-1;i >= end.width;i--){
 								if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, over.height));
 									FieldLength++;
 								}
@@ -456,7 +456,7 @@ import gui.StartWindow;
 						else if(over.width<end.width){
 							for(int i=over.width+1;i <= end.width;i++){
 								if(this.mainWin.getJGameSquareAt(i, over.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, over.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, over.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, over.height));
 									FieldLength++;
 								}
@@ -468,7 +468,7 @@ import gui.StartWindow;
 						if(over.height>end.height){
 							for(int i=over.height;i >= end.height;i--){
 								if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,over.width, i));
 									FieldLength++;
 								}
@@ -477,7 +477,7 @@ import gui.StartWindow;
 						else if(over.height<end.height){
 							for(int i=over.height;i <= end.height;i++){
 								if(this.mainWin.getJGameSquareAt(over.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(over.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(over.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,over.width, i));
 									FieldLength++;
 								}
@@ -492,7 +492,7 @@ import gui.StartWindow;
 						if(start.width>over.width){
 							for(int i=start.width;i > over.width;i--){
 								if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 									FieldLength++;
 								}
@@ -501,7 +501,7 @@ import gui.StartWindow;
 						else if(start.width<over.width){
 							for(int i=start.width;i < over.width;i++){
 								if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
+									this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 									FieldLength++;
 								}
@@ -513,7 +513,7 @@ import gui.StartWindow;
 						if(start.height>over.height){
 							for(int i=start.height;i > over.height;i--){
 								if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 									FieldLength++;
 								}
@@ -522,7 +522,7 @@ import gui.StartWindow;
 						else {
 							for(int i=start.height;i < over.height;i++){
 								if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(over.width, over.height)){
-									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
+									this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, gg.getLoghandler());
 									this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 									FieldLength++;
 								}
