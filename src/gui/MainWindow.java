@@ -1,23 +1,11 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
-import engine.Direction;
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
-import engine.UntypedSquare;
 
 
 public class MainWindow {
@@ -118,6 +106,8 @@ public class MainWindow {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+		mainFrame.setLocationRelativeTo(null);
+		//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
 		// Afterwards draw the lines to RaySquares
 		for(Component c : mainPanel.getComponents()) {
@@ -125,7 +115,7 @@ public class MainWindow {
 			if(gs.getRepresentedSquare().getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
 				gs.setText(rs.getPrintableValue()); // TODO as soon as drawing works here, this line can be removed
-				gs.drawLine(rs.getDirection()); // for rays of ray squares
+				gs.drawLine(rs.getDirection(), data.getLoghandler()); // for rays of ray squares
 			}
 		}
 		mainPanel.repaint();

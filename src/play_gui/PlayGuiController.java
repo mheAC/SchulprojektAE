@@ -47,9 +47,9 @@ public class PlayGuiController {
 				while(cellsIterator.hasNext()){
 					JGameSquare tmpCell = cellsIterator.next();
 					if(cell.isInColoumnWith(mainWindow.getActiveCell()))
-						tmpCell.drawLine(Direction.VERTICAL);
+						tmpCell.drawLine(Direction.VERTICAL, mainWindow.getGameGrid().getLoghandler());
 					else if(cell.isInRowWith(mainWindow.getActiveCell()))
-						tmpCell.drawLine(Direction.HORIZONTAL);
+						tmpCell.drawLine(Direction.HORIZONTAL, mainWindow.getGameGrid().getLoghandler());
 				}	
 			}
 		}
