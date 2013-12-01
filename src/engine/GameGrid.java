@@ -150,6 +150,86 @@ public class GameGrid implements Serializable{
 		return true;
 	}
 	
+	public ArrayList<SquareBase> getEnlightWay(NumberSquare lightSource, SquareBase target){
+		ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
+		//target is in same row with lightsource
+		if(lightSource.getPositionY() == target.getPositionY()){
+			//target is on the right side from lightsource and is reachable by lightsource
+			if(target.getPositionX()>lightSource.getPositionX() && lightSource.canEnlight(target)){
+				SquareBase tempSquare = target;
+				int x = target.getPositionX();
+				while(tempSquare.getPositionX()>lightSource.getPositionX()){
+					//only can be enlight if untyped square
+					if(tempSquare.getClass() == UntypedSquare.class)
+						squares.add(tempSquare);
+					else{
+						squares = new ArrayList<SquareBase>();
+						break;
+					}
+					x --;
+					tempSquare = this.squares[target.getPositionY()][x];
+				}
+			}
+			//target is on the left side from lightsource and is reachable by lightsource
+			else if(target.getPositionX()<lightSource.getPositionX() && lightSource.canEnlight(target)){
+				SquareBase tempSquare = target;
+				int x = target.getPositionX();
+				while(tempSquare.getPositionX()<lightSource.getPositionX()){
+					if(tempSquare.getClass() == UntypedSquare.class)
+						squares.add(tempSquare);
+					else{
+						squares = new ArrayList<SquareBase>();
+						break;
+					}
+					x ++;
+					tempSquare = this.squares[target.getPositionY()][x];
+				}
+			}
+		}
+		//target is in the same coloumn with light source
+		else if(lightSource.getPositionX() == target.getPositionX()){
+			//target is above the lightsource and is reachable by lightsource
+			if(target.getPositionY()<lightSource.getPositionY() && lightSource.canEnlight(target)){
+				SquareBase tempSquare = target;
+				int y = target.getPositionY();
+				while(tempSquare.getPositionY()<lightSource.getPositionY()){
+					//only can be enlight if untyped square
+					if(tempSquare.getClass() == UntypedSquare.class)
+						squares.add(tempSquare);
+					else{
+						squares = new ArrayList<SquareBase>();
+						break;
+					}
+					y ++;
+					tempSquare = this.squares[y][target.getPositionX()];
+				}
+			}
+			//target is on the under the lightsource and is reachable by lightsource
+			else if(target.getPositionY()>lightSource.getPositionY() && lightSource.canEnlight(target)){
+				SquareBase tempSquare = target;
+				int y = target.getPositionY();
+				while(tempSquare.getPositionY()>lightSource.getPositionY()){
+					if(tempSquare.getClass() == UntypedSquare.class)
+						squares.add(tempSquare);
+					else{
+						squares = new ArrayList<SquareBase>();
+						break;
+					}
+					y --;
+					tempSquare = this.squares[y][target.getPositionX()];
+				}
+			}
+		}
+		return squares;
+	}
+	
+	public boolean canEnlightWay(NumberSquare lightSource, SquareBase target){
+		if(this.getEnlightWay(lightSource, target).size()>0){
+			return true;
+		}else
+			return false;
+	}
+	
 	/**
 	 * Find any Square that may contain a ray coliding with the given Square
 	 * @return

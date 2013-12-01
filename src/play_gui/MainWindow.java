@@ -88,6 +88,8 @@ public class MainWindow extends JFrame{
 				JGameSquare pTmp = new JGameSquare(s);
 				pTmp.addMouseListener(new GameGridCellListener(pTmp));
 				pTmp.setBackground(Color.WHITE);
+				pTmp.setPosition(i);
+				pTmp.setRepresentingSquare(s);
 				if(s.getClass() == NumberSquare.class)
 					pTmp.getTextLabel().setText(s.getPrintableValue());
 				
@@ -184,44 +186,10 @@ public class MainWindow extends JFrame{
 	public ArrayList<JGameSquare> getUntypedCellsToActive(JGameSquare cell){
 		ArrayList<JGameSquare> cells = new ArrayList<JGameSquare>();
 		if(this.hasActiveCell()){
-			NumberSquare activeSquare = (NumberSquare) activeCell.getRepresentedSquare();
-			if(cell.isInRowWith(this.activeCell)){
-				JGameSquare tempCell = cell;
-				
-				//hover all cells on the right side
-				while(tempCell.getPosx()>activeCell.getPosx()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						cells.add(tempCell);
-					}
-					tempCell = this.getCellByPosition(tempCell.getPosx()-1,tempCell.getPosy());
-				}
-				
-				//hover all cells on the left side
-				while(tempCell.getPosx()<activeCell.getPosx()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						cells.add(tempCell);
-					}
-					tempCell = this.getCellByPosition(tempCell.getPosx()+1,tempCell.getPosy());
-				}
-			}else if(cell.isInColoumnWith(activeCell)){
-				JGameSquare tempCell = cell;
-				
-				//hover all cells on the right side
-				while(tempCell.getPosy()>activeCell.getPosy()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						cells.add(tempCell);
-					}
-					tempCell = this.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()-1);
-				}
-				
-				//hover all cells on the left side
-				while(tempCell.getPosy()<activeCell.getPosy()){
-					if(activeSquare.canEnlight(tempCell.getRepresentedSquare())){
-						cells.add(tempCell);
-					}
-					tempCell = this.getCellByPosition(tempCell.getPosx(),tempCell.getPosy()+1);
-				}
-			}
+			ArrayList<SquareBase> squares = this.gameGrid.getEnlightWay(((NumberSquare) this.activeCell.getRepresentedSquare()), cell.getRepresentedSquare());
+			for(SquareBase square : squares) {
+            	cells.add(this.getCellByPosition(square.getPositionX(), square.getPositionY()));
+            }
 		}
 		return cells;
 	}
@@ -229,7 +197,7 @@ public class MainWindow extends JFrame{
 	public void clearHover(){
 		Component[] components = this.gameGridPanel.getComponents();
 		for(int i=0;i < components.length; i++){
-			if(this.hasActiveCell() && this.activeCell.getPosition() != i && !(components[i].getClass().equals("class gui.JGameSquare") && ((JGameSquare) components[i]).getRepresentedSquare().isRaySquare())){
+			if(this.hasActiveCell() && this.activeCell.getPosition() != i && !(components[i].getClass() == JGameSquare.class && ((JGameSquare) components[i]).getRepresentedSquare().isRaySquare())){
 				components[i].setBackground(Color.WHITE);
 			}
 		}

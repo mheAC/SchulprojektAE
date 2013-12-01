@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import engine.Direction;
 import engine.GameGrid;
+import engine.NumberSquare;
 import engine.SquareBase;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
@@ -57,8 +58,9 @@ public class PlayGuiController {
 
 	//fired when mouse enters a grid cell
 	public static void gridCellEntered(JGameSquare cell, MainWindow mainWindow) {
-		
 		if(mainWindow.hasActiveCell()){
+			System.out.println(mainWindow.getGameGrid().canEnlightWay(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare()));
+
 			mainWindow.clearHover();
 			Iterator<JGameSquare> squaresIterator = mainWindow.getUntypedCellsToActive(cell).iterator();
 			while(squaresIterator.hasNext()){
