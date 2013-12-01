@@ -1,8 +1,11 @@
 package gui;
 
 import java.awt.*;
+
 import javax.swing.*;
+
 import engine.GameGrid;
+import engine.LogHandler;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
@@ -13,6 +16,7 @@ public class MainWindow {
 	int rows, cols;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
+	private LogHandler lh;
 	
 	private JMenuItem saveBtn,
 						solveGridBtn,
@@ -27,6 +31,8 @@ public class MainWindow {
 	 * Default constructor
 	 */
 	public MainWindow() {
+		this.lh = new LogHandler();
+
 		mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
 		
@@ -49,6 +55,10 @@ public class MainWindow {
 		
 		addWidthBtn = new JMenuItem("Spalte hinzufügen");
 		removeWidthBtn = new JMenuItem("Spalte entfernen");
+	}
+	
+	public LogHandler getLogHandler(){
+		return this.lh;
 	}
 	
 	public void buildWindow(){
@@ -115,7 +125,7 @@ public class MainWindow {
 			if(gs.getRepresentedSquare().getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
 				gs.setText(rs.getPrintableValue()); // TODO as soon as drawing works here, this line can be removed
-				gs.drawLine(rs.getDirection(), data.getLoghandler()); // for rays of ray squares
+				gs.drawLine(rs.getDirection(), this.lh); // for rays of ray squares
 			}
 		}
 		mainPanel.repaint();

@@ -27,10 +27,14 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private LogHandler logHandler; // a log handler instale
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
 		super("Lichtstrahlen");
+		
+		//initialize Loghandler
+		this.logHandler = new LogHandler();
 		
 		//initialize panel
 		JPanel panel = new JPanel();
@@ -262,5 +266,10 @@ public class MainWindow extends JFrame{
 			this.toolbar.add(newGameBtn);
 		}
 		return this.toolbar;
+	}
+	
+	//returns the loghandler
+	public LogHandler getLogHandler(){
+		return this.logHandler;
 	}
 }
