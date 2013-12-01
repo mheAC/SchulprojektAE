@@ -42,6 +42,11 @@ public abstract class SquareBase {
 		return rs;
 	}
 	
+	public RaySquare getAsRaySquare(Direction direction) {
+		RaySquare rs = new RaySquare(direction,this.posX,this.posX);
+		return rs;
+	}
+	
 	public NumberSquare getAsNumberSquare() {
 		NumberSquare ns = new NumberSquare(posX,posY);
 		return ns;

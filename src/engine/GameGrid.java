@@ -150,6 +150,26 @@ public class GameGrid implements Serializable{
 		return true;
 	}
 	
+	public boolean enlight(NumberSquare lightSource, SquareBase target){
+		ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
+		if(lightSource.getPositionY() == target.getPositionY()){
+			for(SquareBase square : squares) {
+				this.squares[square.getPositionY()][square.getPositionX()] = square.getAsRaySquare(Direction.HORIZONTAL);
+			}
+		}else if(lightSource.getPositionX() == target.getPositionX()){
+			for(SquareBase square : squares) {
+				this.squares[square.getPositionY()][square.getPositionX()] = square.getAsRaySquare(Direction.VERTICAL);
+			}
+		}
+		lightSource.setNumber(lightSource.getNumber()-squares.size());
+		if(squares.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+	
 	public ArrayList<SquareBase> getEnlightWay(NumberSquare lightSource, SquareBase target){
 		ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
 		//target is in same row with lightsource

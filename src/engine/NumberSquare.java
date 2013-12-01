@@ -7,6 +7,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int number;
+	private int original_number;
 	
 	/**
 	 * Init an instance with the given value
@@ -15,6 +16,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	public NumberSquare(int num, int posX, int posY) {
 		super(posX,posY);
 		this.number = num;
+		this.original_number = num;
 	}
 	
 	/**
@@ -24,6 +26,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	public NumberSquare(int posX, int posY) {
 		super(posX,posY);
 		this.number = -1;
+		this.original_number = -1;
 	}
 
 	/**
@@ -40,6 +43,10 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 */
 	public void setNumber(int number) {
 		this.number = number;
+	}
+	
+	public int getOriginalNumber(){
+		return this.original_number;
 	}
 	
 	/**

@@ -3,10 +3,8 @@ package play_gui;
 
 import java.awt.Color;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import engine.Direction;
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.SquareBase;
@@ -40,19 +38,7 @@ public class PlayGuiController {
 		if(square.isNumberSquare()){
 			mainWindow.setActiveCell(cell);
 		}else if(mainWindow.hasActiveCell()){
-			ArrayList<JGameSquare> cells = mainWindow.getUntypedCellsToActive(cell);
-			if(cells.isEmpty()){
-				mainWindow.releaseActiveCell();
-			}else{
-				Iterator<JGameSquare> cellsIterator = cells.iterator();
-				while(cellsIterator.hasNext()){
-					JGameSquare tmpCell = cellsIterator.next();
-					if(cell.isInColoumnWith(mainWindow.getActiveCell()))
-						tmpCell.drawLine(Direction.VERTICAL, mainWindow.getLogHandler());
-					else if(cell.isInRowWith(mainWindow.getActiveCell()))
-						tmpCell.drawLine(Direction.HORIZONTAL, mainWindow.getLogHandler());
-				}	
-			}
+			mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 		}
 	}
 
