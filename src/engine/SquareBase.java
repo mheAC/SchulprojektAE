@@ -8,6 +8,11 @@ public abstract class SquareBase {
 	
 	private int posX, posY;
 	
+	public SquareBase(int posX, int posY){
+		this.posX = posX;
+		this.posY = posY;
+	}
+	
 	public int getPositionX() {
 		return posX;
 	}
@@ -33,23 +38,17 @@ public abstract class SquareBase {
 	 * "Casting" methods
 	 */
 	public RaySquare getAsRaySquare() {
-		RaySquare rs = new RaySquare();
-		rs.setPositionX(posX);
-		rs.setPositionY(posY);
+		RaySquare rs = new RaySquare(this.posX,this.posX);
 		return rs;
 	}
 	
 	public NumberSquare getAsNumberSquare() {
-		NumberSquare ns = new NumberSquare();
-		ns.setPositionX(posX);
-		ns.setPositionY(posY);
+		NumberSquare ns = new NumberSquare(posX,posY);
 		return ns;
 	}
 	
 	public UntypedSquare getAsUntypedSquare() {
-		UntypedSquare us = new UntypedSquare();
-		us.setPositionX(posX);
-		us.setPositionY(posY);
+		UntypedSquare us = new UntypedSquare(this.posX,this.posY);
 		return us;
 	}
 	

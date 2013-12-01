@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 
 /**
  * This is a helper class for being able to generate a gaming table 
@@ -21,7 +19,7 @@ public class GameGrid implements Serializable{
 	private int cols, rows;
 	
 	// Datastore var for the squares
-	private ArrayList<SquareBase> squares;
+	private SquareBase[][] squares;
 	
 	public Dimension getGridSize(){
 		Dimension dim = new Dimension(this.cols,this.rows);
@@ -29,6 +27,15 @@ public class GameGrid implements Serializable{
 	}
 	
 	public void setGridSize(Dimension dim){
+		SquareBase[][] squares = new SquareBase[dim.height][dim.width];
+		for(int y = 0; y < this.cols; y++) {
+			for(int x = 0; x < this.rows; x++)
+				try{
+					squares[y][x] = this.squares[y][x];
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
 		this.rows = dim.height;
 		this.cols = dim.width;
 	}
@@ -48,76 +55,23 @@ public class GameGrid implements Serializable{
 	 * Method to generate a square list once
 	 */
 	public void generateSquares() {
-		this.squares = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			this.squares.add(new UntypedSquare());
+		this.squares = new SquareBase[cols][rows];
+		for(int y = 0; y < this.cols; y++) {
+			for(int x = 0; x < this.rows; x++)
+			this.squares[y][x] = new UntypedSquare(x,y);
 		}
 	}
 	
-	
-	/*public void generateSquares() {
-		// DUMMY GAME DATA GRID BUILDING
-		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
-		this.squares = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(Math.random()>0.2)
-				this.squares.add(new RaySquare(Math.random()>0.5?Direction.HORIZONTAL:Direction.VERTICAL));
-				//this.squares.add(new RaySquare());
-			else
-				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
-			
-		}
-	}*/
 	
 	public void generateSquaresBigMiddleTest() {
-		// DUMMY GAME DATA GRID BUILDING
-		this.squares = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(i!=31)
-				this.squares.add(new RaySquare());
-			else
-				this.squares.add(new NumberSquare( 3 ));
-			
-		}
-	}
-	
-	public void generateSquaresTEST() { // Only a testing method
-		// DUMMY GAME DATA GRID BUILDING
-		this.squares = new ArrayList<SquareBase>();
-		
-		this.cols = 4;
-		this.rows = 3;
-
-		this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(2));
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(2));
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(5));
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-		
-        asignSquareCoordinates();
-	}
-	
-	/**
-	 * This method will assign the x and y coordinates to any square in the list
-	 */
-	public void asignSquareCoordinates() { // TODO this should happen automatically!! (make it also private)
-		int x=0;
-		int y=0;
-		for(SquareBase s: this.squares) {
-			s.setPositionX(x);
-			s.setPositionY(y);
-			x++;
-			if(x % this.cols == 0 && x != 0) {
-				y++;
-				x=0;
-			}
+		// DUMMY GAME DATA GRID BUILDING		
+		this.squares = new SquareBase[cols][rows];
+		for(int y = 0; y < this.cols; y++) {
+			for(int x = 0; x < this.rows; x++)
+				if(y!=31)
+					this.squares[y][x] = new UntypedSquare(x,y);
+				else
+					this.squares[y][x] = new NumberSquare( 3, x, y );
 		}
 	}
 	
@@ -125,36 +79,44 @@ public class GameGrid implements Serializable{
 	 * Returns the generated Square Collection. This method may be called more than just one time. It does not change any data 
 	 * @return
 	 */
-	public ArrayList<SquareBase> getSquares() {
+	public SquareBase[][] getSquares() {
 		return this.squares;
 	}
 	
+	public ArrayList<SquareBase> getSquaresAsList() {
+		ArrayList<SquareBase> list = new ArrayList<SquareBase>();
+		for(int y = 0; y < this.cols; y++)
+			for(int x = 0; x < this.rows; x++)
+				list.add(this.squares[y][x]);
+		return list;
+	}
+
+	
 	public SquareBase getSquare(int posX,int posY){
-		SquareBase square = null;
-		java.util.Iterator<SquareBase> squaresIterator = this.squares.iterator();
-		while(squaresIterator.hasNext()){
-			SquareBase s = squaresIterator.next();
-			System.out.println(s.getPositionX()+ " " +s.getPositionY());
-			if(s.getPositionX() == posX && s.getPositionY() == posY){
-				square = s;
-			}
-		}
-		return square;
+		return this.squares[posX][posY];
+	}
+	
+	public void setSquare(int posX, int posY, SquareBase square){
+		this.squares[posY][posX] = square;
+	}
+	
+	public void setSquare(SquareBase square){
+		this.squares[square.getPositionY()][square.getPositionX()] = square;
 	}
 	
 	/**
 	 * Only get RAYSquares
 	 * @return
-	 */
-	public ArrayList<RaySquare> getRaySquares () {
-		ArrayList<RaySquare> rsl = new ArrayList<RaySquare>(); // Temp list
-		for(SquareBase s : this.squares) { // iterate over the complete list of squares (also number squares)
-			if(s.getClass().equals(new RaySquare().getClass())) { // filter the iteration for RaySquares only
-				RaySquare rs = (RaySquare)s; // we are working with ray squares here, so lets create a reference to a dedicated object instance instead of working with a generic class
-				rsl.add(rs);
+	 */	
+	public ArrayList<RaySquare> getRaySquares () {		
+		ArrayList<RaySquare> list = new ArrayList<RaySquare>();
+		for(int y = 0; y < this.cols; y++)
+			for(int x = 0; x < this.rows; x++){
+				if(this.squares[y][x].getClass().equals(new RaySquare(0,0).getClass()))
+					list.add((RaySquare) this.squares[y][x]);
 			}
-		}
-		return rsl;
+				
+		return list;
 	}
 	
 	/**
@@ -162,14 +124,14 @@ public class GameGrid implements Serializable{
 	 * @return
 	 */
 	public ArrayList<NumberSquare> getNumberSquares () {
-		ArrayList<NumberSquare> nsl = new ArrayList<NumberSquare>();
-		for(SquareBase s : this.squares) {
-			if(s.getClass().equals(new NumberSquare().getClass())) {
-				NumberSquare ns = (NumberSquare)s;
-				nsl.add(ns);
+		ArrayList<NumberSquare> list = new ArrayList<NumberSquare>();
+		for(int y = 0; y < this.cols; y++)
+			for(int x = 0; x < this.rows; x++){
+				if(this.squares[y][x].getClass().equals(new NumberSquare(0,0).getClass()))
+					list.add((NumberSquare) this.squares[y][x]);
 			}
-		}
-		return nsl;
+				
+		return list;
 	}
 	
 	/**

@@ -68,8 +68,8 @@ public class MainWindow {
 		
 		mainPanel.setLayout(lo);
 		
-		for(int i = 0 ; i < data.getSquares().size(); i++) {
-			SquareBase s = data.getSquares().get(i);
+		for(int i = 0 ; i < data.getGridSize().width*data.getGridSize().height; i++) {
+			SquareBase s = data.getSquaresAsList().get(i);
 			
 			JGameSquare pTmp = new JGameSquare();
 			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
@@ -77,13 +77,8 @@ public class MainWindow {
 			pTmp.setPosx(s.getPositionX());
 			pTmp.setPosy(s.getPositionY());
 			
-			// ALGO TEST
-			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it
-				//pTmp.setBorder(BorderFactory.createLineBorder(Color.RED));
-			// END ALGO TEST
-			
 			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
-			if(s.getClass().equals(new NumberSquare().getClass()))
+			if(s.getClass().equals(new NumberSquare(0,0).getClass()))
 				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
 			
 			mainPanel.add(pTmp); // add the panel
@@ -127,7 +122,7 @@ public class MainWindow {
 		// Afterwards draw the lines to RaySquares
 		for(Component c : mainPanel.getComponents()) {
 			JGameSquare gs = (JGameSquare)c; // every element contained is a JGameSquare
-			if(gs.getRepresentedSquare().getClass().equals(new RaySquare().getClass())) {
+			if(gs.getRepresentedSquare().getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
 				gs.setText(rs.getPrintableValue()); // TODO as soon as drawing works here, this line can be removed
 				gs.drawLine(rs.getDirection()); // for rays of ray squares

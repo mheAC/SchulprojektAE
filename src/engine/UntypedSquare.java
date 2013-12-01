@@ -9,6 +9,10 @@ import java.io.*;
 public class UntypedSquare extends SquareBase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public UntypedSquare(int posx, int posy){
+		super(posx,posy);
+	}
 
 	@Override
 	public String getPrintableValue() {

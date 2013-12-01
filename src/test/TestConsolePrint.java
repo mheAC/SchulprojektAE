@@ -11,7 +11,7 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
-import engine.StorageHandler;
+import engine.storage_handler.StorageHandler;
 
 public class TestConsolePrint {
 	
@@ -29,11 +29,10 @@ public class TestConsolePrint {
 		
 		GameGrid grid = new GameGrid(cols, rows);
 		grid.generateSquaresBigMiddleTest();
-		grid.asignSquareCoordinates();
 		int i=0;
-		for(SquareBase s : grid.getSquares()) {
+		for(SquareBase s : grid.getSquaresAsList()) {
 			System.out.print(" | ");
-			if(s.getClass().equals(new NumberSquare().getClass()))
+			if(s.getClass().equals(new NumberSquare(0,0).getClass()))
 				System.out.print(((NumberSquare)s).getNumber());
 			else {
 				/*if(((RaySquare)s).getDirection().equals(Direction.HORIZONTAL)) // draw some ascii for both the directions
@@ -53,9 +52,9 @@ public class TestConsolePrint {
 		 *  Test the canBeEnlighted Method
 		 */
 		int g=1;
-		NumberSquare ns = (NumberSquare)grid.getSquares().get(31); // first number square of our dummy data
-		for(SquareBase s : grid.getSquares()) {
-			if(s.getClass().equals(new RaySquare().getClass())) {
+		NumberSquare ns = (NumberSquare)grid.getSquaresAsList().get(31); // first number square of our dummy data
+		for(SquareBase s : grid.getSquaresAsList()) {
+			if(s.getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)s;
 				System.out.print(Boolean.toString(ns.canEnlight(rs)).charAt(0) + " | ");
 			}
@@ -72,12 +71,11 @@ public class TestConsolePrint {
 	public void test_storeage() throws Exception {
 		// Test Storage save
 		GameGrid foo = new GameGrid(4,3);
-		foo.generateSquaresTEST();
-		foo.asignSquareCoordinates();
+		foo.generateSquaresBigMiddleTest();
 		//System.out.println("Original: " + foo.getSquares().size());
 		// PRINT
-		for(SquareBase sq : foo.getSquares()) {
-			if(sq.getClass().equals(new RaySquare().getClass())) {
+		for(SquareBase sq : foo.getSquaresAsList()) {
+			if(sq.getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)sq;
 				System.out.println(rs.getDirection());
 			}
@@ -109,8 +107,8 @@ public class TestConsolePrint {
 		//System.out.println("Restored: " + bar.getGridSize().toString());
 		
 		// PRINT
-		for(SquareBase sq : bar.getSquares()) {
-			if(sq.getClass().equals(new RaySquare().getClass())) {
+		for(SquareBase sq : bar.getSquaresAsList()) {
+			if(sq.getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)sq;
 				System.out.println(rs.getDirection());
 			}
@@ -123,9 +121,9 @@ public class TestConsolePrint {
 	
 	private void print_grid (GameGrid grid, int cols) {
 		int i=0;
-		for(SquareBase s : grid.getSquares()) {
+		for(SquareBase s : grid.getSquaresAsList()) {
 			System.out.print(" | ");
-			if(s.getClass().equals(new NumberSquare().getClass()))
+			if(s.getClass().equals(new NumberSquare(0,0).getClass()))
 				System.out.print(((NumberSquare)s).getNumber());
 			else {
 				/*if(((RaySquare)s).getDirection().equals(Direction.HORIZONTAL)) // draw some ascii for both the directions
@@ -144,8 +142,7 @@ public class TestConsolePrint {
 	
 	public void test_colision () {
 		GameGrid g = new GameGrid();
-		g.generateSquaresTEST();
-		g.asignSquareCoordinates();
+		g.generateSquaresBigMiddleTest();
 		
 		int cols = 4;
 		
@@ -171,7 +168,7 @@ public class TestConsolePrint {
 		
 		// Test colision
 		int i = 1;
-	    for(SquareBase s : g.getSquares()) {
+	    for(SquareBase s : g.getSquaresAsList()) {
 	    	if(g.getColidingSquares().containsKey(s))
 	    		System.out.print("Kolisionen: " + g.getColidingSquares().get(s) + " | ");
 	    	else
@@ -212,8 +209,7 @@ public class TestConsolePrint {
 	
 	public void test_direction_coordination() {
 		GameGrid g = new GameGrid();
-		g.generateSquaresTEST();
-		g.asignSquareCoordinates();
+		g.generateSquaresBigMiddleTest();
 		
 		int cols = 4;
 		

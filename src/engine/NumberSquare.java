@@ -12,7 +12,8 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 * Init an instance with the given value
 	 * @param num
 	 */
-	public NumberSquare(int num) {
+	public NumberSquare(int num, int posX, int posY) {
+		super(posX,posY);
 		this.number = num;
 	}
 	
@@ -20,7 +21,8 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 * Use this constructor only in case you need to modify the number afterwards. 
 	 * Never use it when you already know the num when instancing an object of this class
 	 */
-	public NumberSquare() {
+	public NumberSquare(int posX, int posY) {
+		super(posX,posY);
 		this.number = -1;
 	}
 
@@ -46,7 +48,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 * @return true / false for if the given square could be enlighted
 	 */
 	public boolean canEnlight(SquareBase rs) {
-		if(rs.getClass().equals(new NumberSquare().getClass()))
+		if(rs.getClass().equals(new NumberSquare(0,0).getClass()))
 			return false; // number squares can never be enlighted
 		
 		//if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())

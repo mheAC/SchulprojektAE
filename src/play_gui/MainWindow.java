@@ -79,19 +79,13 @@ public class MainWindow extends JFrame{
 				this.gameGridPanel.setLayout(gridLayout);
 			}
 			
-			for(int i = 0 ; i < gameGrid.getSquares().size(); i++) {
-				SquareBase s = gameGrid.getSquares().get(i);
-				
-				JGameSquare pTmp = new JGameSquare();
-				pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
-				pTmp.setPosition(i);
-				pTmp.setPosx(s.getPositionX());
-				pTmp.setPosy(s.getPositionY());
+			for(int i = 0 ; i < gameGrid.getSquaresAsList().size(); i++) {
+				SquareBase s = gameGrid.getSquaresAsList().get(i);
+				JGameSquare pTmp = new JGameSquare(s);
 				pTmp.addMouseListener(new GameGridCellListener(pTmp));
 				pTmp.setBackground(Color.WHITE);
-				// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
-				if(s.getClass().equals(new NumberSquare().getClass()))
-					pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
+				if(s.getClass() == NumberSquare.class)
+					pTmp.getTextLabel().setText(s.getPrintableValue());
 				
 				this.gameGridPanel.add(pTmp); // add the panel
 			}

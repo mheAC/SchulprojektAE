@@ -8,11 +8,13 @@ public class RaySquare extends SquareBase implements Serializable {
 	
 	Direction direction;
 	
-	public RaySquare() {
+	public RaySquare(int posx, int posy) {
+		super(posx,posy);
 		this.direction = Direction.UNSET; // default direction
 	}
 	
-	public RaySquare(Direction d) {
+	public RaySquare(Direction d, int posx, int posy) {
+		super(posx,posy);
 		this.direction = d;
 	}
 

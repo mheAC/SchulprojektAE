@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.*;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -36,6 +35,27 @@ public class JGameSquare extends JPanel {
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 		
+	}
+	
+	public JGameSquare(SquareBase representingSquare){
+		this.representingSquare = representingSquare;
+		this.posx = this.representingSquare.getPositionX();
+		this.posy = this.representingSquare.getPositionY();
+
+		set = false;
+		bg = this.getBackground();
+		setBg(bg);
+		border = BorderFactory.createLineBorder(Color.black);
+		this.setBorder(border);
+		
+		this.textLabel = new JLabel();
+		
+		this.add(this.textLabel);
+		
+		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
+		
+		if(this.getClass().equals(new NumberSquare(0,0).getClass()))
+			this.getTextLabel().setText(representingSquare.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
 	}
 	
 	public boolean isset(){

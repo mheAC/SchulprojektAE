@@ -9,7 +9,7 @@ import java.util.Iterator;
 import engine.Direction;
 import engine.GameGrid;
 import engine.SquareBase;
-import engine.StorageHandler;
+import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
 
 public class PlayGuiController {
@@ -28,7 +28,8 @@ public class PlayGuiController {
 		} catch (NullPointerException e){
 			
 		} catch (Exception e) {
-			mainWindow.showAlert("Spiel konnte nicht geladen werden.");
+			//mainWindow.showAlert("Spiel konnte nicht geladen werden.");
+			e.printStackTrace();
 		}
 	}
 
