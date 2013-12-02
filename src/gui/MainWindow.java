@@ -85,8 +85,8 @@ public class MainWindow extends JFrame {
 			// END ALGO TEST
 			
 			// drawing needs to be done afterwards. We use grapics of the JPanel and getGraphics will return null unless there is anything to be shown (visible)
-			if(s.getClass().equals(new NumberSquare().getClass()))
-				pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
+			//if(s.getClass().equals(new NumberSquare().getClass()))
+				//pTmp.getTextLabel().setText(s.getPrintableValue()); // For numbers are not drawn, we are able to set them here...
 			
 			mainPanel.add(pTmp); // add the panel
 		}

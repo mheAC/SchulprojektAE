@@ -15,17 +15,12 @@ public class JGameSquare extends JPanel {
 	private int position, posx, posy;	
 	private String content = null;
 	private Border border;
-	private JLabel textLabel;
 	
 	public JGameSquare(){
 		super();
 
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
-		
-		this.textLabel = new JLabel();
-		
-		this.add(this.textLabel);
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 		
@@ -50,7 +45,10 @@ public class JGameSquare extends JPanel {
 		
 		Dimension dim = this.getSize(); // the panel sizes
 		
-		if(s.isNumberSquare()) {			
+		if(s.isNumberSquare()) {
+			/*
+			 * NUMBERS
+			 */
 			FontMetrics fm =  g.getFontMetrics();
 			int width = fm.stringWidth(getRepresentedSquare().toString())/2;
 			int height = 13 /2;
@@ -59,18 +57,16 @@ public class JGameSquare extends JPanel {
 			g.drawString( getRepresentedSquare().toString(), dim.width/2 - width, dim.height/2+height);
 		}
 		else if(s.isRaySquare()) {
+			/*
+			 * RAYS
+			 */
 			RaySquare rs = (RaySquare)s;
 			if(rs.getDirection() == Direction.HORIZONTAL)
 				g.drawLine(0, dim.height/2, dim.width, dim.height/2);
-			else
+			else // VERTICAL
 				g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
 		}
 	}
-	
-	/*public void clearPaint() {
-		Graphics foo = this.getGraphics();
-		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
-	}*/
 	
 	public boolean isInRowWith(JGameSquare square){
 		return this.posy == square.getPosy(); 
@@ -86,15 +82,6 @@ public class JGameSquare extends JPanel {
 	
 	public int getPosition() {
 		return position;
-	}
-	
-	public JLabel getTextLabel() {
-		return textLabel;
-	}
-	
-	public void setText (String text) {
-		this.getTextLabel().setText(text);
-		content = text;
 	}
 	
 	public int getPosx() {
