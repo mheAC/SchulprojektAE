@@ -76,8 +76,8 @@ public class MainWindow extends JFrame {
 			JGameSquare pTmp = new JGameSquare();
 			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean
 			pTmp.setPosition(i);
-			pTmp.setPosx(s.getPositionX());
-			pTmp.setPosy(s.getPositionY());
+			//pTmp.setPosx(s.getPositionX());
+			//pTmp.setPosy(s.getPositionY());
 			
 			// ALGO TEST
 			//if(data.getColidingSquares().get(s) == 1) // render a red boarder to any GameSquare that has only one ray hitting it

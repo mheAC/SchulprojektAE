@@ -156,7 +156,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 			ns.setNumber(value);
 			gs.setRepresentingSquare(ns); // persist
 			
-			// render possible
+			// hightlight JGameSquares that could be linked
 			for(Component c : mainWin.getMainPanel().getComponents()) {
 				JGameSquare gs2 = (JGameSquare)c;
 				if(ns.canEnlight(gs2.getRepresentedSquare()))
@@ -165,11 +165,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 					gs2.setBackground(Color.WHITE);
 			}
 		}
-		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
-		
-		}
-		else
-			System.out.println(gs.getRepresentedSquare().toString());
 	
 		// Save changes on the square to the model
 		//this.gg.getSquares().set(gs.getPosition(), s);

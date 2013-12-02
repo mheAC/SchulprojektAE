@@ -68,14 +68,6 @@ public class JGameSquare extends JPanel {
 		}
 	}
 	
-	public boolean isInRowWith(JGameSquare square){
-		return this.posy == square.getPosy(); 
-	}
-	
-	public boolean isInColoumnWith(JGameSquare square){
-		return this.posx == square.getPosx(); 
-	}
-	
 	public void setPosition(int position) {
 		this.position = position;
 	}
@@ -84,7 +76,7 @@ public class JGameSquare extends JPanel {
 		return position;
 	}
 	
-	public int getPosx() {
+	/*public int getPosx() {
 		return posx;
 	}
 
@@ -101,5 +93,5 @@ public class JGameSquare extends JPanel {
 	}
 	public String getContent(){
 		return content;
-	}
+	}*/
 }

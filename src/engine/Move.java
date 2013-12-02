@@ -22,10 +22,10 @@ public class Move {
 	
 	public void setHistory(JGameSquare gs){
 		Move move = new Move();
-		posx = gs.getPosx();
-		posy = gs.getPosy();
+		//posx = gs.getPosx();
+		//posy = gs.getPosy();
 		//bg = gs.getBg();
-		content = gs.getContent();
+		//content = gs.getContent();
 		lh.setStack(move);
 	}
 }
