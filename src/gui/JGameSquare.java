@@ -40,49 +40,8 @@ public class JGameSquare extends JPanel {
 	}
 	
 	public void setRepresentingSquare(SquareBase representingSquare) {
-		//set = true;
 		this.representingSquare = representingSquare;
 	}
-
-	/*public void drawLine(Direction e){
-		switch(e){
-			case VERTICAL:
-				clearPaint();
-				drawVertikal();
-			break;
-			
-			case HORIZONTAL:
-				clearPaint();
-				drawHorizontal();
-			break;
-			
-			default:
-			break;
-		}
-	}*/
-	
-	/**
-	 * draw - to the panel
-	 */
-	/*private void drawHorizontal() {
-		Graphics2D g = (Graphics2D)this.getGraphics();
-		Dimension dim = this.getSize();
-		g.setStroke(new BasicStroke(5));
-		g.drawLine(0, dim.height/2, dim.width, dim.height/2);
-		content = "Horizontal";
-		//g.drawLine(6, dim.height/2, dim.width-6, dim.height/2); // draw a stroke that ends before the border
-	}*/
-	
-	/**
-	 * draw | to the panel
-	 */
-	/*private void drawVertikal() {
-		Graphics2D g = (Graphics2D)this.getGraphics();
-		Dimension dim = this.getSize();
-		g.setStroke(new BasicStroke(5));
-		g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
-		content = "Vertikal";		
-	}*/
 	
 	/**
 	 * !!
