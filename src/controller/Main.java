@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -154,6 +155,15 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 			NumberSquare ns = s.getAsNumberSquare();
 			ns.setNumber(value);
 			gs.setRepresentingSquare(ns); // persist
+			
+			// render possible
+			for(Component c : mainWin.getMainPanel().getComponents()) {
+				JGameSquare gs2 = (JGameSquare)c;
+				if(ns.canEnlight(gs2.getRepresentedSquare()))
+					gs2.setBackground(Color.GREEN);
+				else // reset color
+					gs2.setBackground(Color.WHITE);
+			}
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		
@@ -162,7 +172,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 			System.out.println(gs.getRepresentedSquare().toString());
 	
 		// Save changes on the square to the model
-		this.gg.getSquares().set(gs.getPosition(), s);
+		//this.gg.getSquares().set(gs.getPosition(), s);
 	}
 
 	@Override

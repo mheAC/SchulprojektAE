@@ -23,7 +23,7 @@ public class JGameSquare extends JPanel {
 		this.setBorder(border);
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
-		
+		this.setBackground(Color.WHITE);
 	}
 	
 	public SquareBase getRepresentedSquare() {
