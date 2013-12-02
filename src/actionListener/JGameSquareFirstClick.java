@@ -32,6 +32,11 @@ public class JGameSquareFirstClick implements MouseListener {
 			ns.setNumber(value);
 			gs.setRepresentingSquare(ns); // persist
 			
+			//
+			JGameSquareEditorMode al = new JGameSquareEditorMode();
+			al.setLightSource(ns);
+			//
+			
 			// hightlight JGameSquares that could be linked
 			for(Component c : mainWin.getMainPanel().getComponents()) {
 				JGameSquare gs2 = (JGameSquare)c;
@@ -39,6 +44,9 @@ public class JGameSquareFirstClick implements MouseListener {
 					gs2.setBackground(Color.GREEN);
 				else // reset color
 					gs2.setBackground(Color.WHITE);
+				// change mouse listener
+				gs2.removeMouseListener(this);
+				gs2.addMouseListener(al);
 			}
 		}
 	
@@ -55,19 +63,15 @@ public class JGameSquareFirstClick implements MouseListener {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-	}
+	public void mouseEntered(MouseEvent arg0) { }
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {	
-	}
+	public void mouseExited(MouseEvent arg0) { }
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {	
-	}
+	public void mousePressed(MouseEvent arg0) { }
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {	
-	}
+	public void mouseReleased(MouseEvent arg0) { }
 
 }
