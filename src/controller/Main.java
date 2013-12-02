@@ -1,15 +1,10 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.*;
@@ -17,14 +12,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import actionListener.InfoButton;
+import actionListener.JGameSquareFirstClick;
 
 import engine.*;
-import gui.JGameSquare;
 import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
-public class Main implements ChangeListener, ActionListener, MouseListener, GridChangeListener {
+public class Main implements ChangeListener, ActionListener, GridChangeListener {
 	
 	private StartWindow configWin;
 	private MainWindow mainWin;
@@ -128,9 +123,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		mainWin.buildWindow();
 		
 		// Add Listeners
+		JGameSquareFirstClick al = new JGameSquareFirstClick(); // create external actionlistener
+		al.setMainWin(mainWin);
 		for(Component p : mainWin.getMainPanel().getComponents()) {
 			JPanel pan = (JPanel)p;
-			pan.addMouseListener(this);
+			pan.addMouseListener(al);
 		}
 		// Add some other listener
 		mainWin.getSaveBtn().addActionListener(this);
@@ -139,45 +136,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		mainWin.getRemoveHeightBtn().addActionListener(this);
 		mainWin.getRemoveWidthBtn().addActionListener(this);
 	}
-
-	/*
-	 * Handle the Click onto a JGameSquare (JPanel)
-	 */
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
-		SquareBase s = gs.getRepresentedSquare();
-
-		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number	
-			String val = JOptionPane.showInputDialog(null, "Zahl?");
-			int value = Integer.parseInt(val);
-
-			NumberSquare ns = s.getAsNumberSquare();
-			ns.setNumber(value);
-			gs.setRepresentingSquare(ns); // persist
-			
-			// hightlight JGameSquares that could be linked
-			for(Component c : mainWin.getMainPanel().getComponents()) {
-				JGameSquare gs2 = (JGameSquare)c;
-				if(ns.canEnlight(gs2.getRepresentedSquare()))
-					gs2.setBackground(Color.GREEN);
-				else // reset color
-					gs2.setBackground(Color.WHITE);
-			}
-		}
-	
-		// Save changes on the square to the model
-		//this.gg.getSquares().set(gs.getPosition(), s);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {

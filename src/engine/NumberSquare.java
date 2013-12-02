@@ -50,9 +50,6 @@ public class NumberSquare extends SquareBase implements Serializable {
 		if(rs.getClass().equals(new NumberSquare().getClass()))
 			return false; // number squares can never be enlighted
 		
-		//if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())
-			//return false; // of course the number square its self can not be enlighted
-		
 		if(
 				( // first part: check x
 					// check the left hand side of the light source
