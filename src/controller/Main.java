@@ -122,7 +122,7 @@ public class Main implements ChangeListener, ActionListener, GridChangeListener 
 		mainWin.setGameGridData(gg);
 		mainWin.buildWindow();
 		
-		// Add Listeners
+		// Add Listeners / a bit hacky
 		JGameSquareFirstClick al = new JGameSquareFirstClick(); // create external actionlistener
 		al.setMainWin(mainWin);
 		for(Component p : mainWin.getMainPanel().getComponents()) {

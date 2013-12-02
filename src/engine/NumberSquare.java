@@ -47,7 +47,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 * @return true / false for if the given square could be enlighted
 	 */
 	public boolean canEnlight(SquareBase rs) {
-		if(rs.getClass().equals(new NumberSquare().getClass()))
+		if(rs.isNumberSquare())
 			return false; // number squares can never be enlighted
 		
 		if(
