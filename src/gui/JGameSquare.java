@@ -2,10 +2,6 @@ package gui;
 
 import java.awt.*;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.font.FontRenderContext;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 
