@@ -1,3 +1,4 @@
+
 package actionListener;
 
 import java.awt.Color;
@@ -31,26 +32,26 @@ public class JGameSquareEditorMode implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		JGameSquare gs = (JGameSquare)e.getComponent();
-		RaySquare s = gs.getRepresentedSquare().getAsRaySquare();
-
-		if(lightSource.canEnlight(s) && !gs.getBackground().equals(Color.BLUE))
-			gs.setBackground(Color.CYAN);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
-		RaySquare s = gs.getRepresentedSquare().getAsRaySquare();
-
-		if(lightSource.canEnlight(s) && !gs.getBackground().equals(Color.BLUE))
-			gs.setBackground(Color.GREEN);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) { }
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) { }
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
