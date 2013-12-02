@@ -15,17 +15,12 @@ public class JGameSquare extends JPanel {
 	private int position, posx, posy;	
 	private String content = null;
 	private Border border;
-	private JLabel textLabel;
 	
 	public JGameSquare(){
 		super();
 
 		border = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
-		
-		this.textLabel = new JLabel();
-		
-		this.add(this.textLabel);
 		
 		this.setPreferredSize(new Dimension(30,30)); // make any panel have a nice size
 		
@@ -67,11 +62,6 @@ public class JGameSquare extends JPanel {
 		}
 	}
 	
-	/*public void clearPaint() {
-		Graphics foo = this.getGraphics();
-		foo.clearRect(1, 1, this.getSize().height-2, this.getSize().width-2);
-	}*/
-	
 	public boolean isInRowWith(JGameSquare square){
 		return this.posy == square.getPosy(); 
 	}
@@ -86,15 +76,6 @@ public class JGameSquare extends JPanel {
 	
 	public int getPosition() {
 		return position;
-	}
-	
-	public JLabel getTextLabel() {
-		return textLabel;
-	}
-	
-	public void setText (String text) {
-		this.getTextLabel().setText(text);
-		content = text;
 	}
 	
 	public int getPosx() {
