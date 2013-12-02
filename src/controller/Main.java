@@ -150,10 +150,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number	
 			String val = JOptionPane.showInputDialog(null, "Zahl?");
 			int value = Integer.parseInt(val);
-			//s.getAsNumberSquare().setNumber(value);
+
 			NumberSquare ns = s.getAsNumberSquare();
 			ns.setNumber(value);
-			gs.setRepresentingSquare(ns);
+			gs.setRepresentingSquare(ns); // persist
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		
