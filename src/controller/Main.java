@@ -153,6 +153,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 			//s.getAsNumberSquare().setNumber(value);
 			NumberSquare ns = s.getAsNumberSquare();
 			ns.setNumber(value);
+			gs.setRepresentingSquare(ns);
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) { // Double click: Number Square
 		
@@ -175,7 +176,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Grid
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
-		// TODO Auto-generated method stub
 		String width = "0";
 		String height= "0";
 		if(this.configWin.getWidthInput().getText()!=null)

@@ -4,6 +4,7 @@ import java.awt.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.font.FontRenderContext;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -92,19 +93,23 @@ public class JGameSquare extends JPanel {
 		
 		SquareBase s = getRepresentedSquare();
 		
-		if(s.isNumberSquare()) {
-			g.drawString( getRepresentedSquare().toString(), 0, 0);
+		Dimension dim = this.getSize(); // the panel sizes
+		
+		if(s.isNumberSquare()) {			
+			FontMetrics fm =  g.getFontMetrics();
+			int width = fm.stringWidth(getRepresentedSquare().toString())/2;
+			int height = 13 /2;
+
+			g.setFont(new Font("default", Font.BOLD, 16));
+			g.drawString( getRepresentedSquare().toString(), dim.width/2 - width, dim.height/2+height);
 		}
 		else if(s.isRaySquare()) {
 			RaySquare rs = (RaySquare)s;
-			Dimension dim = this.getSize();
 			if(rs.getDirection() == Direction.HORIZONTAL)
 				g.drawLine(0, dim.height/2, dim.width, dim.height/2);
 			else
 				g.drawLine(dim.width/2, 0, dim.width/2, dim.height);
 		}
-		else //  test
-			g.drawString( "/", 20, 20);
 	}
 	
 	/*public void clearPaint() {
