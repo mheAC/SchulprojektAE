@@ -24,7 +24,7 @@ public class JGameSquareFirstClick implements MouseListener {
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
 		SquareBase s = gs.getRepresentedSquare();
 
-		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number	
+		if(e.getButton() == MouseEvent.BUTTON1 ) { // Single click: enter number
 			String val = JOptionPane.showInputDialog(null, "Zahl?");
 			int value = Integer.parseInt(val);
 
@@ -51,6 +51,7 @@ public class JGameSquareFirstClick implements MouseListener {
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3){
 			System.out.println("rechts klick");
+			
 		}
 	
 		// Save changes on the square to the model
@@ -78,3 +79,19 @@ public class JGameSquareFirstClick implements MouseListener {
 	public void mouseReleased(MouseEvent arg0) { }
 
 }
+
+//##     Safety Pig                          _
+//##  _._ _..._ .-',     _.._(`))
+//## '-. `     '  /-._.-'    ',/
+//##    )         \            '.
+//##   / _    _    |             \
+//##  |  a    a    /              |
+//##  \   .-.                     ;  
+//##   '-('' ).-'       ,'       ;
+//##      '-;           |      .'
+//##         \           \    /
+//##         | 7  .__  _.-\   \
+//##         | |  |  ``/  /`  /
+//##        /,_|  |   /,_/   /
+//##           /,_/      '`-'
+//##
