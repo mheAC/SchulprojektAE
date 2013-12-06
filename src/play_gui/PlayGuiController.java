@@ -39,6 +39,7 @@ public class PlayGuiController {
 			mainWindow.setActiveCell(cell);
 		}else if(mainWindow.hasActiveCell()){
 			mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
+			mainWindow.repaintGameGrid();
 		}
 	}
 

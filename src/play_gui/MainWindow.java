@@ -83,8 +83,24 @@ public class MainWindow extends JFrame{
 				this.gameGridPanel.setLayout(gridLayout);
 			}
 			
-			for(int i = 0 ; i < gameGrid.getSquaresAsList().size(); i++) {
-				SquareBase s = gameGrid.getSquaresAsList().get(i);
+			this.repaintGameGrid();
+			
+			// Add the panel to the main frame
+			this.add(this.gameGridPanel);
+			this.backgroundImage.setVisible(false);
+			this.repaint();
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public void repaintGameGrid(){
+		if(this.gameGrid != null){
+			this.gameGridPanel.removeAll();
+			for(int i = 0 ; i < this.gameGrid.getSquaresAsList().size(); i++) {
+				SquareBase s = this.gameGrid.getSquaresAsList().get(i);
 				JGameSquare pTmp = new JGameSquare(s);
 				pTmp.addMouseListener(new GameGridCellListener(pTmp));
 				pTmp.setBackground(Color.WHITE);
@@ -95,15 +111,7 @@ public class MainWindow extends JFrame{
 				
 				this.gameGridPanel.add(pTmp); // add the panel
 			}
-			
-			// Add the panel to the main frame
-			this.add(this.gameGridPanel);
-			this.backgroundImage.setVisible(false);
 			this.repaint();
-			return true;
-		}
-		else{
-			return false;
 		}
 	}
 
