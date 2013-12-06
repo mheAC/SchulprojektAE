@@ -67,7 +67,7 @@ public class MainWindow {
 		mainPanel.setLayout(lo);
 		
 		for(int i = 0 ; i < data.getGridSize().width*data.getGridSize().height; i++) {
-			SquareBase s = data.getSquaresAsList().get(i);
+			SquareBase s = data.getSquares().get(i);
 			
 			JGameSquare pTmp = new JGameSquare();
 			pTmp.setRepresentingSquare(s); // important: store the SquareObject within this bean

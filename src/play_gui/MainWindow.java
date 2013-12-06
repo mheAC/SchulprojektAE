@@ -99,8 +99,8 @@ public class MainWindow extends JFrame{
 	public void repaintGameGrid(){
 		if(this.gameGrid != null){
 			this.gameGridPanel.removeAll();
-			for(int i = 0 ; i < this.gameGrid.getSquaresAsList().size(); i++) {
-				SquareBase s = this.gameGrid.getSquaresAsList().get(i);
+			for(int i = 0 ; i < this.gameGrid.getSquares().size(); i++) {
+				SquareBase s = this.gameGrid.getSquares().get(i);
 				JGameSquare pTmp = new JGameSquare(s);
 				pTmp.addMouseListener(new GameGridCellListener(pTmp));
 				pTmp.setBackground(Color.WHITE);

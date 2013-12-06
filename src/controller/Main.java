@@ -99,7 +99,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				int width = Integer.parseInt(this.configWin.widthInput.getText());
 				int height = Integer.parseInt(this.configWin.heightInput.getText());
 				gg = new GameGrid(width,height);
-				gg.generateSquares();
 			}
 		}
 		/*
@@ -302,7 +301,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 						((NumberSquare)NumberPos).setNumber(setRaysForNumber(beginDraw, endDraw));
 						((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
 						FieldLength = 0;
-						this.gg.setSquare(NumberPos);
+						//this.gg.setSquare(NumberPos);
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Feld ist ausserhalb der Reichweite");
