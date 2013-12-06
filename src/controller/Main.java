@@ -53,7 +53,7 @@ public class Main implements ChangeListener, ActionListener, GridChangeListener 
 	public void actionPerformed(ActionEvent e) {
 		
 		// create a new instance of our mainwindow so we dont have old stuff on the panes any more
-		this.mainWin = new MainWindow(); // this will now be shown yet (.setVisible needed first)
+		this.mainWin = new MainWindow(); // this will not be shown yet (.setVisible needed first)
 		/*
 		 * Handling for GENERATED MainWindow
 		 */
@@ -162,3 +162,20 @@ public class Main implements ChangeListener, ActionListener, GridChangeListener 
 	
 	
 }
+
+//##    Our Safety Pig arrived                         _
+//##  _._ _..._ .-',     _.._(`))
+//## '-. `     '  /-._.-'    ',/
+//##    )         \            '.
+//##   / _    _    |             \
+//##  |  a    a    /              |
+//##  \   .-.                     ;  
+//##   '-('' ).-'       ,'       ;
+//##      '-;           |      .'
+//##         \           \    /
+//##         | 7  .__  _.-\   \
+//##         | |  |  ``/  /`  /
+//##        /,_|  |   /,_/   /
+//##           /,_/      '`-'
+//##
+
