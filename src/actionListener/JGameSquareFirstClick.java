@@ -49,6 +49,9 @@ public class JGameSquareFirstClick implements MouseListener {
 				gs2.addMouseListener(al);
 			}
 		}
+		else if(e.getButton() == MouseEvent.BUTTON3){
+			System.out.println("rechts klick");
+		}
 	
 		// Save changes on the square to the model
 		//this.gg.getSquares().set(gs.getPosition(), s);
