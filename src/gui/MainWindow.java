@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
 	//private JFrame mainFrame;
 	private JPanel mainPanel;
 	
-	private JMenuItem saveBtn,
+	private JMenuItem saveBtn,loadBtn,
 						solveGridBtn,
 						checkSolveableBtn,addWidthBtn,addHeightBtn,removeHeightBtn,removeWidthBtn;
 	
@@ -55,6 +55,7 @@ public class MainWindow extends JFrame {
 		
 		// Buttons for the menus
 		saveBtn = new JMenuItem("Entwurf in Datei speichern"); 
+		loadBtn = new JMenuItem("unfertigen Entwurf laden");
 		solveGridBtn = new JMenuItem("Das Rätsel automatisch lösen!");
 		checkSolveableBtn = new JMenuItem("ist das Räsel lösbar?");
 		
@@ -100,6 +101,7 @@ public class MainWindow extends JFrame {
 		 */
 		// add buttons
 		submenuFile.add(saveBtn);
+		submenuFile.add(loadBtn);
 		
 		submenuRiddleSize.add(addHeightBtn);
 		submenuRiddleSize.add(removeHeightBtn);
@@ -170,6 +172,9 @@ public class MainWindow extends JFrame {
 
 	public JMenuItem getSaveBtn() {
 		return saveBtn;
+	}
+	public JMenuItem getLoadBtn(){
+		return loadBtn;
 	}
 	
 	/*public JGameSquare getJGameSquareAt(int col,int row){
