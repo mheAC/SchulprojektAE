@@ -131,6 +131,7 @@ public class Main implements ChangeListener, ActionListener, GridChangeListener 
 		}
 		// Add some other listener
 		mainWin.getSaveBtn().addActionListener(this);
+		mainWin.getLoadBtn().addActionListener(this);
 		mainWin.getAddHeightBtn().addActionListener(this);
 		mainWin.getAddWidthBtn().addActionListener(this);
 		mainWin.getRemoveHeightBtn().addActionListener(this);

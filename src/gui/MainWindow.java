@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
 	//private JFrame mainFrame;
 	private JPanel mainPanel;
 	
-	private JMenuItem saveBtn,loadBtn,
+	private JMenuItem saveBtn,loadBtn,infoBtn,
 						solveGridBtn,
 						checkSolveableBtn,addWidthBtn,addHeightBtn,removeHeightBtn,removeWidthBtn;
 	
@@ -46,8 +46,8 @@ public class MainWindow extends JFrame {
 		
 		// Menu stuff
 		mainMenu = new JMenuBar(); // container for categorizing sub menus
-		
 		submenuMenuContainer = new JMenu("Menü"); // main menu categorizer which is directly shown on the menu bar
+		
 		
 		submenuFile = new JMenu("Datei"); // sub menus within the main categorizer
 		submenuRiddle = new JMenu("Rätsel");
@@ -56,6 +56,8 @@ public class MainWindow extends JFrame {
 		// Buttons for the menus
 		saveBtn = new JMenuItem("Entwurf in Datei speichern"); 
 		loadBtn = new JMenuItem("unfertigen Entwurf laden");
+		infoBtn = new JMenuItem("Autoren");
+		
 		solveGridBtn = new JMenuItem("Das Rätsel automatisch lösen!");
 		checkSolveableBtn = new JMenuItem("ist das Räsel lösbar?");
 		
@@ -114,6 +116,7 @@ public class MainWindow extends JFrame {
 		// add submenus to their categorizer / parent menu
 		submenuMenuContainer.add(submenuFile);
 		submenuMenuContainer.add(submenuRiddle);
+		submenuMenuContainer.add(infoBtn);
 		submenuRiddle.add(submenuRiddleSize);
 		
 		// add the absolute parent menu / categorizer to to the JMenuBar
