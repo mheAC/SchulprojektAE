@@ -132,116 +132,52 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 * Handling of add row btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getAddHeightBtn().getActionCommand())) {
-			// TODO: add height btn action
-			/*
-			List<SquareBase> squares = gg.getSquaresAsList();
-			Dimension dim = gg.getGridSize();
-			for (int ii = 0; ii < (int)dim.getWidth();ii++) {
-				squares.add(new UntypedSquare(ii));
-			}
-			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()+1));
-			//mainWin.setGameGridData(gg);
-			//mainWin.setRows((int)gg.getGridSize().getHeight());
-			//mainWin.setCols((int)gg.getGridSize().getWidth());
-			//mainWin.buildWindow();
-			
-			// TODO: update main window to new size in gg
-			this.mainWin.getMainPanel().updateUI();
- 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-			
-			return; // break here 
-			*/
+			gg.addRow();
+			return;
 		}
 		/*
 		 * Handling of remove row btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveHeightBtn().getActionCommand())) {
-			/*
-			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Zeile\n"
-	                   +"gehen eventuell get�tigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (response == JOptionPane.YES_OPTION) {
-	        	List<SquareBase> squares = gg.getSquares();
-	 			Dimension dim = gg.getGridSize();
-	 			for (int ii = (squares.size()-1); ii >= (squares.size() - (int)dim.getWidth()); ii--) {
-	 				squares.remove(ii);
-	 			}
-	 			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()-1));
-	 			
-	 			// TODO: update main window to new size in gg
-	 			this.mainWin.getMainPanel().updateUI();
-	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-	 			
-	        }
-			return; // break here 
-			*/
+			gg.removeRow();
+			return;
 		}
 		/*
 		 * Handling of add col btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getAddWidthBtn().getActionCommand())) {
 			// TODO: add height btn action
-			/*
-			List<SquareBase> squares = gg.getSquares();
-			Dimension dim = gg.getGridSize();
-			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
-				squares.add(ii,new UntypedSquare());
-			}
-			gg.setGridSize(new Dimension((int)dim.getWidth()+1, (int)dim.getHeight()));
-			gg.asignSquareCoordinates();
-			//mainWin.setGameGridData(gg);
-			//mainWin.setRows((int)gg.getGridSize().getHeight());
-			//mainWin.setCols((int)gg.getGridSize().getWidth());
-			//mainWin.buildWindow();
-			
-			// TODO: update main window to new size in gg
-			this.mainWin.getMainPanel().updateUI();
- 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-			return; // break here 
-			*/
+			gg.addColumn();
+			return;
 		}
 		/*
 		 * Handling of remove col btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveWidthBtn().getActionCommand())) {
-			/*
-			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Spalte\n"
-	                   +"gehen eventuell get�tigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (response == JOptionPane.YES_OPTION) {
-	        	List<SquareBase> squares = gg.getSquares();
-	 			Dimension dim = gg.getGridSize();
-	 			for (int ii = (squares.size()-1); ii > 0; ii=(ii-(int)dim.getHeight())) {
-	 				squares.remove(ii);
-	 			}
-	 			gg.setGridSize(new Dimension((int)dim.getWidth()-1, (int)dim.getHeight()));
-	 			gg.asignSquareCoordinates();
-	 			
-	 			// TODO: update main window to new size in gg
-	 			this.mainWin.getMainPanel().updateUI();
-	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-	        }
-			return; // break here 
-			*/
+			gg.removeColumn();
+			return;
 		}
 		/*
 		 * Handling of INFO button
 		 */
 		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
-			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
-												+ "Gruppe:\n"
-												+ "\tCongar\n"
-												+ "\tBassauer\n"
-												+ "\tHerpers\n"
-												+ "\tGriesbach\n"
-												+ "\tBolz\n"
-												+ "\tSoiron\n"
-			);
+			final ImageIcon ii = new ImageIcon(this.getClass().getResource("/gui/elements/resources/edit.png"));
+			StringBuilder text = new StringBuilder("Lichtstrahlen Spiel  - AE@BWV-Aachen | 2013\n\nGruppe:\n"); 
+			List<String> arr = new ArrayList<String>();
+			arr.add("\tBassauer\n");
+			arr.add("\tBolz\n");
+			arr.add("\tCongar\n");
+			arr.add("\tGriesbach\n");
+			arr.add("\tHerpers\n");
+			arr.add("\tSoiron\n");
+			while(!arr.isEmpty()) {
+				int pos = (int)(arr.size()*Math.random()); // make it random!
+				text.append(arr.get(pos));
+				arr.remove(pos);
+			}
+			JOptionPane.showMessageDialog(null, text.toString(), "Lichtstrahlen", JOptionPane.INFORMATION_MESSAGE, ii);
 			return;
-		}
-		
+		}		
 		/*
 		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
 		 */

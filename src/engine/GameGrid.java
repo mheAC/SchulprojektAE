@@ -342,4 +342,68 @@ public class GameGrid implements Serializable{
 	public void setSquare(int x, int y, SquareBase square){
 		this.squares.set(y*this.rows+x, square);
 	}
+
+	public void addRow() {
+		this.addRow(1);
+	}
+	
+	public void addRow(int count) {
+		Dimension dim = this.getGridSize();
+		int width = (int)dim.getWidth();
+		int height = (int)dim.getHeight();
+		
+		for (int ff = 0; ff < count; ff++) {
+			for (int ii = 0; ii < width; ii++) {
+				squares.add(new UntypedSquare(height+count, ii));
+			}
+		}
+		
+		this.setGridSize(new Dimension(width, height+count));
+	}
+	
+	public void removeRow() {
+		this.removeRow(1);
+	}
+	
+	public void removeRow(int count) {
+		Dimension dim = this.getGridSize();
+		int width = (int)dim.getWidth();
+		int height = (int)dim.getHeight();
+		
+		for (int ff = 0; ff < count; ff++) {
+			for (int ii = (squares.size()-1); ii >= (squares.size() - (int)dim.getWidth()); ii--) {
+				squares.remove(ii);
+			}
+		}
+		
+		this.setGridSize(new Dimension(width, height-count));
+	}
+	
+	public void addColumn() {
+		this.addColumn(1);
+	}
+	
+	public void addColumn(int count) {
+		for (int ff = 0; ff < count; ff++) {
+			Dimension dim = this.getGridSize();
+			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
+				squares.add(ii,new UntypedSquare((int)dim.getHeight()-ff, (int)dim.getWidth()));
+			}
+			this.setGridSize(new Dimension((int)dim.getWidth()+(ff+1), (int)dim.getHeight()));
+		}
+	}
+	
+	public void removeColumn() {
+		this.removeColumn(1);
+	}
+	
+	public void removeColumn(int count) {
+		for (int ff = 0; ff < count; ff++) {
+			Dimension dim = this.getGridSize();
+			for (int ii = (squares.size()-1); ii > 0; ii=(ii-(int)dim.getHeight())) {
+				squares.remove(ii);
+			}
+			this.setGridSize(new Dimension((int)dim.getWidth()-(ff+1), (int)dim.getHeight()));
+		}
+	}
 }
