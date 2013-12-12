@@ -99,19 +99,37 @@ public class MainWindow extends JFrame{
 	public void repaintGameGrid(){
 		if(this.gameGrid != null){
 			this.gameGridPanel.removeAll();
-			for(int i = 0 ; i < this.gameGrid.getSquares().size(); i++) {
-				SquareBase s = this.gameGrid.getSquares().get(i);
+			for(SquareBase s: this.gameGrid.getSquares()) {
 				JGameSquare pTmp = new JGameSquare(s);
 				pTmp.addMouseListener(new GameGridCellListener(pTmp));
 				pTmp.setBackground(Color.WHITE);
-				pTmp.setPosition(i);
 				pTmp.setRepresentingSquare(s);
 				if(s.getClass() == NumberSquare.class)
 					pTmp.getTextLabel().setText(s.getPrintableValue());
+				else if(s.getClass() == RaySquare.class){
+					//TODO: autsource this!
+					String imageType = "horizontal-line.png";
+			        File file = new File("assets"+System.getProperty("file.separator")+imageType);
+			        BufferedImage image;
+					try {
+						image = ImageIO.read(file);
+						pTmp.add(new JLabel(new ImageIcon(image)),0);
+						pTmp.setLayout(null);
+						pTmp.getComponent(0).setBounds(0, 0, 30, 30);
+					} catch (IOException e) {
+					}
+				}
+					
 				
 				this.gameGridPanel.add(pTmp); // add the panel
 			}
-			this.repaint();
+			//this.gameGridPanel.repaint();
+			
+			//TODO make this nicer :)
+			this.setResizable(true);
+			this.setSize(500,501);
+			this.setSize(500,500);
+			this.setResizable(false);
 		}
 	}
 

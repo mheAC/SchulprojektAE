@@ -24,7 +24,7 @@ public class GameGrid implements Serializable{
 	private ArrayList<SquareBase> squares;
 	
 	//Loghandler
-	private LogHandler lh;
+	//private LogHandler lh;
 
 	public Dimension getGridSize(){
 		Dimension dim = new Dimension(this.cols,this.rows);
@@ -38,14 +38,14 @@ public class GameGrid implements Serializable{
 	
 	public GameGrid() {
 		// Default grid dimensions
-		lh = new LogHandler();
+		//lh = new LogHandler();
 		this.cols = 10;
 		this.rows = 10;
 		generateSquares();
 	}
 	
 	public GameGrid(int cols, int rows) {
-		lh = new LogHandler();
+		//lh = new LogHandler();
 		this.cols = cols;
 		this.rows = rows;
 		generateSquares();
@@ -59,12 +59,12 @@ public class GameGrid implements Serializable{
 		int x=0;
 		int y=0;
 		for(int i = 0; i < this.cols * this.rows; i++) {
+			this.squares.add(new UntypedSquare(x,y));
 			x++;
 			if(x % this.cols == 0 && x != 0) {
 				y++;
 				x=0;
 			}
-			this.squares.add(new UntypedSquare(x,y));
 		}
 
 	}
@@ -148,7 +148,7 @@ public class GameGrid implements Serializable{
 	}
 	
 	public SquareBase getSquare(int posX,int posY){
-		SquareBase square = this.squares.get(posX*posY);
+		SquareBase square = this.squares.get((this.cols*posY)+posX);
 		return square;
 	}
 	
@@ -234,12 +234,112 @@ public class GameGrid implements Serializable{
 		}
 		return tempList;
 	}
-
-	public LogHandler getLoghandler() {
-		return lh;
+	
+  public boolean enlight(NumberSquare lightSource, SquareBase target){
+    ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
+    if(lightSource.getPositionY() == target.getPositionY()){
+      for(SquareBase square : squares) {
+    	this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(Direction.HORIZONTAL));
+      }
+    }else if(lightSource.getPositionX() == target.getPositionX()){
+      for(SquareBase square : squares) {
+        this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(Direction.VERTICAL));
+      }
+    }
+    lightSource.setNumber(lightSource.getNumber()-squares.size());
+    if(squares.size()>0){
+      return true;
+    }else{
+      return false;
+    }
 	}
 	
+	public ArrayList<SquareBase> getEnlightWay(NumberSquare lightSource, SquareBase target){
+	  ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
+	  //target is in same row with lightsource
+	  if(lightSource.getPositionY() == target.getPositionY()){
+	    //target is on the right side from lightsource and is reachable by lightsource
+	    if(target.getPositionX()>lightSource.getPositionX() && lightSource.canEnlight(target)){
+	      SquareBase tempSquare = target;
+	      int x = target.getPositionX();
+	      while(tempSquare.getPositionX()>lightSource.getPositionX()){
+          //only can be enlight if untyped square
+          if(tempSquare.getClass() == UntypedSquare.class)
+            squares.add(tempSquare);
+          else{
+            squares = new ArrayList<SquareBase>();
+            break;
+          }
+          x --;
+          tempSquare = this.getSquare(x, target.getPositionY());
+	      }
+	    }
+	    //target is on the left side from lightsource and is reachable by lightsource
+	    else if(target.getPositionX()<lightSource.getPositionX() && lightSource.canEnlight(target)){
+        SquareBase tempSquare = target;
+        int x = target.getPositionX();
+        while(tempSquare.getPositionX()<lightSource.getPositionX()){
+          if(tempSquare.getClass() == UntypedSquare.class)
+            squares.add(tempSquare);
+          else{
+	          squares = new ArrayList<SquareBase>();
+	          break;
+          }
+          x ++;
+          tempSquare = this.getSquare(x, target.getPositionY());
+        }
+	    }
+	  }
+	  //target is in the same coloumn with light source
+	  else if(lightSource.getPositionX() == target.getPositionX()){
+	    //target is above the lightsource and is reachable by lightsource
+	    if(target.getPositionY()<lightSource.getPositionY() && lightSource.canEnlight(target)){
+        SquareBase tempSquare = target;
+        int y = target.getPositionY();
+        while(tempSquare.getPositionY()<lightSource.getPositionY()){
+          //only can be enlight if untyped square
+          if(tempSquare.getClass() == UntypedSquare.class)
+            squares.add(tempSquare);
+          else{
+            squares = new ArrayList<SquareBase>();
+            break;
+          }
+          y ++;
+          tempSquare = this.getSquare(target.getPositionX(), y);
+        }
+	    }
+	    //target is on the under the lightsource and is reachable by lightsource
+	    else if(target.getPositionY()>lightSource.getPositionY() && lightSource.canEnlight(target)){
+        SquareBase tempSquare = target;
+        int y = target.getPositionY();
+        while(tempSquare.getPositionY()>lightSource.getPositionY()){
+          if(tempSquare.getClass() == UntypedSquare.class)
+            squares.add(tempSquare);
+          else{
+            squares = new ArrayList<SquareBase>();
+            break;
+          }
+          y --;
+          tempSquare = this.getSquare(target.getPositionX(), y);
+        }
+	    }
+	  }
+	  return squares;
+	}
+	
+	public boolean canEnlightWay(NumberSquare lightSource, SquareBase target){
+    if(this.getEnlightWay(lightSource, target).size()>0){
+      return true;
+    }else
+      return false;
+	}
+
+	/*
+	public LogHandler getLoghandler() {
+		return lh;
+	}*/
+	
 	public void setSquare(int x, int y, SquareBase square){
-		this.squares.set(square.getPositionX()*square.getPositionY(), square);
+		this.squares.set(y*this.rows+x, square);
 	}
 }

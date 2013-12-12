@@ -75,13 +75,13 @@ public class JGameSquare extends JPanel {
 		switch(e){
 			case VERTICAL:
 				lh.setStack(this);
-				clearPaint();
+				//clearPaint();
 				drawVertikal();
 			break;
 			
 			case HORIZONTAL:
 				lh.setStack(this);
-				clearPaint();
+				//clearPaint();
 				drawHorizontal();
 			break;
 			
