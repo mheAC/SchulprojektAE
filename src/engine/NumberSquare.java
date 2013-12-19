@@ -2,16 +2,27 @@ package engine;
 
 import java.io.Serializable;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class NumberSquare.
+ */
 public class NumberSquare extends SquareBase implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The number. */
 	private int number;
+	
+	/** The original_number. */
 	private int original_number;
 	
 	/**
-	 * Init an instance with the given value
-	 * @param num
+	 * Init an instance with the given value.
+	 *
+	 * @param num the num
+	 * @param posX the pos x
+	 * @param posY the pos y
 	 */
 	public NumberSquare(int num, int posX, int posY) {
 		super(posX,posY);
@@ -20,8 +31,11 @@ public class NumberSquare extends SquareBase implements Serializable {
 	}
 	
 	/**
-	 * Use this constructor only in case you need to modify the number afterwards. 
+	 * Use this constructor only in case you need to modify the number afterwards.
 	 * Never use it when you already know the num when instancing an object of this class
+	 *
+	 * @param posX the pos x
+	 * @param posY the pos y
 	 */
 	public NumberSquare(int posX, int posY) {
 		super(posX,posY);
@@ -30,7 +44,8 @@ public class NumberSquare extends SquareBase implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Gets the number.
+	 *
 	 * @return int the Number of this instance
 	 */
 	public int getNumber() {
@@ -45,12 +60,18 @@ public class NumberSquare extends SquareBase implements Serializable {
 		this.number = number;
 	}
 	
+	/**
+	 * Gets the original number.
+	 *
+	 * @return the original number
+	 */
 	public int getOriginalNumber(){
 		return this.original_number;
 	}
 	
 	/**
-	 * Check wether a given Square (any inheriting from SquareBase) could be enlighted by this NumberSquare according to their position
+	 * Check wether a given Square (any inheriting from SquareBase) could be enlighted by this NumberSquare according to their position.
+	 *
 	 * @param rs this should be a RaySquare! But if given a NumSquare this method will return false (as expected for number squares can not be enlighted)
 	 * @return true / false for if the given square could be enlighted
 	 */
@@ -91,11 +112,17 @@ public class NumberSquare extends SquareBase implements Serializable {
 		return false;
 	}
 
+	/**
+	 * @see engine.SquareBase#getPrintableValue()
+	 */
 	@Override
 	public String getPrintableValue() {
 		return Integer.toString(this.getNumber());
 	}
 	
+	/**
+	 * @see engine.SquareBase#isNumberSquare()
+	 */
 	public boolean isNumberSquare(){
 		return true;
 	}

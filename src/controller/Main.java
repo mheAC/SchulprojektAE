@@ -26,23 +26,55 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class Main.
+ */
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
+	
+	/** The config win. */
 	private StartWindow configWin;
+	
+	/** The main win. */
 	private MainWindow mainWin;
+	
+	/** The st h. */
 	private StorageHandler stH;
+	
+	/** The begin draw. */
 	private SquareBase beginDraw;
+	
+	/** The end draw. */
 	private SquareBase endDraw;
+	
+	/** The Number pos. */
 	private SquareBase NumberPos;
+	
+	/** The drawing. */
 	private boolean drawing;
+	
+	/** The draw count. */
 	private int drawCount;
+	
+	/** The gs pos. */
 	private int gsPos;
+	
+	/** The Field length. */
 	private int FieldLength;
+	
+	/** The properties. */
 	private Properties properties;
 	//private int maxAvailableCols;
 	
 	// Storage for current gameData
+	/** The gg. */
 	GameGrid gg;
 	
+	/**
+	 * Instantiates a new main.
+	 *
+	 * @throws Exception the exception
+	 */
 	public Main() throws Exception {
 		new JGameSquare().getBackground();
 		beginDraw = null;
@@ -73,12 +105,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		this.configWin.getWidthInput().addCaretListener(this);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			new Main();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
+	/**
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -209,6 +249,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	/*
 	 * Handle the Click onto a JGameSquare (JPanel)
 	 */
+	/**
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JGameSquare gs = (JGameSquare)e.getComponent(); // the panel that has been clicked
@@ -280,15 +323,33 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 
 
+        /**
+         * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseEntered(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseExited(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+         */
         @Override
         public void mousePressed(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseReleased(MouseEvent e) {}
 
+        /**
+         * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+         */
         @Override
         public void stateChanged(ChangeEvent arg0) {
                 // TODO Auto-generated method stub
@@ -302,6 +363,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
                 this.configWin.getSliderLbl().setText(dimLbl);
         }
 
+	/**
+	 * @see javax.swing.event.CaretListener#caretUpdate(javax.swing.event.CaretEvent)
+	 */
 	@Override
 	public void caretUpdate(CaretEvent arg0) {
 		// TODO Auto-generated method stub
@@ -316,6 +380,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
+	/**
+	 * Reset bg color.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean resetBGColor(){
 		boolean trough = false;
 		for(int i=0;i<this.mainWin.getRows();i++)
@@ -329,6 +398,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return trough;
 	}
 	
+	/**
+	 * Sets the ray from start to end.
+	 *
+	 * @param start the start
+	 * @param lightSource the light source
+	 * @param end the end
+	 * @return the int
+	 */
 	private int setRayFromStartToEnd(Dimension start, Dimension lightSource, Dimension end){
 		if((start.height < lightSource.height && (end.height > lightSource.height || end.width != lightSource.width))
 		|| (start.width < lightSource.width && (end.width > lightSource.width || end.height != lightSource.height))
@@ -474,8 +551,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return FieldLength;
 	}
 	
+	/**
+	 * Mark the way to number square.
+	 *
+	 * @param col the col
+	 * @param row the row
+	 */
 	private void markTheWayToNumberSquare(int col, int row){
-		//Zeilenweise abw�rts
+		//Zeilenweise abw???rts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -485,7 +568,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 				
 			}
-		//Zeilenweise aufw�rts
+		//Zeilenweise aufw???rts
 		for(int i = row-1; i > -1; i--)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -495,7 +578,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 			}
 		
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorw???rts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -504,7 +587,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else
 					break;
 			}
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorw???rts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -516,6 +599,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
+	/**
+	 * Sets the rays for number.
+	 *
+	 * @param begin the begin
+	 * @param end the end
+	 * @return the int
+	 */
 	private int setRaysForNumber(SquareBase begin, SquareBase end){
 		int beginy = begin.getPositionY();
 		int beginx = begin.getPositionX();
