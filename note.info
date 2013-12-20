@@ -9,3 +9,5 @@ generelles PW: start123
 
 Algorithmus Schwierigkeit bestimmung
 log(sum(complexity)/count(turns))
+turn sind die züge die der Algorithmus zum lösen braucht
+complexity
