@@ -13,12 +13,19 @@ import engine.RaySquare;
 import engine.SquareBase;
 import engine.storage_handler.StorageHandler;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class TestConsolePrint.
+ */
 public class TestConsolePrint {
 	
+	/**
+	 * Test_grid_render.
+	 */
 	public void test_grid_render() {
 		Scanner is = new Scanner(System.in);
 		
-		//System.out.println("RUDIMENTÄRE TEST AUSGABE / GENERIERUNG");
+		//System.out.println("RUDIMENT?RE TEST AUSGABE / GENERIERUNG");
 		//System.out.println("Wie viele Zeilen? (Max 15)");
 		//int rows = is.nextInt();
 		//System.out.println("Wie viele Spalten? (Max 15)");
@@ -68,6 +75,11 @@ public class TestConsolePrint {
 		//System.out.println(ns.canEnlight(grid.getSquares().get(16)));
 	}
 	
+	/**
+	 * Test_storeage.
+	 *
+	 * @throws Exception the exception
+	 */
 	public void test_storeage() throws Exception {
 		// Test Storage save
 		GameGrid foo = new GameGrid(4,3);
@@ -119,6 +131,12 @@ public class TestConsolePrint {
 		}
 	}
 	
+	/**
+	 * Print_grid.
+	 *
+	 * @param grid the grid
+	 * @param cols the cols
+	 */
 	private void print_grid (GameGrid grid, int cols) {
 		int i=0;
 		for(SquareBase s : grid.getSquaresAsList()) {
@@ -140,6 +158,9 @@ public class TestConsolePrint {
 		}
 	}
 	
+	/**
+	 * Test_colision.
+	 */
 	public void test_colision () {
 		GameGrid g = new GameGrid();
 		g.generateSquaresBigMiddleTest();
@@ -207,6 +228,9 @@ public class TestConsolePrint {
 	    
 	}
 	
+	/**
+	 * Test_direction_coordination.
+	 */
 	public void test_direction_coordination() {
 		GameGrid g = new GameGrid();
 		g.generateSquaresBigMiddleTest();
@@ -231,6 +255,11 @@ public class TestConsolePrint {
 	    System.out.println(tRs.getRayDirectionForLightSource(n1)); // should get null
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			TestConsolePrint o = new TestConsolePrint();

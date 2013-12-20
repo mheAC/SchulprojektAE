@@ -5,10 +5,18 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class JOpenFileDialog.
+ */
 public class JOpenFileDialog extends JFileChooser {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Instantiates a new j open file dialog.
+	 */
 	public JOpenFileDialog() {
 		super();
 		

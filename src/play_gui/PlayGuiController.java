@@ -11,9 +11,19 @@ import engine.SquareBase;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class PlayGuiController.
+ */
 public class PlayGuiController {
 	
 	//triggered when new game button is cliked (loades a new game and renderes the game grid
+	/**
+	 * New game.
+	 *
+	 * @param mainWindow the main window
+	 * @param file the file
+	 */
 	public static void newGame(MainWindow mainWindow,File file){
 		StorageHandler storageHandler = new StorageHandler();
 		try {
@@ -33,6 +43,12 @@ public class PlayGuiController {
 	}
 
 	//fired when a grid cell is clicked (activates the cell)
+	/**
+	 * Grid cell clicked.
+	 *
+	 * @param cell the cell
+	 * @param mainWindow the main window
+	 */
 	public static void gridCellClicked(JGameSquare cell, MainWindow mainWindow) {
 		SquareBase square = cell.getRepresentedSquare();
 		if(square.isNumberSquare()){
@@ -44,6 +60,12 @@ public class PlayGuiController {
 	}
 
 	//fired when mouse enters a grid cell
+	/**
+	 * Grid cell entered.
+	 *
+	 * @param cell the cell
+	 * @param mainWindow the main window
+	 */
 	public static void gridCellEntered(JGameSquare cell, MainWindow mainWindow) {
 		if(mainWindow.hasActiveCell()){
 			mainWindow.clearHover();
@@ -55,6 +77,12 @@ public class PlayGuiController {
 	}
 	
 	//fired when mouse exited a grid cell
+	/**
+	 * Grid cell exited.
+	 *
+	 * @param cell the cell
+	 * @param mainWindow the main window
+	 */
 	public static void gridCellExited(JGameSquare cell, MainWindow mainWindow) {
 	}
 }

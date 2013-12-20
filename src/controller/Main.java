@@ -26,23 +26,55 @@ import gui.JOpenFileDialog;
 import gui.MainWindow;
 import gui.StartWindow;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class Main.
+ */
 public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
+	
+	/** The config win. */
 	private StartWindow configWin;
+	
+	/** The main win. */
 	private MainWindow mainWin;
+	
+	/** The st h. */
 	private StorageHandler stH;
+	
+	/** The begin draw. */
 	private SquareBase beginDraw;
+	
+	/** The end draw. */
 	private SquareBase endDraw;
+	
+	/** The Number pos. */
 	private SquareBase NumberPos;
+	
+	/** The drawing. */
 	private boolean drawing;
+	
+	/** The draw count. */
 	private int drawCount;
+	
+	/** The gs pos. */
 	private int gsPos;
+	
+	/** The Field length. */
 	private int FieldLength;
+	
+	/** The properties. */
 	private Properties properties;
 	//private int maxAvailableCols;
 	
 	// Storage for current gameData
+	/** The gg. */
 	GameGrid gg;
 	
+	/**
+	 * Instantiates a new main.
+	 *
+	 * @throws Exception the exception
+	 */
 	public Main() throws Exception {
 		new JGameSquare().getBackground();
 		beginDraw = null;
@@ -73,12 +105,20 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		this.configWin.getWidthInput().addCaretListener(this);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			new Main();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
+	/**
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -132,116 +172,52 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 * Handling of add row btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getAddHeightBtn().getActionCommand())) {
-			// TODO: add height btn action
-			/*
-			List<SquareBase> squares = gg.getSquaresAsList();
-			Dimension dim = gg.getGridSize();
-			for (int ii = 0; ii < (int)dim.getWidth();ii++) {
-				squares.add(new UntypedSquare(ii));
-			}
-			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()+1));
-			//mainWin.setGameGridData(gg);
-			//mainWin.setRows((int)gg.getGridSize().getHeight());
-			//mainWin.setCols((int)gg.getGridSize().getWidth());
-			//mainWin.buildWindow();
-			
-			// TODO: update main window to new size in gg
-			this.mainWin.getMainPanel().updateUI();
- 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-			
-			return; // break here 
-			*/
+			gg.addRow();
+			return;
 		}
 		/*
 		 * Handling of remove row btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveHeightBtn().getActionCommand())) {
-			/*
-			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Zeile\n"
-	                   +"gehen eventuell get�tigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (response == JOptionPane.YES_OPTION) {
-	        	List<SquareBase> squares = gg.getSquares();
-	 			Dimension dim = gg.getGridSize();
-	 			for (int ii = (squares.size()-1); ii >= (squares.size() - (int)dim.getWidth()); ii--) {
-	 				squares.remove(ii);
-	 			}
-	 			gg.setGridSize(new Dimension((int)dim.getWidth(), (int)dim.getHeight()-1));
-	 			
-	 			// TODO: update main window to new size in gg
-	 			this.mainWin.getMainPanel().updateUI();
-	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-	 			
-	        }
-			return; // break here 
-			*/
+			gg.removeRow();
+			return;
 		}
 		/*
 		 * Handling of add col btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getAddWidthBtn().getActionCommand())) {
 			// TODO: add height btn action
-			/*
-			List<SquareBase> squares = gg.getSquares();
-			Dimension dim = gg.getGridSize();
-			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
-				squares.add(ii,new UntypedSquare());
-			}
-			gg.setGridSize(new Dimension((int)dim.getWidth()+1, (int)dim.getHeight()));
-			gg.asignSquareCoordinates();
-			//mainWin.setGameGridData(gg);
-			//mainWin.setRows((int)gg.getGridSize().getHeight());
-			//mainWin.setCols((int)gg.getGridSize().getWidth());
-			//mainWin.buildWindow();
-			
-			// TODO: update main window to new size in gg
-			this.mainWin.getMainPanel().updateUI();
- 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-			return; // break here 
-			*/
+			gg.addColumn();
+			return;
 		}
 		/*
 		 * Handling of remove col btn
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getRemoveWidthBtn().getActionCommand())) {
-			/*
-			int response = JOptionPane.showConfirmDialog(mainWin.getJFrame(), "Beim Entfernen einer Spalte\n"
-	                   +"gehen eventuell get�tigte Eingaben\n"
-	                   +"verloren. Fortfahren?", "Warnung",
-	                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (response == JOptionPane.YES_OPTION) {
-	        	List<SquareBase> squares = gg.getSquares();
-	 			Dimension dim = gg.getGridSize();
-	 			for (int ii = (squares.size()-1); ii > 0; ii=(ii-(int)dim.getHeight())) {
-	 				squares.remove(ii);
-	 			}
-	 			gg.setGridSize(new Dimension((int)dim.getWidth()-1, (int)dim.getHeight()));
-	 			gg.asignSquareCoordinates();
-	 			
-	 			// TODO: update main window to new size in gg
-	 			this.mainWin.getMainPanel().updateUI();
-	 			this.mainWin.getJFrame().update(this.mainWin.getMainPanel().getGraphics());
-	        }
-			return; // break here 
-			*/
+			gg.removeColumn();
+			return;
 		}
 		/*
 		 * Handling of INFO button
 		 */
 		else if(e.getActionCommand().equals(this.configWin.getInfoBtn().getActionCommand())) {
-			JOptionPane.showMessageDialog(null, "Lichtstrahlen Spiel  - AE@BWV-AAchen | 2013\n\n"
-												+ "Gruppe:\n"
-												+ "\tCongar\n"
-												+ "\tBassauer\n"
-												+ "\tHerpers\n"
-												+ "\tGriesbach\n"
-												+ "\tBolz\n"
-												+ "\tSoiron\n"
-			);
+			final ImageIcon ii = new ImageIcon(this.getClass().getResource("/gui/elements/resources/edit.png"));
+			StringBuilder text = new StringBuilder("Lichtstrahlen Spiel  - AE@BWV-Aachen | 2013\n\nGruppe:\n"); 
+			List<String> arr = new ArrayList<String>();
+			arr.add("\tBassauer\n");
+			arr.add("\tBolz\n");
+			arr.add("\tCongar\n");
+			arr.add("\tGriesbach\n");
+			arr.add("\tHerpers\n");
+			arr.add("\tSoiron\n");
+			while(!arr.isEmpty()) {
+				int pos = (int)(arr.size()*Math.random()); // make it random!
+				text.append(arr.get(pos));
+				arr.remove(pos);
+			}
+			JOptionPane.showMessageDialog(null, text.toString(), "Lichtstrahlen", JOptionPane.INFORMATION_MESSAGE, ii);
 			return;
-		}
-		
+		}		
 		/*
 		 * Common actions for new Windows (creating a grid window with either generated data or loaded)
 		 */
@@ -272,6 +248,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 
 	/*
 	 * Handle the Click onto a JGameSquare (JPanel)
+	 */
+	/**
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -344,15 +323,33 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 
 
+        /**
+         * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseEntered(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseExited(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+         */
         @Override
         public void mousePressed(MouseEvent e) {}
+        
+        /**
+         * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+         */
         @Override
         public void mouseReleased(MouseEvent e) {}
 
+        /**
+         * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+         */
         @Override
         public void stateChanged(ChangeEvent arg0) {
                 // TODO Auto-generated method stub
@@ -366,6 +363,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
                 this.configWin.getSliderLbl().setText(dimLbl);
         }
 
+	/**
+	 * @see javax.swing.event.CaretListener#caretUpdate(javax.swing.event.CaretEvent)
+	 */
 	@Override
 	public void caretUpdate(CaretEvent arg0) {
 		// TODO Auto-generated method stub
@@ -380,6 +380,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
+	/**
+	 * Reset bg color.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean resetBGColor(){
 		boolean trough = false;
 		for(int i=0;i<this.mainWin.getRows();i++)
@@ -393,6 +398,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return trough;
 	}
 	
+	/**
+	 * Sets the ray from start to end.
+	 *
+	 * @param start the start
+	 * @param lightSource the light source
+	 * @param end the end
+	 * @return the int
+	 */
 	private int setRayFromStartToEnd(Dimension start, Dimension lightSource, Dimension end){
 		if((start.height < lightSource.height && (end.height > lightSource.height || end.width != lightSource.width))
 		|| (start.width < lightSource.width && (end.width > lightSource.width || end.height != lightSource.height))
@@ -404,7 +417,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.width>lightSource.width){
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg );
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 								FieldLength++;
 							}
@@ -413,7 +426,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else if(start.width<lightSource.width){
 						for(int i=start.width;i < lightSource.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.VERTICAL,i, start.height));
 								FieldLength++;
 							}
@@ -425,7 +438,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.height>lightSource.height){
 						for(int i=start.height;i > lightSource.height;i--){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 								FieldLength++;
 							}
@@ -434,7 +447,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else if(start.height<lightSource.height){
 						for(int i=start.height;i < lightSource.height;i++){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 								FieldLength++;
 							}
@@ -447,7 +460,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(lightSource.width>end.width){
 						for(int i=lightSource.width-1;i >= end.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, lightSource.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(i, lightSource.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, lightSource.height));
 								FieldLength++;
 							}
@@ -456,7 +469,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else if(lightSource.width<end.width){
 						for(int i=lightSource.width+1;i <= end.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, lightSource.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(i, lightSource.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, lightSource.height));
 								FieldLength++;
 							}
@@ -468,7 +481,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(lightSource.height>end.height){
 						for(int i=lightSource.height;i >= end.height;i--){
 							if(this.mainWin.getJGameSquareAt(lightSource.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(lightSource.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,lightSource.width,i));
 								FieldLength++;
 							}
@@ -477,7 +490,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else if(lightSource.height<end.height){
 						for(int i=lightSource.height;i <= end.height;i++){
 							if(this.mainWin.getJGameSquareAt(lightSource.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(lightSource.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,lightSource.width,i));
 								FieldLength++;
 							}
@@ -492,7 +505,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.width>lightSource.width){
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i,start.height));
 								FieldLength++;
 							}
@@ -501,7 +514,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else if(start.width<lightSource.width){
 						for(int i=start.width;i < lightSource.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i,start.height));
 								FieldLength++;
 							}
@@ -513,7 +526,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					if(start.height>lightSource.height){
 						for(int i=start.height;i > lightSource.height;i--){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width,i));
 								FieldLength++;
 							}
@@ -522,7 +535,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					else {
 						for(int i=start.height;i < lightSource.height;i++){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.mainWin.getLogHandler(),gg);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width,i));
 								FieldLength++;
 							}
@@ -538,8 +551,14 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		return FieldLength;
 	}
 	
+	/**
+	 * Mark the way to number square.
+	 *
+	 * @param col the col
+	 * @param row the row
+	 */
 	private void markTheWayToNumberSquare(int col, int row){
-		//Zeilenweise abw�rts
+		//Zeilenweise abw???rts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -549,7 +568,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 				
 			}
-		//Zeilenweise aufw�rts
+		//Zeilenweise aufw???rts
 		for(int i = row-1; i > -1; i--)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -559,7 +578,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 					break;
 			}
 		
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorw???rts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -568,7 +587,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 				else
 					break;
 			}
-		//Spaltenweise vorw�rts
+		//Spaltenweise vorw???rts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -580,6 +599,13 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	}
 	
 	
+	/**
+	 * Sets the rays for number.
+	 *
+	 * @param begin the begin
+	 * @param end the end
+	 * @return the int
+	 */
 	private int setRaysForNumber(SquareBase begin, SquareBase end){
 		int beginy = begin.getPositionY();
 		int beginx = begin.getPositionX();

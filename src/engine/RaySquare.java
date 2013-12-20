@@ -2,33 +2,63 @@ package engine;
 
 import java.io.Serializable;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class RaySquare.
+ */
 public class RaySquare extends SquareBase implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The direction. */
 	Direction direction;
 	
+	/**
+	 * Instantiates a new ray square.
+	 *
+	 * @param posx the posx
+	 * @param posy the posy
+	 */
 	public RaySquare(int posx, int posy) {
 		super(posx,posy);
 		this.direction = Direction.UNSET; // default direction
 	}
 	
+	/**
+	 * Instantiates a new ray square.
+	 *
+	 * @param d the d
+	 * @param posx the posx
+	 * @param posy the posy
+	 */
 	public RaySquare(Direction d, int posx, int posy) {
 		super(posx,posy);
 		this.direction = d;
 	}
 
+	/**
+	 * Gets the direction.
+	 *
+	 * @return the direction
+	 */
 	public Direction getDirection() {
 		return this.direction;
 	}
 	
+	/**
+	 * Sets the direction.
+	 *
+	 * @param d the new direction
+	 */
 	public void setDirection(Direction d) {
 		this.direction = d;
 	}
 	
 	/**
-	 * Not yet tested!
-	 * @param ns
+	 * Not yet tested!.
+	 *
+	 * @param ns the ns
 	 * @return Direction
 	 */
 	public Direction getRayDirectionForLightSource(NumberSquare ns) {
@@ -40,11 +70,17 @@ public class RaySquare extends SquareBase implements Serializable {
 			return null;
 	}
 
+	/**
+	 * @see engine.SquareBase#getPrintableValue()
+	 */
 	@Override
 	public String getPrintableValue() {
 		return this.direction.equals(Direction.HORIZONTAL) ? "-" : (this.direction.equals(Direction.VERTICAL) ? "|" : " ");
 	}
 	
+	/**
+	 * @see engine.SquareBase#isRaySquare()
+	 */
 	public boolean isRaySquare(){
 		return true;
 	}

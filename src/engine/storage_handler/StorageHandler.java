@@ -19,10 +19,18 @@ import com.google.gson.*;
 import engine.GameGrid;
 import engine.SquareBase;
 
+// TODO: Javadoc kontrollieren
+/**
+ * The Class StorageHandler.
+ */
 public class StorageHandler {
 	
+	/** The use json. */
 	private boolean useJson;
 	
+	/**
+	 * Instantiates a new storage handler.
+	 */
 	public StorageHandler(){
 		Properties properties = new Properties();
 		BufferedInputStream stream;
@@ -41,11 +49,12 @@ public class StorageHandler {
 	}
 
 	/**
-	 * Persist data to file
-	 * @param gGrid
-	 * @param filePath
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * Persist data to file.
+	 *
+	 * @param gGrid the g grid
+	 * @param filePath the file path
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void persist(GameGrid gGrid, String filePath ) throws FileNotFoundException, IOException {
 		if(useJson){
@@ -62,11 +71,12 @@ public class StorageHandler {
 	}
 	
 	/**
-	 * Load data from file
-	 * @param filePath
-	 * @return
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * Load data from file.
+	 *
+	 * @param filePath the file path
+	 * @return the game grid
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public GameGrid load(String filePath) throws IOException, ClassNotFoundException {
 
@@ -95,13 +105,20 @@ public class StorageHandler {
 	
 	/**
 	 * Just delegates the call..
+	 *
+	 * @param filePath the file path
+	 * @return the game grid
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public GameGrid load(File filePath) throws FileNotFoundException, IOException, ClassNotFoundException {
 		return this.load(filePath.getAbsolutePath());
 	}
 	
 	/**
-	 * This method just delegates to saveArrayListToFile(ArrayList<SquareBase> sbase, String filePath )
+	 * This method just delegates to saveArrayListToFile(ArrayList<SquareBase> sbase, String filePath ).
+	 *
 	 * @param gGrid ArrayList with SquareBase Objects
 	 * @param filePath the path to the File to write to
 	 */

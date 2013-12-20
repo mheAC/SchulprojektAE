@@ -4,35 +4,56 @@
  */
 package engine;
 
-import gui.JGameSquare;
-
 import java.util.Stack;
 
+// TODO: Javadoc kontrollieren
 /**
- *
- *
+ * The Class LogHandler.
  */
 public class LogHandler {
-	private Stack<JGameSquare> stack1;
-	private Stack<JGameSquare> stack2;
 	
+	/** The max number. */
+	private Stack<GameGrid> stack1;
+	
+	/** The stack2. */
+	private Stack<GameGrid> stack2;
+	
+	/**
+	 * Instantiates a new log handler.
+	 */
 	public LogHandler() {
-		stack1 = new Stack<JGameSquare>();
-		stack2 = new Stack<JGameSquare>();
+		stack1 = new Stack<GameGrid>();
+		stack2 = new Stack<GameGrid>();
 	}
 	
-	public void setStack(JGameSquare gs){
-		System.out.println(gs.toString());
+	/**
+	 * Sets the stack.
+	 *
+	 * @param gs the new stack
+	 */
+	public void setStack(GameGrid gs){
 		stack1.push(gs);
 	}
-	public JGameSquare getBack(){
-		JGameSquare gs;
+	
+	/**
+	 * Gets the back.
+	 *
+	 * @return the back
+	 */
+	public GameGrid getBack(){
+		GameGrid gs;
 		gs = stack1.pop();
 		stack2.push(gs);
 		return gs;
 	}
-	public JGameSquare getForward(){
-		JGameSquare gs;
+	
+	/**
+	 * Gets the forward.
+	 *
+	 * @return the forward
+	 */
+	public GameGrid getForward(){
+		GameGrid gs;
 		gs = stack2.pop();
 		stack1.push(gs);
 		return gs;
