@@ -5,3 +5,7 @@ tinyurl.com/versionone2013
 Serjoscha: seb
 
 generelles PW: start123
+
+
+Algorithmus Schwierigkeit bestimmung
+log(sum(complexity)/count(turns))
