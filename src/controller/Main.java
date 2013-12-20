@@ -177,7 +177,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 			int userSelection = fileChooser.showSaveDialog(savedialog);
 			 
 			if (userSelection == JFileChooser.APPROVE_OPTION) {
-			    File fileToSave = fileChooser.getSelectedFile();
+			    File fileToSave = new File( fileChooser.getSelectedFile().getPath()+"json");
 			    this.stH.persist(gg, fileToSave);
 			    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
 			}
