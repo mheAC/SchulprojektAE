@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,13 +161,27 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		 * Handling for SAVING drafts
 		 */
 		else if(e.getActionCommand().equals(this.mainWin.getSaveBtn().getActionCommand())) {
-			String fileName = JOptionPane.showInputDialog("Unter welchem Namen soll die Datei gespeichert werden?");
+			/*String fileName = JOptionPane.showInputDialog("Unter welchem Namen soll die Datei gespeichert werden?");
 			if(fileName != null){
 				try {
 					this.stH.persist(gg, properties.getProperty("saveGamePath")+(fileName+".json"));
 				} catch (Exception e3) { e3.printStackTrace(); }
 			}
-			return; // break here 
+			return; // break here */
+			// parent component of the dialog
+			JFrame savedialog = new JFrame();
+			 
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Unter welchem Namen soll die Datei gespeichert werden?");   
+			 
+			int userSelection = fileChooser.showSaveDialog(savedialog);
+			 
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+			    File fileToSave = fileChooser.getSelectedFile();
+			    this.stH.persist(gg, fileToSave);
+			    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+			}
+			
 		}
 		/*
 		 * Handling of add row btn
