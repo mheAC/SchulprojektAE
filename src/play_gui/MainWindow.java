@@ -19,37 +19,17 @@ import play_gui.listener.GameGridCellListener;
 import play_gui.listener.NewGameBtnListener;
 
 
-// TODO: Javadoc kontrollieren
-/**
- * The Class MainWindow.
- */
 public class MainWindow extends JFrame{
 	
-	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
-	/** The toolbar. */
 	private JToolBar toolbar; //the Toolbar on the top of the window
-	
-	/** The game grid. */
 	private GameGrid gameGrid; //a GameGrid object
-	
-	/** The game grid panel. */
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
-	
-	/** The background image. */
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
-	
-	/** The active cell. */
 	private JGameSquare activeCell; //the currently active(clicked) cell
-	
-	/** The log handler. */
 	private LogHandler logHandler; // a log handler instale
 	
 	//constructor renders a window with no game grid
-	/**
-	 * Instantiates a new main window.
-	 */
 	public MainWindow(){
 		super("Lichtstrahlen");
 		
@@ -83,9 +63,6 @@ public class MainWindow extends JFrame{
 	}
 
 	//cleares the game grid TODO: remove grid panel
-	/**
-	 * Clear game grid.
-	 */
 	public void clearGameGrid(){
 		this.gameGrid = null;
 		this.gameGridPanel.setVisible(false);
@@ -94,12 +71,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	//sets the game grid and renders it
-	/**
-	 * Sets the game grid.
-	 *
-	 * @param gameGrid the game grid
-	 * @return true, if successful
-	 */
 	public boolean setGameGrid(GameGrid gameGrid){
 		if(this.gameGrid == null){
 			this.gameGrid = gameGrid;
@@ -125,9 +96,6 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
-	/**
-	 * Repaint game grid.
-	 */
 	public void repaintGameGrid(){
 		if(this.gameGrid != null){
 			this.gameGridPanel.removeAll();
@@ -166,22 +134,11 @@ public class MainWindow extends JFrame{
 	}
 
 	//shows a message in the console
-	/**
-	 * Show alert.
-	 *
-	 * @param message the message
-	 */
 	public void showAlert(String message) {
 		JOptionPane.showMessageDialog(this,message,"",JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	//shows a message in the console which can be answered with y/n returns true or false
-	/**
-	 * Show confirm.
-	 *
-	 * @param message the message
-	 * @return true, if successful
-	 */
 	public boolean showConfirm(String message){
 		if(JOptionPane.showConfirmDialog(this,message,"",JOptionPane.YES_NO_OPTION)==1)
 			return false;
@@ -190,11 +147,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	//removes backgroundcolor from currently active cell and set a new one
-	/**
-	 * Sets the active cell.
-	 *
-	 * @param cell the new active cell
-	 */
 	public void setActiveCell(JGameSquare cell){
 		if(this.activeCell != null){
 			this.activeCell.setBackground(Color.WHITE);
@@ -203,9 +155,6 @@ public class MainWindow extends JFrame{
 		this.activeCell.setBackground(Color.GRAY);
 	}
 	
-	/**
-	 * Release active cell.
-	 */
 	public void releaseActiveCell(){
 		if(this.activeCell != null){
 			this.activeCell.setBackground(Color.WHITE);
@@ -215,12 +164,6 @@ public class MainWindow extends JFrame{
 	
 
 	//loades the background image and returns true if it could be loaded, otherwise it returns false
-	/**
-	 * Load background image.
-	 *
-	 * @param path the path
-	 * @return true, if successful
-	 */
 	private boolean loadBackgroundImage(String path){
         File file = new File(path);
         BufferedImage image;
@@ -234,11 +177,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	//doesent work :( TODO fix it :)
-	/**
-	 * Sets the background hover.
-	 *
-	 * @param hover the new background hover
-	 */
 	public void setBackgroundHover(boolean hover){
 		if(hover){
 			this.getContentPane().remove(this.backgroundImage);
@@ -255,13 +193,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	
-	/**
-	 * Gets the cell by position.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @return the cell by position
-	 */
 	public JGameSquare getCellByPosition(int x, int y){
 		Component[] cells = this.gameGridPanel.getComponents();
 		JGameSquare cell = null;
@@ -278,12 +209,6 @@ public class MainWindow extends JFrame{
 		return cell;
 	}
 	
-	/**
-	 * Gets the untyped cells to active.
-	 *
-	 * @param cell the cell
-	 * @return the untyped cells to active
-	 */
 	public ArrayList<JGameSquare> getUntypedCellsToActive(JGameSquare cell){
 		ArrayList<JGameSquare> cells = new ArrayList<JGameSquare>();
 		if(this.hasActiveCell()){
@@ -295,9 +220,6 @@ public class MainWindow extends JFrame{
 		return cells;
 	}
 	
-	/**
-	 * Clear hover.
-	 */
 	public void clearHover(){
 		Component[] components = this.gameGridPanel.getComponents();
 		for(int i=0;i < components.length; i++){
@@ -310,11 +232,6 @@ public class MainWindow extends JFrame{
 	//getterst/setters
 	
 	//returns true if an active cell is set
-	/**
-	 * Checks for active cell.
-	 *
-	 * @return true, if successful
-	 */
 	public boolean hasActiveCell(){
 		if(this.activeCell != null){
 			return true;
@@ -324,31 +241,16 @@ public class MainWindow extends JFrame{
 	}
 	
 	//returns the currently activated cell
-	/**
-	 * Gets the active cell.
-	 *
-	 * @return the active cell
-	 */
 	public JGameSquare getActiveCell(){
 		return this.activeCell;
 	}
 	
 	//returns the currently loaded grid (could be null if no grid is set)
-	/**
-	 * Gets the game grid.
-	 *
-	 * @return the game grid
-	 */
 	public GameGrid getGameGrid(){
 		return this.gameGrid;
 	}
 	
 	//returns the toolbar and creates a new one when no toolbar is set
-	/**
-	 * Gets the toolbar.
-	 *
-	 * @return the toolbar
-	 */
 	public JToolBar getToolbar(){
 		if(toolbar == null){
 			JButton newGameBtn = new JButton("Neues Spiel");
@@ -361,11 +263,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	//returns the loghandler
-	/**
-	 * Gets the log handler.
-	 *
-	 * @return the log handler
-	 */
 	public LogHandler getLogHandler(){
 		return this.logHandler;
 	}

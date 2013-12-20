@@ -28,7 +28,7 @@ public class GameGrid implements Serializable{
 	private ArrayList<SquareBase> squares;
 	
 	//Loghandler
-	//private LogHandler lh;
+	private LogHandler lh;
 
 	/**
 	 * get the size of the gamegrid.
@@ -55,7 +55,7 @@ public class GameGrid implements Serializable{
 	 */
 	public GameGrid() {
 		// Default grid dimensions
-		//lh = new LogHandler();
+		lh = new LogHandler();
 		this.cols = 10;
 		this.rows = 10;
 		generateSquares();
@@ -68,7 +68,7 @@ public class GameGrid implements Serializable{
 	 * @param rows the rows
 	 */
 	public GameGrid(int cols, int rows) {
-		//lh = new LogHandler();
+		lh = new LogHandler();
 		this.cols = cols;
 		this.rows = rows;
 		generateSquares();
@@ -391,10 +391,14 @@ public class GameGrid implements Serializable{
       return false;
 	}
 
-	/*
+	
 	public LogHandler getLoghandler() {
 		return lh;
-	}*/
+	}
+	
+	public void log(){
+		this.lh.setStack(this);
+	}
 	
 	/**
 	 * Replace a Squarebase at x and y coordinates with another square.
