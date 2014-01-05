@@ -96,6 +96,11 @@ public abstract class SquareBase {
 		return rs;
 	}
 	
+	public RaySquare getAsRaySquare(NumberSquare lightSource) {
+		RaySquare rs = new RaySquare(this.posX,this.posY,lightSource);
+		return rs;
+	}
+	
 	/**
 	 * Gets the as number square.
 	 *
@@ -141,6 +146,20 @@ public abstract class SquareBase {
 	 */
 	public boolean isUntypedSquare(){
 		return false;
+	}
+	
+	public String getRelativePositionTo(SquareBase square){
+		if(square.getPositionY() == this.getPositionY() && this.getPositionX() < square.getPositionX()){
+			return "left";
+		}else if(square.getPositionY() == this.getPositionY() && this.getPositionX() > square.getPositionX()){
+			return "right";
+		}else if(square.getPositionX() == this.getPositionX() && this.getPositionY() < square.getPositionY()){
+			return "obove";
+		}else if(square.getPositionX() == this.getPositionX() && this.getPositionY() > square.getPositionY()){
+			return "underneath";
+		}else{
+			return "undefined";
+		}
 	}
 	
 }

@@ -42,7 +42,14 @@ public class GameGridCellListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
-		PlayGuiController.gridCellClicked( cell, mainwindow);
+		//right click
+		if(event.getModifiers() == 4){
+			PlayGuiController.gridCellRightClicked( cell, mainwindow);
+		}
+		//left click
+		else if(event.getModifiers() == 16){
+			PlayGuiController.gridCellClicked( cell, mainwindow);
+		}
 	}
 
 	/**

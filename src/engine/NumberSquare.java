@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 // TODO: Javadoc kontrollieren
 /**
@@ -16,6 +17,9 @@ public class NumberSquare extends SquareBase implements Serializable {
 	
 	/** The original_number. */
 	private int original_number;
+	
+	/** List of squares that are enlighted by this lightsource */
+	private ArrayList<RaySquare> englighted_squares = new ArrayList<RaySquare>();
 	
 	/**
 	 * Init an instance with the given value.
@@ -76,7 +80,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 * @return true / false for if the given square could be enlighted
 	 */
 	public boolean canEnlight(SquareBase rs) {
-		if(rs.getClass().equals(new NumberSquare(0,0).getClass()))
+		if(rs.getClass() == NumberSquare.class)
 			return false; // number squares can never be enlighted
 		
 		//if(this.getPositionX() == rs.getPositionX() && this.getPositionY() == rs.getPositionY())
@@ -85,18 +89,18 @@ public class NumberSquare extends SquareBase implements Serializable {
 		if(
 				( // first part: check x
 					// check the left hand side of the light source
-					rs.getPositionX() <= this.getPositionX() && rs.getPositionX() >= this.getPositionX() - this.getNumber() // range
+					rs.getPositionX() <= this.getPositionX() && rs.getPositionX() >= this.getPositionX() - (this.getNumber() + this.getEnlightedSquares("left").size()) // range
 					|| // or
 					// check the right hand side...
-					rs.getPositionX() >= this.getPositionX() && rs.getPositionX() <= this.getPositionX() + this.getNumber()
+					rs.getPositionX() >= this.getPositionX() && rs.getPositionX() <= this.getPositionX() + (this.getNumber() + this.getEnlightedSquares("right").size())
 				)
 				&& // and
 				( // second part: check y
 					// check the bottom side
-					rs.getPositionY() >= this.getPositionY() && rs.getPositionY() <= this.getPositionY() + this.getNumber()
+					rs.getPositionY() >= this.getPositionY() && rs.getPositionY() <= this.getPositionY() + (this.getNumber() + this.getEnlightedSquares("underneath").size())
 					|| // ...
 					// check the upper side
-					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - this.getNumber()
+					rs.getPositionY() <= this.getPositionY() && rs.getPositionY() >= this.getPositionY() - (this.getNumber() + this.getEnlightedSquares("above").size())
 				)
 				&& // ...
 				(
@@ -125,6 +129,66 @@ public class NumberSquare extends SquareBase implements Serializable {
 	 */
 	public boolean isNumberSquare(){
 		return true;
+	}
+	
+	/**
+	 * 
+	 * @return a list of squares that are englighted by this lightsource
+	 */
+	public ArrayList<RaySquare> getEnlightedSquares(){
+		return this.englighted_squares;
+	}
+	
+	/**
+	 * 
+	 * @param a side (left,right,above,underneath)
+	 * @return a list of squares that are enlighted by this lightsource and on the specified side
+	 */
+	public ArrayList<RaySquare> getEnlightedSquares(String side){
+		ArrayList<RaySquare> squares = new ArrayList<RaySquare>();
+		for(RaySquare square : this.englighted_squares){
+			if(side.equals("left") && square.getPositionY() == this.getPositionY() && square.getPositionX() < this.getPositionX()){
+				squares.add(square);
+			}else if(side.equals("right") && square.getPositionY() == this.getPositionY() && square.getPositionX() > this.getPositionX()){
+				squares.add(square);
+			}else if(side.equals("above") && square.getPositionX() == this.getPositionX() && square.getPositionY() < this.getPositionY()){
+				squares.add(square);
+			}else if(side.equals("underneath") && square.getPositionX() == this.getPositionX() && square.getPositionY() > this.getPositionY()){
+				squares.add(square);
+			}
+		}
+		return squares;
+	}
+	
+	/**
+	 * 
+	 * @param a square to add to the enlighed list
+	 */
+	public void addEnlightedSquare(RaySquare square){
+		this.englighted_squares.add(square);
+		this.number = this.original_number - this.englighted_squares.size();
+	}
+	
+	/**
+	 * 
+	 * @param a square to remove from the enlighted list
+	 */
+	public void removeEnlightedSquare(RaySquare square){
+		this.englighted_squares.remove(square);
+		this.number = this.original_number - this.englighted_squares.size();
+	}
+	
+	/**
+	 * 
+	 * @param an index on which a square should be removed from the enlighted list
+	 */
+	public void removeEnlightedSquare(int index){
+		this.englighted_squares.remove(index);
+		this.number = this.original_number - this.englighted_squares.size();
+	}
+	
+	public void clearEnlightedSquares(){
+		this.englighted_squares = new ArrayList<RaySquare>();
 	}
 
 }

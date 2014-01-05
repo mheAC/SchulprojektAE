@@ -277,24 +277,69 @@ public class GameGrid implements Serializable{
 	 * @param lightSource the light source
 	 * @param target square
 	 * @return boolean, whether squares were enlighted
+	*/
+	public boolean enlight(NumberSquare lightSource, SquareBase target){
+		ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
+		
+		this.unenlight(lightSource, target.getRelativePositionTo(lightSource));
+		for(int i = 0; i < squares.size(); i++) {
+			SquareBase square = squares.get(i);
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(lightSource));
+		}
+		if(squares.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param a NumberSquare as lightSource
+	 * @param side as String (left,right,above,underneath)
 	 */
-  public boolean enlight(NumberSquare lightSource, SquareBase target){
-    ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
-    if(lightSource.getPositionY() == target.getPositionY()){
-      for(SquareBase square : squares) {
-    	this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(Direction.HORIZONTAL));
-      }
-    }else if(lightSource.getPositionX() == target.getPositionX()){
-      for(SquareBase square : squares) {
-        this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(Direction.VERTICAL));
-      }
-    }
-    lightSource.setNumber(lightSource.getNumber()-squares.size());
-    if(squares.size()>0){
-      return true;
-    }else{
-      return false;
-    }
+	public void unenlight(NumberSquare lightSource, String side){
+		for(RaySquare square : lightSource.getEnlightedSquares(side)){
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
+			lightSource.removeEnlightedSquare(square);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param lightSource
+	 */
+	public void unenlight(NumberSquare lightSource){
+		for(RaySquare square : lightSource.getEnlightedSquares()){
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
+			lightSource.removeEnlightedSquare(square);
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param square
+	 * @return
+	 * unenlights a square and all squares that can't be enlighted anymore
+	 */
+	public boolean unenlight(RaySquare square){
+		if(square.getClass() == RaySquare.class){
+			ArrayList<RaySquare> squaresToUnenlight;
+			String relativPositionToLightsource = square.getRelativePositionTo(square.getLightSource());
+			squaresToUnenlight = square.getLightSource().getEnlightedSquares(relativPositionToLightsource);
+			for(RaySquare tmpSquare : squaresToUnenlight){
+				if(tmpSquare.getRelativePositionTo(square) == relativPositionToLightsource){
+					this.setSquare(tmpSquare.getPositionX(), tmpSquare.getPositionY(), tmpSquare.getAsUntypedSquare());
+					tmpSquare.getLightSource().removeEnlightedSquare(tmpSquare);
+				}
+			}
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
+			square.getLightSource().removeEnlightedSquare(square);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
   /**
@@ -313,31 +358,32 @@ public class GameGrid implements Serializable{
 	      SquareBase tempSquare = target;
 	      int x = target.getPositionX();
 	      while(tempSquare.getPositionX()>lightSource.getPositionX()){
-          //only can be enlight if untyped square
-          if(tempSquare.getClass() == UntypedSquare.class)
-            squares.add(tempSquare);
-          else{
-            squares = new ArrayList<SquareBase>();
-            break;
-          }
-          x --;
-          tempSquare = this.getSquare(x, target.getPositionY());
+	          //only can be enlight if untyped square
+	          if(tempSquare.getClass() == UntypedSquare.class || (tempSquare.getClass() == RaySquare.class && ((RaySquare)tempSquare).getLightSource() == lightSource))
+	            squares.add(tempSquare);
+	          else{
+	            squares = new ArrayList<SquareBase>();
+	            break;
+	          }
+	          x --;
+	          tempSquare = this.getSquare(x, target.getPositionY());
 	      }
 	    }
 	    //target is on the left side from lightsource and is reachable by lightsource
 	    else if(target.getPositionX()<lightSource.getPositionX() && lightSource.canEnlight(target)){
-        SquareBase tempSquare = target;
-        int x = target.getPositionX();
-        while(tempSquare.getPositionX()<lightSource.getPositionX()){
-          if(tempSquare.getClass() == UntypedSquare.class)
-            squares.add(tempSquare);
-          else{
-	          squares = new ArrayList<SquareBase>();
-	          break;
-          }
-          x ++;
-          tempSquare = this.getSquare(x, target.getPositionY());
-        }
+	        SquareBase tempSquare = target;
+	        int x = target.getPositionX();
+	        while(tempSquare.getPositionX()<lightSource.getPositionX()){
+	          if(tempSquare.getClass() == UntypedSquare.class || (tempSquare.getClass() == RaySquare.class && ((RaySquare)tempSquare).getLightSource() == lightSource)){
+	            squares.add(tempSquare);
+	          }
+	          else{
+		          squares = new ArrayList<SquareBase>();
+		          break;
+	          }
+	          x ++;
+	          tempSquare = this.getSquare(x, target.getPositionY());
+	        }
 	    }
 	  }
 	  //target is in the same coloumn with light source
@@ -348,7 +394,7 @@ public class GameGrid implements Serializable{
         int y = target.getPositionY();
         while(tempSquare.getPositionY()<lightSource.getPositionY()){
           //only can be enlight if untyped square
-          if(tempSquare.getClass() == UntypedSquare.class)
+          if(tempSquare.getClass() == UntypedSquare.class || (tempSquare.getClass() == RaySquare.class && ((RaySquare)tempSquare).getLightSource() == lightSource))
             squares.add(tempSquare);
           else{
             squares = new ArrayList<SquareBase>();
@@ -360,18 +406,18 @@ public class GameGrid implements Serializable{
 	    }
 	    //target is on the under the lightsource and is reachable by lightsource
 	    else if(target.getPositionY()>lightSource.getPositionY() && lightSource.canEnlight(target)){
-        SquareBase tempSquare = target;
-        int y = target.getPositionY();
-        while(tempSquare.getPositionY()>lightSource.getPositionY()){
-          if(tempSquare.getClass() == UntypedSquare.class)
-            squares.add(tempSquare);
-          else{
-            squares = new ArrayList<SquareBase>();
-            break;
-          }
-          y --;
-          tempSquare = this.getSquare(target.getPositionX(), y);
-        }
+	        SquareBase tempSquare = target;
+	        int y = target.getPositionY();
+	        while(tempSquare.getPositionY()>lightSource.getPositionY()){
+	          if(tempSquare.getClass() == UntypedSquare.class || (tempSquare.getClass() == RaySquare.class && ((RaySquare)tempSquare).getLightSource() == lightSource))
+	            squares.add(tempSquare);
+	          else{
+	            squares = new ArrayList<SquareBase>();
+	            break;
+	          }
+	          y --;
+	          tempSquare = this.getSquare(target.getPositionX(), y);
+	        }
 	    }
 	  }
 	  return squares;
@@ -408,7 +454,9 @@ public class GameGrid implements Serializable{
 	 * @param square the square
 	 */
 	public void setSquare(int x, int y, SquareBase square){
-		this.squares.set(y*this.rows+x, square);
+		
+		//System.out.println(this.squares.get((this.cols*y)+x).getPositionY()+" "+this.squares.get((this.cols*y)+x).getPositionX());
+		this.squares.set((this.cols*y)+x, square);
 	}
 
 	/**

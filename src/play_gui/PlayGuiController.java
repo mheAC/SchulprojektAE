@@ -3,10 +3,12 @@ package play_gui;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import engine.GameGrid;
 import engine.NumberSquare;
+import engine.RaySquare;
 import engine.SquareBase;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
@@ -54,8 +56,24 @@ public class PlayGuiController {
 		if(square.isNumberSquare()){
 			mainWindow.setActiveCell(cell);
 		}else if(mainWindow.hasActiveCell()){
-			mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
-			mainWindow.getGameGrid().log();
+			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
+			if(enlighted){
+				mainWindow.getGameGrid().log();
+				mainWindow.repaintGameGrid();
+			}else if(square.isRaySquare()){
+				//doesent work :(
+				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
+				//mainWindow.setActiveCell(mainWindow.getCellByPosition(lightSource.getPositionX(), lightSource.getPositionY()));
+				//gridCellEntered(cell,mainWindow);
+			}else{
+				mainWindow.releaseActiveCell();
+			}
+		}
+	}
+	
+	public static void gridCellRightClicked(JGameSquare cell, MainWindow mainWindow){
+		if(cell.getRepresentedSquare().isRaySquare() && ((RaySquare) cell.getRepresentedSquare()).getLightSource() == mainWindow.getActiveCell().getRepresentedSquare()){
+			mainWindow.getGameGrid().unenlight((RaySquare) cell.getRepresentedSquare());
 			mainWindow.repaintGameGrid();
 		}
 	}
@@ -74,6 +92,19 @@ public class PlayGuiController {
 			while(squaresIterator.hasNext()){
 				squaresIterator.next().setBackground(Color.LIGHT_GRAY);
 			}
+		}
+	}
+	
+	public static void stepBack(MainWindow mainWindow){
+		try{
+			GameGrid lastGameGrid = mainWindow.getGameGrid().getLoghandler().getBack();
+			System.out.println(lastGameGrid.getSquare(4, 0).getClass());
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(lastGameGrid);
+		}catch(NullPointerException e){
+			mainWindow.showAlert("Rückgängig machen nicht möglich.");
+		}catch(EmptyStackException e){
+			mainWindow.showAlert("Kein letzte Aktion vorhanden.");
 		}
 	}
 	

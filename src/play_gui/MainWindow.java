@@ -14,9 +14,7 @@ import javax.swing.*;
 
 import engine.*;
 import gui.JGameSquare;
-import play_gui.listener.FileDropListener;
-import play_gui.listener.GameGridCellListener;
-import play_gui.listener.NewGameBtnListener;
+import play_gui.listener.*;
 
 
 public class MainWindow extends JFrame{
@@ -27,14 +25,10 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
-	private LogHandler logHandler; // a log handler instale
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
 		super("Lichtstrahlen");
-		
-		//initialize Loghandler
-		this.logHandler = new LogHandler();
 		
 		//initialize panel
 		JPanel panel = new JPanel();
@@ -106,9 +100,15 @@ public class MainWindow extends JFrame{
 				pTmp.setRepresentingSquare(s);
 				if(s.getClass() == NumberSquare.class)
 					pTmp.getTextLabel().setText(s.getPrintableValue());
+					if(this.hasActiveCell() && this.getActiveCell().getRepresentedSquare() == pTmp.getRepresentedSquare()){
+						this.setActiveCell(pTmp);
+					}
 				else if(s.getClass() == RaySquare.class){
-					//TODO: autsource this!
+					//TODO: outsource this!
 					String imageType = "horizontal-line.png";
+					if(((RaySquare) s).getDirection() == Direction.HORIZONTAL){
+						imageType = "vertical-line.png";
+					}
 			        File file = new File("assets"+System.getProperty("file.separator")+imageType);
 			        BufferedImage image;
 					try {
@@ -152,7 +152,7 @@ public class MainWindow extends JFrame{
 			this.activeCell.setBackground(Color.WHITE);
 		}
 		this.activeCell = cell;
-		this.activeCell.setBackground(Color.GRAY);
+		this.activeCell.setBackground(Color.LIGHT_GRAY);
 	}
 	
 	public void releaseActiveCell(){
@@ -223,7 +223,7 @@ public class MainWindow extends JFrame{
 	public void clearHover(){
 		Component[] components = this.gameGridPanel.getComponents();
 		for(int i=0;i < components.length; i++){
-			if(this.hasActiveCell() && this.activeCell.getPosition() != i && !(components[i].getClass() == JGameSquare.class && ((JGameSquare) components[i]).getRepresentedSquare().isRaySquare())){
+			if(this.hasActiveCell() && this.activeCell != components[i]){
 				components[i].setBackground(Color.WHITE);
 			}
 		}
@@ -255,15 +255,14 @@ public class MainWindow extends JFrame{
 		if(toolbar == null){
 			JButton newGameBtn = new JButton("Neues Spiel");
 			newGameBtn.addActionListener(new NewGameBtnListener());
+			JButton backBtn = new JButton("Rückgäng");
+			backBtn.addActionListener(new BackBtnListener());
 			this.toolbar = new JToolBar();
 			this.toolbar.setFloatable(false);
 			this.toolbar.add(newGameBtn);
+			//this.toolbar.add(backBtn); TODO fix loghanlder
 		}
 		return this.toolbar;
 	}
 	
-	//returns the loghandler
-	public LogHandler getLogHandler(){
-		return this.logHandler;
-	}
 }

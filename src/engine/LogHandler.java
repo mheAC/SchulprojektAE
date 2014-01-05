@@ -32,6 +32,7 @@ public class LogHandler {
 	 * @param gs the new stack
 	 */
 	public void setStack(GameGrid gs){
+		
 		stack1.push(gs);
 	}
 	
