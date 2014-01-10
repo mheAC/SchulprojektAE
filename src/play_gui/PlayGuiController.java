@@ -58,7 +58,6 @@ public class PlayGuiController {
 		}else if(mainWindow.hasActiveCell()){
 			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
-				mainWindow.getGameGrid().log();
 				mainWindow.repaintGameGrid();
 			}else if(square.isRaySquare()){
 				//doesent work :(
@@ -96,16 +95,7 @@ public class PlayGuiController {
 	}
 	
 	public static void stepBack(MainWindow mainWindow){
-		try{
-			GameGrid lastGameGrid = mainWindow.getGameGrid().getLoghandler().getBack();
-			System.out.println(lastGameGrid.getSquare(4, 0).getClass());
-			mainWindow.clearGameGrid();
-			mainWindow.setGameGrid(lastGameGrid);
-		}catch(NullPointerException e){
-			mainWindow.showAlert("Rückgängig machen nicht möglich.");
-		}catch(EmptyStackException e){
-			mainWindow.showAlert("Kein letzte Aktion vorhanden.");
-		}
+		
 	}
 	
 	//fired when mouse exited a grid cell

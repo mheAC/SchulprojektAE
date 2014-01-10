@@ -5,10 +5,10 @@ import java.awt.*;
 import javax.swing.*;
 
 import engine.GameGrid;
-import engine.LogHandler;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.loghandler.receiver.LogHandler;
 
 
 // TODO: Javadoc kontrollieren
@@ -26,8 +26,6 @@ public class MainWindow {
 	/** The main panel. */
 	private JPanel mainPanel;
 	
-	/** The lh. */
-	private LogHandler lh;
 	
 	/** The remove width btn. */
 	private JMenuItem saveBtn,
@@ -47,7 +45,6 @@ public class MainWindow {
 	 * Default constructor.
 	 */
 	public MainWindow() {
-		this.lh = new LogHandler();
 
 		mainFrame = new JFrame("Lichststrahlen Spiel");
 		mainPanel = new JPanel();
@@ -73,14 +70,7 @@ public class MainWindow {
 		removeWidthBtn = new JMenuItem("Spalte entfernen");
 	}
 	
-	/**
-	 * Gets the log handler.
-	 *
-	 * @return the log handler
-	 */
-	public LogHandler getLogHandler(){
-		return this.lh;
-	}
+	
 	
 	/**
 	 * Builds the window.
@@ -149,7 +139,7 @@ public class MainWindow {
 			if(gs.getRepresentedSquare().getClass().equals(new RaySquare(0,0).getClass())) {
 				RaySquare rs = (RaySquare)gs.getRepresentedSquare();
 				gs.setText(rs.getPrintableValue()); // TODO as soon as drawing works here, this line can be removed
-				gs.drawLine(rs.getDirection(), this.lh, data); // for rays of ray squares
+				gs.drawLine(rs.getDirection(), this.data.getLogHandler(), data ,this.data.getController()); // for rays of ray squares
 			}
 		}
 		mainPanel.repaint();
