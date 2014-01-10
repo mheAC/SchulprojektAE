@@ -1,12 +1,26 @@
 package controller;
 
+import engine.Direction;
+import engine.GameGrid;
+import engine.NumberSquare;
+import engine.RaySquare;
+import engine.SquareBase;
+import engine.storage_handler.StorageHandler;
+import gui.JGameSquare;
+import gui.JOpenFileDialog;
+import gui.MainWindow;
+import gui.StartWindow;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,24 +28,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.RepaintManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import engine.*;
-import engine.storage_handler.StorageHandler;
-import gui.JGameSquare;
-import gui.JOpenFileDialog;
-import gui.MainWindow;
-import gui.StartWindow;
-
 // TODO: Javadoc kontrollieren
 /**
  * The Class Main.
  */
-public class Main implements ChangeListener, ActionListener, MouseListener, CaretListener {
+public class Main implements ChangeListener, ActionListener, MouseListener, MouseMotionListener, CaretListener {
 	
 	/** The config win. */
 	private StartWindow configWin;
@@ -65,6 +77,18 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 	
 	/** The properties. */
 	private Properties properties;
+	
+	/** The MousePressed GameSquare */
+	private JGameSquare firstGS;
+	private Point pointStart = null;
+	private Point pointEnd   = null;
+	
+	/** The MouseReleased GameSquare */
+	private JGameSquare lastGS;
+	
+	/** To count the Lines */
+	private int startpos;
+	private int endpos;
 	//private int maxAvailableCols;
 	
 	// Storage for current gameData
@@ -85,6 +109,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		drawCount = 0;
 		NumberPos = null;
 		drawing = false;
+		firstGS = null;
+		lastGS = null;
+		startpos = 0;
+		endpos = 0;
 		// props
 		this.properties = new Properties();
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.cfg"));
@@ -354,14 +382,37 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
          * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
          */
         @Override
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {
+        	firstGS = (JGameSquare)e.getComponent();
+        	SquareBase s = firstGS.getRepresentedSquare();
+        	pointStart = e.getPoint();
+        }
         
         /**
          * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
          */
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+        	pointStart = null;
+        	lastGS = (JGameSquare)e.getComponent();
+        	SquareBase s = lastGS.getRepresentedSquare();
+        	
+        }
+        
+        @Override
+    	public void mouseDragged(MouseEvent e) {
+    		// TODO Auto-generated method stub
+        	pointEnd = e.getPoint();
+        	
+    	}
 
+    	@Override
+    	public void mouseMoved(MouseEvent e) {
+    		// TODO Auto-generated method stub
+    		pointEnd = e.getPoint();
+            //repaint();
+    	}
+ 
         /**
          * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
          */
@@ -634,5 +685,4 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Care
 		Dimension RayEnd = new Dimension(endx, endy);
 		return setRayFromStartToEnd(RayStart, RayOverNumber, RayEnd);
 	}
-
 }
