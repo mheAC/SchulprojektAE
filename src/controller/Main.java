@@ -246,9 +246,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 			final ImageIcon ii = new ImageIcon(this.getClass().getResource("/gui/elements/resources/edit.png"));
 			StringBuilder text = new StringBuilder("Lichtstrahlen Spiel  - AE@BWV-Aachen | 2013\n\nGruppe:\n"); 
 			List<String> arr = new ArrayList<String>();
+			arr.add("\tYusuf Congar\n");
 			arr.add("\tBassauer\n");
 			arr.add("\tBolzi\n");
-			arr.add("\tKingKong\n");
 			arr.add("\tGriesbach\n");
 			arr.add("\tHerpi\n");
 			arr.add("\tSoiron\n");
