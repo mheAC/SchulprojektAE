@@ -252,10 +252,10 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 			StringBuilder text = new StringBuilder("Lichtstrahlen Spiel  - AE@BWV-Aachen | 2013\n\nGruppe:\n"); 
 			List<String> arr = new ArrayList<String>();
 			arr.add("\tBassauer\n");
-			arr.add("\tBolz\n");
-			arr.add("\tCongar\n");
+			arr.add("\tBolzi\n");
+			arr.add("\tKingKong\n");
 			arr.add("\tGriesbach\n");
-			arr.add("\tHerpers\n");
+			arr.add("\tHerpi\n");
 			arr.add("\tSoiron\n");
 			while(!arr.isEmpty()) {
 				int pos = (int)(arr.size()*Math.random()); // make it random!
@@ -623,7 +623,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 	 * @param row the row
 	 */
 	private void markTheWayToNumberSquare(int col, int row){
-		//Zeilenweise abw???rts
+		//Zeilenweise abwaerts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -633,7 +633,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					break;
 				
 			}
-		//Zeilenweise aufw???rts
+		//Zeilenweise aufwaerts
 		for(int i = row-1; i > -1; i--)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -643,7 +643,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					break;
 			}
 		
-		//Spaltenweise vorw???rts
+		//Spaltenweise vorwaerts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -652,7 +652,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 				else
 					break;
 			}
-		//Spaltenweise vorw???rts
+		//Spaltenweise vorwaerts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
