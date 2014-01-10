@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import engine.loghandler.commands.Save;
 import engine.loghandler.invoker.Controller;
 import engine.loghandler.receiver.LogHandler;
 
@@ -35,6 +36,9 @@ public class GameGrid implements Serializable{
 	
 	//Controller
 	private Controller cr;
+	
+	//Save
+	private Save sv;
 
 	/**
 	 * get the size of the gamegrid.
@@ -62,7 +66,9 @@ public class GameGrid implements Serializable{
 	public GameGrid() {
 		// Default grid dimensions
 		lh = new LogHandler();
+		sv = new Save(lh);
 		cr = new Controller();
+		cr.setCommands(sv);
 		this.cols = 10;
 		this.rows = 10;
 		generateSquares();

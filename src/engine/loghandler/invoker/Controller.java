@@ -9,6 +9,7 @@ import java.util.Stack;
 import engine.GameGrid;
 import engine.loghandler.commands.Command;
 import engine.loghandler.commands.NoCommand;
+import engine.loghandler.commands.Save;
 
 /**
  *
@@ -16,6 +17,10 @@ import engine.loghandler.commands.NoCommand;
  */
 public class Controller {
 	private Command[] commands = new Command[1];
+	
+	public void setCommands(Command cm) {
+		commands[1] = cm;
+	}
 	
 	private Stack<Command> undo = new Stack<Command>();
 	

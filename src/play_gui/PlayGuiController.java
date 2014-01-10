@@ -39,6 +39,7 @@ public class PlayGuiController {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			mainWindow.showAlert("Spiel konnte nicht geladen werden.");
 		}
 	}

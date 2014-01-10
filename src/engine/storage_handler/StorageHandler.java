@@ -17,7 +17,6 @@ import java.util.Scanner;
 import com.google.gson.*;
 
 import engine.GameGrid;
-import engine.LogHandler;
 import engine.SquareBase;
 
 // TODO: Javadoc kontrollieren
@@ -64,7 +63,7 @@ public class StorageHandler {
 			Gson gson = new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
 
 		        public boolean shouldSkipClass(Class<?> clazz) {
-		            return clazz == LogHandler.class;
+		            return false;//clazz == LogHandler.class;
 		        }
 
 		        /**

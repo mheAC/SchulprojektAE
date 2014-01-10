@@ -270,7 +270,7 @@ public class MainWindow extends JFrame{
 			this.toolbar = new JToolBar();
 			this.toolbar.setFloatable(false);
 			this.toolbar.add(newGameBtn);
-			//this.toolbar.add(backBtn); TODO fix loghanlder
+			this.toolbar.add(backBtn);
 		}
 		return this.toolbar;
 	}

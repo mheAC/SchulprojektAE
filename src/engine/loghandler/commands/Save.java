@@ -17,6 +17,7 @@ public class Save implements Command{
 	
 	public Save(LogHandler saveobj){
 		this.save = saveobj;
+		
 	}
 
 	/* (non-Javadoc)
