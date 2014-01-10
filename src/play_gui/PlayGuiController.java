@@ -59,6 +59,7 @@ public class PlayGuiController {
 			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
 				mainWindow.repaintGameGrid();
+				mainWindow.getGameGrid().getController().fillStack(mainWindow.getGameGrid());
 			}else if(square.isRaySquare()){
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
@@ -95,6 +96,7 @@ public class PlayGuiController {
 	}
 	
 	public static void stepBack(MainWindow mainWindow){
+		
 		
 	}
 	
