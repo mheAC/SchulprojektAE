@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import engine.loghandler.commands.Save;
 import engine.loghandler.invoker.Controller;
 import engine.loghandler.receiver.LogHandler;
@@ -39,6 +37,7 @@ public class GameGrid implements Serializable{
 	
 	//Save
 	private Save sv;
+
 
 	/**
 	 * get the size of the gamegrid.

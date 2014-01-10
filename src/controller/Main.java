@@ -15,14 +15,10 @@ import gui.StartWindow;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +31,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.RepaintManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
@@ -88,11 +83,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 	private JGameSquare lastGS;
 	private SquareBase lastSB;
 	
-	/** To count the Lines */
-	private int startpos;
-	private int endpos;
-	//private int maxAvailableCols;
-	
 	// Storage for current gameData
 	/** The gg. */
 	GameGrid gg;
@@ -113,8 +103,6 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 		drawing = false;
 		firstGS = null;
 		lastGS = null;
-		startpos = 0;
-		endpos = 0;
 		lastSB = null;
 		firstSB = null;
 		// props
@@ -251,11 +239,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 			final ImageIcon ii = new ImageIcon(this.getClass().getResource("/gui/elements/resources/edit.png"));
 			StringBuilder text = new StringBuilder("Lichtstrahlen Spiel  - AE@BWV-Aachen | 2013\n\nGruppe:\n"); 
 			List<String> arr = new ArrayList<String>();
+			arr.add("\tYusuf Congar\n");
 			arr.add("\tBassauer\n");
-			arr.add("\tBolz\n");
-			arr.add("\tCongar\n");
+			arr.add("\tBolzi\n");
 			arr.add("\tGriesbach\n");
-			arr.add("\tHerpers\n");
+			arr.add("\tHerpi\n");
 			arr.add("\tSoiron\n");
 			while(!arr.isEmpty()) {
 				int pos = (int)(arr.size()*Math.random()); // make it random!
@@ -623,7 +611,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 	 * @param row the row
 	 */
 	private void markTheWayToNumberSquare(int col, int row){
-		//Zeilenweise abw???rts
+		//Zeilenweise abwaerts
 		for(int i = row+1; i < this.mainWin.getRows(); i++)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -633,7 +621,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					break;
 				
 			}
-		//Zeilenweise aufw???rts
+		//Zeilenweise aufwaerts
 		for(int i = row-1; i > -1; i--)
 			if(i != row){
 				if(this.mainWin.getJGameSquareAt(col, i) != null && 
@@ -643,7 +631,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					break;
 			}
 		
-		//Spaltenweise vorw???rts
+		//Spaltenweise vorwaerts
 		for(int i = col+1; i < this.mainWin.getCols(); i++)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
@@ -652,7 +640,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 				else
 					break;
 			}
-		//Spaltenweise vorw???rts
+		//Spaltenweise vorwaerts
 		for(int i = col-1; i > -1; i--)
 			if(i != col){
 				if(this.mainWin.getJGameSquareAt(i, row) != null &&
