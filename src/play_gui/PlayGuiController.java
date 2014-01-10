@@ -63,8 +63,8 @@ public class PlayGuiController {
 		}else if(mainWindow.hasActiveCell()){
 			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
-				mainWindow.getGameGrid().log();
 				mainWindow.repaintGameGrid();
+				mainWindow.getGameGrid().getController().fillStack(mainWindow.getGameGrid());
 			}else if(square.isRaySquare()){
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
@@ -101,16 +101,16 @@ public class PlayGuiController {
 	}
 	
 	public static void stepBack(MainWindow mainWindow){
-		try{
-			GameGrid lastGameGrid = mainWindow.getGameGrid().getLoghandler().getBack();
-			System.out.println(lastGameGrid.getSquare(4, 0).getClass());
-			mainWindow.clearGameGrid();
-			mainWindow.setGameGrid(lastGameGrid);
-		}catch(NullPointerException e){
-			mainWindow.showAlert("Rückgängig machen nicht möglich.");
-		}catch(EmptyStackException e){
-			mainWindow.showAlert("Kein letzte Aktion vorhanden.");
+		GameGrid gg;
+		try {
+			gg = mainWindow.getGameGrid().getController().undoStack(mainWindow.getGameGrid());
+			mainWindow.setGameGrid(gg);
+			mainWindow.repaintGameGrid();
+			
+		} catch (NullPointerException e) {
+			System.out.println("Loghandler not filled");
 		}
+		
 	}
 	
 	//fired when mouse exited a grid cell

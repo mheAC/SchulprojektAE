@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import engine.loghandler.invoker.Controller;
+import engine.loghandler.receiver.LogHandler;
+
 
 // TODO: Javadoc kontrollieren
 /**
@@ -29,6 +32,9 @@ public class GameGrid implements Serializable{
 	
 	//Loghandler
 	private LogHandler lh;
+	
+	//Controller
+	private Controller cr;
 
 	/**
 	 * get the size of the gamegrid.
@@ -56,6 +62,7 @@ public class GameGrid implements Serializable{
 	public GameGrid() {
 		// Default grid dimensions
 		lh = new LogHandler();
+		cr = new Controller();
 		this.cols = 10;
 		this.rows = 10;
 		generateSquares();
@@ -443,12 +450,12 @@ public class GameGrid implements Serializable{
 	}
 
 	
-	public LogHandler getLoghandler() {
+	public LogHandler getLogHandler() {
 		return lh;
 	}
 	
-	public void log(){
-		this.lh.setStack(this);
+	public Controller getController() {
+		return cr;
 	}
 	
 	/**
