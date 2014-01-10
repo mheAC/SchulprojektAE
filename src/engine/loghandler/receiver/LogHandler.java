@@ -6,6 +6,8 @@ package engine.loghandler.receiver;
 
 import java.util.Stack;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import engine.GameGrid;
 
 // TODO: Javadoc kontrollieren
@@ -18,7 +20,7 @@ public class LogHandler {
 	private Stack<GameGrid> stack1;
 	
 	/** The stack2. */
-	private Stack<GameGrid> stack2;
+//	private Stack<GameGrid> stack2;
 	
 	/**
 	 * Instantiates a new log handler.
@@ -37,9 +39,10 @@ public class LogHandler {
 		
 		stack1.push(gg);
 	}
-	public void delStack(GameGrid gg){
-		
-		stack1.pop();
+	public GameGrid delStack(GameGrid gg){
+		GameGrid ggrid;
+		ggrid = stack1.pop();
+		return ggrid;
 	}
 	
 //	/**

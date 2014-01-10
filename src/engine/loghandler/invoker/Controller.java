@@ -28,9 +28,10 @@ public class Controller {
 		System.out.println("Loghandler gg added");
 		this.commands[1].execute(gg);
 	}
-	public void undoStack(GameGrid gg){
+	public GameGrid undoStack(GameGrid gg){
 		System.out.println("Loghandler gg del");
-		this.commands[1].undo(gg);
+		gg = this.commands[1].undo(gg);
+		return gg;
 	}
 	
 
