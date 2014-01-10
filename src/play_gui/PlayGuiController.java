@@ -96,7 +96,15 @@ public class PlayGuiController {
 	}
 	
 	public static void stepBack(MainWindow mainWindow){
-		
+		GameGrid gg;
+		try {
+			gg = mainWindow.getGameGrid().getController().undoStack(mainWindow.getGameGrid());
+			mainWindow.setGameGrid(gg);
+			mainWindow.repaintGameGrid();
+			
+		} catch (NullPointerException e) {
+			System.out.println("Loghandler not filled");
+		}
 		
 	}
 	

@@ -32,8 +32,8 @@ public class Save implements Command{
 	 * @see engine.loghandler.commands.Command#undo()
 	 */
 	@Override
-	public void undo(GameGrid gg) {
-		this.save.delStack(gg);
+	public GameGrid undo(GameGrid gg) {
+		return this.save.delStack(gg);
 	}
 	
 }
