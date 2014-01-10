@@ -5,6 +5,7 @@ import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.UntypedSquare;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
 import gui.JOpenFileDialog;
@@ -15,6 +16,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +45,7 @@ import javax.swing.event.ChangeListener;
 /**
  * The Class Main.
  */
-public class Main implements ChangeListener, ActionListener, MouseListener, MouseMotionListener, CaretListener {
+public class Main implements ChangeListener, ActionListener, MouseListener , CaretListener {
 	
 	/** The config win. */
 	private StartWindow configWin;
@@ -80,11 +82,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 	
 	/** The MousePressed GameSquare */
 	private JGameSquare firstGS;
-	private Point pointStart = null;
-	private Point pointEnd   = null;
+	private SquareBase firstSB;
 	
 	/** The MouseReleased GameSquare */
 	private JGameSquare lastGS;
+	private SquareBase lastSB;
 	
 	/** To count the Lines */
 	private int startpos;
@@ -113,6 +115,8 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 		lastGS = null;
 		startpos = 0;
 		endpos = 0;
+		lastSB = null;
+		firstSB = null;
 		// props
 		this.properties = new Properties();
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.cfg"));
@@ -383,9 +387,11 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
          */
         @Override
         public void mousePressed(MouseEvent e) {
-        	firstGS = (JGameSquare)e.getComponent();
-        	SquareBase s = firstGS.getRepresentedSquare();
-        	pointStart = e.getPoint();
+        	if(drawing){
+	        	firstGS = (JGameSquare)e.getComponent();
+	        	firstSB = firstGS.getRepresentedSquare();
+	        	System.out.println( firstSB.getPositionX() + " " + firstSB.getPositionY());
+        	}
         }
         
         /**
@@ -393,25 +399,17 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
          */
         @Override
         public void mouseReleased(MouseEvent e) {
-        	pointStart = null;
-        	lastGS = (JGameSquare)e.getComponent();
-        	SquareBase s = lastGS.getRepresentedSquare();
-        	
+        	if(drawing){
+	        	lastGS = (JGameSquare)e.getComponent();
+	        	lastSB = lastGS.getRepresentedSquare();
+	        	System.out.println( lastSB.getPositionX() + " " + lastSB.getPositionY());
+	        	drawCount = 0;
+				drawing = false;
+				((NumberSquare)NumberPos).setNumber(setRaysForNumber(firstSB, lastSB));
+				((JGameSquare)this.mainWin.getMainPanel().getComponent(gsPos)).getTextLabel().setText(FieldLength+"");
+				FieldLength = 0;
+        	}
         }
-        
-        @Override
-    	public void mouseDragged(MouseEvent e) {
-    		// TODO Auto-generated method stub
-        	pointEnd = e.getPoint();
-        	
-    	}
-
-    	@Override
-    	public void mouseMoved(MouseEvent e) {
-    		// TODO Auto-generated method stub
-    		pointEnd = e.getPoint();
-            //repaint();
-    	}
  
         /**
          * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
@@ -458,8 +456,9 @@ public class Main implements ChangeListener, ActionListener, MouseListener, Mous
 				if(this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.BLUE) ||
 				   this.mainWin.getJGameSquareAt(j, i).getBackground().equals(Color.GREEN))
 					//this.mainWin.getJGameSquareAt(j, i).setBg(defaultColor);
-					this.mainWin.getJGameSquareAt(j, i).clearPaint();
-				trough = true;
+					this.mainWin.getJGameSquareAt(j, i).setBackground(Color.GRAY);
+					this.mainWin.getJGameSquareAt(j, i).setRepresentingSquare(new UntypedSquare(j, i));
+					trough = true;
 			}
 		return trough;
 	}
