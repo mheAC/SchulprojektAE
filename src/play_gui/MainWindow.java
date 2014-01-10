@@ -25,7 +25,6 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
-	private boolean saveBtnVisible = false; //indicates if the save butten is visible
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
@@ -81,7 +80,9 @@ public class MainWindow extends JFrame{
 			this.repaintGameGrid();
 			
 			//Show save button
-			this.showSaveButton();
+			for(Component component : this.toolbar.getComponents()){
+				component.setVisible(true);
+			}
 			
 			// Add the panel to the main frame
 			this.add(this.gameGridPanel);
@@ -267,21 +268,19 @@ public class MainWindow extends JFrame{
 			newGameBtn.addActionListener(new NewGameBtnListener());
 			JButton backBtn = new JButton("Rückgäng");
 			backBtn.addActionListener(new BackBtnListener());
+			JButton saveGameBtn = new JButton("Spiechern");
+			saveGameBtn.addActionListener(new SaveGameBtnListener());
 			this.toolbar = new JToolBar();
 			this.toolbar.setFloatable(false);
 			this.toolbar.add(newGameBtn);
 			this.toolbar.add(backBtn);
+			this.toolbar.add(saveGameBtn);
+			
+			//hide unusable buttons before load
+			backBtn.setVisible(false);
+			saveGameBtn.setVisible(false);
 		}
 		return this.toolbar;
-	}
-	
-	public void showSaveButton(){
-		if(!this.saveBtnVisible){
-			JButton saveGameBtn = new JButton("Spiechern");
-			saveGameBtn.addActionListener(new SaveGameBtnListener());
-			this.getToolbar().add(saveGameBtn);
-			this.saveBtnVisible = true;
-		}
 	}
 	
 }
