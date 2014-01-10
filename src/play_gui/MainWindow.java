@@ -25,6 +25,7 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private boolean saveBtnVisible = false; //indicates if the save butten is visible
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
@@ -79,6 +80,9 @@ public class MainWindow extends JFrame{
 			
 			this.repaintGameGrid();
 			
+			//Show save button
+			this.showSaveButton();
+			
 			// Add the panel to the main frame
 			this.add(this.gameGridPanel);
 			this.backgroundImage.setVisible(false);
@@ -105,9 +109,15 @@ public class MainWindow extends JFrame{
 					}
 				else if(s.getClass() == RaySquare.class){
 					//TODO: outsource this!
-					String imageType = "horizontal-line.png";
+					String imageType = "";
+					if(((RaySquare) s).getDirection() == Direction.VERTICAL){
+						imageType = "horizontal-line.png";
+					}
 					if(((RaySquare) s).getDirection() == Direction.HORIZONTAL){
 						imageType = "vertical-line.png";
+					}
+					if(((RaySquare) s).isLastInRay(this.gameGrid)){
+						imageType = ((RaySquare) s).getPositionToLightsource()+"-break.png";
 					}
 			        File file = new File("assets"+System.getProperty("file.separator")+imageType);
 			        BufferedImage image;
@@ -263,6 +273,15 @@ public class MainWindow extends JFrame{
 			//this.toolbar.add(backBtn); TODO fix loghanlder
 		}
 		return this.toolbar;
+	}
+	
+	public void showSaveButton(){
+		if(!this.saveBtnVisible){
+			JButton saveGameBtn = new JButton("Spiechern");
+			saveGameBtn.addActionListener(new SaveGameBtnListener());
+			this.getToolbar().add(saveGameBtn);
+			this.saveBtnVisible = true;
+		}
 	}
 	
 }

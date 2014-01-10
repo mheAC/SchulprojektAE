@@ -17,6 +17,7 @@ import java.util.Scanner;
 import com.google.gson.*;
 
 import engine.GameGrid;
+import engine.LogHandler;
 import engine.SquareBase;
 
 // TODO: Javadoc kontrollieren
@@ -57,8 +58,24 @@ public class StorageHandler {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void persist(GameGrid gGrid, String filePath ) throws FileNotFoundException, IOException {
+		if(filePath.lastIndexOf(".ysams") + 1 <= 0)
+			filePath = filePath+".ysams";
 		if(useJson){
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
+
+		        public boolean shouldSkipClass(Class<?> clazz) {
+		            return clazz == LogHandler.class;
+		        }
+
+		        /**
+		          * Custom field exclusion goes here
+		          */
+		        public boolean shouldSkipField(FieldAttributes f) {
+		            return (f.getName().equals("lightSource") || f.getName().equals("englighted_squares"));
+		        }
+
+		     }).serializeNulls()
+		     .create();
 			PrintWriter writer = new PrintWriter(filePath, "UTF-8");
 			writer.println(gson.toJson(gGrid));
 			writer.close();

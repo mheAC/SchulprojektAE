@@ -103,5 +103,81 @@ public class RaySquare extends SquareBase implements Serializable {
 	public boolean isRaySquare(){
 		return true;
 	}
+	
+	public boolean isInSameRay(SquareBase square){
+		boolean isInSameRay = false;
+		try{
+			if(((RaySquare) square).getLightSource() == this.lightSource){
+				isInSameRay = true;
+			}
+		}catch(ClassCastException e){
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return isInSameRay;
+	}
+	
+	public boolean isLastInRay(GameGrid gameGrid){
+		int sameLineAround = 0;
+		SquareBase tmpSquare = null;
+		//check above
+		try{
+			tmpSquare = gameGrid.getSquare(this.getPositionX(),this.getPositionY()-1);
+			if(this.isInSameRay(tmpSquare) || (tmpSquare.isNumberSquare() && tmpSquare==this.lightSource))
+				sameLineAround ++;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		//check right
+		try{
+		tmpSquare = gameGrid.getSquare(this.getPositionX()+1,this.getPositionY());
+		if(this.isInSameRay(tmpSquare) || (tmpSquare.isNumberSquare() && tmpSquare==this.lightSource))
+			sameLineAround ++;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		//check underneath
+		try{
+		tmpSquare = gameGrid.getSquare(this.getPositionX(),this.getPositionY()+1);
+		if(this.isInSameRay(tmpSquare) || (tmpSquare.isNumberSquare() && tmpSquare==this.lightSource))
+			sameLineAround ++;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		//check left
+		try{
+		tmpSquare = gameGrid.getSquare(this.getPositionX()-1,this.getPositionY());
+		if(this.isInSameRay(tmpSquare) || (tmpSquare.isNumberSquare() && tmpSquare==this.lightSource))
+			sameLineAround ++;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+		if(sameLineAround<=1){
+			return true;
+		}else{
+			return false;
+		}
+				
+	}
+	
+	public String getPositionToLightsource(){
+		String positionToLightsource = "unset";
+		if(this.getPositionX() == this.lightSource.getPositionX()){
+			if(this.getPositionY() < this.lightSource.getPositionY()){
+				positionToLightsource = "above";
+			}else if(this.getPositionY() > this.lightSource.getPositionY()){
+				positionToLightsource = "underneath";
+			}
+		}else if(this.getPositionY() == this.lightSource.getPositionY()){
+			if(this.getPositionX() < this.lightSource.getPositionX()){
+				positionToLightsource = "left";
+			}else if(this.getPositionX() > this.lightSource.getPositionX()){
+				positionToLightsource = "right";
+			}
+		}
+		return positionToLightsource;
+	}
 
 }

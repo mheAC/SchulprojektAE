@@ -30,18 +30,23 @@ public class PlayGuiController {
 		StorageHandler storageHandler = new StorageHandler();
 		try {
 			GameGrid gameGrid = storageHandler.load(file);
+			if(gameGrid.getSquares().size()==0)
+				throw new Exception();
 			if(!mainWindow.setGameGrid(gameGrid)){
 				if(mainWindow.showConfirm("Wollen Sie den aktuellen Spielstand verwerfen")){
 					mainWindow.clearGameGrid();
 					mainWindow.setGameGrid(gameGrid);
 				}
 			}
-		} catch (NullPointerException e){
-			
 		} catch (Exception e) {
-			//mainWindow.showAlert("Spiel konnte nicht geladen werden.");
-			e.printStackTrace();
+			mainWindow.showAlert("Spiel konnte nicht geladen werden.");
 		}
+	}
+	
+	public static void saveGame(MainWindow mainWindow,File file){
+		System.out.println(file);
+		StorageHandler storageHandler = new StorageHandler();
+		storageHandler.persist(mainWindow.getGameGrid(), file);
 	}
 
 	//fired when a grid cell is clicked (activates the cell)

@@ -179,8 +179,13 @@ public class GameGrid implements Serializable{
 	 * @return the square
 	 */
 	public SquareBase getSquare(int posX,int posY){
-		SquareBase square = this.squares.get((this.cols*posY)+posX);
-		return square;
+		int position = (this.cols*posY)+posX;
+		if(position>0){
+			SquareBase square = this.squares.get(position);
+			return square;
+		}else{
+			return null;
+		}
 	}
 	
 	/**
