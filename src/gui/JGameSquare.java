@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import engine.*;
+import engine.loghandler.invoker.Controller;
+import engine.loghandler.receiver.LogHandler;
 
 // TODO: Javadoc kontrollieren
 /**
@@ -118,10 +120,11 @@ public class JGameSquare extends JPanel {
 	 * @param e the e
 	 * @param lh the lh
 	 */
-	public void drawLine(Direction e, LogHandler lh, GameGrid gg){
+	public void drawLine(Direction e, LogHandler lh, GameGrid gg, Controller cr){
 		switch(e){
 			case VERTICAL:
 				lh.setStack(gg);
+				
 				clearPaint();
 				drawVertikal();
 			break;
