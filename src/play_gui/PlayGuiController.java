@@ -103,8 +103,10 @@ public class PlayGuiController {
 	
 	public static void stepBack(MainWindow mainWindow){
 		try {
-			
-			mainWindow.setGameGrid(mainWindow.getGameGrid().getController().undoStack(mainWindow.getGameGrid()));
+			mainWindow.clearGameGrid();
+			GameGrid gameGrid = mainWindow.getGameGrid().getController().undoStack(mainWindow.getGameGrid());
+			System.out.println(gameGrid.toString());
+			mainWindow.setGameGrid(gameGrid);
 			mainWindow.repaintGameGrid();
 			
 		} catch (NullPointerException e) {
