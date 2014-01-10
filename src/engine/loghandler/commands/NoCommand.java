@@ -24,7 +24,7 @@ public class NoCommand implements Command{
 	 * @see engine.loghandler.commands.Command#undo()
 	 */
 	@Override
-	public GameGrid undo(GameGrid gg) {
+	public GameGrid undo() {
 		System.out.println("Kein Command gewählt.");
 		return null;
 	}

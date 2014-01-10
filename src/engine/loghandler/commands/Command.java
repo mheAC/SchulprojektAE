@@ -12,5 +12,5 @@ import engine.GameGrid;
  */
 public interface Command {
 	public void execute(GameGrid gg);
-	public GameGrid undo(GameGrid gg);
+	public GameGrid undo();
 }

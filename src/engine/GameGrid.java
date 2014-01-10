@@ -34,8 +34,8 @@ public class GameGrid implements Serializable{
 	
 	//Controller
 	private Controller cr;
-	
-	//Save
+
+	//save
 	private Save sv;
 
 
@@ -65,8 +65,8 @@ public class GameGrid implements Serializable{
 	public GameGrid() {
 		// Default grid dimensions
 		lh = new LogHandler();
-		sv = new Save(lh);
 		cr = new Controller();
+		sv = new Save(lh);
 		cr.setCommands(sv);
 		this.cols = 10;
 		this.rows = 10;

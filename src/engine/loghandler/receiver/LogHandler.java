@@ -39,10 +39,9 @@ public class LogHandler {
 		
 		stack1.push(gg);
 	}
-	public GameGrid delStack(GameGrid gg){
-		GameGrid ggrid;
-		ggrid = stack1.pop();
-		return ggrid;
+	public GameGrid delStack(){
+		
+		return stack1.pop();
 	}
 	
 //	/**
