@@ -282,5 +282,4 @@ public class MainWindow extends JFrame{
 		}
 		return this.toolbar;
 	}
-	
 }
