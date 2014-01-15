@@ -87,6 +87,18 @@ public class GameGrid implements Serializable{
 	}
 	
 	/**
+	 * Initialize GameGrid with a list of squares.
+	 *
+	 * @param cols the cols
+	 * @param rows the rows
+	 */
+	public GameGrid(int cols, int rows, ArrayList<SquareBase> squares) {
+		this.cols = cols;
+		this.rows = rows;
+		this.squares = squares;
+	}
+	
+	/**
 	 * Method to generate a square list once.
 	 */
 	private void generateSquares() {
@@ -571,4 +583,5 @@ public class GameGrid implements Serializable{
 			this.setGridSize(new Dimension((int)dim.getWidth()-(ff+1), (int)dim.getHeight()));
 		}
 	}
+	
 }
