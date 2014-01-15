@@ -64,7 +64,6 @@ public class PlayGuiController {
 			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
 				mainWindow.repaintGameGrid();
-				mainWindow.getGameGrid().getController().fillStack(mainWindow.getGameGrid());
 				try {
 					mainWindow.getLoghandler().log(mainWindow.getGameGrid());
 				} catch (Exception e) {

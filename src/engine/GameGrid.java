@@ -36,10 +36,10 @@ public class GameGrid implements Serializable{
 	//private LogHandler lh;
 	
 	//Controller
-	private Controller cr;
+	//private Controller cr;
 
 	//save
-	private Save sv;
+	//private Save sv;
 
 
 	/**
@@ -68,9 +68,9 @@ public class GameGrid implements Serializable{
 	public GameGrid() {
 		// Default grid dimensions
 		//lh = new LogHandler();
-		cr = new Controller();
+		//cr = new Controller();
 		//sv = new Save(lh);
-		cr.setCommands(sv);
+		//cr.setCommands(sv);
 		this.cols = 10;
 		this.rows = 10;
 		generateSquares();
@@ -474,11 +474,11 @@ public class GameGrid implements Serializable{
 		return lh;
 	}
 	*/
-	
+	/*
 	public Controller getController() {
 		return cr;
 	}
-	
+	*/
 	/**
 	 * Replace a Squarebase at x and y coordinates with another square.
 	 *
@@ -591,6 +591,6 @@ public class GameGrid implements Serializable{
 	public GameGrid copy() throws FileNotFoundException, IOException, ClassNotFoundException{
 		StorageHandler storageHandler = new StorageHandler();
 		storageHandler.persist(this, "tmp"+System.getProperty("file.separator")+"tmpGame");
-		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame");
+		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame.ysams");
 	}
 }

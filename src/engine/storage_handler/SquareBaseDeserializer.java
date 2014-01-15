@@ -23,7 +23,10 @@ class SquareBaseDeserializer implements JsonDeserializer<SquareBase> {
 		JsonObject jsonObject = json.getAsJsonObject();
 		if(jsonObject.has("number")){
 			return new NumberSquare(jsonObject.get("number").getAsInt(), jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
-		}else{
+		}else if(jsonObject.has("direction")){
+			return new RaySquare(jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
+		}
+		else{
 			return new UntypedSquare(jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
 		}
 	}
