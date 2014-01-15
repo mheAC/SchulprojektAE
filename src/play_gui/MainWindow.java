@@ -5,6 +5,7 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import engine.*;
 import gui.JGameSquare;
 import play_gui.listener.*;
+import loghandler2.*;
 
 
 public class MainWindow extends JFrame{
@@ -25,6 +27,7 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private Loghandler loghandler; //the loghandler for stepback functions
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
@@ -64,8 +67,19 @@ public class MainWindow extends JFrame{
 		this.repaint();
 	}
 	
+	public boolean setGameGrid(GameGrid gameGrid, boolean resetLoghandler) throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(resetLoghandler){
+			this.loghandler = new Loghandler(gameGrid);
+		}
+		
+		return this.setGameGrid(gameGrid);
+	}
+	
 	//sets the game grid and renders it
-	public boolean setGameGrid(GameGrid gameGrid){
+	public boolean setGameGrid(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.loghandler == null){
+			this.loghandler = new Loghandler(gameGrid);
+		}
 		if(this.gameGrid == null){
 			this.gameGrid = gameGrid;
 			
@@ -281,5 +295,9 @@ public class MainWindow extends JFrame{
 			saveGameBtn.setVisible(false);
 		}
 		return this.toolbar;
+	}
+	
+	public Loghandler getLoghandler(){
+		return this.loghandler;
 	}
 }

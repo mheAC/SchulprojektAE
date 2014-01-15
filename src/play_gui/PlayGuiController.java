@@ -3,7 +3,6 @@ package play_gui;
 
 import java.awt.Color;
 import java.io.File;
-import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import engine.GameGrid;
@@ -32,10 +31,10 @@ public class PlayGuiController {
 			GameGrid gameGrid = storageHandler.load(file);
 			if(gameGrid.getSquares().size()==0)
 				throw new Exception();
-			if(!mainWindow.setGameGrid(gameGrid)){
+			if(!mainWindow.setGameGrid(gameGrid,true)){
 				if(mainWindow.showConfirm("Wollen Sie den aktuellen Spielstand verwerfen")){
 					mainWindow.clearGameGrid();
-					mainWindow.setGameGrid(gameGrid);
+					mainWindow.setGameGrid(gameGrid,true);
 				}
 			}
 		} catch (Exception e) {
@@ -66,6 +65,12 @@ public class PlayGuiController {
 			if(enlighted){
 				mainWindow.repaintGameGrid();
 				mainWindow.getGameGrid().getController().fillStack(mainWindow.getGameGrid());
+				try {
+					mainWindow.getLoghandler().log(mainWindow.getGameGrid());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(square.isRaySquare()){
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
@@ -104,13 +109,10 @@ public class PlayGuiController {
 	public static void stepBack(MainWindow mainWindow){
 		try {
 			mainWindow.clearGameGrid();
-			GameGrid gameGrid = mainWindow.getGameGrid().getController().undoStack(mainWindow.getGameGrid());
-			System.out.println(gameGrid.toString());
-			mainWindow.setGameGrid(gameGrid);
-			mainWindow.repaintGameGrid();
-			
-		} catch (NullPointerException e) {
-			System.out.println("Loghandler not filled");
+			mainWindow.setGameGrid(mainWindow.getLoghandler().back(), false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
