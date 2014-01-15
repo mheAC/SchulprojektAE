@@ -1,6 +1,8 @@
 package engine;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 import engine.loghandler.commands.Save;
 import engine.loghandler.invoker.Controller;
 import engine.loghandler.receiver.LogHandler;
+import engine.storage_handler.StorageHandler;
 
 
 // TODO: Javadoc kontrollieren
@@ -584,4 +587,9 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
+	public GameGrid copy() throws FileNotFoundException, IOException, ClassNotFoundException{
+		StorageHandler storageHandler = new StorageHandler();
+		storageHandler.persist(this, "tmp"+System.getProperty("file.separator")+"tmpGame");
+		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame");
+	}
 }
