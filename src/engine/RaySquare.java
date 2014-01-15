@@ -29,15 +29,7 @@ public class RaySquare extends SquareBase implements Serializable {
 	
 	public RaySquare(int posx, int posy, NumberSquare lightSource){
 		super(posx,posy);
-		this.lightSource = lightSource;
-		if(this.lightSource.getPositionX()==this.getPositionX()){
-			direction = Direction.HORIZONTAL;
-		}else if(this.lightSource.getPositionY()==this.getPositionY()){
-			direction = Direction.VERTICAL;
-		}else{
-			direction = Direction.UNSET;
-		}
-		lightSource.addEnlightedSquare(this);
+		assignLightSource(lightSource);
 	}
 	
 	/**
@@ -50,6 +42,18 @@ public class RaySquare extends SquareBase implements Serializable {
 	public RaySquare(Direction d, int posx, int posy) {
 		super(posx,posy);
 		this.direction = d;
+	}
+	
+	public void assignLightSource(NumberSquare lightSource){
+		this.lightSource = lightSource;
+		if(this.lightSource.getPositionX()==this.getPositionX()){
+			direction = Direction.HORIZONTAL;
+		}else if(this.lightSource.getPositionY()==this.getPositionY()){
+			direction = Direction.VERTICAL;
+		}else{
+			direction = Direction.UNSET;
+		}
+		lightSource.addEnlightedSquare(this);	
 	}
 
 	/**
