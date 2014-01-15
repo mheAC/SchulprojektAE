@@ -33,7 +33,7 @@ public class GameGrid implements Serializable{
 	private ArrayList<SquareBase> squares;
 	
 	//Loghandler
-	private LogHandler lh;
+	//private LogHandler lh;
 	
 	//Controller
 	private Controller cr;
@@ -67,9 +67,9 @@ public class GameGrid implements Serializable{
 	 */
 	public GameGrid() {
 		// Default grid dimensions
-		lh = new LogHandler();
+		//lh = new LogHandler();
 		cr = new Controller();
-		sv = new Save(lh);
+		//sv = new Save(lh);
 		cr.setCommands(sv);
 		this.cols = 10;
 		this.rows = 10;
@@ -83,7 +83,7 @@ public class GameGrid implements Serializable{
 	 * @param rows the rows
 	 */
 	public GameGrid(int cols, int rows) {
-		lh = new LogHandler();
+		//lh = new LogHandler();
 		this.cols = cols;
 		this.rows = rows;
 		generateSquares();
@@ -469,10 +469,11 @@ public class GameGrid implements Serializable{
       return false;
 	}
 
-	
+	/*
 	public LogHandler getLogHandler() {
 		return lh;
 	}
+	*/
 	
 	public Controller getController() {
 		return cr;
