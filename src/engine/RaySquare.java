@@ -15,6 +15,8 @@ public class RaySquare extends SquareBase implements Serializable {
 	Direction direction;
 	
 	private NumberSquare lightSource;
+	private int lightsourcePositionX;
+	private int lightsourcePositionY;
 	
 	/**
 	 * Instantiates a new ray square.
@@ -54,7 +56,18 @@ public class RaySquare extends SquareBase implements Serializable {
 			direction = Direction.UNSET;
 		}
 		lightSource.addEnlightedSquare(this);	
+		this.lightsourcePositionX = lightSource.getPositionX();
+		this.lightsourcePositionY = lightSource.getPositionY();
 	}
+	
+	public int getLightsourcePositionX(){
+		return this.lightsourcePositionX;
+	}
+	
+	public int getLightsourcePositionY(){
+		return this.lightsourcePositionY;
+	}
+	
 
 	/**
 	 * Gets the direction.
@@ -99,6 +112,17 @@ public class RaySquare extends SquareBase implements Serializable {
 	
 	public NumberSquare getLightSource(){
 		return this.lightSource;
+	}
+	
+	//returns if the raysquare has is associated to a lightsource
+	//this could be false if it is loaded from a file
+	public boolean hasLightsource(){
+		if(this.lightSource != null){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/**

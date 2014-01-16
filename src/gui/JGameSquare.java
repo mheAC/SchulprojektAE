@@ -120,16 +120,14 @@ public class JGameSquare extends JPanel {
 	 * @param e the e
 	 * @param lh the lh
 	 */
-	public void drawLine(Direction e, LogHandler lh, GameGrid gg, Controller cr){
+	public void drawLine(Direction e){
 		switch(e){
 			case VERTICAL:
-				cr.fillStack(gg);
 				clearPaint();
 				drawVertikal();
 			break;
 			
 			case HORIZONTAL:
-				cr.fillStack(gg);
 				clearPaint();
 				drawHorizontal();
 			break;

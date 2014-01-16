@@ -171,7 +171,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
 					// gg -> of type GameGrid
-					gg = stH.load(fch.getSelectedFile());
+					gg = stH.load(fch.getSelectedFile(),false);
 				} catch (Exception e1) { e1.printStackTrace(); }
 			}
 			else // filechooser cancled
@@ -470,7 +470,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(start.width>lightSource.width){
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController() );
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL);
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, start.height));
 								FieldLength++;
 							}
@@ -479,7 +479,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else if(start.width<lightSource.width){
 						for(int i=start.width;i < lightSource.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL );
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.VERTICAL,i, start.height));
 								FieldLength++;
 							}
@@ -491,7 +491,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(start.height>lightSource.height){
 						for(int i=start.height;i > lightSource.height;i--){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler() ,gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL);
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 								FieldLength++;
 							}
@@ -500,7 +500,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else if(start.height<lightSource.height){
 						for(int i=start.height;i < lightSource.height;i++){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL );
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width, i));
 								FieldLength++;
 							}
@@ -513,7 +513,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(lightSource.width>end.width){
 						for(int i=lightSource.width-1;i >= end.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, lightSource.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL );
 								this.mainWin.getJGameSquareAt(i, lightSource.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, lightSource.height));
 								FieldLength++;
 							}
@@ -522,7 +522,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else if(lightSource.width<end.width){
 						for(int i=lightSource.width+1;i <= end.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, lightSource.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(i, lightSource.height).drawLine(Direction.HORIZONTAL );
 								this.mainWin.getJGameSquareAt(i, lightSource.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i, lightSource.height));
 								FieldLength++;
 							}
@@ -534,7 +534,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(lightSource.height>end.height){
 						for(int i=lightSource.height;i >= end.height;i--){
 							if(this.mainWin.getJGameSquareAt(lightSource.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL );
 								this.mainWin.getJGameSquareAt(lightSource.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,lightSource.width,i));
 								FieldLength++;
 							}
@@ -543,7 +543,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else if(lightSource.height<end.height){
 						for(int i=lightSource.height;i <= end.height;i++){
 							if(this.mainWin.getJGameSquareAt(lightSource.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(lightSource.width, i).drawLine(Direction.VERTICAL );
 								this.mainWin.getJGameSquareAt(lightSource.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,lightSource.width,i));
 								FieldLength++;
 							}
@@ -558,7 +558,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(start.width>lightSource.width){
 						for(int i=start.width;i > lightSource.width;i--){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL );
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i,start.height));
 								FieldLength++;
 							}
@@ -567,7 +567,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else if(start.width<lightSource.width){
 						for(int i=start.width;i < lightSource.width;i++){
 							if(this.mainWin.getJGameSquareAt(i, start.height) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(i, start.height).drawLine(Direction.HORIZONTAL );
 								this.mainWin.getJGameSquareAt(i, start.height).setRepresentingSquare(new RaySquare(Direction.HORIZONTAL,i,start.height));
 								FieldLength++;
 							}
@@ -579,7 +579,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					if(start.height>lightSource.height){
 						for(int i=start.height;i > lightSource.height;i--){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL );
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width,i));
 								FieldLength++;
 							}
@@ -588,7 +588,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 					else {
 						for(int i=start.height;i < lightSource.height;i++){
 							if(this.mainWin.getJGameSquareAt(start.width, i) != this.mainWin.getJGameSquareAt(lightSource.width, lightSource.height)){
-								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL, this.gg.getLogHandler(),gg, this.gg.getController());
+								this.mainWin.getJGameSquareAt(start.width, i).drawLine(Direction.VERTICAL );
 								this.mainWin.getJGameSquareAt(start.width, i).setRepresentingSquare(new RaySquare(Direction.VERTICAL,start.width,i));
 								FieldLength++;
 							}

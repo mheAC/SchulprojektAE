@@ -119,6 +119,14 @@ public class GameGrid implements Serializable{
 
 	}
 	
+	public void restoreConsistence(){
+		for(RaySquare square : this.getRaySquares()){
+			if(!square.hasLightsource()){
+				square.assignLightSource((NumberSquare) this.getSquare(square.getLightsourcePositionX(), square.getLightsourcePositionY()));
+			}
+		}
+	}
+	
 	
 	/*public void generateSquares() {
 		// DUMMY GAME DATA GRID BUILDING
@@ -591,6 +599,6 @@ public class GameGrid implements Serializable{
 	public GameGrid copy() throws FileNotFoundException, IOException, ClassNotFoundException{
 		StorageHandler storageHandler = new StorageHandler();
 		storageHandler.persist(this, "tmp"+System.getProperty("file.separator")+"tmpGame");
-		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame.ysams");
+		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame.ysams",false);
 	}
 }
