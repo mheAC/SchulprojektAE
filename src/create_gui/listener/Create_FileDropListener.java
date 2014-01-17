@@ -1,15 +1,14 @@
 package create_gui.listener;
 
-
-
+package play_gui.listener;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.*;
 import java.io.File;
 import java.util.List;
-import create_gui.CreateGUIController;
-import create_gui.Create_MainWindow;
+import play_gui.MainWindow;
+import play_gui.PlayGuiController;
 
 // TODO: Javadoc kontrollieren
 /**
@@ -26,14 +25,14 @@ import create_gui.Create_MainWindow;
 public class Create_FileDropListener implements DropTargetListener{
 	
 	/** The main window. */
-	private Create_MainWindow mainWindow;
+	private MainWindow mainWindow;
 	
 	/**
 	 * Instantiates a new file drop listener.
 	 *
 	 * @param mainWindow the main window
 	 */
-	public Create_FileDropListener(Create_MainWindow mainWindow){
+	public FileDropListener(Create_MainWindow mainWindow){
 		this.mainWindow = mainWindow;
 	}
 
@@ -69,7 +68,7 @@ public class Create_FileDropListener implements DropTargetListener{
             if (data.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 				@SuppressWarnings("unchecked")
 				List<File> list = (List<File>) data.getTransferData(DataFlavor.javaFileListFlavor);
-                CreateGUIController.newGame(this.mainWindow, list.get(0));
+                PlayGuiController.newGame(this.mainWindow, list.get(0));
             }
 		} catch (Exception e){
 			e.printStackTrace();
