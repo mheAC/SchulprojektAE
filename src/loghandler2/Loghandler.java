@@ -20,6 +20,7 @@ public class Loghandler {
 		Date now = new Date();  	
 		Long longTime = new Long(now.getTime()/1000);
 		StorageHandler storageHandler = new StorageHandler();
+		gameGrid.runningGame = true;
 		storageHandler.persist(gameGrid, "tmp"+System.getProperty("file.separator")+longTime);
 		this.steps.add(longTime);
 	}
@@ -28,7 +29,7 @@ public class Loghandler {
 		StorageHandler storageHandler = new StorageHandler();
 		GameGrid last = null;
 		try {
-			last = storageHandler.load("tmp"+System.getProperty("file.separator")+this.steps.get(this.steps.size()-1)+".ysams",false);
+			last = storageHandler.load("tmp"+System.getProperty("file.separator")+this.steps.get(this.steps.size()-1)+".ysams");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
