@@ -126,7 +126,6 @@ import loghandler2.*;
 							this.setActiveCell(pTmp);
 						}
 					else if(s.getClass() == RaySquare.class){
-						//TODO: outsource this!
 						String imageType = "";
 						if(((RaySquare) s).getDirection() == Direction.VERTICAL){
 							imageType = "horizontal-line.png";
@@ -153,7 +152,7 @@ import loghandler2.*;
 				}
 				//this.gameGridPanel.repaint();
 				
-				//TODO make this nicer :)
+				
 				this.setResizable(true);
 				this.setSize(500,501);
 				this.setSize(500,500);

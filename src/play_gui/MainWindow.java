@@ -59,7 +59,7 @@ public class MainWindow extends JFrame{
 		this.setVisible(true);
 	}
 
-	//cleares the game grid TODO: remove grid panel
+	//cleares the game grid 
 	public void clearGameGrid(){
 		this.gameGrid = null;
 		this.gameGridPanel.setVisible(false);
@@ -123,7 +123,7 @@ public class MainWindow extends JFrame{
 						this.setActiveCell(pTmp);
 					}
 				else if(s.getClass() == RaySquare.class){
-					//TODO: outsource this!
+					
 					String imageType = "";
 					if(((RaySquare) s).getDirection() == Direction.VERTICAL){
 						imageType = "horizontal-line.png";
@@ -150,7 +150,7 @@ public class MainWindow extends JFrame{
 			}
 			//this.gameGridPanel.repaint();
 			
-			//TODO make this nicer :)
+			
 			this.setResizable(true);
 			this.setSize(500,501);
 			this.setSize(500,500);
@@ -201,7 +201,7 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
-	//doesent work :( TODO fix it :)
+	//doesent work :(
 	public void setBackgroundHover(boolean hover){
 		if(hover){
 			this.getContentPane().remove(this.backgroundImage);
