@@ -285,7 +285,7 @@ import loghandler2.*;
 				newGameBtn.addActionListener(new NewGameBtnListener());
 				JButton backBtn = new JButton("Rückgäng");
 				backBtn.addActionListener(new BackBtnListener());
-				JButton saveGameBtn = new JButton("Spiechern");
+				JButton saveGameBtn = new JButton("Speichern");
 				saveGameBtn.addActionListener(new SaveGameBtnListener());
 				this.toolbar = new JToolBar();
 				this.toolbar.setFloatable(false);
