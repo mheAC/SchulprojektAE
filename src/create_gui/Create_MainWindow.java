@@ -128,7 +128,6 @@ import loghandler2.*;
 							this.setActiveCell(pTmp);
 						}
 					else if(s.getClass() == RaySquare.class){
-						//TODO: outsource this!
 						String imageType = "";
 						if(((RaySquare) s).getDirection() == Direction.VERTICAL){
 							imageType = "horizontal-line.png";
@@ -155,7 +154,7 @@ import loghandler2.*;
 				}
 				//this.gameGridPanel.repaint();
 				
-				//TODO make this nicer :)
+				
 				this.setResizable(true);
 				this.setSize(500,501);
 				this.setSize(500,500);
@@ -289,6 +288,7 @@ import loghandler2.*;
 				backBtn.addActionListener(new Create_BackBtnListener());
 				JButton saveGameBtn = new JButton("Spiechern");
 				saveGameBtn.addActionListener(new Create_SaveGameBtnListener());
+
 				this.toolbar = new JToolBar();
 				this.toolbar.setFloatable(false);
 				this.toolbar.add(newGameBtn);
