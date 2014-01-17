@@ -28,9 +28,8 @@ public class PlayGuiController {
 	public static void newGame(MainWindow mainWindow,File file){
 		StorageHandler storageHandler = new StorageHandler();
 		try {
-			GameGrid gameGrid = storageHandler.load(file,true);
+			GameGrid gameGrid = storageHandler.load(file);
 			boolean removeRays = true;
-			System.out.println(gameGrid.runningGame);
 			if(gameGrid.runningGame)
 				removeRays = false;
 			

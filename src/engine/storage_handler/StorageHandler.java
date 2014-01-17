@@ -95,7 +95,7 @@ public class StorageHandler {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ClassNotFoundException the class not found exception
 	 */
-	public GameGrid load(String filePath, boolean playmode) throws IOException, ClassNotFoundException {
+	public GameGrid load(String filePath) throws IOException, ClassNotFoundException {
 
 		if(useJson){
 			Scanner scanner = new Scanner(new FileReader(filePath));
@@ -106,7 +106,8 @@ public class StorageHandler {
 	        scanner.close();
 	        Gson gson = new GsonBuilder().registerTypeAdapter(SquareBase.class, new SquareBaseDeserializer()).create();
 	        GameGrid gameGrid = gson.fromJson(jsonDump, GameGrid.class);
-	        if(playmode){
+	       
+	        if(!gameGrid.runningGame){
 	        	gameGrid.resetToPlaymode();
 	        }
 	        gameGrid.restoreConsistence();
@@ -132,8 +133,8 @@ public class StorageHandler {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ClassNotFoundException the class not found exception
 	 */
-	public GameGrid load(File filePath, boolean playmode) throws FileNotFoundException, IOException, ClassNotFoundException {
-		return this.load(filePath.getAbsolutePath(),playmode);
+	public GameGrid load(File filePath) throws FileNotFoundException, IOException, ClassNotFoundException {
+		return this.load(filePath.getAbsolutePath());
 	}
 	
 	/**
