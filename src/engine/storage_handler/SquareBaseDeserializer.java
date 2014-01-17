@@ -22,9 +22,15 @@ class SquareBaseDeserializer implements JsonDeserializer<SquareBase> {
 	public SquareBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {	    
 		JsonObject jsonObject = json.getAsJsonObject();
 		if(jsonObject.has("number")){
-			return new NumberSquare(jsonObject.get("number").getAsInt(), jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
-		}else if(jsonObject.has("direction")){
-			return new RaySquare(jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
+			if(jsonObject.has("original_number"))
+				return new NumberSquare(jsonObject.get("original_number").getAsInt(), jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
+			else
+				return new NumberSquare(jsonObject.get("number").getAsInt(), jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
+		}else if(jsonObject.has("direction") && jsonObject.has("lightsourcePositionX") && jsonObject.has("lightsourcePositionY")){
+			RaySquare square =  new RaySquare(jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());
+			square.lightsourcePositionX = Integer.parseInt(jsonObject.get("lightsourcePositionX").toString());
+			square.lightsourcePositionY = Integer.parseInt(jsonObject.get("lightsourcePositionY").toString());
+			return square;
 		}
 		else{
 			return new UntypedSquare(jsonObject.get("posX").getAsInt(), jsonObject.get("posY").getAsInt());

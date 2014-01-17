@@ -15,8 +15,8 @@ public class RaySquare extends SquareBase implements Serializable {
 	Direction direction;
 	
 	private NumberSquare lightSource;
-	private int lightsourcePositionX;
-	private int lightsourcePositionY;
+	public int lightsourcePositionX;
+	public int lightsourcePositionY;
 	
 	/**
 	 * Instantiates a new ray square.
@@ -66,6 +66,14 @@ public class RaySquare extends SquareBase implements Serializable {
 	
 	public int getLightsourcePositionY(){
 		return this.lightsourcePositionY;
+	}
+	
+	public void setLightsourcePositionX(int position){
+		this.lightsourcePositionX = position;
+	}
+	
+	public void setLightsourcePositionY(int position){
+		this.lightsourcePositionY = position;
 	}
 	
 

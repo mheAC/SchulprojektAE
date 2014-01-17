@@ -106,6 +106,9 @@ public class StorageHandler {
 	        scanner.close();
 	        Gson gson = new GsonBuilder().registerTypeAdapter(SquareBase.class, new SquareBaseDeserializer()).create();
 	        GameGrid gameGrid = gson.fromJson(jsonDump, GameGrid.class);
+	        if(playmode){
+	        	gameGrid.resetToPlaymode();
+	        }
 	        gameGrid.restoreConsistence();
 	        return gameGrid;
 		}else{

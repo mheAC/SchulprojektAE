@@ -107,8 +107,9 @@ public class PlayGuiController {
 	
 	public static void stepBack(MainWindow mainWindow){
 		try {
+			GameGrid oldGrid = mainWindow.getLoghandler().back();
 			mainWindow.clearGameGrid();
-			mainWindow.setGameGrid(mainWindow.getLoghandler().back(), false);
+			mainWindow.setGameGrid(oldGrid, false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

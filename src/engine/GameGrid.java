@@ -122,8 +122,15 @@ public class GameGrid implements Serializable{
 	public void restoreConsistence(){
 		for(RaySquare square : this.getRaySquares()){
 			if(!square.hasLightsource()){
+				System.out.println( square.getLightsourcePositionX());
 				square.assignLightSource((NumberSquare) this.getSquare(square.getLightsourcePositionX(), square.getLightsourcePositionY()));
 			}
+		}
+	}
+	
+	public void resetToPlaymode(){
+		for(RaySquare square : this.getRaySquares()){
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
 		}
 	}
 	
@@ -595,10 +602,10 @@ public class GameGrid implements Serializable{
 			this.setGridSize(new Dimension((int)dim.getWidth()-(ff+1), (int)dim.getHeight()));
 		}
 	}
-	
+	/*
 	public GameGrid copy() throws FileNotFoundException, IOException, ClassNotFoundException{
 		StorageHandler storageHandler = new StorageHandler();
 		storageHandler.persist(this, "tmp"+System.getProperty("file.separator")+"tmpGame");
 		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame.ysams",false);
-	}
+	}*/
 }
