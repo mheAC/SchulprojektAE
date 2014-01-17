@@ -29,12 +29,17 @@ public class PlayGuiController {
 		StorageHandler storageHandler = new StorageHandler();
 		try {
 			GameGrid gameGrid = storageHandler.load(file,true);
+			boolean removeRays = true;
+			System.out.println(gameGrid.runningGame);
+			if(gameGrid.runningGame)
+				removeRays = false;
+			
 			if(gameGrid.getSquares().size()==0)
 				throw new Exception();
-			if(!mainWindow.setGameGrid(gameGrid,true)){
+			if(!mainWindow.setGameGrid(gameGrid,removeRays)){
 				if(mainWindow.showConfirm("Wollen Sie den aktuellen Spielstand verwerfen")){
 					mainWindow.clearGameGrid();
-					mainWindow.setGameGrid(gameGrid,true);
+					mainWindow.setGameGrid(gameGrid,removeRays);
 				}
 			}
 		} catch (Exception e) {
@@ -44,7 +49,8 @@ public class PlayGuiController {
 	}
 	
 	public static void saveGame(MainWindow mainWindow,File file){
-		System.out.println(file);
+		GameGrid gameGrid = mainWindow.getGameGrid();
+		gameGrid.runningGame = true;
 		StorageHandler storageHandler = new StorageHandler();
 		storageHandler.persist(mainWindow.getGameGrid(), file);
 	}

@@ -32,6 +32,8 @@ public class GameGrid implements Serializable{
 	/** The squares. */
 	private ArrayList<SquareBase> squares;
 	
+	public boolean runningGame = false;
+	
 	//Loghandler
 	//private LogHandler lh;
 	
