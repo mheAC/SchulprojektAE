@@ -15,19 +15,11 @@ import engine.UntypedSquare;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
 
-// TODO: Javadoc kontrollieren
-/**
- * The Class PlayGuiController.
- */
+
 public class CreateGUIController {
 	
 	//triggered when new game button is cliked (loades a new game and renderes the game grid
-	/**
-	 * New game.
-	 *
-	 * @param mainWindow the main window
-	 * @param file the file
-	 */
+
 	public static void newGame(Create_MainWindow mainWindow,File file){
 		StorageHandler storageHandler = new StorageHandler();
 		try {
@@ -53,12 +45,7 @@ public class CreateGUIController {
 	}
 
 	//fired when a grid cell is clicked (activates the cell)
-	/**
-	 * Grid cell clicked.
-	 *
-	 * @param cell the cell
-	 * @param mainWindow the main window
-	 */
+
 	public static void gridCellClicked(JGameSquare cell, Create_MainWindow mainWindow) {
 		SquareBase square = cell.getRepresentedSquare();
 		if(square.isNumberSquare()){
@@ -95,12 +82,7 @@ public class CreateGUIController {
 	}
 
 	//fired when mouse enters a grid cell
-	/**
-	 * Grid cell entered.
-	 *
-	 * @param cell the cell
-	 * @param mainWindow the main window
-	 */
+
 	public static void gridCellEntered(JGameSquare cell, Create_MainWindow mainWindow) {
 		if(mainWindow.hasActiveCell()){
 			mainWindow.clearHover();
@@ -124,12 +106,7 @@ public class CreateGUIController {
 	}
 	
 	//fired when mouse exited a grid cell
-	/**
-	 * Grid cell exited.
-	 *
-	 * @param cell the cell
-	 * @param mainWindow the main window
-	 */
+
 	public static void gridCellExited(JGameSquare cell, Create_MainWindow mainWindow) {
 	}
 }

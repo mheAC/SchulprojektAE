@@ -206,22 +206,12 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-	/**
-	 * Returns the generated Square Collection. This method may be called more than just one time. It does not change any data
-	 *
-	 * @return the squares
-	 */
+	
 	public ArrayList<SquareBase> getSquares() {
 		return this.squares;
 	}
 	
-	/**
-	 * Gets the square.
-	 *
-	 * @param posX the pos x
-	 * @param posY the pos y
-	 * @return the square
-	 */
+	
 	public SquareBase getSquare(int posX,int posY){
 		int position = (this.cols*posY)+posX;
 		if(position>0){
@@ -232,11 +222,7 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-	/**
-	 * Only get RAYSquares.
-	 *
-	 * @return the ray squares
-	 */
+	
 	public ArrayList<RaySquare> getRaySquares () {
 		ArrayList<RaySquare> rsl = new ArrayList<RaySquare>(); // Temp list
 		for(SquareBase s : this.squares) { // iterate over the complete list of squares (also number squares)
@@ -248,11 +234,7 @@ public class GameGrid implements Serializable{
 		return rsl;
 	}
 	
-	/**
-	 * Only get NUMBERSquares.
-	 *
-	 * @return the number squares
-	 */
+	
 	public ArrayList<NumberSquare> getNumberSquares () {
 		ArrayList<NumberSquare> nsl = new ArrayList<NumberSquare>();
 		for(SquareBase s : this.squares) {
@@ -264,11 +246,7 @@ public class GameGrid implements Serializable{
 		return nsl;
 	}
 	
-	/**
-	 * Engine methods.
-	 *
-	 * @return true, if successful
-	 */
+	
 	public boolean solveCurrentRays() {
 		boolean everythingSolved = false;
 		while(!everythingSolved) {
@@ -281,11 +259,7 @@ public class GameGrid implements Serializable{
 		return true;
 	}
 	
-	/**
-	 * Find any Square that may contain a ray coliding with the given Square.
-	 *
-	 * @return the coliding squares
-	 */
+	
 	public HashMap<RaySquare, Integer> getColidingSquares() {
 		HashMap<RaySquare, Integer> matches = new HashMap<RaySquare, Integer>();
 		int count = 1;
@@ -305,12 +279,7 @@ public class GameGrid implements Serializable{
 		return matches;
 	}
 	
-	/**
-	 * Get all Squares that could possibly be alighthed by the Light Source Square (Number Square).
-	 *
-	 * @param square the square
-	 * @return the enlightable squares
-	 */
+	
 	public ArrayList<RaySquare> getEnlightableSquares(NumberSquare square) {
 		ArrayList<RaySquare> tempList = new ArrayList<RaySquare>();
 		for(RaySquare s : this.getRaySquares()) {
@@ -320,13 +289,7 @@ public class GameGrid implements Serializable{
 		return tempList;
 	}
 	
-	/**
-	 * Enlight all Squares between source and target.
-	 *
-	 * @param lightSource the light source
-	 * @param target square
-	 * @return boolean, whether squares were enlighted
-	*/
+	
 	public boolean enlight(NumberSquare lightSource, SquareBase target){
 		ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
 		
@@ -343,6 +306,7 @@ public class GameGrid implements Serializable{
 	}
 	
 
+
 	public NumberSquare createLightsource(UntypedSquare ut){
 		NumberSquare newSquare = ut.getAsNumberSquare();
 		this.setSquare(ut.getPositionX(), ut.getPositionY(), newSquare);
@@ -354,6 +318,8 @@ public class GameGrid implements Serializable{
 	 * @param a NumberSquare as lightSource
 	 * @param side as String (left,right,above,underneath)
 	 */
+
+	
 	public void unenlight(NumberSquare lightSource, String side){
 		for(RaySquare square : lightSource.getEnlightedSquares(side)){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
@@ -366,6 +332,7 @@ public class GameGrid implements Serializable{
 	 * 
 	 * @param lightSource
 	 */
+	
 	public void unenlight(NumberSquare lightSource){
 		for(RaySquare square : lightSource.getEnlightedSquares()){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
@@ -374,12 +341,7 @@ public class GameGrid implements Serializable{
 	}
 	
 	
-	/**
-	 * 
-	 * @param square
-	 * @return
-	 * unenlights a square and all squares that can't be enlighted anymore
-	 */
+	
 	public boolean unenlight(RaySquare square){
 		if(square.getClass() == RaySquare.class){
 			ArrayList<RaySquare> squaresToUnenlight;
@@ -399,13 +361,7 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-  /**
-   * Get all Squares that can be enlighted between the source and the target.
-   *
-   * @param lightSource the light source
-   * @param target the target
-   * @return arraylist with all squares that can be enlighted between source and target
-   */
+
 	public ArrayList<SquareBase> getEnlightWay(NumberSquare lightSource, SquareBase target){
 	  ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
 	  //target is in same row with lightsource
@@ -559,6 +515,8 @@ public class GameGrid implements Serializable{
 	 * @param target the target
 	 * @return boolean, whether it is possible to enlight suqares between source and target
 	 */
+	
+	
 	public boolean canEnlightWay(NumberSquare lightSource, SquareBase target){
     if(this.getEnlightWay(lightSource, target).size()>0){
       return true;
@@ -576,31 +534,19 @@ public class GameGrid implements Serializable{
 		return cr;
 	}
 	*/
-	/**
-	 * Replace a Squarebase at x and y coordinates with another square.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param square the square
-	 */
+	
 	public void setSquare(int x, int y, SquareBase square){
 		
 		//System.out.println(this.squares.get((this.cols*y)+x).getPositionY()+" "+this.squares.get((this.cols*y)+x).getPositionX());
 		this.squares.set((this.cols*y)+x, square);
 	}
 
-	/**
-	 * Adds one row of untyped squares.
-	 */
+	
 	public void addRow() {
 		this.addRow(1);
 	}
 	
-	/**
-	 * Add given amount of rows to gamegrid.
-	 *
-	 * @param count the count
-	 */
+	
 	public void addRow(int count) {
 		Dimension dim = this.getGridSize();
 		int width = (int)dim.getWidth();
@@ -615,18 +561,13 @@ public class GameGrid implements Serializable{
 		this.setGridSize(new Dimension(width, height+count));
 	}
 	
-	/**
-	 * Removes one row.
-	 */
+
 	public void removeRow() {
 		this.removeRow(1);
 	}
 	
-	/**
-	 * Removes given amount of rows.
-	 *
-	 * @param count the count
-	 */
+	
+
 	public void removeRow(int count) {
 		Dimension dim = this.getGridSize();
 		int width = (int)dim.getWidth();
@@ -641,18 +582,12 @@ public class GameGrid implements Serializable{
 		this.setGridSize(new Dimension(width, height-count));
 	}
 	
-	/**
-	 * Adds one column to gamegrid.
-	 */
+
 	public void addColumn() {
 		this.addColumn(1);
 	}
 	
-	/**
-	 * Adds given amount of columns to the gamegrid.
-	 *
-	 * @param count the count
-	 */
+
 	public void addColumn(int count) {
 		for (int ff = 0; ff < count; ff++) {
 			Dimension dim = this.getGridSize();
@@ -662,19 +597,12 @@ public class GameGrid implements Serializable{
 			this.setGridSize(new Dimension((int)dim.getWidth()+(ff+1), (int)dim.getHeight()));
 		}
 	}
-	
-	/**
-	 * Removes one column.
-	 */
+
 	public void removeColumn() {
 		this.removeColumn(1);
 	}
 	
-	/**
-	 * Removes given amount of columns from the gamegrid.
-	 *
-	 * @param count the count
-	 */
+
 	public void removeColumn(int count) {
 		for (int ff = 0; ff < count; ff++) {
 			Dimension dim = this.getGridSize();
