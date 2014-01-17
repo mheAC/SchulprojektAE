@@ -28,7 +28,7 @@ public class CreateGUIController {
 	public static void newGame(Create_MainWindow mainWindow,File file){
 		StorageHandler storageHandler = new StorageHandler();
 		try {
-			GameGrid gameGrid = storageHandler.load(file,true);
+			GameGrid gameGrid = storageHandler.load(file);
 			if(gameGrid.getSquares().size()==0)
 				throw new Exception();
 			if(!mainWindow.setGameGrid(gameGrid,true)){
