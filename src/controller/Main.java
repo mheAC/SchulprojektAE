@@ -171,7 +171,7 @@ public class Main implements ChangeListener, ActionListener, MouseListener , Car
 			if(fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				try {
 					// gg -> of type GameGrid
-					gg = stH.load(fch.getSelectedFile(),false);
+					gg = stH.load(fch.getSelectedFile());
 				} catch (Exception e1) { e1.printStackTrace(); }
 			}
 			else // filechooser cancled
