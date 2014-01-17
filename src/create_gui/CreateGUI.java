@@ -1,6 +1,5 @@
 package create_gui;
 
-import play_gui.MainWindow;
 
 //TODO: Javadoc kontrollieren
 /**
@@ -16,6 +15,6 @@ public class CreateGUI {
 	public static void main(String[] args){
 		
 		//starts the game gui
-		new MainWindow();
+		new Create_MainWindow();
 	}
 }

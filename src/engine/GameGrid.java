@@ -342,6 +342,13 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
+
+	public NumberSquare createLightsource(UntypedSquare ut){
+		NumberSquare newSquare = ut.getAsNumberSquare();
+		this.setSquare(ut.getPositionX(), ut.getPositionY(), newSquare);
+		return newSquare;
+	}
+	
 	/**
 	 * 
 	 * @param a NumberSquare as lightSource
@@ -354,6 +361,7 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
+
 	/**
 	 * 
 	 * @param lightSource
@@ -471,7 +479,79 @@ public class GameGrid implements Serializable{
 	  }
 	  return squares;
 	}
-	
+	public ArrayList<SquareBase> getEnlightWayUntype(UntypedSquare lightSource, UntypedSquare target){
+		  ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
+		  //target is in same row with lightsource
+		  if(lightSource.getPositionY() == target.getPositionY()){
+		    //target is on the right side from lightsource and is reachable by lightsource
+		    if(target.getPositionX()>lightSource.getPositionX()){
+		      SquareBase tempSquare = target;
+		      int x = target.getPositionX();
+		      while(tempSquare.getPositionX()>lightSource.getPositionX()){
+		          //only can be enlight if untyped square
+		          if(tempSquare.getClass() == UntypedSquare.class || ((tempSquare.getClass() == RaySquare.class && lightSource.isNumberSquare())  && ((RaySquare)tempSquare).getLightSource().getPositionX() == lightSource.getPositionX() && ((RaySquare)tempSquare).getLightSource().getPositionY() == lightSource.getPositionY()))
+		            squares.add(tempSquare);
+		          else{
+		            squares = new ArrayList<SquareBase>();
+		            break;
+		          }
+		          x --;
+		          tempSquare = this.getSquare(x, target.getPositionY());
+		      }
+		    }
+		    //target is on the left side from lightsource and is reachable by lightsource
+		    else if(target.getPositionX()<lightSource.getPositionX()){
+		        SquareBase tempSquare = target;
+		        int x = target.getPositionX();
+		        while(tempSquare.getPositionX()<lightSource.getPositionX()){
+		          if(tempSquare.getClass() == UntypedSquare.class || ((tempSquare.getClass() == RaySquare.class && lightSource.isNumberSquare())  && ((RaySquare)tempSquare).getLightSource().getPositionX() == lightSource.getPositionX() && ((RaySquare)tempSquare).getLightSource().getPositionY() == lightSource.getPositionY())){
+		            squares.add(tempSquare);
+		          }
+		          else{
+			          squares = new ArrayList<SquareBase>();
+			          break;
+		          }
+		          x ++;
+		          tempSquare = this.getSquare(x, target.getPositionY());
+		        }
+		    }
+		  }
+		  //target is in the same coloumn with light source
+		  else if(lightSource.getPositionX() == target.getPositionX()){
+		    //target is above the lightsource and is reachable by lightsource
+		    if(target.getPositionY()<lightSource.getPositionY()){
+	        SquareBase tempSquare = target;
+	        int y = target.getPositionY();
+	        while(tempSquare.getPositionY()<lightSource.getPositionY()){
+	          //only can be enlight if untyped square
+	          if(tempSquare.getClass() == UntypedSquare.class || ((tempSquare.getClass() == RaySquare.class && lightSource.isNumberSquare())  && ((RaySquare)tempSquare).getLightSource().getPositionX() == lightSource.getPositionX() && ((RaySquare)tempSquare).getLightSource().getPositionY() == lightSource.getPositionY()))
+	            squares.add(tempSquare);
+	          else{
+	            squares = new ArrayList<SquareBase>();
+	            break;
+	          }
+	          y ++;
+	          tempSquare = this.getSquare(target.getPositionX(), y);
+	        }
+		    }
+		    //target is on the under the lightsource and is reachable by lightsource
+		    else if(target.getPositionY()>lightSource.getPositionY()){
+		        SquareBase tempSquare = target;
+		        int y = target.getPositionY();
+		        while(tempSquare.getPositionY()>lightSource.getPositionY()){
+		          if(tempSquare.getClass() == UntypedSquare.class || ((tempSquare.getClass() == RaySquare.class && lightSource.isNumberSquare())  && ((RaySquare)tempSquare).getLightSource().getPositionX() == lightSource.getPositionX() && ((RaySquare)tempSquare).getLightSource().getPositionY() == lightSource.getPositionY()))
+		            squares.add(tempSquare);
+		          else{
+		            squares = new ArrayList<SquareBase>();
+		            break;
+		          }
+		          y --;
+		          tempSquare = this.getSquare(target.getPositionX(), y);
+		        }
+		    }
+		  }
+		  return squares;
+		}
 	/**
 	 * Check if it is possible to enlight squares between source and target.
 	 *

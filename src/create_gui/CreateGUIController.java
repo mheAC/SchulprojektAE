@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.io.File;
 import java.util.Iterator;
 
+import javax.print.DocFlavor.INPUT_STREAM;
+
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
 import engine.SquareBase;
+import engine.UntypedSquare;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
 
@@ -78,6 +81,9 @@ public class CreateGUIController {
 			}else{
 				mainWindow.releaseActiveCell();
 			}
+		}else if(square.isUntypedSquare()){
+			cell.setRepresentingSquare(mainWindow.getGameGrid().createLightsource((UntypedSquare)cell.getRepresentedSquare()));
+			mainWindow.setActiveCell(cell);
 		}
 	}
 	
