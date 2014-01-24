@@ -305,6 +305,21 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
+	public boolean enlightuntyped(NumberSquare lightSource, SquareBase target){
+		ArrayList<SquareBase> squares = this.getEnlightWayUntype(lightSource,target);
+		
+		this.unenlight(lightSource, target.getRelativePositionTo(lightSource));
+		for(int i = 0; i < squares.size(); i++) {
+			SquareBase square = squares.get(i);
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsRaySquare(lightSource));
+		}
+		if(squares.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 
 
 	public NumberSquare createLightsource(UntypedSquare ut){
@@ -435,7 +450,8 @@ public class GameGrid implements Serializable{
 	  }
 	  return squares;
 	}
-	public ArrayList<SquareBase> getEnlightWayUntype(UntypedSquare lightSource, UntypedSquare target){
+	
+	public ArrayList<SquareBase> getEnlightWayUntype(NumberSquare lightSource, SquareBase target){
 		  ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
 		  //target is in same row with lightsource
 		  if(lightSource.getPositionY() == target.getPositionY()){

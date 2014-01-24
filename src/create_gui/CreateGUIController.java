@@ -51,7 +51,7 @@ public class CreateGUIController {
 		if(square.isNumberSquare()){
 			mainWindow.setActiveCell(cell);
 		}else if(mainWindow.hasActiveCell()){
-			boolean enlighted = mainWindow.getGameGrid().enlight(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
+			boolean enlighted = mainWindow.getGameGrid().enlightuntyped(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
 				mainWindow.repaintGameGrid();
 				try {

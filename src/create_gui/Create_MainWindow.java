@@ -241,7 +241,7 @@ import loghandler2.*;
 		public ArrayList<JGameSquare> getUntypedCellsToActive(JGameSquare cell){
 			ArrayList<JGameSquare> cells = new ArrayList<JGameSquare>();
 			if(this.hasActiveCell()){
-				ArrayList<SquareBase> squares = this.gameGrid.getEnlightWay(((NumberSquare) this.activeCell.getRepresentedSquare()), cell.getRepresentedSquare());
+				ArrayList<SquareBase> squares = this.gameGrid.getEnlightWayUntype(((NumberSquare) this.activeCell.getRepresentedSquare()), cell.getRepresentedSquare());
 				for(SquareBase square : squares) {
 	            	cells.add(this.getCellByPosition(square.getPositionX(), square.getPositionY()));
 	            }
