@@ -16,6 +16,10 @@ public class Loghandler {
 		this.log(gameGrid);
 	}
 	
+	public Loghandler(ArrayList<Long> steps) throws FileNotFoundException, IOException, ClassNotFoundException{
+		this.steps = steps;
+	}
+	
 	public void log(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		Date now = new Date();  	
 		Long longTime = new Long(now.getTime()/1000);
@@ -31,10 +35,8 @@ public class Loghandler {
 		try {
 			last = storageHandler.load("tmp"+System.getProperty("file.separator")+this.steps.get(this.steps.size()-1)+".ysams");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.steps.remove(this.steps.size()-1);

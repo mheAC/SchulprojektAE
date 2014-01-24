@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import loghandler2.Loghandler;
 import engine.loghandler.commands.Save;
 import engine.loghandler.invoker.Controller;
 import engine.loghandler.receiver.LogHandler;
@@ -35,7 +36,18 @@ public class GameGrid implements Serializable{
 	public boolean runningGame = false;
 	
 	//Loghandler
-	//private LogHandler lh;
+	public Loghandler loghandler;
+	
+	public void log() throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.loghandler == null){
+			this.loghandler = new Loghandler(this);
+		}
+		this.loghandler.log(this);
+	}
+	
+	public GameGrid stepBack(){
+		return this.loghandler.back();
+	}
 	
 	//Controller
 	//private Controller cr;

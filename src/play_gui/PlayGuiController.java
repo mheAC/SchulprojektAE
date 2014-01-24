@@ -29,16 +29,13 @@ public class PlayGuiController {
 		StorageHandler storageHandler = new StorageHandler();
 		try {
 			GameGrid gameGrid = storageHandler.load(file);
-			boolean removeRays = true;
-			if(gameGrid.runningGame)
-				removeRays = false;
 			
 			if(gameGrid.getSquares().size()==0)
 				throw new Exception();
-			if(!mainWindow.setGameGrid(gameGrid,removeRays)){
+			if(!mainWindow.setGameGrid(gameGrid)){
 				if(mainWindow.showConfirm("Wollen Sie den aktuellen Spielstand verwerfen")){
 					mainWindow.clearGameGrid();
-					mainWindow.setGameGrid(gameGrid,removeRays);
+					mainWindow.setGameGrid(gameGrid);
 				}
 			}
 		} catch (Exception e) {
@@ -70,7 +67,7 @@ public class PlayGuiController {
 			if(enlighted){
 				mainWindow.repaintGameGrid();
 				try {
-					mainWindow.getLoghandler().log(mainWindow.getGameGrid());
+					mainWindow.getGameGrid().log();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -112,11 +109,21 @@ public class PlayGuiController {
 	
 	public static void stepBack(MainWindow mainWindow){
 		try {
-			GameGrid oldGrid = mainWindow.getLoghandler().back();
+			GameGrid oldGrid = mainWindow.getGameGrid().stepBack();
 			mainWindow.clearGameGrid();
-			mainWindow.setGameGrid(oldGrid, false);
+			mainWindow.setGameGrid(oldGrid);
+		} catch (NullPointerException e){
+			System.out.println("reset to play mode");
+			//If there is no step back reset the Grid
+			GameGrid oldGrid = mainWindow.getGameGrid();
+			oldGrid.resetToPlaymode();
+			mainWindow.clearGameGrid();
+			try {
+				mainWindow.setGameGrid(oldGrid);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

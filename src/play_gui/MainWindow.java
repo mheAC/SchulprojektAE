@@ -16,7 +16,6 @@ import javax.swing.*;
 import engine.*;
 import gui.JGameSquare;
 import play_gui.listener.*;
-import loghandler2.*;
 
 
 public class MainWindow extends JFrame{
@@ -27,7 +26,6 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
-	private Loghandler loghandler; //the loghandler for stepback functions
 	
 	//constructor renders a window with no game grid
 	public MainWindow(){
@@ -66,20 +64,11 @@ public class MainWindow extends JFrame{
 		this.gameGridPanel = null;
 		this.repaint();
 	}
-	
-	public boolean setGameGrid(GameGrid gameGrid, boolean resetLoghandler) throws FileNotFoundException, IOException, ClassNotFoundException{
-		if(resetLoghandler){
-			this.loghandler = new Loghandler(gameGrid);
-		}
-		
-		return this.setGameGrid(gameGrid);
-	}
+
 	
 	//sets the game grid and renders it
 	public boolean setGameGrid(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
-		if(this.loghandler == null){
-			this.loghandler = new Loghandler(gameGrid);
-		}
+
 		if(this.gameGrid == null){
 			this.gameGrid = gameGrid;
 			
@@ -295,9 +284,5 @@ public class MainWindow extends JFrame{
 			saveGameBtn.setVisible(false);
 		}
 		return this.toolbar;
-	}
-	
-	public Loghandler getLoghandler(){
-		return this.loghandler;
 	}
 }
