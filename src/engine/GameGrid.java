@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import loghandler2.Loghandler;
-import engine.loghandler.commands.Save;
-import engine.loghandler.invoker.Controller;
-import engine.loghandler.receiver.LogHandler;
-import engine.storage_handler.StorageHandler;
 
 
 // TODO: Javadoc kontrollieren
