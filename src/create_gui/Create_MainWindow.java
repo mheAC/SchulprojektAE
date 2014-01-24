@@ -123,7 +123,7 @@ import loghandler2.*;
 					pTmp.setBackground(Color.WHITE);
 					pTmp.setRepresentingSquare(s);
 					if(s.getClass() == NumberSquare.class)
-						pTmp.getTextLabel().setText(s.getPrintableValue());
+						pTmp.getTextLabel().setText(""+(((NumberSquare ) s).getOriginalNumber()));
 						if(this.hasActiveCell() && this.getActiveCell().getRepresentedSquare() == pTmp.getRepresentedSquare()){
 							this.setActiveCell(pTmp);
 						}
