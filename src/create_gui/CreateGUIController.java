@@ -3,9 +3,12 @@ package create_gui;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import javax.print.DocFlavor.INPUT_STREAM;
+
+import controller.Main;
 
 import engine.GameGrid;
 import engine.NumberSquare;
@@ -14,6 +17,7 @@ import engine.SquareBase;
 import engine.UntypedSquare;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
+import gui.MainWindow;
 
 
 public class CreateGUIController {
@@ -78,6 +82,11 @@ public class CreateGUIController {
 	public static void gridCellRightClicked(JGameSquare cell, Create_MainWindow mainWindow){
 		if(cell.getRepresentedSquare().isRaySquare() && ((RaySquare) cell.getRepresentedSquare()).getLightSource() == mainWindow.getActiveCell().getRepresentedSquare()){
 			mainWindow.getGameGrid().unenlight((RaySquare) cell.getRepresentedSquare());
+			mainWindow.repaintGameGrid();
+		}else if(cell.getRepresentedSquare().isNumberSquare()){
+			mainWindow.releaseActiveCell();
+			mainWindow.getGameGrid().unenlightCREATE((NumberSquare) cell.getRepresentedSquare());
+			cell.setRepresentingSquare(mainWindow.getGameGrid().deleteLightsource((NumberSquare)cell.getRepresentedSquare()));
 			mainWindow.repaintGameGrid();
 		}
 	}

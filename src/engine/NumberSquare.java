@@ -105,6 +105,10 @@ public class NumberSquare extends SquareBase implements Serializable {
 		return squares;
 	}
 	
+//	public void deleteEnlightedSquares(GameGrid gg){
+//			gg.unenlight(this);
+//	}
+	
 	public void addEnlightedSquare(RaySquare square){
 		this.englighted_squares.add(square);
 		if(editormode==false){

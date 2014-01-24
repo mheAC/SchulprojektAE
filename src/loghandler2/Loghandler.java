@@ -10,7 +10,7 @@ import engine.storage_handler.StorageHandler;
 
 public class Loghandler {
 	private ArrayList<Long> steps;
-	
+	long logZeit =0;
 	public Loghandler(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		this.steps = new ArrayList<Long>();
 		this.log(gameGrid);
@@ -23,10 +23,16 @@ public class Loghandler {
 	public void log(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		Date now = new Date();  	
 		Long longTime = new Long(now.getTime()/1000);
+		logZeit = longTime;
 		StorageHandler storageHandler = new StorageHandler();
 		gameGrid.runningGame = true;
 		storageHandler.persist(gameGrid, "tmp"+System.getProperty("file.separator")+longTime);
 		this.steps.add(longTime);
+		
+	}
+	
+	public long logTime(){
+		return logZeit;
 	}
 	
 	public GameGrid back(){

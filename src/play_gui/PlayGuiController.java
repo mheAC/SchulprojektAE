@@ -54,7 +54,10 @@ public class PlayGuiController {
 			if(enlighted){
 				mainWindow.repaintGameGrid();
 				try {
+					long zeit2;
 					mainWindow.getGameGrid().log();
+					zeit2 = mainWindow.getGameGrid().logTime();
+					System.out.println(zeit2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
