@@ -2,14 +2,16 @@ package create_gui;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import javax.print.DocFlavor.INPUT_STREAM;
 
 import controller.Main;
-
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
@@ -118,5 +120,65 @@ public class CreateGUIController {
 	//fired when mouse exited a grid cell
 
 	public static void gridCellExited(JGameSquare cell, Create_MainWindow mainWindow) {
+	}
+	
+    public static void addRow(Create_MainWindow mainWindow) {
+        addRow(1, mainWindow);
+	}
+	
+	public static void addRow(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.addRow(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeRow(Create_MainWindow mainWindow) {
+	        removeRow(1, mainWindow);
+	}
+	
+	public static void removeRow(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.removeRow(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addColumn(Create_MainWindow mainWindow) {
+	        addColumn(1, mainWindow);
+	}
+	
+	public static void addColumn(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.addColumn(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeColumn(Create_MainWindow mainWindow) {
+        removeColumn(1, mainWindow);
+	}
+	
+	public static void removeColumn(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.removeColumn(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
