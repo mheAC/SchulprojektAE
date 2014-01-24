@@ -340,6 +340,12 @@ public class GameGrid implements Serializable{
 		return newSquare;
 	}
 	
+	public UntypedSquare deleteLightsource(NumberSquare ns){
+		UntypedSquare newUntyped = ns.getAsUntypedSquare();
+		this.setSquare(ns.getPositionX(), ns.getPositionY(), newUntyped);
+		return newUntyped;
+	}
+	
 	/**
 	 * 
 	 * @param a NumberSquare as lightSource
@@ -364,6 +370,11 @@ public class GameGrid implements Serializable{
 		for(RaySquare square : lightSource.getEnlightedSquares()){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
 			lightSource.removeEnlightedSquare(square);
+		}
+	}
+	public void unenlightCREATE(NumberSquare lightSource){
+		for(RaySquare square : lightSource.getEnlightedSquares()){
+			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
 		}
 	}
 	
