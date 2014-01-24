@@ -11,6 +11,8 @@ public class NumberSquare extends SquareBase implements Serializable {
 	
 	private int original_number;
 	
+	private boolean editormode = false;
+	
 	private ArrayList<RaySquare> englighted_squares = new ArrayList<RaySquare>();
 	
 
@@ -105,22 +107,43 @@ public class NumberSquare extends SquareBase implements Serializable {
 	
 	public void addEnlightedSquare(RaySquare square){
 		this.englighted_squares.add(square);
-		this.number = this.original_number - this.englighted_squares.size();
+		if(editormode==false){
+			this.number = this.original_number - this.englighted_squares.size();
+		}else{
+			this.number = this.original_number + this.englighted_squares.size();
+		}
 	}
 	
 	public void removeEnlightedSquare(RaySquare square){
 		this.englighted_squares.remove(square);
-		this.number = this.original_number - this.englighted_squares.size();
+		if(editormode==false){
+			this.number = this.original_number - this.englighted_squares.size();
+		}else{
+			this.number = this.original_number + this.englighted_squares.size();
+		}
 	}
 	
 	
 	public void removeEnlightedSquare(int index){
 		this.englighted_squares.remove(index);
-		this.number = this.original_number - this.englighted_squares.size();
+		if(editormode==false){
+			this.number = this.original_number - this.englighted_squares.size();
+		}else{
+			this.number = this.original_number + this.englighted_squares.size();
+		}
 	}
 	
 	public void clearEnlightedSquares(){
 		this.englighted_squares = new ArrayList<RaySquare>();
+	}
+	
+	public void changeEditorMode(){
+		if(editormode!=true){
+			editormode = true;
+		}else{
+			editormode = false;
+		}
+			
 	}
 
 }

@@ -70,6 +70,7 @@ public class CreateGUIController {
 			}
 		}else if(square.isUntypedSquare()){
 			cell.setRepresentingSquare(mainWindow.getGameGrid().createLightsource((UntypedSquare)cell.getRepresentedSquare()));
+			((NumberSquare) cell.getRepresentedSquare()).changeEditorMode();
 			mainWindow.setActiveCell(cell);
 		}
 	}
