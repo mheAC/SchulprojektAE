@@ -15,56 +15,38 @@ import javax.swing.*;
 public class StartWindow {
 	
 	// Helper vars for the configuration
-	/** The gridwidth. */
 	private int gridwidth = 0;
 	
-	/** The gridheight. */
 	private int gridheight= 0;
 	
 	// Local helper vars
-	/** The created. */
 	private boolean created;
 	
 	// Beans
-	/** The size lbl. */
 	private JLabel sizeLbl;
 	
-	/** The dimension lbl. */
 	private JLabel dimensionLbl;
 	
-	/** The ok action btn. */
 	private JButton okActionBtn;
 	
-	/** The load btn. */
 	private JButton loadBtn;
 	
-	/** The info btn. */
 	private JButton infoBtn;
 	
-	/** The start tool bar. */
 	private JToolBar startToolBar;
 	
-	/** The frame. */
 	private JFrame frame;
 	
-	/** The panel. */
 	private JPanel panel;
 	
-	/** The width lbl. */
 	private JLabel widthLbl;
 	
-	/** The height lbl. */
 	private JLabel heightLbl;
 	
-	/** The width input. */
 	public GameDimensionInput widthInput;
 	
-	/** The height input. */
 	public GameDimensionInput heightInput;
 
-	/**
-	 * Show.
-	 */
 	public void show() {
 		try{
 			
@@ -149,29 +131,14 @@ public class StartWindow {
 	/*
 	 * Simple getter and setter for class attribs
 	 */
-	/**
-	 * Gets the ok action btn.
-	 *
-	 * @return the ok action btn
-	 */
 	public JButton getokActionBtn() {
 		return okActionBtn;
 	}
 	
-	/**
-	 * Gets the slider lbl.
-	 *
-	 * @return the slider lbl
-	 */
 	public JLabel getSliderLbl() {
 		return dimensionLbl;
 	}
 	
-	/**
-	 * Gets the frame.
-	 *
-	 * @return the frame
-	 */
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -180,62 +147,44 @@ public class StartWindow {
 	 * Data vars -> getter & setter
 	 */
 	
-	/**
-	 * Gets the width input.
-	 *
-	 * @return the width input
-	 */
 	public GameDimensionInput getWidthInput() {
 		return widthInput;
 	}
 
-	/**
-	 * Gets the height input.
-	 *
-	 * @return the height input
-	 */
 	public GameDimensionInput getHeightInput() {
 		return heightInput;
 	}
 	
-	/**
-	 * Gets the load btn.
-	 *
-	 * @return the load btn
-	 */
 	public JButton getLoadBtn() {
 		return loadBtn;
 	}
 	
-	/**
-	 * Gets the info btn.
-	 *
-	 * @return the info btn
-	 */
 	public JButton getInfoBtn() {
 		return infoBtn;
 	}
-	/*
-	public String getDifficult() {
-		int cols;
-		int rows;
-		int res;
-		String difficult = null;
-		cols = this.getGridwidth();
-		rows = this.getGridheight();
-		res = cols*rows;
-		if (res <= 25){
-			difficult = "Leicht";
-		}
-		if (res >= 25){
-			difficult = "Mittel";
-		}
-		if (res >= 50) {
-			difficult = "Schwierig";
-		}
-		if (res >= 100) {
-			difficult = "Sehr Schwierig";
-		}
-		return difficult;
-	}*/
+	
+	
+	
+//	public String getDifficult() { Aufgabe für sabolz
+//		int cols;
+//		int rows;
+//		int res;
+//		String difficult = null;
+//		cols = this.getGridwidth();
+//		rows = this.getGridheight();
+//		res = cols*rows;
+//		if (res <= 25){
+//			difficult = "Leicht";
+//		}
+//		if (res >= 25){
+//			difficult = "Mittel";
+//		}
+//		if (res >= 50) {
+//			difficult = "Schwierig";
+//		}
+//		if (res >= 100) {
+//			difficult = "Sehr Schwierig";
+//		}
+//		return difficult;
+//	}
 }
