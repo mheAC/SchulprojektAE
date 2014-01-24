@@ -110,7 +110,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 		if(editormode==false){
 			this.number = this.original_number - this.englighted_squares.size();
 		}else{
-			this.number = this.original_number + this.englighted_squares.size();
+			this.original_number = this.englighted_squares.size();
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class NumberSquare extends SquareBase implements Serializable {
 		if(editormode==false){
 			this.number = this.original_number - this.englighted_squares.size();
 		}else{
-			this.number = this.original_number + this.englighted_squares.size();
+			this.original_number = this.englighted_squares.size();
 		}
 	}
 	
