@@ -48,6 +48,11 @@ public class GameGrid implements Serializable{
 	public GameGrid stepBack(){
 		return this.loghandler.back();
 	}
+	public long logTime(){
+		return this.loghandler.logTime();
+		
+	}
+	
 	
 	//Controller
 	//private Controller cr;

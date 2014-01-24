@@ -48,14 +48,7 @@ public class StorageHandler {
 		
 	}
 
-	/**
-	 * Persist data to file.
-	 *
-	 * @param gGrid the g grid
-	 * @param filePath the file path
-	 * @throws FileNotFoundException the file not found exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
+
 	public void persist(GameGrid gGrid, String filePath ) throws FileNotFoundException, IOException {
 		if(filePath.lastIndexOf(".ysams") + 1 <= 0)
 			filePath = filePath+".ysams";

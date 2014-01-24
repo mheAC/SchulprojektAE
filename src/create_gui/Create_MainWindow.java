@@ -59,7 +59,7 @@ import loghandler2.*;
 				e.printStackTrace();
 			}
 			
-			this.setResizable(false);
+			this.setResizable(true);
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
 		}
