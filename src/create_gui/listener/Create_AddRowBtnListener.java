@@ -18,6 +18,7 @@ public class Create_AddRowBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addRow(mainwindow);
+		CreateGUIController.addRow(mainwindow);
 	}
 
 }

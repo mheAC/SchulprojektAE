@@ -132,6 +132,8 @@ public class CreateGUIController {
         try {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,6 +149,8 @@ public class CreateGUIController {
         try {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,6 +166,8 @@ public class CreateGUIController {
         try {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,6 +183,8 @@ public class CreateGUIController {
         try {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

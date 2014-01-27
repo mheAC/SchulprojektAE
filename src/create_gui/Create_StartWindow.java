@@ -25,9 +25,9 @@ import create_gui.listener.Create_NewGameBtnListener;
 	public class Create_StartWindow {
 		
 		// Helper vars for the configuration
-		private int gridwidth = 0;
+		private static int gridwidth = 0;
 		
-		private int gridheight= 0;
+		private static int gridheight= 0;
 		
 		// Local helper vars
 		private boolean created;
@@ -68,6 +68,8 @@ import create_gui.listener.Create_NewGameBtnListener;
 					public void actionPerformed(ActionEvent e) {
 						int width = Integer.parseInt(widthInput.getText());
 						int height = Integer.parseInt(heightInput.getText());
+						setWidth(width);
+						setHeight(height);
 						Create_MainWindow mainWindow = new Create_MainWindow();
 						try {
 							mainWindow.setGameGrid(new GameGrid(width, height));
@@ -193,6 +195,22 @@ import create_gui.listener.Create_NewGameBtnListener;
 		
 		public JButton getInfoBtn() {
 			return infoBtn;
+		}
+		
+		public static int getWidth(){
+			return gridwidth;
+		}
+		
+		public static int getHeight(){
+			return gridheight;
+		}
+		
+		public void setWidth(int w){
+			Create_StartWindow.gridwidth = w;
+		}
+		
+		public void setHeight(int h){
+			Create_StartWindow.gridheight = h;
 		}
 		
 }

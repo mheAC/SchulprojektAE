@@ -14,6 +14,7 @@ public class Create_AddColumnBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addColumn(mainwindow);
+		CreateGUIController.addColumn(mainwindow);
 	}
 
 	public Create_AddColumnBtnListener() {

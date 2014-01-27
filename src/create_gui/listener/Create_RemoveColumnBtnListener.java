@@ -18,6 +18,7 @@ public class Create_RemoveColumnBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.removeColumn(mainwindow);
+		CreateGUIController.removeColumn(mainwindow);
 	}
 
 }
