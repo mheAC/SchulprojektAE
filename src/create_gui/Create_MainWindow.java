@@ -53,7 +53,7 @@ import loghandler2.*;
 //				this.setSize(width*30, height*30);
 //			}
 //			else
-				this.setSize(500,500);
+			this.setSize(500,500);
 			if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
 				this.getContentPane().add(this.backgroundImage);
 			}

@@ -78,6 +78,7 @@ public class CreateGUIController {
 			cell.setRepresentingSquare(mainWindow.getGameGrid().createLightsource((UntypedSquare)cell.getRepresentedSquare()));
 			((NumberSquare) cell.getRepresentedSquare()).changeEditorMode();
 			mainWindow.setActiveCell(cell);
+			//mainWindow.repaintGameGrid();
 		}
 	}
 	
@@ -133,7 +134,7 @@ public class CreateGUIController {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
-			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
 			Create_StartWindow.setWidth(gg.getGridSize().width);
 			Create_StartWindow.setHeight(gg.getGridSize().height);
 		} catch (Exception e) {
@@ -152,7 +153,7 @@ public class CreateGUIController {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
-			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -169,7 +170,7 @@ public class CreateGUIController {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
-			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -186,9 +187,29 @@ public class CreateGUIController {
 			mainWindow.clearGameGrid();
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
-			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static int getNewGGWidth(GameGrid gg){
+		int w = 0;
+		
+		if(gg.getGridSize().width*30 > 500)
+			w = gg.getGridSize().width*30;
+		else
+			w = 500;
+		return w;
+	}
+	
+	private static int getNewGGHeight(GameGrid gg){
+		int h = 0;
+		
+		if(gg.getGridSize().height*30 > 500)
+			h = gg.getGridSize().height*30;
+		else
+			h = 500;
+		return h;
 	}
 }

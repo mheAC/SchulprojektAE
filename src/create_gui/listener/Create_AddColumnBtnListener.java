@@ -15,9 +15,9 @@ public class Create_AddColumnBtnListener implements ActionListener {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addColumn(mainwindow);
 		CreateGUIController.addColumn(mainwindow);
-		for(int i=0;i<mainwindow.getGameGrid().getSquares().size();i++){
-			System.out.println("X: " + mainwindow.getGameGrid().getSquares().get(i).getPositionX() + " Y: " + mainwindow.getGameGrid().getSquares().get(i).getPositionY());
-		}
+//		for(int i=0;i<mainwindow.getGameGrid().getSquares().size();i++){
+//			System.out.println("X: " + mainwindow.getGameGrid().getSquares().get(i).getPositionX() + " Y: " + mainwindow.getGameGrid().getSquares().get(i).getPositionY());
+//		}
 	}
 
 	public Create_AddColumnBtnListener() {
