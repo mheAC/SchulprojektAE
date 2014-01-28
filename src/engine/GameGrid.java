@@ -639,7 +639,7 @@ public class GameGrid implements Serializable{
 
 	public void addColumn(int count) {
 		for (int ff = 0; ff < count; ff++) {
-			ArrayList<SquareBase> neuList = squares;
+			//ArrayList<SquareBase> neuList = squares;
 			Dimension dim = this.getGridSize();
 			int width = (int)dim.getWidth();
 			int height = (int)dim.getHeight();
@@ -653,14 +653,14 @@ public class GameGrid implements Serializable{
 				if(posx == width-1){
 					int index = (posx+1)*(posy+1);
 					
-					neuList.add(index+c,new UntypedSquare(width, posy));
+					squares.add(index+c,new UntypedSquare(width, posy));
 					c++;
 					i++;
 				}
 				else
 					i++;
 			}
-			squares = neuList;
+			//squares = neuList;
 //			for(int i=0, j=width-1; i<height; j=(width)*(i+1), i++){
 //				squares.add(j,new UntypedSquare(i, width));
 //			}
