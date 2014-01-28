@@ -19,6 +19,9 @@ public class Create_AddRowBtnListener implements ActionListener {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addRow(mainwindow);
 		CreateGUIController.addRow(mainwindow);
+		for(int i=0;i<mainwindow.getGameGrid().getSquares().size();i++){
+			System.out.println("X: " + mainwindow.getGameGrid().getSquares().get(i).getPositionX() + " Y: " + mainwindow.getGameGrid().getSquares().get(i).getPositionY());
+		}
 	}
 
 }

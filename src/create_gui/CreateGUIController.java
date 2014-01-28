@@ -134,6 +134,8 @@ public class CreateGUIController {
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
 			mainWindow.setSize(gg.getGridSize().width*30, gg.getGridSize().height*30);
+			Create_StartWindow.setWidth(gg.getGridSize().width);
+			Create_StartWindow.setHeight(gg.getGridSize().height);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

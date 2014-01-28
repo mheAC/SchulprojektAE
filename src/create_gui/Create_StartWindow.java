@@ -205,11 +205,11 @@ import create_gui.listener.Create_NewGameBtnListener;
 			return gridheight;
 		}
 		
-		public void setWidth(int w){
+		public static void setWidth(int w){
 			Create_StartWindow.gridwidth = w;
 		}
 		
-		public void setHeight(int h){
+		public static void setHeight(int h){
 			Create_StartWindow.gridheight = h;
 		}
 		

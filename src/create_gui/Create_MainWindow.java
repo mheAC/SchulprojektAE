@@ -48,11 +48,11 @@ import loghandler2.*;
 			this.getContentPane().add(this.getToolbar(), BorderLayout.NORTH);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			//this.setSize(500,500);
-			if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
-				int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
-				this.setSize(width*30, height*30);
-			}
-			else
+//			if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
+//				int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
+//				this.setSize(width*30, height*30);
+//			}
+//			else
 				this.setSize(500,500);
 			if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
 				this.getContentPane().add(this.backgroundImage);
@@ -165,12 +165,12 @@ import loghandler2.*;
 				this.setResizable(true);
 				//this.setSize(500,501);
 				//this.setSize(500,500);
-				if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
-					int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
-					this.setSize(width*30, height*30);
-				}
-				else
-					this.setSize(500,500);
+//				if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
+//					int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
+//					this.setSize(width*30, height*30);
+//				}
+//				else
+//					this.setSize(500,500);
 				this.setResizable(false);
 			}
 		}
