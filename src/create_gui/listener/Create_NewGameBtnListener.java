@@ -6,23 +6,10 @@
 package create_gui.listener;
 
 
-import gui.JOpenFileDialog;
-
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import create_gui.CreateGUIController;
-import create_gui.Create_MainWindow;
 import create_gui.Create_StartWindow;
-import play_gui.MainWindow;
-import play_gui.PlayGuiController;
 
 // TODO: Javadoc kontrollieren
 /**
