@@ -125,16 +125,21 @@ public class GameGrid implements Serializable{
 	 */
 	private void generateSquares() {
 		this.squares = new ArrayList<SquareBase>();
-		int x=0;
-		int y=0;
-		for(int i = 0; i < this.cols * this.rows; i++) {
+		//int x=0;
+		//int y=0;
+		for(int yy=0; yy<this.rows;yy++){
+			for(int xx=0; xx<this.cols; xx++){
+				this.squares.add(new UntypedSquare(xx,yy));
+			}
+		}
+		/*for(int i = 0; i < this.cols * this.rows; i++) {
 			this.squares.add(new UntypedSquare(x,y));
 			x++;
 			if(x % this.cols == 0 && x != 0) {
 				y++;
 				x=0;
 			}
-		}
+		}*/
 
 	}
 	
@@ -598,7 +603,7 @@ public class GameGrid implements Serializable{
 		
 		for (int ff = 0; ff < count; ff++) {
 			for (int ii = 0; ii < width; ii++) {
-				squares.add(new UntypedSquare(height+count, ii));
+				squares.add(new UntypedSquare(ii, height));
 			}
 		}
 		
@@ -635,9 +640,26 @@ public class GameGrid implements Serializable{
 	public void addColumn(int count) {
 		for (int ff = 0; ff < count; ff++) {
 			Dimension dim = this.getGridSize();
-			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
-				squares.add(ii,new UntypedSquare((int)dim.getHeight()-ff, (int)dim.getWidth()));
+			int width = (int)dim.getWidth();
+			int i=0, c=0;
+			while(true){
+				if(i>=this.squares.size())
+					break;
+				int posx = this.squares.get(i).getPositionX();
+				int posy = this.squares.get(i).getPositionY();
+				if(posx == width-1){
+					int index = (posx+1)*(posy+1);
+					
+					squares.add(index+c,new UntypedSquare(width, posy));
+					c++;
+					i++;
+				}
+				else
+					i++;
 			}
+			/*for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
+				squares.add(ii,new UntypedSquare((int)dim.getHeight()-ff, (int)dim.getWidth()));
+			}*/
 			this.setGridSize(new Dimension((int)dim.getWidth()+(ff+1), (int)dim.getHeight()));
 		}
 	}

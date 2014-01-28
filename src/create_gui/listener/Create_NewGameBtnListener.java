@@ -1,3 +1,4 @@
+
 /**
  * 
  *@author Michael Herpers (michael.herpers@gmail.com)
@@ -6,19 +7,20 @@ package create_gui.listener;
 
 
 import gui.JOpenFileDialog;
-import gui.StartWindow;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import create_gui.CreateGUIController;
 import create_gui.Create_MainWindow;
+import create_gui.Create_StartWindow;
 import play_gui.MainWindow;
 import play_gui.PlayGuiController;
 
@@ -40,21 +42,9 @@ public class Create_NewGameBtnListener implements ActionListener{
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {		
-		//initialize panel
-		int width;
-		int height;
-		JLabel getwidth;
-		JFrame frame = new JFrame("Lichtstrahlen Parameter");
-		
-		JPanel panel = new JPanel();
-		GridLayout layout = new GridLayout(7, 1);
-		panel.setLayout(layout);
-		
-		getwidth = new JLabel();
-		frame.setSize(500, 300);
-		frame.setVisible(true);
-		
-	}	
+	public void actionPerformed(ActionEvent event) {
+		new Create_StartWindow().show();
+	}
 
 }
+

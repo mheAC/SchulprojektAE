@@ -14,10 +14,11 @@ import java.util.TooManyListenersException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
-
+import create_gui.listener.Create_AddColumnBtnListener;
+import create_gui.listener.Create_AddRowBtnListener;
 import create_gui.listener.Create_FileDropListener;
-
+import create_gui.listener.Create_RemoveColumnBtnListener;
+import create_gui.listener.Create_RemoveRowBtnListener;
 import engine.*;
 import gui.JGameSquare;
 import create_gui.listener.*;
@@ -46,6 +47,12 @@ import loghandler2.*;
 			//initialize frame
 			this.getContentPane().add(this.getToolbar(), BorderLayout.NORTH);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//this.setSize(500,500);
+//			if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
+//				int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
+//				this.setSize(width*30, height*30);
+//			}
+//			else
 			this.setSize(500,500);
 			if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
 				this.getContentPane().add(this.backgroundImage);
@@ -156,9 +163,16 @@ import loghandler2.*;
 				
 				
 				this.setResizable(true);
-				this.setSize(500,501);
-				this.setSize(500,500);
+				//this.setSize(500,501);
+				//this.setSize(500,500);
+//				if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
+//					int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
+//					this.setSize(width*30, height*30);
+//				}
+//				else
+//					this.setSize(500,500);
 				this.setResizable(false);
+				//this.gameGridPanel.repaint();
 			}
 		}
 
@@ -284,10 +298,20 @@ import loghandler2.*;
 			if(toolbar == null){
 				JButton newGameBtn = new JButton("Neues Spiel");
 				newGameBtn.addActionListener(new Create_NewGameBtnListener());
-				JButton backBtn = new JButton("Rückgäng");
+				JButton backBtn = new JButton("Rückgängig");
 				backBtn.addActionListener(new Create_BackBtnListener());
-				JButton saveGameBtn = new JButton("Spiechern");
+				JButton saveGameBtn = new JButton("Speichern");
 				saveGameBtn.addActionListener(new Create_SaveGameBtnListener());
+                
+				JButton addHeightBtn = new JButton("Zeile +1");
+				addHeightBtn.addActionListener(new Create_AddRowBtnListener());
+				JButton removeHeightBtn = new JButton("Zeile -1");
+				removeHeightBtn.addActionListener(new Create_RemoveRowBtnListener());
+                
+				JButton addWidthBtn = new JButton("Spalte +1");
+				addWidthBtn.addActionListener(new Create_AddColumnBtnListener());
+				JButton removeWidthBtn = new JButton("Spalte -1");
+				removeWidthBtn.addActionListener(new Create_RemoveColumnBtnListener());
 
 				this.toolbar = new JToolBar();
 				this.toolbar.setFloatable(false);
@@ -295,9 +319,18 @@ import loghandler2.*;
 				this.toolbar.add(backBtn);
 				this.toolbar.add(saveGameBtn);
 				
+				this.toolbar.add(addHeightBtn);
+				this.toolbar.add(removeHeightBtn);
+				this.toolbar.add(addWidthBtn);
+				this.toolbar.add(removeWidthBtn);
+				
 				//hide unusable buttons before load
 				backBtn.setVisible(false);
 				saveGameBtn.setVisible(false);
+				addHeightBtn.setVisible(false);
+				addWidthBtn.setVisible(false);
+				removeHeightBtn.setVisible(false);
+				removeWidthBtn.setVisible(false);
 			}
 			return this.toolbar;
 		}
