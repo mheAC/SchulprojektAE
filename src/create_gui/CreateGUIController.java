@@ -60,30 +60,30 @@ public class CreateGUIController {
 			boolean enlighted = mainWindow.getGameGrid().enlightuntyped(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
 				mainWindow.repaintGameGrid();
-				mainWindow.repaint();
+				//mainWindow.repaint();
 				try {
 					mainWindow.getLoghandler().log(mainWindow.getGameGrid());
-					mainWindow.repaint();
+					//mainWindow.repaint();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(square.isRaySquare()){
-				mainWindow.repaint();
+				//mainWindow.repaint();
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
 				//mainWindow.setActiveCell(mainWindow.getCellByPosition(lightSource.getPositionX(), lightSource.getPositionY()));
 				//gridCellEntered(cell,mainWindow);
 			}else{
 				mainWindow.releaseActiveCell();
-				mainWindow.repaint();
+				//mainWindow.repaint();
 			}
 		}else if(square.isUntypedSquare()){
 			cell.setRepresentingSquare(mainWindow.getGameGrid().createLightsource((UntypedSquare)cell.getRepresentedSquare()));
 			((NumberSquare) cell.getRepresentedSquare()).changeEditorMode();
 			mainWindow.setActiveCell(cell);
-			mainWindow.repaintGameGrid();
-			mainWindow.repaint();
+			//mainWindow.repaintGameGrid();
+			//mainWindow.repaint();
 		}
 	}
 	

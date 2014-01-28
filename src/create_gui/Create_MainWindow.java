@@ -172,6 +172,7 @@ import loghandler2.*;
 //				else
 //					this.setSize(500,500);
 				this.setResizable(false);
+				//this.gameGridPanel.repaint();
 			}
 		}
 
