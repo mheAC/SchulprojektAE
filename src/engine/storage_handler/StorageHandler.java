@@ -127,7 +127,12 @@ public class StorageHandler {
 	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public GameGrid load(File filePath) throws FileNotFoundException, IOException, ClassNotFoundException {
-		return this.load(filePath.getAbsolutePath());
+		if (filePath != null) {
+			return this.load(filePath.getAbsolutePath());
+		} else {
+			// Could not load, dialog was probably canceled
+			return null;
+		}
 	}
 	
 	/**
@@ -137,10 +142,14 @@ public class StorageHandler {
 	 * @param filePath the path to the File to write to
 	 */
 	public void persist(GameGrid gGrid, File filePath ) {
-		try {
-			this.persist(gGrid, filePath.getAbsolutePath());
-		} catch (FileNotFoundException e) { e.printStackTrace();
-		} catch (IOException e) { e.printStackTrace(); }
+		if (filePath != null) {
+			try {
+				this.persist(gGrid, filePath.getAbsolutePath());
+			} catch (FileNotFoundException e) { e.printStackTrace();
+			} catch (IOException e) { e.printStackTrace(); }
+		} else {
+			// Did not save, selection was probably canceled.
+		}
 	}
 	
 	

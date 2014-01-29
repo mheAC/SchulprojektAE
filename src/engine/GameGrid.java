@@ -615,11 +615,14 @@ public class GameGrid implements Serializable{
 
 	public void removeRow(int count) {
 		Dimension dim = this.getGridSize();
+		int startsize = squares.size();
 		int width = (int)dim.getWidth();
 		int height = (int)dim.getHeight();
 		
+		int targetsize = startsize-width;
+		
 		for (int ff = 0; ff < count; ff++) {
-			for (int ii = (squares.size()-1); ii >= (squares.size() - (int)dim.getWidth()); ii--) {
+			for (int ii = (startsize-1); ii >= targetsize; ii--) {
 				squares.remove(ii);
 			}
 		}
