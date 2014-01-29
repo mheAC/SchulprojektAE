@@ -36,7 +36,7 @@ import loghandler2.*;
 		
 		//constructor renders a window with no game grid
 		public Create_MainWindow(){
-			super("Lichtstrahlen");
+			super("Lichtstrahlen Spiel erstellen");
 			
 			//initialize panel
 			JPanel panel = new JPanel();
