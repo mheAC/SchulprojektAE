@@ -2,14 +2,16 @@ package create_gui;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import javax.print.DocFlavor.INPUT_STREAM;
 
 import controller.Main;
-
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
@@ -58,24 +60,30 @@ public class CreateGUIController {
 			boolean enlighted = mainWindow.getGameGrid().enlightuntyped(((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()), cell.getRepresentedSquare());
 			if(enlighted){
 				mainWindow.repaintGameGrid();
+				//mainWindow.repaint();
 				try {
 					mainWindow.getLoghandler().log(mainWindow.getGameGrid());
+					//mainWindow.repaint();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(square.isRaySquare()){
+				//mainWindow.repaint();
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
 				//mainWindow.setActiveCell(mainWindow.getCellByPosition(lightSource.getPositionX(), lightSource.getPositionY()));
 				//gridCellEntered(cell,mainWindow);
 			}else{
 				mainWindow.releaseActiveCell();
+				//mainWindow.repaint();
 			}
 		}else if(square.isUntypedSquare()){
 			cell.setRepresentingSquare(mainWindow.getGameGrid().createLightsource((UntypedSquare)cell.getRepresentedSquare()));
 			((NumberSquare) cell.getRepresentedSquare()).changeEditorMode();
 			mainWindow.setActiveCell(cell);
+			//mainWindow.repaintGameGrid();
+			//mainWindow.repaint();
 		}
 	}
 	
@@ -118,5 +126,95 @@ public class CreateGUIController {
 	//fired when mouse exited a grid cell
 
 	public static void gridCellExited(JGameSquare cell, Create_MainWindow mainWindow) {
+	}
+	
+    public static void addRow(Create_MainWindow mainWindow) {
+        addRow(1, mainWindow);
+	}
+	
+	public static void addRow(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.addRow(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
+			Create_StartWindow.setWidth(gg.getGridSize().width);
+			Create_StartWindow.setHeight(gg.getGridSize().height);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeRow(Create_MainWindow mainWindow) {
+	        removeRow(1, mainWindow);
+	}
+	
+	public static void removeRow(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.removeRow(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addColumn(Create_MainWindow mainWindow) {
+	        addColumn(1, mainWindow);
+	}
+	
+	public static void addColumn(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.addColumn(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeColumn(Create_MainWindow mainWindow) {
+        removeColumn(1, mainWindow);
+	}
+	
+	public static void removeColumn(int count, Create_MainWindow mainWindow) {
+		GameGrid gg = mainWindow.getGameGrid();
+        gg.removeColumn(count);
+        try {
+			mainWindow.clearGameGrid();
+			mainWindow.setGameGrid(gg, true);
+			mainWindow.repaintGameGrid();
+			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static int getNewGGWidth(GameGrid gg){
+		int w = 0;
+		
+		if(gg.getGridSize().width*30 > 500)
+			w = gg.getGridSize().width*30;
+		else
+			w = 500;
+		return w;
+	}
+	
+	private static int getNewGGHeight(GameGrid gg){
+		int h = 0;
+		
+		if(gg.getGridSize().height*30 > 500)
+			h = gg.getGridSize().height*30;
+		else
+			h = 500;
+		return h;
 	}
 }

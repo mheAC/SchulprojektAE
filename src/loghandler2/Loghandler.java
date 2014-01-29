@@ -1,6 +1,8 @@
 package loghandler2;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +28,8 @@ public class Loghandler {
 		logZeit = longTime;
 		StorageHandler storageHandler = new StorageHandler();
 		gameGrid.runningGame = true;
+		File dir = new File("tmp");
+		dir.mkdir();
 		storageHandler.persist(gameGrid, "tmp"+System.getProperty("file.separator")+longTime);
 		this.steps.add(longTime);
 		

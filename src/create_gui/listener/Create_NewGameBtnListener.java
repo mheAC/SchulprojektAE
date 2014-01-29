@@ -1,3 +1,4 @@
+
 /**
  * 
  *@author Michael Herpers (michael.herpers@gmail.com)
@@ -5,16 +6,10 @@
 package create_gui.listener;
 
 
-import gui.JOpenFileDialog;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JComponent;
 
-import create_gui.CreateGUIController;
-import create_gui.Create_MainWindow;
-import play_gui.MainWindow;
-import play_gui.PlayGuiController;
+import create_gui.Create_StartWindow;
 
 // TODO: Javadoc kontrollieren
 /**
@@ -35,10 +30,8 @@ public class Create_NewGameBtnListener implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		JOpenFileDialog fileDialog = new JOpenFileDialog();
-		fileDialog.showOpenDialog(fileDialog);
-		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
-		CreateGUIController.newGame(mainwindow, fileDialog.getSelectedFile());
+		new Create_StartWindow().show();
 	}
 
 }
+

@@ -66,6 +66,7 @@ public class Create_GameGridCellListener implements MouseListener{
 	public void mouseEntered(MouseEvent event) {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
 		CreateGUIController.gridCellEntered( cell, mainwindow);
+		
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class Create_GameGridCellListener implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent event) {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
-		CreateGUIController.gridCellExited( cell, mainwindow);		
+		CreateGUIController.gridCellExited( cell, mainwindow);	
 	}
 
 	/**
