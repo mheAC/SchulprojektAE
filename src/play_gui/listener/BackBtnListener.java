@@ -9,7 +9,10 @@ import play_gui.PlayGuiController;
 
 public class BackBtnListener implements ActionListener{
 
-
+	/*
+	 * Author: Andreas Soiron
+	 * fires the step back method on the controller
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		PlayGuiController.stepBack((MainWindow) ((JComponent) event.getSource()).getRootPane().getParent());

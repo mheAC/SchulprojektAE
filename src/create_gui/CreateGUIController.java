@@ -2,16 +2,9 @@ package create_gui;
 
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
-import javax.print.DocFlavor.INPUT_STREAM;
-
-import controller.Main;
 import engine.GameGrid;
 import engine.NumberSquare;
 import engine.RaySquare;
@@ -19,7 +12,6 @@ import engine.SquareBase;
 import engine.UntypedSquare;
 import engine.storage_handler.StorageHandler;
 import gui.JGameSquare;
-import gui.MainWindow;
 
 
 public class CreateGUIController {

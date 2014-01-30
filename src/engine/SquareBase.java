@@ -96,6 +96,10 @@ public abstract class SquareBase {
 		return rs;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * converts the square to a raysquare
+	 */
 	public RaySquare getAsRaySquare(NumberSquare lightSource) {
 		RaySquare rs = new RaySquare(this.posX,this.posY,lightSource);
 		return rs;
@@ -148,6 +152,10 @@ public abstract class SquareBase {
 		return false;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns a position as string which represents the position relative to another square
+	 */
 	public String getRelativePositionTo(SquareBase square){
 		if(square.getPositionY() == this.getPositionY() && this.getPositionX() < square.getPositionX()){
 			return "left";

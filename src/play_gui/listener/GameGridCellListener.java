@@ -20,7 +20,10 @@ public class GameGridCellListener implements MouseListener{
 		this.cell = cell;
 	}
 
-	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the cell is clicked (fires the gridCellClicked or gridCellRightClicked method on the controller)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
@@ -34,28 +37,41 @@ public class GameGridCellListener implements MouseListener{
 		}
 	}
 
-	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the mouse enteres the cell (fires the gridCellEntered on the controller)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
 		PlayGuiController.gridCellEntered( cell, mainwindow);
 	}
 
-	
+
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the mouse exites the cell (fires the gridCellEntered on the controller)
+	 */
 	@Override
 	public void mouseExited(MouseEvent event) {
 		MainWindow mainwindow = (MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
 		PlayGuiController.gridCellExited( cell, mainwindow);		
 	}
 
-	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the mouse clickes the cell (does nothig)
+	 */
 	@Override
 	public void mousePressed(MouseEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the mouse clickes the cell (does nothig)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		// TODO Auto-generated method stub

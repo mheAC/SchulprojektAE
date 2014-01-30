@@ -13,15 +13,28 @@ import engine.storage_handler.StorageHandler;
 public class Loghandler {
 	private ArrayList<Long> steps;
 	long logZeit =0;
+	
+	/*
+	 * Author: Andreas Soiron
+	 * initializes a log handler object for the given gamegrid
+	 */
 	public Loghandler(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		this.steps = new ArrayList<Long>();
 		this.log(gameGrid);
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * initializes a loghandler with a list of steps
+	 */
 	public Loghandler(ArrayList<Long> steps) throws FileNotFoundException, IOException, ClassNotFoundException{
 		this.steps = steps;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * logs the current state of the gamegrid
+	 */
 	public void log(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		Date now = new Date();  	
 		Long longTime = new Long(now.getTime()/1000);
@@ -39,6 +52,11 @@ public class Loghandler {
 		return logZeit;
 	}
 	
+	
+	/*
+	 * Author: Andreas Soiron
+	 * returns the last gamegrid and removes the current one from the stack
+	 */
 	public GameGrid back(){
 		StorageHandler storageHandler = new StorageHandler();
 		GameGrid last = null;

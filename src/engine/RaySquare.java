@@ -29,6 +29,10 @@ public class RaySquare extends SquareBase implements Serializable {
 		this.direction = Direction.UNSET; // default direction
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * constructs the ray square with position and lightsource
+	 */
 	public RaySquare(int posx, int posy, NumberSquare lightSource){
 		super(posx,posy);
 		assignLightSource(lightSource);
@@ -46,6 +50,10 @@ public class RaySquare extends SquareBase implements Serializable {
 		this.direction = d;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * setter for lightsource
+	 */
 	public void assignLightSource(NumberSquare lightSource){
 		this.lightSource = lightSource;
 		if(this.lightSource.getPositionX()==this.getPositionX()){
@@ -60,18 +68,34 @@ public class RaySquare extends SquareBase implements Serializable {
 		this.lightsourcePositionY = lightSource.getPositionY();
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * gettor for lightsource position X
+	 */
 	public int getLightsourcePositionX(){
 		return this.lightsourcePositionX;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * gettor for lightsource position Y
+	 */
 	public int getLightsourcePositionY(){
 		return this.lightsourcePositionY;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * setter for lightsource position X
+	 */
 	public void setLightsourcePositionX(int position){
 		this.lightsourcePositionX = position;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * setter for lightsource position Y
+	 */
 	public void setLightsourcePositionY(int position){
 		this.lightsourcePositionY = position;
 	}
@@ -122,8 +146,11 @@ public class RaySquare extends SquareBase implements Serializable {
 		return this.lightSource;
 	}
 	
-	//returns if the raysquare has is associated to a lightsource
-	//this could be false if it is loaded from a file
+	/*
+	 * Author: Andreas Soiron
+	 * returns if the raysquare has is associated to a lightsource
+	 * this could be false if it is loaded from a file
+	 */
 	public boolean hasLightsource(){
 		if(this.lightSource != null){
 			return true;
@@ -140,6 +167,10 @@ public class RaySquare extends SquareBase implements Serializable {
 		return true;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns true if the square is in the say enlightes ray with another square
+	 */
 	public boolean isInSameRay(SquareBase square){
 		boolean isInSameRay = false;
 		try{
@@ -154,6 +185,10 @@ public class RaySquare extends SquareBase implements Serializable {
 		return isInSameRay;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns true if the square is the last one in a ray enlighted by the same lightsource
+	 */
 	public boolean isLastInRay(GameGrid gameGrid){
 		int sameLineAround = 0;
 		SquareBase tmpSquare = null;
@@ -198,6 +233,10 @@ public class RaySquare extends SquareBase implements Serializable {
 				
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns a position string which represents the position relativ to the lightsource
+	 */
 	public String getPositionToLightsource(){
 		String positionToLightsource = "unset";
 		if(this.getPositionX() == this.lightSource.getPositionX()){

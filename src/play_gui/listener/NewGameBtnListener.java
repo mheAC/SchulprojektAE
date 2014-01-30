@@ -11,7 +11,10 @@ import play_gui.PlayGuiController;
 
 public class NewGameBtnListener implements ActionListener{
 
-
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the new game button is clicked (fires the newGame on the controller)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		JOpenFileDialog fileDialog = new JOpenFileDialog();

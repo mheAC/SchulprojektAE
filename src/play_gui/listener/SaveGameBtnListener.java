@@ -11,7 +11,10 @@ import play_gui.PlayGuiController;
 
 public class SaveGameBtnListener implements ActionListener{
 
-
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the save game button is clicked (fires the saveGame on the controller)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		JOpenFileDialog fileDialog = new JOpenFileDialog();

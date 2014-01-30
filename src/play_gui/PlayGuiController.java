@@ -15,8 +15,10 @@ import gui.JGameSquare;
 
 public class PlayGuiController {
 	
-	//triggered when new game button is cliked (loades a new game and renderes the game grid
-
+	/*
+	 * Author: Andreas Soiron
+	 * triggered when new game button is cliked (loades a new game and renderes the game grid)
+	 */
 	public static void newGame(MainWindow mainWindow,File file){
 		StorageHandler storageHandler = new StorageHandler();
 		try {
@@ -36,6 +38,10 @@ public class PlayGuiController {
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * triggered when save game button is cliked (saves the game to a file)
+	 */
 	public static void saveGame(MainWindow mainWindow,File file){
 		GameGrid gameGrid = mainWindow.getGameGrid();
 		gameGrid.runningGame = true;
@@ -43,8 +49,11 @@ public class PlayGuiController {
 		storageHandler.persist(mainWindow.getGameGrid(), file);
 	}
 
-	//fired when a grid cell is clicked (activates the cell)
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when a grid cell is clicked (activates the cell or draws a line)
+	 */
 	public static void gridCellClicked(JGameSquare cell, MainWindow mainWindow) {
 		SquareBase square = cell.getRepresentedSquare();
 		if(square.isNumberSquare()){
@@ -73,6 +82,10 @@ public class PlayGuiController {
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when a grid cell is right clicked (remves rays)
+	 */
 	public static void gridCellRightClicked(JGameSquare cell, MainWindow mainWindow){
 		if(cell.getRepresentedSquare().isRaySquare() && ((RaySquare) cell.getRepresentedSquare()).getLightSource() == mainWindow.getActiveCell().getRepresentedSquare()){
 			mainWindow.getGameGrid().unenlight((RaySquare) cell.getRepresentedSquare());
@@ -80,8 +93,11 @@ public class PlayGuiController {
 		}
 	}
 
-	//fired when mouse enters a grid cell
-
+	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when mouse enters a grid cell
+	 */
 	public static void gridCellEntered(JGameSquare cell, MainWindow mainWindow) {
 		if(mainWindow.hasActiveCell()){
 			mainWindow.clearHover();
@@ -92,6 +108,10 @@ public class PlayGuiController {
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the back button ist clicked, loads the last grid and sets it to the view
+	 */
 	public static void stepBack(MainWindow mainWindow){
 		try {
 			GameGrid oldGrid = mainWindow.getGameGrid().stepBack();
@@ -114,8 +134,10 @@ public class PlayGuiController {
 		
 	}
 	
-	//fired when mouse exited a grid cell
-
+	/*
+	 * Author: Andreas Soiron
+	 * fired when mouse exited a grid cell (does nothing)
+	 */
 	public static void gridCellExited(JGameSquare cell, MainWindow mainWindow) {
 	}
 }
