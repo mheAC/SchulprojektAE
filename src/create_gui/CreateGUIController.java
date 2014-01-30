@@ -67,7 +67,11 @@ public class CreateGUIController {
 				//mainWindow.setActiveCell(mainWindow.getCellByPosition(lightSource.getPositionX(), lightSource.getPositionY()));
 				//gridCellEntered(cell,mainWindow);
 			}else{
+				if(((NumberSquare)mainWindow.getActiveCell().getRepresentedSquare()).getNumber() != 0){
+					mainWindow.getActiveCell().setRepresentingSquare(mainWindow.getGameGrid().deleteLightsource((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()));
+				}
 				mainWindow.releaseActiveCell();
+				
 				//mainWindow.repaint();
 			}
 		}else if(square.isUntypedSquare()){
