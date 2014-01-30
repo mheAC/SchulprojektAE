@@ -14,6 +14,8 @@ import java.util.TooManyListenersException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import play_gui.listener.GameGridCellListener;
+
 import create_gui.listener.Create_AddColumnBtnListener;
 import create_gui.listener.Create_AddRowBtnListener;
 import create_gui.listener.Create_FileDropListener;
@@ -42,6 +44,7 @@ import loghandler2.*;
 			//initialize panel
 			JPanel panel = new JPanel();
 			GridLayout layout = new GridLayout(7, 1);
+			//GridLayout layout = new GridLayout();
 			panel.setLayout(layout);
 			
 			//initialize frame
@@ -135,6 +138,7 @@ import loghandler2.*;
 							this.setActiveCell(pTmp);
 						}
 					else if(s.getClass() == RaySquare.class){
+						
 						String imageType = "";
 						if(((RaySquare) s).getDirection() == Direction.VERTICAL){
 							imageType = "horizontal-line.png";
@@ -163,8 +167,9 @@ import loghandler2.*;
 				
 				
 				this.setResizable(true);
-				//this.setSize(500,501);
-				//this.setSize(500,500);
+				this.setSize(500,501);
+				this.setSize(500,500);
+				//this.gameGridPanel.validate();
 //				if(Create_StartWindow.getWidth()>0 || Create_StartWindow.getHeight() > 0 ){
 //					int width = Create_StartWindow.getWidth(), height = Create_StartWindow.getHeight();
 //					this.setSize(width*30, height*30);
@@ -174,6 +179,9 @@ import loghandler2.*;
 				this.setResizable(false);
 				//this.gameGridPanel.repaint();
 			}
+		}
+		public void removeall(){
+			this.gameGridPanel.removeAll();
 		}
 
 		//shows a message in the console
