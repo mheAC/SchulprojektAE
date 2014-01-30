@@ -117,6 +117,13 @@ public class StorageHandler {
 		}
 	}
 	
+	public void delete(String filePath) throws IOException, ClassNotFoundException{
+		File file = new File(filePath);
+		if(file.exists()){
+			file.delete();
+		}
+	}
+	
 	/**
 	 * Just delegates the call..
 	 *

@@ -2,7 +2,6 @@ package loghandler2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +12,6 @@ import engine.storage_handler.StorageHandler;
 public class Loghandler {
 	private ArrayList<Long> steps;
 	long logZeit =0;
-	int counter;
 	public Loghandler(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 		this.steps = new ArrayList<Long>();
 		this.log(gameGrid);
@@ -33,7 +31,7 @@ public class Loghandler {
 		dir.mkdir();
 		storageHandler.persist(gameGrid, "tmp"+System.getProperty("file.separator")+longTime);
 		this.steps.add(longTime);
-		counter = counter + 1;
+		
 		
 	}
 	
@@ -46,23 +44,16 @@ public class Loghandler {
 		GameGrid last = null;
 		try {
 			last = storageHandler.load("tmp"+System.getProperty("file.separator")+this.steps.get(this.steps.size()-1)+".ysams");
+			storageHandler.delete("tmp"+System.getProperty("file.separator")+this.steps.get(this.steps.size()-1)+".ysams");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		this.steps.remove(this.steps.size()-1);
-		this.counter = this.counter - 1;
 		return last;
 		
 	}
-	public boolean counterpositiv(){
-		if(this.counter>0){
-			return true;
-		}else{
-			return false;
-		}
-		
-		
-	}
+	
+	
 }

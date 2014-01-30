@@ -113,11 +113,9 @@ public class CreateGUIController {
 	
 	public static void stepBack(Create_MainWindow mainWindow){
 		try {
-			if(mainWindow.getLoghandler().counterpositiv()==true){
 				GameGrid oldGrid = mainWindow.getLoghandler().back();
 				mainWindow.clearGameGrid();
 				mainWindow.setGameGrid(oldGrid, false);
-			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
