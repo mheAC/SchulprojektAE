@@ -34,6 +34,10 @@ public class GameGrid implements Serializable{
 	//Loghandler
 	public Loghandler loghandler;
 	
+	/*
+	 * Author: Andreas Soiron
+	 * Logs the current state of the Grid
+	 */
 	public void log() throws FileNotFoundException, IOException, ClassNotFoundException{
 		if(this.loghandler == null){
 			this.loghandler = new Loghandler(this);
@@ -41,6 +45,10 @@ public class GameGrid implements Serializable{
 		this.loghandler.log(this);
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * Returns the last state of the Grid
+	 */
 	public GameGrid stepBack(){
 		return this.loghandler.back();
 	}
@@ -48,14 +56,6 @@ public class GameGrid implements Serializable{
 		return this.loghandler.logTime();
 		
 	}
-	
-	
-	//Controller
-	//private Controller cr;
-
-	//save
-	//private Save sv;
-
 
 	/**
 	 * get the size of the gamegrid.
@@ -98,13 +98,13 @@ public class GameGrid implements Serializable{
 	 * @param rows the rows
 	 */
 	public GameGrid(int cols, int rows) {
-		//lh = new LogHandler();
 		this.cols = cols;
 		this.rows = rows;
 		generateSquares();
 	}
 	
 	/**
+	 * Author: Andreas Soiron
 	 * Initialize GameGrid with a list of squares.
 	 *
 	 * @param cols the cols
@@ -139,6 +139,11 @@ public class GameGrid implements Serializable{
 
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * After a Grid is loaded from Json the assignment from raysquares to Lightsources isn't restored
+	 * This function assignes lightsources to raysquares
+	 */
 	public void restoreConsistence(){
 		for(RaySquare square : this.getRaySquares()){
 			if(!square.hasLightsource()){
@@ -148,64 +153,16 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * Removes all Raysquares and resets Lightsources to there original Number
+	 */
 	public void resetToPlaymode(){
 		for(RaySquare square : this.getRaySquares()){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
 		}
 	}
 	
-	
-	/*public void generateSquares() {
-		// DUMMY GAME DATA GRID BUILDING
-		//ArrayList<SquareBase> tempList = new ArrayList<SquareBase>();
-		this.squares = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(Math.random()>0.2)
-				this.squares.add(new RaySquare(Math.random()>0.5?Direction.HORIZONTAL:Direction.VERTICAL));
-				//this.squares.add(new RaySquare());
-			else
-				this.squares.add(new NumberSquare( new Double(Math.random() * ( 9 - 1 )).intValue() ));
-			
-		}
-	}*/
-	
-	/*
-	public void generateSquaresBigMiddleTest() {
-		// DUMMY GAME DATA GRID BUILDING
-		this.squares = new ArrayList<SquareBase>();
-		for(int i = 0; i < this.cols * this.rows; i++) {
-			if(i!=31)
-				this.squares.add(new RaySquare());
-			else
-				this.squares.add(new NumberSquare( 3 ));
-			
-		}
-	}*/
-	
-	/*
-	public void generateSquaresTEST() { // Only a testing method
-		// DUMMY GAME DATA GRID BUILDING
-		this.squares = new ArrayList<SquareBase>();
-		
-		this.cols = 4;
-		this.rows = 3;
-
-		this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(2));
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(2));
-        this.squares.add(new RaySquare());
-        this.squares.add(new NumberSquare(5));
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-        this.squares.add(new RaySquare());
-		
-        asignSquareCoordinates();
-	}
-	*/
 	
 	/**
 	 * This method will assign the x and y coordinates to any square in the list.
@@ -229,7 +186,10 @@ public class GameGrid implements Serializable{
 		return this.squares;
 	}
 	
-	
+	/*
+	 * Author: Andreas Soiron
+	 * Returns the square at the given position
+	 */
 	public SquareBase getSquare(int posX,int posY){
 		int position = (this.cols*posY)+posX;
 		if(position>0){
@@ -307,7 +267,10 @@ public class GameGrid implements Serializable{
 		return tempList;
 	}
 	
-	
+	/*
+	 * Author: Andreas Soiron
+	 * Englights a square for Playmode
+	 */
 	public boolean enlight(NumberSquare lightSource, SquareBase target){
 		ArrayList<SquareBase> squares = this.getEnlightWay(lightSource,target);
 		
@@ -352,13 +315,12 @@ public class GameGrid implements Serializable{
 		return newUntyped;
 	}
 	
-	/**
-	 * 
-	 * @param a NumberSquare as lightSource
-	 * @param side as String (left,right,above,underneath)
+	/*
+	 * Author: Andreas Soiron
+	 * removes all raysquares assigned to the given lightsource on the given side of the lightsource
+	 * use left,above,right,underneath for side
+	 * Use for playmode
 	 */
-
-	
 	public void unenlight(NumberSquare lightSource, String side){
 		for(RaySquare square : lightSource.getEnlightedSquares(side)){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
@@ -366,12 +328,10 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-
-	/**
-	 * 
-	 * @param lightSource
+	/*
+	 * Author: Andreas Soiron
+	 * Removes all Raysquares that are assigned to the given lightsource
 	 */
-	
 	public void unenlight(NumberSquare lightSource){
 		for(RaySquare square : lightSource.getEnlightedSquares()){
 			this.setSquare(square.getPositionX(), square.getPositionY(), square.getAsUntypedSquare());
@@ -385,7 +345,11 @@ public class GameGrid implements Serializable{
 	}
 	
 	
-	
+	/*
+	 * Author: Andreas Soiron
+	 * Resets the given Raysquare to a untyped square
+	 * automatically resets all squares that cant be englighted by the soruce after reset
+	 */
 	public boolean unenlight(RaySquare square){
 		if(square.getClass() == RaySquare.class){
 			ArrayList<RaySquare> squaresToUnenlight;
@@ -405,7 +369,10 @@ public class GameGrid implements Serializable{
 		}
 	}
 	
-
+	/*
+	 * Author: Andreas Soiron
+	 * Returns a list of squares that have to be enlighted to englight the given square by the given lightsource
+	 */
 	public ArrayList<SquareBase> getEnlightWay(NumberSquare lightSource, SquareBase target){
 	  ArrayList<SquareBase> squares = new ArrayList<SquareBase>();
 	  //target is in same row with lightsource
@@ -569,21 +536,8 @@ public class GameGrid implements Serializable{
     }else
       return false;
 	}
-
-	/*
-	public LogHandler getLogHandler() {
-		return lh;
-	}
-	*/
-	/*
-	public Controller getController() {
-		return cr;
-	}
-	*/
 	
 	public void setSquare(int x, int y, SquareBase square){
-		
-		//System.out.println(this.squares.get((this.cols*y)+x).getPositionY()+" "+this.squares.get((this.cols*y)+x).getPositionX());
 		this.squares.set((this.cols*y)+x, square);
 	}
 
@@ -679,10 +633,5 @@ public class GameGrid implements Serializable{
 			this.setGridSize(new Dimension((int)dim.getWidth()-(ff+1), (int)dim.getHeight()));
 		}
 	}
-	/*
-	public GameGrid copy() throws FileNotFoundException, IOException, ClassNotFoundException{
-		StorageHandler storageHandler = new StorageHandler();
-		storageHandler.persist(this, "tmp"+System.getProperty("file.separator")+"tmpGame");
-		return storageHandler.load("tmp"+System.getProperty("file.separator")+"tmpGame.ysams",false);
-	}*/
+
 }

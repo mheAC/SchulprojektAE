@@ -8,8 +8,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import engine.*;
-import engine.loghandler.invoker.Controller;
-import engine.loghandler.receiver.LogHandler;
 
 // TODO: Javadoc kontrollieren
 /**

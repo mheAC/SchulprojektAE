@@ -39,6 +39,11 @@ public class NumberSquare extends SquareBase implements Serializable {
 		return this.original_number;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * checks if the lightsource can enlight the given square
+	 * Warning: doesen't check for ohther rays that might block the way
+	 */
 	public boolean canEnlight(SquareBase rs) {
 		if(rs.getClass() == NumberSquare.class)
 			return false; // number squares can never be enlighted
@@ -76,19 +81,35 @@ public class NumberSquare extends SquareBase implements Serializable {
 		return false;
 	}
 
-	@Override
+	/*
+	 * Author: Yusuf Congar
+	 * returns if the square is a number square
+	 */
 	public String getPrintableValue() {
 		return Integer.toString(this.getNumber());
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns if the square is a number square
+	 */
 	public boolean isNumberSquare(){
 		return true;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns all squares that are englighted by this lightsource
+	 */
 	public ArrayList<RaySquare> getEnlightedSquares(){
 		return this.englighted_squares;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns all squares that are enlighted by this lightsource on the given side
+	 * use left,right,above and underneath as sides
+	 */
 	public ArrayList<RaySquare> getEnlightedSquares(String side){
 		ArrayList<RaySquare> squares = new ArrayList<RaySquare>();
 		for(RaySquare square : this.englighted_squares){
@@ -105,10 +126,10 @@ public class NumberSquare extends SquareBase implements Serializable {
 		return squares;
 	}
 	
-//	public void deleteEnlightedSquares(GameGrid gg){
-//			gg.unenlight(this);
-//	}
-	
+	/*
+	 * Author: Andreas Soiron, Michael Herpers
+	 * Adds a square to the enlighted list, works for playmode and edit mode
+	 */
 	public void addEnlightedSquare(RaySquare square){
 		this.englighted_squares.add(square);
 		if(editormode==false){
@@ -118,6 +139,10 @@ public class NumberSquare extends SquareBase implements Serializable {
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron, Michael Herpers
+	 * Removes a square to the enlighted list, works for playmode and edit mode
+	 */
 	public void removeEnlightedSquare(RaySquare square){
 		this.englighted_squares.remove(square);
 		if(editormode==false){
@@ -127,7 +152,10 @@ public class NumberSquare extends SquareBase implements Serializable {
 		}
 	}
 	
-	
+	/*
+	 * Author: Andreas Soiron, Michael Herpers
+	 * Removes a square to the enlighted list, works for playmode and edit mode
+	 */
 	public void removeEnlightedSquare(int index){
 		this.englighted_squares.remove(index);
 		if(editormode==false){
@@ -137,10 +165,18 @@ public class NumberSquare extends SquareBase implements Serializable {
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron, Michael Herpers
+	 * removes all enlightes squares from the enlighted list
+	 */
 	public void clearEnlightedSquares(){
 		this.englighted_squares = new ArrayList<RaySquare>();
 	}
 	
+	/*
+	 * Author: Michael Herpers
+	 * toggles the editor mode
+	 */
 	public void changeEditorMode(){
 		if(editormode!=true){
 			editormode = true;

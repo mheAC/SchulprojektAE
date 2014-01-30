@@ -19,18 +19,34 @@ public class FileDropListener implements DropTargetListener{
 		this.mainWindow = mainWindow;
 	}
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the user enters the window with filedrag (does nothing)
+	 */
 	@Override
 	public void dragEnter(DropTargetDragEvent arg0) {
 	}
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the user exites the window with filedrag (does nothing)
+	 */
 	@Override
 	public void dragExit(DropTargetEvent arg0) {
 	}
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the user filedrags over the window (does nothing)
+	 */
 	@Override
 	public void dragOver(DropTargetDragEvent arg0) {
 	}
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the user drops a file over the window (fires the newGame method on the controller)
+	 */
 	@Override
 	public void drop(DropTargetDropEvent event) {
 		event.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
@@ -46,6 +62,10 @@ public class FileDropListener implements DropTargetListener{
 		}
 	}
 
+	/*
+	 * Author: Andreas Soiron
+	 * fired when the drop action changes (does nothing)
+	 */
 	@Override
 	public void dropActionChanged(DropTargetDragEvent arg0) {
 		// TODO Auto-generated method stub

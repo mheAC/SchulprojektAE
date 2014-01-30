@@ -27,7 +27,10 @@ public class MainWindow extends JFrame{
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
 	
-	//constructor renders a window with no game grid
+	/*
+	 * Author: Andreas Soiron
+	 * constructor renders a window with no game grid
+	 */
 	public MainWindow(){
 		super("Lichtstrahlen");
 		
@@ -57,7 +60,11 @@ public class MainWindow extends JFrame{
 		this.setVisible(true);
 	}
 
-	//cleares the game grid 
+	
+	/*
+	 * Author: Andreas Soiron
+	 * cleares the game grid 
+	 */
 	public void clearGameGrid(){
 		this.gameGrid = null;
 		this.gameGridPanel.setVisible(false);
@@ -66,7 +73,10 @@ public class MainWindow extends JFrame{
 	}
 
 	
-	//sets the game grid and renders it
+	/*
+	 * Author: Andreas Soiron
+	 * sets the game grid and renders it
+	 */
 	public boolean setGameGrid(GameGrid gameGrid) throws FileNotFoundException, IOException, ClassNotFoundException{
 
 		if(this.gameGrid == null){
@@ -98,6 +108,10 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * repaintes the grid from data
+	 */
 	public void repaintGameGrid(){
 		if(this.gameGrid != null){
 			this.gameGridPanel.removeAll();
@@ -147,12 +161,18 @@ public class MainWindow extends JFrame{
 		}
 	}
 
-	//shows a message in the console
+	/*
+	 * Author: Andreas Soiron
+	 * shows an alert window with the given message
+	 */
 	public void showAlert(String message) {
 		JOptionPane.showMessageDialog(this,message,"",JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	//shows a message in the console which can be answered with y/n returns true or false
+	/*
+	 * Author: Andreas Soiron
+	 * shows an confirm window with the given message and returns the users action
+	 */
 	public boolean showConfirm(String message){
 		if(JOptionPane.showConfirmDialog(this,message,"",JOptionPane.YES_NO_OPTION)==1)
 			return false;
@@ -160,7 +180,10 @@ public class MainWindow extends JFrame{
 			return true;
 	}
 	
-	//removes backgroundcolor from currently active cell and set a new one
+	/*
+	 * Author: Andreas Soiron
+	 * removes backgroundcolor from currently active cell and set a new one
+	 */
 	public void setActiveCell(JGameSquare cell){
 		if(this.activeCell != null){
 			this.activeCell.setBackground(Color.WHITE);
@@ -169,6 +192,10 @@ public class MainWindow extends JFrame{
 		this.activeCell.setBackground(Color.LIGHT_GRAY);
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * removes backgroundcolor from currently active cell
+	 */
 	public void releaseActiveCell(){
 		if(this.activeCell != null){
 			this.activeCell.setBackground(Color.WHITE);
@@ -177,7 +204,10 @@ public class MainWindow extends JFrame{
 	}
 	
 
-	//loades the background image and returns true if it could be loaded, otherwise it returns false
+	/*
+	 * Author: Andreas Soiron
+	 * loades the background image and returns true if it could be loaded, otherwise it returns false
+	 */
 	private boolean loadBackgroundImage(String path){
         File file = new File(path);
         BufferedImage image;
@@ -190,7 +220,11 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
-	//doesent work :(
+	/*
+	 * Author: Andreas Soiron
+	 * sets the hover image if the users hovers a file over the window
+	 * Warning: doesent work :(
+	 */
 	public void setBackgroundHover(boolean hover){
 		if(hover){
 			this.getContentPane().remove(this.backgroundImage);
@@ -207,6 +241,10 @@ public class MainWindow extends JFrame{
 	}
 	
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns the cell on the given position
+	 */
 	public JGameSquare getCellByPosition(int x, int y){
 		Component[] cells = this.gameGridPanel.getComponents();
 		JGameSquare cell = null;
@@ -223,6 +261,10 @@ public class MainWindow extends JFrame{
 		return cell;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * returns a list of cells that are between the given cell and the currently active cell
+	 */
 	public ArrayList<JGameSquare> getUntypedCellsToActive(JGameSquare cell){
 		ArrayList<JGameSquare> cells = new ArrayList<JGameSquare>();
 		if(this.hasActiveCell()){
@@ -234,6 +276,10 @@ public class MainWindow extends JFrame{
 		return cells;
 	}
 	
+	/*
+	 * Author: Andreas Soiron
+	 * clears the background color of the hovered cells
+	 */
 	public void clearHover(){
 		Component[] components = this.gameGridPanel.getComponents();
 		for(int i=0;i < components.length; i++){
@@ -243,9 +289,11 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
-	//getterst/setters
 	
-	//returns true if an active cell is set
+	/*
+	 * Author: Andreas Soiron
+	 * returns true if an active cell is set
+	 */
 	public boolean hasActiveCell(){
 		if(this.activeCell != null){
 			return true;
@@ -254,17 +302,26 @@ public class MainWindow extends JFrame{
 		}
 	}
 	
-	//returns the currently activated cell
+	/*
+	 * Author: Andreas Soiron
+	 * sets the given cell to active cell
+	 */
 	public JGameSquare getActiveCell(){
 		return this.activeCell;
 	}
 	
-	//returns the currently loaded grid (could be null if no grid is set)
+	/*
+	 * Author: Andreas Soiron
+	 * returns the currently loaded grid (could be null if no grid is set)
+	 */
 	public GameGrid getGameGrid(){
 		return this.gameGrid;
 	}
 	
-	//returns the toolbar and creates a new one when no toolbar is set
+	/*
+	 * Author: Andreas Soiron
+	 * returns the toolbar and creates a new one when no toolbar is set
+	 */
 	public JToolBar getToolbar(){
 		if(toolbar == null){
 			JButton newGameBtn = new JButton("Neues Spiel");
