@@ -74,6 +74,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 						try {
 							mainWindow.setGameGrid(new GameGrid(width, height));
 							mainWindow.repaintGameGrid();
+							frame.dispose();
 						} catch (FileNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
