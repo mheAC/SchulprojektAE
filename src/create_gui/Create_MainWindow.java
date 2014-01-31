@@ -338,7 +338,7 @@ import loghandler2.*;
 				JButton removeWidthBtn = new JButton("Spalte -1");
 				removeWidthBtn.addActionListener(new Create_RemoveColumnBtnListener());
 				
-				extras.add(backBtn);
+				//extras.add(backBtn);
 				extras.add(saveGameBtn);
 				extras.add(addHeightBtn);
 				extras.add(removeHeightBtn);
