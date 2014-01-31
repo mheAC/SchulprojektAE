@@ -4,6 +4,8 @@ package create_gui;
 	import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +32,9 @@ import loghandler2.*;
 	public class Create_MainWindow extends JFrame{
 		
 		private static final long serialVersionUID = 1L;
-		private JToolBar toolbar; //the Toolbar on the top of the window
+		//private JToolBar toolbar; //the Toolbar on the top of the window
+		private JMenuBar menubar;
+		
 		private GameGrid gameGrid; //a GameGrid object
 		private JPanel gameGridPanel; //panel that houlds the GameGrid
 		private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
@@ -110,7 +114,7 @@ import loghandler2.*;
 				this.repaintGameGrid();
 				
 				//Show save button
-				for(Component component : this.toolbar.getComponents()){
+				for(Component component : this.menubar.getComponents()){
 					component.setVisible(true);
 				}
 				
@@ -223,6 +227,7 @@ import loghandler2.*;
 	        BufferedImage image;
 			try {
 				image = ImageIO.read(file);
+		
 				this.backgroundImage = new JLabel(new ImageIcon(image));
 				return true;
 			} catch (IOException e) {
@@ -305,45 +310,65 @@ import loghandler2.*;
 		}
 		
 		//returns the toolbar and creates a new one when no toolbar is set
-		public JToolBar getToolbar(){
-			if(toolbar == null){
+		public JMenuBar getToolbar(){
+			if(menubar == null){
 				JButton newGameBtn = new JButton("Neues Spiel");
 				newGameBtn.addActionListener(new Create_NewGameBtnListener());
+				JMenu extras = new JMenu("Extras");
+				
+				
+				
 				JButton backBtn = new JButton("Rückgängig");
 				backBtn.addActionListener(new Create_BackBtnListener());
+				
 				JButton saveGameBtn = new JButton("Speichern");
 				saveGameBtn.addActionListener(new Create_SaveGameBtnListener());
                 
 				JButton addHeightBtn = new JButton("Zeile +1");
 				addHeightBtn.addActionListener(new Create_AddRowBtnListener());
+				
 				JButton removeHeightBtn = new JButton("Zeile -1");
 				removeHeightBtn.addActionListener(new Create_RemoveRowBtnListener());
                 
 				JButton addWidthBtn = new JButton("Spalte +1");
 				addWidthBtn.addActionListener(new Create_AddColumnBtnListener());
+				
 				JButton removeWidthBtn = new JButton("Spalte -1");
 				removeWidthBtn.addActionListener(new Create_RemoveColumnBtnListener());
-
-				this.toolbar = new JToolBar();
-				this.toolbar.setFloatable(false);
-				this.toolbar.add(newGameBtn);
-				this.toolbar.add(backBtn);
-				this.toolbar.add(saveGameBtn);
 				
-				this.toolbar.add(addHeightBtn);
-				this.toolbar.add(removeHeightBtn);
-				this.toolbar.add(addWidthBtn);
-				this.toolbar.add(removeWidthBtn);
+				extras.add(backBtn);
+				extras.add(saveGameBtn);
+				extras.add(addHeightBtn);
+				extras.add(removeHeightBtn);
+				extras.add(addWidthBtn);
+				extras.add(removeWidthBtn);
+				
+				extras.setEnabled(true);
+				extras.setVisible(true);
+				extras.validate();
+
+				this.menubar = new JMenuBar();
+				//this.menubar.setFloatable(false);
+				this.menubar.add(newGameBtn);
+				this.menubar.add(extras);
+				this.menubar.validate();
+//				this.menubar.add(backBtn);
+//				this.menubar.add(saveGameBtn);
+//				
+//				this.menubar.add(addHeightBtn);
+//				this.menubar.add(removeHeightBtn);
+//				this.menubar.add(addWidthBtn);
+//				this.menubar.add(removeWidthBtn);
 				
 				//hide unusable buttons before load
-				backBtn.setVisible(false);
-				saveGameBtn.setVisible(false);
-				addHeightBtn.setVisible(false);
-				addWidthBtn.setVisible(false);
-				removeHeightBtn.setVisible(false);
-				removeWidthBtn.setVisible(false);
+				backBtn.setVisible(true);
+				saveGameBtn.setVisible(true);
+				addHeightBtn.setVisible(true);
+				addWidthBtn.setVisible(true);
+				removeHeightBtn.setVisible(true);
+				removeWidthBtn.setVisible(true);
 			}
-			return this.toolbar;
+			return this.menubar;
 		}
 		
 		public Loghandler getLoghandler(){
