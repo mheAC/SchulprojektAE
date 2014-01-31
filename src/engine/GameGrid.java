@@ -590,6 +590,10 @@ public class GameGrid implements Serializable{
 		
 		for (int ff = 0; ff < count; ff++) {
 			for (int ii = (startsize-1); ii >= targetsize; ii--) {
+				if (squares.get(ii) instanceof RaySquare) {
+					RaySquare rsqaure = (RaySquare) squares.get(ii);
+					this.unenlight(rsqaure);
+				}
 				squares.remove(ii);
 			}
 		}

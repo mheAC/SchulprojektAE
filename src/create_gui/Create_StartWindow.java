@@ -72,11 +72,11 @@ import create_gui.listener.Create_NewGameBtnListener;
 						int height = Integer.parseInt(heightInput.getText());
 						setWidth(width);
 						setHeight(height);
-						if(height <15){
+						if(height <10){
 							JOptionPane.showMessageDialog(panel, "Hoehe zu klein");
 							return;
 						}
-						if(width < 15){
+						if(width < 10){
 							JOptionPane.showMessageDialog(panel, "Breite zu klein");
 							return;
 						}
@@ -124,7 +124,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 				widthLbl  = new JLabel("Breite in cols:");
 				
 				//sizeLbl => erkl?rt sich von selbst :)
-				sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) : min.15");
+				sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) : min.10");
 				
 				//frame => frame wird erstellt und bekommt eine ?berschrift
 				frame = new JFrame("Lichtstrahlen Startparameter");

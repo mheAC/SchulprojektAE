@@ -22,7 +22,7 @@ public class Create_RemoveColumnBtnListener implements ActionListener {
 		
 		mainwindow.repaintGameGrid();
 		Dimension dim = mainwindow.getGameGrid().getGridSize();
-		if(dim.getWidth() >0){
+		if(dim.getWidth() >10){
 			CreateGUIController.removeColumn(mainwindow);
 			mainwindow.repaintGameGrid();
 		}

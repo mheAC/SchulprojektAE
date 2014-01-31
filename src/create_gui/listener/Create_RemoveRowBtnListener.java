@@ -20,7 +20,7 @@ public class Create_RemoveRowBtnListener implements ActionListener {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.removeRow(mainwindow);
 		Dimension dim = mainwindow.getGameGrid().getGridSize();
-		if(dim.getHeight() >0){
+		if(dim.getHeight() >10){
 			CreateGUIController.removeRow(mainwindow);
 			mainwindow.repaintGameGrid();
 		}
