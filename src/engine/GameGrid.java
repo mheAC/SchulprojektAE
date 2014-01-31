@@ -213,6 +213,17 @@ public class GameGrid implements Serializable{
 		return rsl;
 	}
 	
+	public ArrayList<UntypedSquare> getUntypedSquares () {
+		ArrayList<UntypedSquare> rsl = new ArrayList<UntypedSquare>(); // Temp list
+		for(SquareBase s : this.squares) { // iterate over the complete list of squares (also number squares)
+			if(s.isUntypedSquare()) { // filter the iteration for RaySquares only
+				UntypedSquare rs = (UntypedSquare)s; // we are working with ray squares here, so lets create a reference to a dedicated object instance instead of working with a generic class
+				rsl.add(rs);
+			}
+		}
+		return rsl;
+	}
+	
 	
 	public ArrayList<NumberSquare> getNumberSquares () {
 		ArrayList<NumberSquare> nsl = new ArrayList<NumberSquare>();
