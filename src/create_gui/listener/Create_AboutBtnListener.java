@@ -12,8 +12,8 @@ public class Create_AboutBtnListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		final ImageIcon ii = new ImageIcon(this.getClass().getResource(
-				"/gui/elements/resources/edit.png"));
+//		final ImageIcon ii = new ImageIcon(this.getClass().getResource(
+//				"/gui/elements/resources/edit.png"));
 		StringBuilder text = new StringBuilder(
 				"Lichtstrahlen Spiel  - AE@BWV-Aachen | 2014\n\nGruppe:\n");
 		List<String> arr = new ArrayList<String>();
@@ -29,7 +29,7 @@ public class Create_AboutBtnListener implements ActionListener {
 			arr.remove(pos);
 
 		}
-		JOptionPane.showMessageDialog(null, text.toString(), "Lichtstrahlen", JOptionPane.INFORMATION_MESSAGE, ii);
+		JOptionPane.showMessageDialog(null, text.toString(), "Lichtstrahlen", JOptionPane.INFORMATION_MESSAGE);
 		return;
 
 	}

@@ -127,6 +127,7 @@ public class GameGrid implements Serializable{
 			for(int xx=0; xx<this.cols; xx++){
 				this.squares.add(new UntypedSquare(xx,yy));
 			}
+			
 		}
 		/*for(int i = 0; i < this.cols * this.rows; i++) {
 			this.squares.add(new UntypedSquare(x,y));
@@ -206,6 +207,17 @@ public class GameGrid implements Serializable{
 		for(SquareBase s : this.squares) { // iterate over the complete list of squares (also number squares)
 			if(s.isRaySquare()) { // filter the iteration for RaySquares only
 				RaySquare rs = (RaySquare)s; // we are working with ray squares here, so lets create a reference to a dedicated object instance instead of working with a generic class
+				rsl.add(rs);
+			}
+		}
+		return rsl;
+	}
+	
+	public ArrayList<UntypedSquare> getUntypedSquares () {
+		ArrayList<UntypedSquare> rsl = new ArrayList<UntypedSquare>(); // Temp list
+		for(SquareBase s : this.squares) { // iterate over the complete list of squares (also number squares)
+			if(s.isUntypedSquare()) { // filter the iteration for RaySquares only
+				UntypedSquare rs = (UntypedSquare)s; // we are working with ray squares here, so lets create a reference to a dedicated object instance instead of working with a generic class
 				rsl.add(rs);
 			}
 		}

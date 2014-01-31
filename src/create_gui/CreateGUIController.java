@@ -38,6 +38,10 @@ public class CreateGUIController {
 	
 	public static void saveGame(Create_MainWindow mainWindow,File file){
 		System.out.println(file);
+		if(mainWindow.getGameGrid().getUntypedSquares().size()==0)
+			mainWindow.getGameGrid().runningGame = false;
+		else
+			mainWindow.getGameGrid().runningGame = true;
 		StorageHandler storageHandler = new StorageHandler();
 		storageHandler.persist(mainWindow.getGameGrid(), file);
 	}

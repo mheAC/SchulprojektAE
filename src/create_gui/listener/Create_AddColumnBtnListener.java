@@ -2,6 +2,8 @@ package create_gui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 
@@ -16,6 +18,20 @@ public class Create_AddColumnBtnListener implements ActionListener {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addColumn(mainwindow);
 		CreateGUIController.addColumn(mainwindow);
+		try {
+			mainwindow.getLoghandler().log(mainwindow.getGameGrid());
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		//mainwindow.getGameGrid().addColumn();
 		//mainwindow.repaintGameGrid();
 		
