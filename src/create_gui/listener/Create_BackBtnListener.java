@@ -33,7 +33,8 @@ public class Create_BackBtnListener implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		CreateGUIController.stepBack((Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent());
+		//Create_MainWindow main = (Create_MainWindow)((JComponent) event.getSource()).getParent().getParent();
+		CreateGUIController.stepBack((Create_MainWindow)((JComponent) event.getSource()).getRootPane().getParent());
 		//((Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent()).releaseActiveCell();
 		//((Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent()).repaintGameGrid();
 		

@@ -147,7 +147,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 				heightLbl.setFont(font);	
 					
 				//Erkl?rt sich eigentlich auch von selbst :P
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				//Komponenten werden dem Panel hinzugef?gt.
 				panel.add(sizeLbl);
