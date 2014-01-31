@@ -370,12 +370,17 @@ public class MainWindow extends JFrame{
 	 * Author: Andreas Soiron
 	 * loads or sets a savepoint
 	 */
-	public void savepoint() throws FileNotFoundException, IOException, ClassNotFoundException{
+	public void savepoint() throws IOException, ClassNotFoundException{
 		if(this.gameGrid.hasSavePoint()){
-			GameGrid oldGrid = this.gameGrid.loadSavePoint();
-			this.clearGameGrid();
-			this.setGameGrid(oldGrid);
-			this.savepointBtn.setText("Savepoint setzen");
+			try{
+				GameGrid oldGrid = this.gameGrid.loadSavePoint();
+				this.clearGameGrid();
+				this.setGameGrid(oldGrid);
+				this.savepointBtn.setText("Savepoint setzen");
+			}catch(FileNotFoundException e){
+				this.gameGrid.setSavePoint();
+				this.savepointBtn.setText("Savepoint laden");
+			}
 		}else{
 			this.gameGrid.setSavePoint();
 			this.savepointBtn.setText("Savepoint laden");
