@@ -71,6 +71,9 @@ public class PlayGuiController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if(mainWindow.getGameGrid().getUntypedSquares().size()==0){
+					mainWindow.showAlert("Sie haben das Spiel gelöst!");
+				}
 			}else if(square.isRaySquare()){
 				//doesent work :(
 				//NumberSquare lightSource = ((RaySquare) square).getLightSource();
