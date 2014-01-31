@@ -63,10 +63,7 @@ public class PlayGuiController {
 			if(enlighted){
 				mainWindow.repaintGameGrid();
 				try {
-					long zeit2;
 					mainWindow.getGameGrid().log();
-					zeit2 = mainWindow.getGameGrid().logTime();
-					System.out.println(zeit2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -142,5 +139,17 @@ public class PlayGuiController {
 	 * fired when mouse exited a grid cell (does nothing)
 	 */
 	public static void gridCellExited(JGameSquare cell, MainWindow mainWindow) {
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * fired when track button is clicked
+	 */
+	public static void savepoint( MainWindow mainWindow) {
+		try{
+			mainWindow.savepoint();
+		}catch(Exception e){
+			mainWindow.showAlert("Savepoint konnte nicht gesetzt oder geladen werden");
+		}
 	}
 }

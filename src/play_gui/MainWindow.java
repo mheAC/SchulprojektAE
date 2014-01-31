@@ -21,11 +21,12 @@ import play_gui.listener.*;
 public class MainWindow extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JToolBar toolbar; //the Toolbar on the top of the window
+	private JMenuBar toolbar; //the Toolbar on the top of the window
 	private GameGrid gameGrid; //a GameGrid object
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private JButton savepointBtn;
 	
 	/*
 	 * Author: Andreas Soiron
@@ -329,24 +330,60 @@ public class MainWindow extends JFrame{
 	 * Author: Andreas Soiron
 	 * returns the toolbar and creates a new one when no toolbar is set
 	 */
-	public JToolBar getToolbar(){
+	public JMenuBar getToolbar(){
 		if(toolbar == null){
+			JMenu edit = new JMenu("Bearbeiten");
+			
 			JButton newGameBtn = new JButton("Neues Spiel");
 			newGameBtn.addActionListener(new NewGameBtnListener());
+			
 			JButton backBtn = new JButton("Rückgäng");
 			backBtn.addActionListener(new BackBtnListener());
+			
 			JButton saveGameBtn = new JButton("Speichern");
 			saveGameBtn.addActionListener(new SaveGameBtnListener());
-			this.toolbar = new JToolBar();
-			this.toolbar.setFloatable(false);
-			this.toolbar.add(newGameBtn);
-			this.toolbar.add(backBtn);
-			this.toolbar.add(saveGameBtn);
 			
-			//hide unusable buttons before load
-			backBtn.setVisible(false);
-			saveGameBtn.setVisible(false);
+			
+			
+			this.savepointBtn = new JButton("Savepoint setzen");
+			savepointBtn.addActionListener(new SavepointBtnListener());
+			
+			edit.add(backBtn);
+			edit.add(saveGameBtn);
+			edit.add(savepointBtn);
+			
+			edit.setEnabled(true);
+			edit.setVisible(true);
+			edit.validate();
+			
+			this.toolbar = new JMenuBar();
+			this.toolbar.add(newGameBtn);
+			this.toolbar.add(edit);
+			backBtn.setVisible(true);
+			saveGameBtn.setVisible(true);
+			savepointBtn.setVisible(true);
 		}
 		return this.toolbar;
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * loads or sets a savepoint
+	 */
+	public void savepoint() throws IOException, ClassNotFoundException{
+		if(this.gameGrid.hasSavePoint()){
+			try{
+				GameGrid oldGrid = this.gameGrid.loadSavePoint();
+				this.clearGameGrid();
+				this.setGameGrid(oldGrid);
+				this.savepointBtn.setText("Savepoint setzen");
+			}catch(FileNotFoundException e){
+				this.gameGrid.setSavePoint();
+				this.savepointBtn.setText("Savepoint laden");
+			}
+		}else{
+			this.gameGrid.setSavePoint();
+			this.savepointBtn.setText("Savepoint laden");
+		}
 	}
 }
