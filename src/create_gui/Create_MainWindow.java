@@ -329,7 +329,7 @@ import loghandler2.*;
 				this.toolbar = new JToolBar();
 				this.toolbar.setFloatable(false);
 				this.toolbar.add(newGameBtn);
-				this.toolbar.add(backBtn);
+				//this.toolbar.add(backBtn);
 				this.toolbar.add(saveGameBtn);
 				
 				this.toolbar.add(addHeightBtn);

@@ -103,8 +103,9 @@ import create_gui.listener.Create_NewGameBtnListener;
 				infoBtn = new JButton("Info");
 				infoBtn.addActionListener(new Create_AboutBtnListener());
 				startToolBar = new JToolBar();
+				startToolBar.add(Box.createHorizontalGlue());
 				startToolBar.setFloatable(false);
-				startToolBar.add(loadBtn);
+				//startToolBar.add(loadBtn);
 				startToolBar.add(infoBtn);
 				
 				//Slider f?r die Auswahl der Gr??e wird erstellt.
