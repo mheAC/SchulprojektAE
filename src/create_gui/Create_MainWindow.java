@@ -115,9 +115,11 @@ import loghandler2.*;
 				}
 				
 				// Add the panel to the main frame
+				this.gameGridPanel.validate();
 				this.add(this.gameGridPanel);
 				this.backgroundImage.setVisible(false);
 				this.repaint();
+				
 				return true;
 			}
 			else{

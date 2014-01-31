@@ -127,6 +127,7 @@ public class GameGrid implements Serializable{
 			for(int xx=0; xx<this.cols; xx++){
 				this.squares.add(new UntypedSquare(xx,yy));
 			}
+			
 		}
 		/*for(int i = 0; i < this.cols * this.rows; i++) {
 			this.squares.add(new UntypedSquare(x,y));
