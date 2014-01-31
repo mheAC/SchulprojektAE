@@ -15,6 +15,8 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import play_gui.MainWindow;
+
 import create_gui.listener.Create_AboutBtnListener;
 import create_gui.listener.Create_NewGameBtnListener;
 
@@ -70,6 +72,14 @@ import create_gui.listener.Create_NewGameBtnListener;
 						int height = Integer.parseInt(heightInput.getText());
 						setWidth(width);
 						setHeight(height);
+						if(height <15){
+							JOptionPane.showMessageDialog(panel, "Hoehe zu klein");
+							return;
+						}
+						if(width < 15){
+							JOptionPane.showMessageDialog(panel, "Breite zu klein");
+							return;
+						}
 						Create_MainWindow mainWindow = new Create_MainWindow();
 						try {
 							mainWindow.setGameGrid(new GameGrid(width, height));
@@ -90,11 +100,12 @@ import create_gui.listener.Create_NewGameBtnListener;
 				//Create a Load Button to Load the Savegames
 				//It opens a JFileChooser
 				loadBtn = new JButton("Entwurf laden");
-				infoBtn = new JButton("?ber...");
+				infoBtn = new JButton("Info");
 				infoBtn.addActionListener(new Create_AboutBtnListener());
 				startToolBar = new JToolBar();
+				startToolBar.add(Box.createHorizontalGlue());
 				startToolBar.setFloatable(false);
-				startToolBar.add(loadBtn);
+				//startToolBar.add(loadBtn);
 				startToolBar.add(infoBtn);
 				
 				//Slider f?r die Auswahl der Gr??e wird erstellt.
@@ -113,7 +124,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 				widthLbl  = new JLabel("Breite in cols:");
 				
 				//sizeLbl => erkl?rt sich von selbst :)
-				sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) : min.4 max.25");
+				sizeLbl = new JLabel("W\u00E4hlen Sie eine Gr\u00F6\u00DFe aus (Breite x H\u00F6he) : min.15");
 				
 				//frame => frame wird erstellt und bekommt eine ?berschrift
 				frame = new JFrame("Lichtstrahlen Startparameter");
@@ -136,7 +147,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 				heightLbl.setFont(font);	
 					
 				//Erkl?rt sich eigentlich auch von selbst :P
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				//Komponenten werden dem Panel hinzugef?gt.
 				panel.add(sizeLbl);
