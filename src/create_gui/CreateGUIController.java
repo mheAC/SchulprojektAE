@@ -67,11 +67,11 @@ public class CreateGUIController {
 				//mainWindow.setActiveCell(mainWindow.getCellByPosition(lightSource.getPositionX(), lightSource.getPositionY()));
 				//gridCellEntered(cell,mainWindow);
 			}else{
-				//int num = ((NumberSquare)mainWindow.getActiveCell().getRepresentedSquare()).getNumber();
-				//if(num == -1){
-				//	mainWindow.getActiveCell().setRepresentingSquare(mainWindow.getGameGrid().deleteLightsource((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()));
-				//	mainWindow.repaintGameGrid();
-				//}
+				int num = ((NumberSquare)mainWindow.getActiveCell().getRepresentedSquare()).getOriginalNumber();
+				if(num == -1){
+					mainWindow.getActiveCell().setRepresentingSquare(mainWindow.getGameGrid().deleteLightsource((NumberSquare) mainWindow.getActiveCell().getRepresentedSquare()));
+					mainWindow.repaintGameGrid();
+				}
 				mainWindow.releaseActiveCell();
 				
 				//mainWindow.repaint();
