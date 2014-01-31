@@ -101,6 +101,9 @@ public class MainWindow extends JFrame{
 			this.add(this.gameGridPanel);
 			this.backgroundImage.setVisible(false);
 			this.repaint();
+			this.gameGridPanel.validate();
+			this.validate();
+			this.pack();
 			return true;
 		}
 		else{
@@ -153,11 +156,15 @@ public class MainWindow extends JFrame{
 			}
 			//this.gameGridPanel.repaint();
 			
-			
+			/*
 			this.setResizable(true);
 			this.setSize(500,501);
 			this.setSize(500,500);
 			this.setResizable(false);
+			*/
+			this.gameGridPanel.validate();
+			this.validate();
+			this.pack();
 		}
 	}
 
