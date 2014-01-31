@@ -591,6 +591,33 @@ public class GameGrid implements Serializable{
 	}
 	
 
+	
+	
+	public void addColumntest(int count){
+		for (int ff = 0; ff < count; ff++) {
+			Dimension dim = this.getGridSize();
+			int width = (int)dim.getWidth();
+			/*int i=0, c=0;
+			while(true){
+				if(i>=this.squares.size())
+					break;
+				int posx = this.squares.get(i).getPositionX();
+				int posy = this.squares.get(i).getPositionY();
+				if(posx == width-1){
+					int index = (posx+1)*(posy+1);
+					
+					squares.add(index+c,new UntypedSquare(width, posy));
+					c++;
+					i++;
+				}
+				else
+					i++;
+			}*/
+			for (int ii = squares.size();ii>0;ii=(ii-(int)dim.getWidth())) {
+				squares.add(ii,new UntypedSquare((int)dim.getHeight()-ff, (int)dim.getWidth()));
+			}
+			this.setGridSize(new Dimension((int)dim.getWidth()+(ff+1), (int)dim.getHeight()));}
+	}
 	public void addColumn(int count) {
 		for (int ff = 0; ff < count; ff++) {
 			Dimension dim = this.getGridSize();
@@ -615,6 +642,7 @@ public class GameGrid implements Serializable{
 				squares.add(ii,new UntypedSquare((int)dim.getHeight()-ff, (int)dim.getWidth()));
 			}
 			this.setGridSize(new Dimension((int)dim.getWidth()+(ff+1), (int)dim.getHeight()));
+			
 		}
 	}
 

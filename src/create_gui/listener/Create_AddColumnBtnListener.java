@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 
 import create_gui.CreateGUIController;
 import create_gui.Create_MainWindow;
+import engine.GameGrid;
 
 public class Create_AddColumnBtnListener implements ActionListener {
 
@@ -15,6 +16,9 @@ public class Create_AddColumnBtnListener implements ActionListener {
 		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) e.getSource()).getRootPane().getParent();
 		// TODO: CreateGUIController.addColumn(mainwindow);
 		CreateGUIController.addColumn(mainwindow);
+		//mainwindow.getGameGrid().addColumn();
+		//mainwindow.repaintGameGrid();
+		
 //		for(int i=0;i<mainwindow.getGameGrid().getSquares().size();i++){
 //			System.out.println("X: " + mainwindow.getGameGrid().getSquares().get(i).getPositionX() + " Y: " + mainwindow.getGameGrid().getSquares().get(i).getPositionY());
 //		}

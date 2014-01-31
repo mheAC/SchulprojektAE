@@ -176,6 +176,7 @@ public class CreateGUIController {
 			mainWindow.setGameGrid(gg, true);
 			mainWindow.repaintGameGrid();
 			mainWindow.setSize(getNewGGWidth(gg), getNewGGHeight(gg));
+			mainWindow.repaintGameGrid();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
