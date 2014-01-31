@@ -47,15 +47,42 @@ public class GameGrid implements Serializable{
 	
 	/*
 	 * Author: Andreas Soiron
+	 * Sets a savepoint which can be loaded
+	 */
+	public void setSavePoint() throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.loghandler == null){
+			this.loghandler = new Loghandler(this);
+		}
+		this.loghandler.setSavePoint(this);
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * loads a savepoint
+	 */
+	public GameGrid loadSavePoint() throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.loghandler == null){
+			this.loghandler = new Loghandler(this);
+		}
+		return this.loghandler.loadSavePoint();
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * Returns the last state of the Grid
+	 */
+	public boolean hasSavePoint(){
+		return this.loghandler.hasSavePoint();
+	}
+	
+	/*
+	 * Author: Andreas Soiron
 	 * Returns the last state of the Grid
 	 */
 	public GameGrid stepBack(){
 		return this.loghandler.back();
 	}
-	public long logTime(){
-		return this.loghandler.logTime();
-		
-	}
+	
 
 	/**
 	 * get the size of the gamegrid.

@@ -26,6 +26,7 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private JButton savepointBtn;
 	
 	/*
 	 * Author: Andreas Soiron
@@ -331,6 +332,8 @@ public class MainWindow extends JFrame{
 	 */
 	public JMenuBar getToolbar(){
 		if(toolbar == null){
+			JMenu edit = new JMenu("Bearbeiten");
+			
 			JButton newGameBtn = new JButton("Neues Spiel");
 			newGameBtn.addActionListener(new NewGameBtnListener());
 			
@@ -340,16 +343,42 @@ public class MainWindow extends JFrame{
 			JButton saveGameBtn = new JButton("Speichern");
 			saveGameBtn.addActionListener(new SaveGameBtnListener());
 			
-			this.toolbar = new JMenuBar();
-			//this.toolbar.setFloatable(false);
-			this.toolbar.add(newGameBtn);
-			this.toolbar.add(backBtn);
-			this.toolbar.add(saveGameBtn);
 			
-			//hide unusable buttons before load
-			backBtn.setVisible(false);
-			saveGameBtn.setVisible(false);
+			
+			this.savepointBtn = new JButton("Savepoint setzen");
+			savepointBtn.addActionListener(new SavepointBtnListener());
+			
+			edit.add(backBtn);
+			edit.add(saveGameBtn);
+			edit.add(savepointBtn);
+			
+			edit.setEnabled(true);
+			edit.setVisible(true);
+			edit.validate();
+			
+			this.toolbar = new JMenuBar();
+			this.toolbar.add(newGameBtn);
+			this.toolbar.add(edit);
+			backBtn.setVisible(true);
+			saveGameBtn.setVisible(true);
+			savepointBtn.setVisible(true);
 		}
 		return this.toolbar;
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * loads or sets a savepoint
+	 */
+	public void savepoint() throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.gameGrid.hasSavePoint()){
+			GameGrid oldGrid = this.gameGrid.loadSavePoint();
+			this.clearGameGrid();
+			this.setGameGrid(oldGrid);
+			this.savepointBtn.setText("Savepoint setzen");
+		}else{
+			this.gameGrid.setSavePoint();
+			this.savepointBtn.setText("Savepoint laden");
+		}
 	}
 }
