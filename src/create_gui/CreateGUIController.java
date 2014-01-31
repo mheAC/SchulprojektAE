@@ -128,6 +128,7 @@ public class CreateGUIController {
 	
     public static void addRow(Create_MainWindow mainWindow) {
         addRow(1, mainWindow);
+        mainWindow.repaintGameGrid();
 	}
 	
 	public static void addRow(int count, Create_MainWindow mainWindow) {
@@ -164,6 +165,7 @@ public class CreateGUIController {
 	
 	public static void addColumn(Create_MainWindow mainWindow) {
 	        addColumn(1, mainWindow);
+	        mainWindow.repaintGameGrid();
 	}
 	
 	public static void addColumn(int count, Create_MainWindow mainWindow) {

@@ -73,6 +73,7 @@ import create_gui.listener.Create_NewGameBtnListener;
 						Create_MainWindow mainWindow = new Create_MainWindow();
 						try {
 							mainWindow.setGameGrid(new GameGrid(width, height));
+							mainWindow.repaintGameGrid();
 						} catch (FileNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
