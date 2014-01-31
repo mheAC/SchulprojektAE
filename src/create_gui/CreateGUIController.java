@@ -114,6 +114,8 @@ public class CreateGUIController {
 				GameGrid oldGrid = mainWindow.getLoghandler().back();
 				mainWindow.clearGameGrid();
 				mainWindow.setGameGrid(oldGrid, false);
+				mainWindow.releaseActiveCell();
+				mainWindow.repaintGameGrid();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

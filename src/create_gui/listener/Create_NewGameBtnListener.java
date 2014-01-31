@@ -9,6 +9,11 @@ package create_gui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComponent;
+
+import play_gui.MainWindow;
+
+import create_gui.Create_MainWindow;
 import create_gui.Create_StartWindow;
 
 // TODO: Javadoc kontrollieren
@@ -30,8 +35,14 @@ public class Create_NewGameBtnListener implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		Create_MainWindow mainwindow = (Create_MainWindow) ((JComponent) event.getSource()).getRootPane().getParent();
+		mainwindow.dispose();
 		new Create_StartWindow().show();
+		
+		
+		
 	}
+	
 
 }
 
