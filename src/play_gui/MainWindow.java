@@ -41,7 +41,7 @@ public class MainWindow extends JFrame{
 		
 		//initialize frame
 		this.getContentPane().add(this.getToolbar(), BorderLayout.NORTH);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,500);
 		if(this.loadBackgroundImage("assets"+System.getProperty("file.separator")+"lamp.png")){
 			this.getContentPane().add(this.backgroundImage);
