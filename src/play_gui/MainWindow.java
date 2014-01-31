@@ -26,6 +26,7 @@ public class MainWindow extends JFrame{
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
 	private JGameSquare activeCell; //the currently active(clicked) cell
+	private JButton savepointBtn;
 	
 	/*
 	 * Author: Andreas Soiron
@@ -337,16 +338,36 @@ public class MainWindow extends JFrame{
 			backBtn.addActionListener(new BackBtnListener());
 			JButton saveGameBtn = new JButton("Speichern");
 			saveGameBtn.addActionListener(new SaveGameBtnListener());
+			this.savepointBtn = new JButton("Savepoint setzen");
+			savepointBtn.addActionListener(new SavepointBtnListener());
 			this.toolbar = new JToolBar();
 			this.toolbar.setFloatable(false);
 			this.toolbar.add(newGameBtn);
 			this.toolbar.add(backBtn);
 			this.toolbar.add(saveGameBtn);
+			this.toolbar.add(savepointBtn);
 			
 			//hide unusable buttons before load
 			backBtn.setVisible(false);
 			saveGameBtn.setVisible(false);
+			savepointBtn.setVisible(false);
 		}
 		return this.toolbar;
+	}
+	
+	/*
+	 * Author: Andreas Soiron
+	 * loads or sets a savepoint
+	 */
+	public void savepoint() throws FileNotFoundException, IOException, ClassNotFoundException{
+		if(this.gameGrid.hasSavePoint()){
+			GameGrid oldGrid = this.gameGrid.loadSavePoint();
+			this.clearGameGrid();
+			this.setGameGrid(oldGrid);
+			this.savepointBtn.setText("Savepoint setzen");
+		}else{
+			this.gameGrid.setSavePoint();
+			this.savepointBtn.setText("Savepoint laden");
+		}
 	}
 }
