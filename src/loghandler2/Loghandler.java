@@ -116,9 +116,10 @@ public class Loghandler {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				this.savePoint = "";
 			}
 		}
-		this.savePoint = null;
 		return gameGrid;
 	}
 	
@@ -127,7 +128,7 @@ public class Loghandler {
 	 * loads a savepoint
 	 */
 	public boolean hasSavePoint(){
-		return this.savePoint != null;
+		return (this.savePoint != null && !this.savePoint.equals(""));
 	}
 	
 	
