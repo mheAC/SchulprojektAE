@@ -21,7 +21,7 @@ import play_gui.listener.*;
 public class MainWindow extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JToolBar toolbar; //the Toolbar on the top of the window
+	private JMenuBar toolbar; //the Toolbar on the top of the window
 	private GameGrid gameGrid; //a GameGrid object
 	private JPanel gameGridPanel; //panel that houlds the GameGrid
 	private JLabel backgroundImage; //Background image which is only displayed when no grid is loaded
@@ -329,16 +329,19 @@ public class MainWindow extends JFrame{
 	 * Author: Andreas Soiron
 	 * returns the toolbar and creates a new one when no toolbar is set
 	 */
-	public JToolBar getToolbar(){
+	public JMenuBar getToolbar(){
 		if(toolbar == null){
 			JButton newGameBtn = new JButton("Neues Spiel");
 			newGameBtn.addActionListener(new NewGameBtnListener());
+			
 			JButton backBtn = new JButton("Rückgäng");
 			backBtn.addActionListener(new BackBtnListener());
+			
 			JButton saveGameBtn = new JButton("Speichern");
 			saveGameBtn.addActionListener(new SaveGameBtnListener());
-			this.toolbar = new JToolBar();
-			this.toolbar.setFloatable(false);
+			
+			this.toolbar = new JMenuBar();
+			//this.toolbar.setFloatable(false);
 			this.toolbar.add(newGameBtn);
 			this.toolbar.add(backBtn);
 			this.toolbar.add(saveGameBtn);
